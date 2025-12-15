@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Recherchez des cours, chapitres et concepts sur Learn2succeed">
+
+    <title>Recherche - Learn2succeed</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="site-logo">
+                <span>📚</span>
+                <span>Learn2succeed</span>
+            </a>
+
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+                ☰
+            </button>
+
+            <nav class="main-nav" aria-label="Navigation principale">
+                <a href="index.html">Accueil</a>
+                <a href="dashboard.html">Mon tableau de bord</a>
+                <a href="search.html" class="active">Rechercher</a>
+                <a href="index.html#categories">Catégories</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="container section">
+            <h1 class="mb-4 text-center">🔍 Rechercher</h1>
+            <p class="text-center text-secondary mb-5">
+                Trouvez rapidement des cours, des chapitres ou des concepts
+            </p>
+
+            <!-- Barre de recherche -->
+            <div class="search-bar mx-auto mb-4">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" id="search-input"
+                    placeholder="Rechercher un cours, un chapitre, un concept..." aria-label="Rechercher" autofocus>
+            </div>
+
+            <!-- Filtres -->
+            <div class="mb-4" style="max-width: 600px; margin: 0 auto;">
+                <label for="category-filter" class="form-label text-sm font-medium">Filtrer par catégorie :</label>
+                <select id="category-filter" class="form-select">
+                    <option value="all">Toutes les catégories</option>
+                </select>
+            </div>
+
+            <!-- Résultats de recherche -->
+            <div id="search-results-container" style="max-width: 800px; margin: 0 auto;">
+                <div class="search-results" id="search-results" style="display: none;">
+                    <!-- Les résultats seront insérés ici -->
+                </div>
+
+                <!-- Message initial -->
+                <div id="initial-message" class="text-center" style="padding: var(--spacing-xl);">
+                    <div style="font-size: 4rem; margin-bottom: var(--spacing-md);">📝</div>
+                    <h3>Commencez votre recherche</h3>
+                    <p class="text-secondary">
+                        Tapez un mot-clé pour trouver des cours, chapitres ou concepts
+                    </p>
+
+                    <div class="mt-5">
+                        <h4 class="mb-3">Suggestions populaires :</h4>
+                        <div class="d-flex flex-wrap justify-center gap-2">
+                            <button class="btn btn-outline btn-sm suggestion-btn" data-query="HTML">HTML</button>
+                            <button class="btn btn-outline btn-sm suggestion-btn" data-query="CSS">CSS</button>
+                            <button class="btn btn-outline btn-sm suggestion-btn"
+                                data-query="JavaScript">JavaScript</button>
+                            <button class="btn btn-outline btn-sm suggestion-btn"
+                                data-query="formulaires">Formulaires</button>
+                            <button class="btn btn-outline btn-sm suggestion-btn"
+                                data-query="accessibilité">Accessibilité</button>
+                            <button class="btn btn-outline btn-sm suggestion-btn" data-query="Linux">Linux</button>
+                            <button class="btn btn-outline btn-sm suggestion-btn"
+                                data-query="programmation">Programmation</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/search.js"></script>
+
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        const initialMessage = document.getElementById('initial-message');
+        const categoryFilter = document.getElementById('category-filter');
+
+        let currentResults = [];
+
+        // Initialiser la recherche
+        document.addEventListener('DOMContentLoaded', async () => {
+            await SearchSystem.initializeSearchIndex();
+
+            // Charger les catégories pour le filtre
+            try {
+                const response = await fetch('data/courses.json');
+                const data = await response.json();
+
+                data.categories.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category.id;
+                    option.textContent = category.name;
+                    categoryFilter.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Erreur lors du chargement des catégories:', error);
+            }
+        });
+
+        // Recherche en temps réel
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value;
+
+            if (query.trim().length < 2) {
+                searchResults.style.display = 'none';
+                initialMessage.style.display = 'block';
+                return;
+            }
+
+            initialMessage.style.display = 'none';
+            searchResults.style.display = 'block';
+
+            // Recherche avec debouncing
+            currentResults = SearchSystem.search(query);
+
+            // Appliquer le filtre de catégorie
+            const selectedCategory = categoryFilter.value;
+            const filteredResults = SearchSystem.filterByCategory(currentResults, selectedCategory);
+
+            SearchSystem.displayResults(filteredResults, searchResults);
+        });
+
+        // Filtre de catégorie
+        categoryFilter.addEventListener('change', () => {
+            const query = searchInput.value;
+
+            if (query.trim().length < 2) return;
+
+            const selectedCategory = categoryFilter.value;
+            const filteredResults = SearchSystem.filterByCategory(currentResults, selectedCategory);
+            SearchSystem.displayResults(filteredResults, searchResults);
+        });
+
+        // Suggestions cliquables
+        document.querySelectorAll('.suggestion-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const query = btn.dataset.query;
+                searchInput.value = query;
+                searchInput.dispatchEvent(new Event('input'));
+                searchInput.focus();
+            });
+        });
+
+        // Gestion du clavier (navigation avec flèches - optionnel)
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                searchInput.value = '';
+                searchResults.style.display = 'none';
+                initialMessage.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+
+</html>

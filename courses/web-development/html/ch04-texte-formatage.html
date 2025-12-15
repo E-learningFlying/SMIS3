@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Chapitre 4 : Texte et formatage - Maîtrisez les balises de formatage de texte en HTML">
+
+    <title>Chapitre 4 : Texte et formatage - Learn2succeed</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo">
+                <span>📚</span>
+                <span>Learn2succeed</span>
+            </a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours HTML</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours HTML</a></li>
+                                <li class="breadcrumb-item active">Chapitre 4 : Texte et formatage</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 4</span>
+                            <h1 class="mb-3">Texte et formatage</h1>
+                            <p class="text-lg text-secondary">
+                                Apprenez à formater et mettre en forme votre texte avec les balises HTML spécialisées :
+                                citations, code, indices, exposants et bien plus.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 1h</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch03-balises-essentielles.html" class="chapter-nav-btn">← Précédent : Les balises
+                                essentielles</a>
+                            <a href="ch05-liens-navigation.html" class="chapter-nav-btn">Suivant : Liens et navigation
+                                →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>Les Citations</h2>
+
+                            <h3>Citation en bloc : &lt;blockquote&gt;</h3>
+
+                            <p>La balise <code>&lt;blockquote&gt;</code> permet d'afficher une citation longue,
+                                généralement sur plusieurs lignes.</p>
+
+                            <pre><code class="language-html">&lt;blockquote&gt;
+    &lt;p&gt;
+        Le succès n'est pas final, l'échec n'est pas fatal : 
+        c'est le courage de continuer qui compte.
+    &lt;/p&gt;
+    &lt;footer&gt;— Winston Churchill&lt;/footer&gt;
+&lt;/blockquote&gt;</code></pre>
+
+                            <div class="code-output">
+                                <blockquote
+                                    style="border-left: 4px solid var(--primary-color); padding-left: 1rem; font-style: italic;">
+                                    <p>Le succès n'est pas final, l'échec n'est pas fatal : c'est le courage de
+                                        continuer qui compte.</p>
+                                    <footer>— Winston Churchill</footer>
+                                </blockquote>
+                            </div>
+
+                            <h3>Citation courte : &lt;q&gt;</h3>
+
+                            <p>La balise <code>&lt;q&gt;</code> (quote) crée une citation <strong>inline</strong> (dans
+                                le texte). Le navigateur ajoute automatiquement les guillemets.</p>
+
+                            <pre><code class="language-html">&lt;p&gt;
+    Comme disait Einstein : &lt;q&gt;L'imagination est plus importante que le savoir&lt;/q&gt;.
+&lt;/p&gt;</code></pre>
+
+                            <div class="code-output">
+                                <p>Comme disait Einstein : <q>L'imagination est plus importante que le savoir</q>.</p>
+                            </div>
+
+                            <h2>Le code et texte informatique</h2>
+
+                            <h3>Code inline : &lt;code&gt;</h3>
+
+                            <p>La balise <code>&lt;code&gt;</code> affiche le texte comme du code informatique (police à
+                                chasse fixe).</p>
+
+                            <pre><code class="language-html">&lt;p&gt;
+    Utilisez la fonction &lt;code&gt;console.log()&lt;/code&gt; pour déboguer votre code JavaScript.
+&lt;/p&gt;</code></pre>
+
+                            <div class="code-output">
+                                <p>Utilisez la fonction <code>console.log()</code> pour déboguer votre code JavaScript.
+                                </p>
+                            </div>
+
+                            <h3>Bloc de code : &lt;pre&gt;</h3>
+
+                            <p>
+                                La balise <code>&lt;pre&gt;</code> (preformatted text) préserve les espaces et sauts de
+                                ligne.
+                                Combinée avec <code>&lt;code&gt;</code>, elle est parfaite pour afficher du code source.
+                            </p>
+
+                            <pre><code class="language-html">&lt;pre&gt;&lt;code&gt;
+function saluer(nom) {
+    console.log("Bonjour " + nom);
+}
+&lt;/code&gt;&lt;/pre&gt;</code></pre>
+
+                            <h3>Autres balises informatiques</h3>
+
+                            <ul>
+                                <li><code>&lt;kbd&gt;</code> : Représente une saisie clavier → <kbd>Ctrl</kbd> +
+                                    <kbd>C</kbd></li>
+                                <li><code>&lt;samp&gt;</code> : Représente une sortie de programme → <samp>Error: File
+                                        not found</samp></li>
+                                <li><code>&lt;var&gt;</code> : Représente une variable → <var>x</var> + <var>y</var> =
+                                    10</li>
+                            </ul>
+
+                            <h2>Indices et exposants</h2>
+
+                            <h3>Indice : &lt;sub&gt;</h3>
+
+                            <p>La balise <code>&lt;sub&gt;</code> (subscript) affiche le texte en indice (plus petit et
+                                en bas).</p>
+
+                            <pre><code class="language-html">&lt;p&gt;La formule chimique de l'eau est H&lt;sub&gt;2&lt;/sub&gt;O&lt;/p&gt;</code></pre>
+
+                            <div class="code-output">
+                                <p>La formule chimique de l'eau est H<sub>2</sub>O</p>
+                            </div>
+
+                            <h3>Exposant : &lt;sup&gt;</h3>
+
+                            <p>La balise <code>&lt;sup&gt;</code> (superscript) affiche le texte en exposant (plus petit
+                                et en haut).</p>
+
+                            <pre><code class="language-html">&lt;p&gt;E = mc&lt;sup&gt;2&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;2&lt;sup&gt;10&lt;/sup&gt; = 1024&lt;/p&gt;</code></pre>
+
+                            <div class="code-output">
+                                <p>E = mc<sup>2</sup></p>
+                                <p>2<sup>10</sup> = 1024</p>
+                            </div>
+
+                            <h2>Marques et surlignage</h2>
+
+                            <h3>Texte surligné : &lt;mark&gt;</h3>
+
+                            <p>La balise <code>&lt;mark&gt;</code> surligne le texte (fond jaune par défaut) pour le
+                                mettre en évidence.</p>
+
+                            <pre><code class="language-html">&lt;p&gt;
+    Rappelez-vous : &lt;mark&gt;la date limite est le 15 décembre&lt;/mark&gt;.
+&lt;/p&gt;</code></pre>
+
+                            <div class="code-output">
+                                <p>Rappelez-vous : <mark>la date limite est le 15 décembre</mark>.</p>
+                            </div>
+
+                            <h2>Texte supprimé et inséré</h2>
+
+                            <h3>Texte supprimé : &lt;del&gt;</h3>
+
+                            <p>La balise <code>&lt;del&gt;</code> (deleted) affiche le texte barré pour indiquer qu'il a
+                                été supprimé.</p>
+
+                            <pre><code class="language-html">&lt;p&gt;Prix : &lt;del&gt;50€&lt;/del&gt; 35€ !&lt;/p&gt;</code></pre>
+
+                            <div class="code-output">
+                                <p>Prix : <del>50€</del> 35€ !</p>
+                            </div>
+
+                            <h3>Texte inséré : &lt;ins&gt;</h3>
+
+                            <p>La balise <code>&lt;ins&gt;</code> (inserted) souligne le texte pour indiquer qu'il a été
+                                ajouté.</p>
+
+                            <pre><code class="language-html">&lt;p&gt;Le cours aura lieu &lt;del&gt;mardi&lt;/del&gt; &lt;ins&gt;jeudi&lt;/ins&gt;&lt;/p&gt;</code></pre>
+
+                            <div class="code-output">
+                                <p>Le cours aura lieu <del>mardi</del> <ins>jeudi</ins></p>
+                            </div>
+
+                            <h2>Abréviations</h2>
+
+                            <h3>&lt;abbr&gt;</h3>
+
+                            <p>La balise <code>&lt;abbr&gt;</code> (abbreviation) marque une abréviation. L'attribut
+                                <code>title</code> fournit la signification complète.</p>
+
+                            <pre><code class="language-html">&lt;p&gt;
+    Le &lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt; 
+    est le langage de base du web.
+&lt;/p&gt;</code></pre>
+
+                            <div class="code-output">
+                                <p>Le <abbr title="HyperText Markup Language">HTML</abbr> est le langage de base du web.
+                                    (Survolez HTML avec la souris)</p>
+                            </div>
+
+                            <h2>Tableau récapitulatif</h2>
+
+                            <table style="width: 100%; border-collapse: collapse; margin: var(--spacing-md) 0;">
+                                <thead>
+                                    <tr style="background-color: var(--surface);">
+                                        <th style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Balise</th>
+                                        <th style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Usage</th>
+                                        <th style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Exemple</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            <code>&lt;blockquote&gt;</code></td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Citation longue</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Citations de plusieurs lignes</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            <code>&lt;q&gt;</code></td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Citation courte</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Citation inline avec guillemets</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            <code>&lt;code&gt;</code></td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Code informatique</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Noms de fonctions, variables</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            <code>&lt;pre&gt;</code></td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Texte préformaté</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Blocs de code source</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            <code>&lt;sub&gt;</code></td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Indice</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Formules chimiques (H<sub>2</sub>O)</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            <code>&lt;sup&gt;</code></td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Exposant</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Puissances (2<sup>10</sup>)</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            <code>&lt;mark&gt;</code></td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Surlignage</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Mettre en évidence</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            <code>&lt;del&gt;</code></td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Texte supprimé</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Prix barrés, corrections</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            <code>&lt;ins&gt;</code></td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Texte inséré</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Ajouts, mises à jour</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            <code>&lt;abbr&gt;</code></td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Abréviation</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Acronymes avec définition</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <aside class="tips alert">
+                                <h3>💡 Astuces</h3>
+                                <ul>
+                                    <li>Utilisez <code>&lt;blockquote&gt;</code> avec l'attribut <code>cite</code> pour
+                                        indiquer la source</li>
+                                    <li>Combinez <code>&lt;pre&gt;</code> et <code>&lt;code&gt;</code> pour afficher du
+                                        code source formaté</li>
+                                    <li>Utilisez <code>&lt;abbr&gt;</code> pour améliorer l'accessibilité avec les
+                                        lecteurs d'écran</li>
+                                    <li><code>&lt;mark&gt;</code> est utile pour afficher des résultats de recherche
+                                    </li>
+                                    <li><code>&lt;del&gt;</code> et <code>&lt;ins&gt;</code> sont parfaits pour montrer
+                                        des modifications</li>
+                                    <li>Évitez <code>&lt;u&gt;</code> (souligné) car il peut être confondu avec un lien
+                                    </li>
+                                </ul>
+                            </aside>
+
+                            <aside class="common-mistakes alert">
+                                <h3>⚠️ Erreurs fréquentes à éviter</h3>
+                                <ul>
+                                    <li><strong>Confondre &lt;q&gt; et &lt;blockquote&gt;</strong> : Utilisez &lt;q&gt;
+                                        pour citations courtes inline, &lt;blockquote&gt; pour citations longues</li>
+                                    <li><strong>Oublier &lt;code&gt; dans &lt;pre&gt;</strong> : Utilisez les deux
+                                        ensemble pour le code</li>
+                                    <li><strong>Utiliser &lt;mark&gt; pour tout</strong> : Réservez-le aux vraies mises
+                                        en évidence</li>
+                                    <li><strong>Abuser de &lt;del&gt;</strong> : Ne l'utilisez que pour montrer des
+                                        suppressions réelles</li>
+                                    <li><strong>Ne pas fournir de title à &lt;abbr&gt;</strong> : L'attribut title est
+                                        essentiel</li>
+                                    <li><strong>Utiliser &lt;b&gt; et &lt;u&gt;</strong> au lieu de balises sémantiques
+                                        : Préférez &lt;strong&gt; et &lt;mark&gt;</li>
+                                </ul>
+                            </aside>
+
+                            <h2>Résumé du chapitre</h2>
+
+                            <div class="card" style="background-color: var(--surface);">
+                                <div class="card-body">
+                                    <p><strong>Balises de formatage apprises :</strong></p>
+                                    <ul>
+                                        <li><strong>Citations</strong> : <code>&lt;blockquote&gt;</code>,
+                                            <code>&lt;q&gt;</code></li>
+                                        <li><strong>Code</strong> : <code>&lt;code&gt;</code>, <code>&lt;pre&gt;</code>,
+                                            <code>&lt;kbd&gt;</code>, <code>&lt;samp&gt;</code>,
+                                            <code>&lt;var&gt;</code></li>
+                                        <li><strong>Indices/Exposants</strong> : <code>&lt;sub&gt;</code>,
+                                            <code>&lt;sup&gt;</code></li>
+                                        <li><strong>Marques</strong> : <code>&lt;mark&gt;</code>,
+                                            <code>&lt;del&gt;</code>, <code>&lt;ins&gt;</code></li>
+                                        <li><strong>Abréviations</strong> : <code>&lt;abbr&gt;</code></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch04"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Citations</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez une page avec une citation longue et une citation courte en utilisant les
+                                        bonnes balises.</p>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Documentation technique</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez une documentation pour une fonction JavaScript avec :</p>
+                                    <ul>
+                                        <li>Nom de la fonction en <code>&lt;code&gt;</code></li>
+                                        <li>Bloc de code source avec <code>&lt;pre&gt;</code> et
+                                            <code>&lt;code&gt;</code></li>
+                                        <li>Exemples de sortie avec <code>&lt;samp&gt;</code></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="exercise hard">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Article scientifique</h3>
+                                    <span class="exercise-difficulty">Difficile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez un article sur la physique avec :</p>
+                                    <ul>
+                                        <li>Formules mathématiques (E=mc<sup>2</sup>, H<sub>2</sub>O)</li>
+                                        <li>Citations de scientifiques avec <code>&lt;blockquote&gt;</code></li>
+                                        <li>Abréviations définies avec <code>&lt;abbr&gt;</code></li>
+                                        <li>Code de simulation avec <code>&lt;pre&gt;</code></li>
+                                        <li>Modifications avec <code>&lt;del&gt;</code> et <code>&lt;ins&gt;</code></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch03-balises-essentielles.html" class="chapter-nav-btn">← Précédent : Les balises
+                                essentielles</a>
+                            <a href="ch05-liens-navigation.html" class="chapter-nav-btn">Suivant : Liens et navigation
+                                →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">
+                                ✓ Marquer ce chapitre comme terminé
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'html';
+        const chapterId = 'ch04-texte-formatage';
+
+        const chapters = [
+            { id: "ch01-introduction", title: "Introduction au HTML" },
+            { id: "ch02-structure", title: "Structure d'un document HTML" },
+            { id: "ch03-balises-essentielles", title: "Les balises essentielles" },
+            { id: "ch04-texte-formatage", title: "Texte et formatage" },
+            { id: "ch05-liens-navigation", title: "Liens et navigation" },
+            { id: "ch06-images-medias", title: "Images et médias" },
+            { id: "ch07-listes", title: "Listes" },
+            { id: "ch08-tableaux", title: "Tableaux" },
+            { id: "ch09-formulaires-1", title: "Formulaires - Partie 1" },
+            { id: "ch10-formulaires-2", title: "Formulaires - Partie 2" },
+            { id: "ch11-html-semantique", title: "HTML sémantique" },
+            { id: "ch12-metadonnees-seo", title: "Métadonnées et SEO" },
+            { id: "ch13-accessibilite", title: "Accessibilité" },
+            { id: "ch14-html5-apis", title: "HTML5 APIs" },
+            { id: "ch15-bonnes-pratiques", title: "Bonnes pratiques" }
+        ];
+
+        const quizData = {
+            title: "Quiz - Texte et formatage",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                {
+                    question: "Quelle balise utiliser pour une citation longue ?",
+                    type: "single",
+                    options: ["&lt;q&gt;", "&lt;blockquote&gt;", "&lt;cite&gt;", "&lt;quote&gt;"],
+                    correct: 1,
+                    explanation: "&lt;blockquote&gt; est utilisée pour les citations longues qui occupent leur propre bloc."
+                },
+                {
+                    question: "Comment afficher H₂O correctement en HTML ?",
+                    type: "single",
+                    options: ["H2O", "H&lt;sub&gt;2&lt;/sub&gt;O", "H&lt;sup&gt;2&lt;/sup&gt;O", "H&lt;ind&gt;2&lt;/ind&gt;O"],
+                    correct: 1,
+                    explanation: "On utilise &lt;sub&gt; pour afficher l'indice : H&lt;sub&gt;2&lt;/sub&gt;O"
+                },
+                {
+                    question: "Quelle balise marque du code informatique inline ?",
+                    type: "single",
+                    options: ["&lt;code&gt;", "&lt;pre&gt;", "&lt;script&gt;", "&lt;computer&gt;"],
+                    correct: 0,
+                    explanation: "&lt;code&gt; est utilisée pour marquer du code informatique dans le texte."
+                },
+                {
+                    question: "Comment afficher 2¹⁰ en HTML ?",
+                    type: "single",
+                    options: ["2&lt;sub&gt;10&lt;/sub&gt;", "2&lt;sup&gt;10&lt;/sup&gt;", "2^10", "2&lt;exp&gt;10&lt;/exp&gt;"],
+                    correct: 1,
+                    explanation: "On utilise &lt;sup&gt; pour l'exposant : 2&lt;sup&gt;10&lt;/sup&gt;"
+                },
+                {
+                    question: "Quelle balise surligne le texte en jaune ?",
+                    type: "single",
+                    options: ["&lt;highlight&gt;", "&lt;yellow&gt;", "&lt;mark&gt;", "&lt;em&gt;"],
+                    correct: 2,
+                    explanation: "&lt;mark&gt; surligne le texte (généralement en jaune)."
+                },
+                {
+                    question: "Comment indiquer qu'un texte a été supprimé ?",
+                    type: "single",
+                    options: ["&lt;remove&gt;", "&lt;del&gt;", "&lt;delete&gt;", "&lt;strike&gt;"],
+                    correct: 1,
+                    explanation: "&lt;del&gt; (deleted) affiche le texte barré pour indiquer une suppression."
+                },
+                {
+                    question: "Que faire pour afficher une abréviation avec sa signification ?",
+                    type: "single",
+                    options: [
+                        "&lt;short&gt;HTML&lt;/short&gt;",
+                        "&lt;abbr title='HyperText Markup Language'&gt;HTML&lt;/abbr&gt;",
+                        "&lt;acronym&gt;HTML&lt;/acronym&gt;",
+                        "&lt;abbr&gt;HTML = HyperText Markup Language&lt;/abbr&gt;"
+                    ],
+                    correct: 1,
+                    explanation: "Utilisez &lt;abbr&gt; avec l'attribut title pour définir l'abréviation complète."
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+
+            QuizSystem.createQuiz(quizData, 'quiz-ch04');
+
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+    </script>
+</body>
+
+</html>

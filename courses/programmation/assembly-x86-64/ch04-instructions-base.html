@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chapitre 4 : Instructions de base en assembleur 8086">
+    <title>Chapitre 4 : Instructions de base - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours Assembleur 8086</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours Assembleur 8086</a></li>
+                                <li class="breadcrumb-item active">Chapitre 4 : Instructions de base</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 4</span>
+                            <h1 class="mb-3">Instructions de base</h1>
+                            <p class="text-lg text-secondary">
+                                Maîtrisez les instructions fondamentales : transfert, arithmétique, logique et décalage.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 2h</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch03-registres.html" class="chapter-nav-btn">← Précédent : Registres</a>
+                            <a href="ch05-adressage.html" class="chapter-nav-btn">Suivant : Adressage →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>Instructions de transfert de données</h2>
+
+                            <h3>MOV - Move (Copier)</h3>
+                            <p>L'instruction la plus utilisée : <strong>MOV destination, source</strong></p>
+
+                            <pre><code class="language-asm">; Différentes formes de MOV
+MOV AX, 100        ; Immédiat → Registre
+MOV BX, AX         ; Registre → Registre
+MOV [1000h], AX    ; Registre → Mémoire
+MOV CX, [1000h]    ; Mémoire → Registre
+MOV AL, 'A'        ; Caractère → Registre (65 en ASCII)</code></pre>
+
+                            <div class="alert alert-warning">
+                                <h4>⚠️ Restrictions MOV</h4>
+                                <ul>
+                                    <li>❌ <code>MOV [1000h], [2000h]</code> (mémoire → mémoire interdit)</li>
+                                    <li>❌ <code>MOV DS, 1000h</code> (immédiat → segment interdit)</li>
+                                    <li>✅ Utiliser un registre intermédiaire : <code>MOV AX, 1000h</code> puis
+                                        <code>MOV DS, AX</code></li>
+                                </ul>
+                            </div>
+
+                            <h3>LEA - Load Effective Address</h3>
+                            <p>Charge l'<strong>adresse</strong> d'une variable (pas son contenu) :</p>
+
+                            <pre><code class="language-asm">.DATA
+    msg DB 'Hello$'
+    
+.CODE
+    LEA DX, msg     ; DX = adresse de msg
+    ; Équivalent à : MOV DX, OFFSET msg</code></pre>
+
+                            <h3>XCHG - Exchange (Échanger)</h3>
+                            <p>Échange le contenu de deux opérandes :</p>
+
+                            <pre><code class="language-asm">MOV AX, 10
+MOV BX, 20
+XCHG AX, BX     ; AX = 20, BX = 10</code></pre>
+
+                            <h2>Instructions arithmétiques</h2>
+
+                            <h3>ADD et SUB - Addition et Soustraction</h3>
+
+                            <pre><code class="language-asm">MOV AX, 10
+ADD AX, 5       ; AX = 15
+SUB AX, 3       ; AX = 12
+
+; Addition avec retenue
+MOV AL, 255
+ADD AL, 1       ; AL = 0, CF = 1 (débordement)</code></pre>
+
+                            <h3>INC et DEC - Incrémenter et Décrémenter</h3>
+
+                            <pre><code class="language-asm">MOV CX, 10
+INC CX          ; CX = 11 (équivalent à ADD CX, 1)
+DEC CX          ; CX = 10 (équivalent à SUB CX, 1)</code></pre>
+
+                            <div class="alert alert-info">
+                                <h4>💡 Avantage INC/DEC</h4>
+                                <p>INC et DEC sont plus rapides et plus courts que ADD/SUB avec 1. Ils ne modifient pas
+                                    le flag CF !</p>
+                            </div>
+
+                            <h3>MUL et IMUL - Multiplication</h3>
+
+                            <p><strong>MUL</strong> : Multiplication non-signée<br>
+                                <strong>IMUL</strong> : Multiplication signée
+                            </p>
+
+                            <pre><code class="language-asm">; Multiplication 8-bit
+MOV AL, 5
+MOV BL, 3
+MUL BL          ; AX = AL × BL = 15
+
+; Multiplication 16-bit
+MOV AX, 1000
+MOV BX, 500
+MUL BX          ; DX:AX = AX × BX = 500000
+                ; DX = partie haute, AX = partie basse</code></pre>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Opérande</th>
+                                        <th>Opération</th>
+                                        <th>Résultat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>8-bit (reg/mem)</td>
+                                        <td>AL × opérande</td>
+                                        <td>AX (16-bit)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>16-bit (reg/mem)</td>
+                                        <td>AX × opérande</td>
+                                        <td>DX:AX (32-bit)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h3>DIV et IDIV - Division</h3>
+
+                            <p><strong>DIV</strong> : Division non-signée<br>
+                                <strong>IDIV</strong> : Division signée
+                            </p>
+
+                            <pre><code class="language-asm">; Division 16-bit par 8-bit
+MOV AX, 20      ; Dividende
+MOV BL, 4       ; Diviseur
+DIV BL          ; AL = quotient (5), AH = reste (0)
+
+; Division 32-bit par 16-bit
+MOV DX, 0       ; Partie haute du dividende
+MOV AX, 100     ; Partie basse du dividende
+MOV BX, 7       ; Diviseur
+DIV BX          ; AX = quotient (14), DX = reste (2)</code></pre>
+
+                            <div class="alert alert-danger">
+                                <h4>⚠️ Division par zéro</h4>
+                                <p>Diviser par 0 provoque une <strong>interruption</strong> et peut faire planter le
+                                    programme !</p>
+                            </div>
+
+                            <h3>NEG - Négation</h3>
+
+                            <pre><code class="language-asm">MOV AL, 10
+NEG AL          ; AL = -10 (complément à deux)</code></pre>
+
+                            <h2>Instructions logiques</h2>
+
+                            <h3>AND - ET logique</h3>
+
+                            <pre><code class="language-asm">MOV AL, 11110000b
+AND AL, 00001111b   ; AL = 00000000b
+
+; Masquer des bits (mettre à 0)
+MOV AL, 10101010b
+AND AL, 11110000b   ; AL = 10100000b (4 bits bas = 0)</code></pre>
+
+                            <h3>OR - OU logique</h3>
+
+                            <pre><code class="language-asm">MOV AL, 11110000b
+OR AL, 00001111b    ; AL = 11111111b
+
+; Activer des bits (mettre à 1)
+MOV AL, 10100000b
+OR AL, 00000101b    ; AL = 10100101b</code></pre>
+
+                            <h3>XOR - OU exclusif</h3>
+
+                            <pre><code class="language-asm">MOV AL, 11110000b
+XOR AL, 10101010b   ; AL = 01011010b
+
+; Inverser des bits
+MOV AL, 10101010b
+XOR AL, 11111111b   ; AL = 01010101b
+
+; Mettre à zéro (idiome)
+XOR AX, AX          ; AX = 0 (plus rapide que MOV AX, 0)</code></pre>
+
+                            <h3>NOT - NON logique</h3>
+
+                            <pre><code class="language-asm">MOV AL, 11110000b
+NOT AL              ; AL = 00001111b (inverse tous les bits)</code></pre>
+
+                            <h3>TEST - Test (AND sans modification)</h3>
+
+                            <pre><code class="language-asm">; Tester si un bit est à 1
+MOV AL, 10101010b
+TEST AL, 00000010b  ; ZF = 0 (bit 1 est à 1)
+JNZ bit_actif       ; Sauter si bit actif</code></pre>
+
+                            <h2>Instructions de décalage et rotation</h2>
+
+                            <h3>SHL et SHR - Shift Left/Right (Logique)</h3>
+
+                            <pre><code class="language-asm">; Décalage à gauche = multiplication par 2
+MOV AL, 00000101b   ; 5
+SHL AL, 1           ; AL = 00001010b (10)
+
+; Décalage à droite = division par 2
+MOV AL, 00001010b   ; 10
+SHR AL, 1           ; AL = 00000101b (5)
+
+; Décalage multiple
+MOV AL, 2
+MOV CL, 3
+SHL AL, CL          ; AL = 2 × 2³ = 16</code></pre>
+
+                            <h3>SAL et SAR - Shift Arithmetic (Arithmétique)</h3>
+
+                            <pre><code class="language-asm">; SAL identique à SHL
+; SAR préserve le bit de signe
+MOV AL, 11111110b   ; -2 en complément à deux
+SAR AL, 1           ; AL = 11111111b (-1)</code></pre>
+
+                            <h3>ROL et ROR - Rotate Left/Right</h3>
+
+                            <pre><code class="language-asm">; Rotation (pas de perte de bits)
+MOV AL, 10000001b
+ROL AL, 1           ; AL = 00000011b (bit 7 → bit 0)
+
+MOV AL, 10000001b
+ROR AL, 1           ; AL = 11000000b (bit 0 → bit 7)</code></pre>
+                        </section>
+
+                        <aside class="tips alert">
+                            <h3>💡 Astuces</h3>
+                            <ul>
+                                <li>XOR reg, reg est l'idiome pour mettre à zéro</li>
+                                <li>TEST ne modifie pas l'opérande (contrairement à AND)</li>
+                                <li>INC/DEC plus rapides que ADD/SUB pour ±1</li>
+                                <li>SHL par N = multiplication par 2^N</li>
+                                <li>SHR par N = division par 2^N</li>
+                                <li>Toujours initialiser DX avant DIV 32-bit</li>
+                            </ul>
+                        </aside>
+
+                        <aside class="common-mistakes alert">
+                            <h3>⚠️ Erreurs fréquentes</h3>
+                            <ul>
+                                <li><strong>MOV mémoire, mémoire</strong> : Interdit ! Utiliser registre intermédiaire
+                                </li>
+                                <li><strong>Oublier DX avant DIV</strong> : Résultat incorrect</li>
+                                <li><strong>Division par zéro</strong> : Crash du programme</li>
+                                <li><strong>Confondre MUL et IMUL</strong> : Résultats différents pour nombres négatifs
+                                </li>
+                                <li><strong>Ne pas vérifier les flags</strong> : Débordements non détectés</li>
+                            </ul>
+                        </aside>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch04"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Calculatrice simple</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez un programme qui :</p>
+                                    <ul>
+                                        <li>Met AX à 50 et BX à 30</li>
+                                        <li>Calcule AX + BX → CX</li>
+                                        <li>Calcule AX - BX → DX</li>
+                                        <li>Observez les résultats dans emu8086</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle" onclick="toggleSolution('sol-ch04-ex1')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch04-ex1" class="solution-box" style="display: none;">
+                                    <h4>Solution - Calculatrice simple</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.DATA
+    num1 DW 50
+    num2 DW 30
+  somme DW ?
+    difference DW ?
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    MOV AX, num1
+    MOV BX, num2
+    
+    ; Addition
+    MOV CX, AX
+    ADD CX, BX      ; CX = 80
+    MOV somme, CX
+    
+    ; Soustraction
+    MOV DX, AX
+    SUB DX, BX      ; DX = 20
+    MOV difference, DX
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+<p><strong>Résultats :</strong> CX = 80, DX = 20</p>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Multiplication et division</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Programme de test :</p>
+                                    <ul>
+                                        <li>Multipliez 12 × 7 avec MUL</li>
+                                        <li>Divisez le résultat par 4 avec DIV</li>
+                                        <li>Affichez quotient et reste</li>
+                                        <li>Vérifiez : 12 × 7 = 84, 84 ÷ 4 = 21 reste 0</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle" onclick="toggleSolution('sol-ch04-ex2')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch04-ex2" class="solution-box" style="display: none;">
+                                    <h4>Solution - MUL et DIV</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.CODE
+MAIN PROC
+    ; 12 × 7
+    MOV AL, 12
+    MOV BL, 7
+    MUL BL          ; AX = 84
+    
+    MOV CX, AX
+    
+    ; 84 ÷ 4
+    MOV AX, CX
+    MOV BL, 4
+    DIV BL          ; AL = 21, AH = 0
+    
+    ; AL = 21 (15h), AH = 0
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+<p><strong>Vérification :</strong></p>
+<ul>
+<li>12 × 7 = 84 ✓</li>
+<li>84 ÷ 4 = 21 reste 0 ✓</li>
+</ul>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Opérations bit à bit</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Manipulation de bits :</p>
+                                    <ul>
+                                        <li>AL = 10101100b</li>
+                                        <li>Mettez les 4 bits bas à 0 (AND avec masque)</li>
+                                        <li>Mettez le bit 0 à 1 (OR)</li>
+                                        <li>Inversez AL (NOT)</li>
+                                        <li>Notez le résultat de chaque étape</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle" onclick="toggleSolution('sol-ch04-ex3')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch04-ex3" class="solution-box" style="display: none;">
+                                    <h4>Solution - Opérations bit à bit</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.CODE
+MAIN PROC
+    MOV AL, 10101100b    ; ACh
+    MOV BL, AL           ; Sauve original
+    
+    ; Mettre 4 bits bas à 0
+    AND AL, 11110000b    ; AL = 10100000b (A0h)
+    MOV CL, AL
+    
+    ; Mettre bit 0 à 1
+    OR AL, 00000001b     ; AL = 10100001b (A1h)
+    MOV DL, AL
+    
+    ; Inverser
+    NOT AL               ; AL = 01011110b (5Eh)
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+<p><strong>Résultats :</strong></p>
+<ul>
+<li>BL = ACh (original)</li>
+<li>CL = A0h (après AND)</li>
+<li>DL = A1h (après OR)</li>
+<li>AL = 5Eh (après NOT)</li>
+</ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch03-registres.html" class="chapter-nav-btn">← Précédent : Registres</a>
+                            <a href="ch05-adressage.html" class="chapter-nav-btn">Suivant : Adressage →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">✓ Marquer ce chapitre comme
+                                terminé</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nasm.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'assembly-x86-64';
+        const chapterId = 'ch04-instructions-base';
+
+        const chapters = [
+            { id: "ch01-introduction", title: "Introduction" },
+            { id: "ch02-architecture", title: "Architecture 8086" },
+            { id: "ch03-registres", title: "Registres 16-bit" },
+            { id: "ch04-instructions-base", title: "Instructions de base" },
+            { id: "ch05-adressage", title: "Modes d'adressage" },
+            { id: "ch06-controle", title: "Instructions de contrôle" },
+            { id: "ch07-pile", title: "La pile" },
+            { id: "ch08-procedures", title: "Procédures" },
+            { id: "ch09-chaines", title: "Chaînes" },
+            { id: "ch10-tableaux", title: "Tableaux" },
+            { id: "ch11-interruptions", title: "Interruptions DOS" },
+            { id: "ch12-video", title: "Affichage vidéo" },
+            { id: "ch13-ports", title: "Ports" },
+            { id: "ch14-debugging", title: "Debugging" },
+            { id: "ch15-projets", title: "Projets" }
+        ];
+
+        const quizData = {
+            title: "Quiz - Instructions de base",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                {
+                    question: "Quelle instruction copie des données ?",
+                    type: "single",
+                    options: ["COPY", "MOV", "MOVE", "CPY"],
+                    correct: 1,
+                    explanation: "MOV (Move) est l'instruction de transfert de données en assembleur."
+                },
+                {
+                    question: "Que fait ADD AX, BX ?",
+                    type: "single",
+                    options: [
+                        "BX = AX + BX",
+                        "AX = AX + BX",
+                        "CX = AX + BX",
+                        "Erreur"
+                    ],
+                    correct: 1,
+                    explanation: "ADD destination, source effectue : destination = destination + source."
+                },
+                {
+                    question: "Après MUL BL (8-bit), où est le résultat ?",
+                    type: "single",
+                    options: ["AL", "AX", "BX", "DX:AX"],
+                    correct: 1,
+                    explanation: "MUL 8-bit : AX = AL × opérande. Le résultat 16-bit va dans AX."
+                },
+                {
+                    question: "Que fait XOR AL, AL ?",
+                    type: "single",
+                    options: [
+                        "Double AL",
+                        "Met AL à 0",
+                        "Inverse AL",
+                        "Ne change rien"
+                    ],
+                    correct: 1,
+                    explanation: "XOR d'un registre avec lui-même donne toujours 0. C'est l'idiome standard pour mettre à zéro."
+                },
+                {
+                    question: "SHL AL, 1 décale vers... ?",
+                    type: "single",
+                    options: ["Gauche", "Droite", "Haut", "Bas"],
+                    correct: 0,
+                    explanation: "SHL (Shift Left) décale les bits vers la gauche, multipliant par 2."
+                },
+                {
+                    question: "Quelle est la différence entre MUL et IMUL ?",
+                    type: "single",
+                    options: [
+                        "Aucune",
+                        "MUL non-signé, IMUL signé",
+                        "IMUL plus rapide",
+                        "MUL pour 8-bit, IMUL pour 16-bit"
+                    ],
+                    correct: 1,
+                    explanation: "MUL travaille avec nombres non-signés, IMUL avec nombres signés (complément à deux)."
+                },
+                {
+                    question: "Que fait NOT AL ?",
+                    type: "single",
+                    options: [
+                        "Met AL à 0",
+                        "Inverse tous les bits de AL",
+                        "Négation (complément à deux)",
+                        "Ne fait rien"
+                    ],
+                    correct: 1,
+                    explanation: "NOT inverse tous les bits : 0→1 et 1→0."
+                },
+                {
+                    question: "INC AX équivaut à... ?",
+                    type: "single",
+                    options: [
+                        "ADD AX, 1",
+                        "ADD AX, AX",
+                        "MOV AX, 1",
+                        "MUL AX, 2"
+                    ],
+                    correct: 0,
+                    explanation: "INC incrémente de 1, équivalent à ADD reg, 1 mais plus rapide."
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+
+            QuizSystem.createQuiz(quizData, 'quiz-ch04');
+
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+    </script>
+
+    <script>
+        // Solution toggle function
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            const button = event.target;
+            
+            if (solution.style.display === 'none') {
+                solution.style.display = 'block';
+                button.textContent = '🙈 Masquer la solution';
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-primary');
+            } else {
+                solution.style.display = 'none';
+                button.textContent = '👁️ Voir la solution';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline-primary');
+            }
+        }
+    </script>
+    
+    <style>
+        .solution-box {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 0.375rem;
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        .solution-box h4 {
+            color: #0d6efd;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .solution-box pre {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .solution-toggle {
+            transition: all 0.2s ease;
+        }
+        
+        .solution-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+</body>
+
+</html>

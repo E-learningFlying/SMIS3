@@ -1,0 +1,239 @@
+/**
+ * Learn2succeed - Courses Specific Styles
+ * Styles pour les pages de cours et chapitres
+ */
+
+/* ==========================================
+   CHAPTER LAYOUT
+   ========================================== */
+.chapter-content {
+    max-width: var(--max-reading-width);
+}
+
+.chapter-content h2 {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--border-light);
+}
+
+.chapter-content h2:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+}
+
+.chapter-content h3 {
+    margin-top: var(--spacing-lg);
+    color: var(--primary-color);
+}
+
+.chapter-content p {
+    margin-bottom: var(--spacing-md);
+    line-height: var(--line-height-relaxed);
+}
+
+.chapter-content ul,
+.chapter-content ol {
+    margin-bottom: var(--spacing-md);
+    padding-left: var(--spacing-lg);
+}
+
+.chapter-content li {
+    margin-bottom: var(--spacing-xs);
+    line-height: var(--line-height-relaxed);
+}
+
+.chapter-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    margin: var(--spacing-md) 0;
+}
+
+.chapter-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--spacing-md) 0;
+}
+
+.chapter-content th,
+.chapter-content td {
+    padding: var(--spacing-sm);
+    border: 1px solid var(--border-light);
+    text-align: left;
+}
+
+.chapter-content th {
+    background-color: var(--surface);
+    font-weight: var(--font-weight-semibold);
+}
+
+/* ==========================================
+   CODE EXAMPLES
+   ========================================== */
+.code-example {
+    position: relative;
+    margin: var(--spacing-md) 0;
+}
+
+.code-example-title {
+    background-color: var(--surface);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    border: 1px solid var(--border-light);
+    border-bottom: none;
+}
+
+.code-example pre {
+    margin: 0;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.code-example-title+pre {
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+/* Output preview */
+.code-output {
+    background-color: white;
+    border: 2px solid var(--border-medium);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    margin: var(--spacing-sm) 0 var(--spacing-md);
+}
+
+.code-output::before {
+    content: 'Résultat :';
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xs);
+}
+
+/* ==========================================
+   CALLOUTS & ALERTS
+   ========================================== */
+.callout {
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    margin: var(--spacing-lg) 0;
+    border-left: 4px solid;
+}
+
+.callout-note {
+    background-color: #e7f3ff;
+    border-color: var(--info);
+}
+
+.callout-important {
+    background-color: #fff3cd;
+    border-color: var(--warning);
+}
+
+.callout-warning {
+    background-color: #f8d7da;
+    border-color: var(--error);
+}
+
+/* ==========================================
+   MINI-PROJECTS
+   ========================================== */
+.mini-project {
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary-light) 100%);
+    color: white;
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-2xl) 0;
+}
+
+.mini-project h2,
+.mini-project h3 {
+    color: white;
+}
+
+.mini-project ul {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.mini-project .btn {
+    background-color: white;
+    color: var(--primary-color);
+    border: none;
+}
+
+.mini-project .btn:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* ==========================================
+   COURSE NAVIGATION
+   ========================================== */
+.course-nav {
+    background-color: var(--surface);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-lg) 0;
+}
+
+.course-nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-sm);
+}
+
+.course-nav-item {
+    padding: var(--spacing-sm);
+    background-color: var(--background);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all var(--transition-fast);
+    font-size: var(--font-size-sm);
+}
+
+.course-nav-item:hover {
+    border-color: var(--primary-color);
+    background-color: var(--surface);
+    text-decoration: none;
+}
+
+.course-nav-item.completed {
+    border-color: var(--success);
+    background-color: var(--success-light);
+}
+
+.course-nav-item.current {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: var(--font-weight-medium);
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+@media (max-width: 992px) {
+    .course-sidebar {
+        position: static;
+        max-height: none;
+        margin-bottom: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 768px) {
+    .chapter-content h2 {
+        font-size: var(--font-size-xl);
+    }
+
+    .chapter-content h3 {
+        font-size: var(--font-size-lg);
+    }
+
+    .course-nav-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 2 : Variables et Types - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Langage C</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch01-introduction.html">1. Introduction</a></li>
+                            <li><a href="ch02-variables.html" class="active">2. Variables et Types</a></li>
+                            <li><a href="ch03-operateurs.html">3. Opérateurs</a></li>
+                            <li><a href="ch04-conditions.html">4. Conditions</a></li>
+                            <li><a href="ch05-boucles.html">5. Boucles</a></li>
+                            <li><a href="ch06-fonctions.html">6. Fonctions</a></li>
+                            <li><a href="ch07-pointeurs-bases.html">7. Pointeurs (Bientôt)</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Cours C</a></li>
+                                <li class="breadcrumb-item active">Chapitre 2</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 2 : Variables et Types de Données</h1>
+
+                        <!-- Section 1 -->
+                        <section class="mb-5">
+                            <h2>1. Déclaration et Initialisation</h2>
+                            <p>Une variable est un espace mémoire nommé. En C, on doit déclarer le type AVANT le nom.
+                            </p>
+                            <pre><code class="language-c">int age;         // Déclaration
+age = 25;        // Affectation
+int score = 0;   // Initialisation (les deux en même temps)</code></pre>
+                            <div class="alert alert-warning">
+                                <strong>Important :</strong> Si vous ne donnez pas de valeur initiale (ex:
+                                <code>int x;</code>), la variable contient une valeur "poubelle" aléatoire !
+                            </div>
+                        </section>
+
+                        <!-- Section 2 -->
+                        <section class="mb-5">
+                            <h2>2. Les Types Primitifs</h2>
+                            <table class="table table-striped table-bordered">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Format printf</th>
+                                        <th>Exemple</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>char</code></td>
+                                        <td>Caractère unique (1 octet)</td>
+                                        <td><code>%c</code></td>
+                                        <td><code>'A'</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>int</code></td>
+                                        <td>Nombre entier (4 octets)</td>
+                                        <td><code>%d</code></td>
+                                        <td><code>42</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>float</code></td>
+                                        <td>Nombre à virgule (4 octets)</td>
+                                        <td><code>%f</code></td>
+                                        <td><code>3.14</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>double</code></td>
+                                        <td>Nombre à virgule précis (8 octets)</td>
+                                        <td><code>%lf</code></td>
+                                        <td><code>3.1415926535</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+
+                        <!-- Section 3 -->
+                        <section class="mb-5">
+                            <h2>3. Nommage des variables</h2>
+                            <p>Règles strictes :</p>
+                            <ul>
+                                <li>Lettres, chiffres, underscore (_).</li>
+                                <li>Ne doit PAS commencer par un chiffre.</li>
+                                <li>Pas d'espaces ni caractères spéciaux (@, $, #).</li>
+                                <li>Mots réservés interdits (ex: int, return, float).</li>
+                            </ul>
+                            <div class="card p-3 bg-light">
+                                <code>int 1age;</code> ❌ (Commence par un chiffre)<br>
+                                <code>int mon age;</code> ❌ (Espace interdit)<br>
+                                <code>int age_de_pierre;</code> ✅ (Valide)<br>
+                            </div>
+                        </section>
+
+                        <!-- QUIZ -->
+                        <section class="my-5 p-4 border rounded bg-white shadow-sm">
+                            <h3 class="mb-4">🧠 Quiz de Validation (6 Questions)</h3>
+
+                            <!-- Q1 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">1. Quel format utilise-t-on pour afficher un entier décimal ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">%f</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">%d</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">%c</button>
+                                </div>
+                            </div>
+
+                            <!-- Q2 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">2. Quelle déclaration est VALIDE ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">float
+                                        2prix;</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">int
+                                        _score;</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">char mon
+                                        nom;</button>
+                                </div>
+                            </div>
+
+                            <!-- Q3 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">3. Quelle est la taille typique d'un `double` ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">4
+                                        octets</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">8
+                                        octets</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">16
+                                        octets</button>
+                                </div>
+                            </div>
+
+                            <!-- Q4 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">4. Que contient `int x;` juste après sa déclaration (sans
+                                    initialisation) ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Toujours
+                                        0</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Toujours
+                                        1</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Une valeur
+                                        indéterminée (poubelle)</button>
+                                </div>
+                            </div>
+
+                            <!-- Q5 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">5. Quel caractère entoure une valeur de type `char` ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Les
+                                        guillemets double ("A")</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Les
+                                        apostrophes ('A')</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Les
+                                        parenthèses (A)</button>
+                                </div>
+                            </div>
+
+                            <!-- Q6 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">6. Le mot clé `const` permet de :</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Définir une
+                                        variable non modifiable</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Déclarer une
+                                        variable globale</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Optimiser la
+                                        mémoire</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCISES -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">💻 Exercices Pratiques</h3>
+
+                            <!-- Ex 1 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-header bg-primary text-white d-flex justify-content-between">
+                                        <span>Exercice 1 : Carte d'identité</span>
+                                        <span class="badge bg-light text-primary">Niveau 1</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Déclarez 3 variables : <code>initiale</code> (char), <code>age</code> (int)
+                                            et <code>taille</code> (float). Initialisez-les avec vos valeurs et
+                                            affichez-les avec un seul printf.</p>
+                                        <p><i>Format attendu : "Je suis M, j'ai 25 ans et je mesure 1.75m"</i></p>
+                                        <button class="btn btn-outline-primary btn-sm"
+                                            onclick="toggleSolution('sol1')">Voir Solution</button>
+                                        <div id="sol1" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    char initiale = 'M';
+    int age = 25;
+    float taille = 1.75;
+
+    printf("Je suis %c, j'ai %d ans et je mesure %.2fm\n", initiale, age, taille);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 2 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-success text-white">Exercice 2 : Échange de variables
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Soit <code>a = 5</code> et <code>b = 10</code>. Écrivez le code pour échanger
+                                            leurs contenus (à la fin a doit valoir 10 et b 5).</p>
+                                        <button class="btn btn-outline-success btn-sm"
+                                            onclick="toggleSolution('sol2')">Voir Solution</button>
+                                        <div id="sol2" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int a = 5, b = 10;
+    int tmp; // Variable temporaire
+
+    printf("Avant : a=%d, b=%d\n", a, b);
+
+    // Echange
+    tmp = a;
+    a = b;
+    b = tmp;
+
+    printf("Après : a=%d, b=%d\n", a, b);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 3 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-info text-dark">Exercice 3 : Périmètre du cercle</div>
+                                    <div class="card-body">
+                                        <p>Définissez une constante PI = 3.14159. Calculez le périmètre d'un cercle de
+                                            rayon 5.0 (P = 2 * PI * R).</p>
+                                        <button class="btn btn-outline-info btn-sm"
+                                            onclick="toggleSolution('sol3')">Voir Solution</button>
+                                        <div id="sol3" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    const float PI = 3.14159;
+    float rayon = 5.0;
+    float perimetre = 2 * PI * rayon;
+
+    printf("Périmètre : %f\n", perimetre);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 4 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-warning text-dark">Exercice 4 : Codes ASCII</div>
+                                    <div class="card-body">
+                                        <p>En C, un `char` est en fait un petit entier (sa valeur ASCII). Assignez 65 à
+                                            un char et affichez-le avec <code>%c</code>. Quel caractère apparaît ?</p>
+                                        <button class="btn btn-outline-warning btn-sm"
+                                            onclick="toggleSolution('sol4')">Voir Solution</button>
+                                        <div id="sol4" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    char mystere = 65;
+    printf("Le caractère est : %c\n", mystere); 
+    // Affiche 'A' car 65 est le code ASCII de A majuscule
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 5 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-secondary text-white">Exercice 5 : La taille des choses
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Utilisez l'opérateur <code>sizeof()</code> pour afficher la taille en octets
+                                            d'un <code>int</code> et d'un <code>double</code> sur votre machine.</p>
+                                        <button class="btn btn-outline-secondary btn-sm"
+                                            onclick="toggleSolution('sol5')">Voir Solution</button>
+                                        <div id="sol5" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    printf("Taille int : %lu octets\n", sizeof(int));
+    printf("Taille double : %lu octets\n", sizeof(double));
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+
+                        <div class="text-center my-5">
+                            <a href="ch01-introduction.html" class="btn btn-outline-secondary btn-lg me-2">←
+                                Précédent</a>
+                            <a href="ch03-operateurs.html" class="btn btn-success btn-lg">Chapitre Suivant →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            Array.from(group.children).forEach(b => {
+                b.classList.remove('btn-success', 'btn-danger');
+                b.classList.add('btn-outline-secondary');
+            });
+            if (isCorrect) {
+                btn.classList.add('btn-success');
+                btn.classList.remove('btn-outline-secondary');
+            } else {
+                btn.classList.add('btn-danger');
+                btn.classList.remove('btn-outline-secondary');
+            }
+        }
+
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

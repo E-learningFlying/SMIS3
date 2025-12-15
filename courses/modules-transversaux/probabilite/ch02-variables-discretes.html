@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 2 : Variables Aléatoires Discrètes - Probabilités</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <style>
+        .formula-box {
+            background: #f8f9fa;
+            border-left: 4px solid #198754;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Probabilités</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch01-introduction-combinatoire.html">1. Combinatoire</a></li>
+                            <li><a href="ch02-variables-discretes.html" class="active">2. Var. Discrètes</a></li>
+                            <li><a href="ch03-lois-continues-statistiques.html">3. Var. Continues</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Probabilités</a></li>
+                                <li class="breadcrumb-item active">Chapitre 2</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 2 : Variables Aléatoires Discrètes</h1>
+
+                        <!-- SECTION 1 -->
+                        <section class="mb-5">
+                            <h2>1. Définitions</h2>
+                            <p>Une <strong>Variable Aléatoire (VA)</strong> est une fonction qui associe un nombre réel
+                                à chaque résultat d'une expérience aléatoire.</p>
+                            <p>Elle est dite <strong>discrète</strong> si elle ne prend que des valeurs isolées (ex: 0,
+                                1, 2...).</p>
+
+                            <h4>Loi de Probabilité</h4>
+                            <p>C'est la liste des valeurs possibles <em>xi</em> et de leurs probabilités <em>pi =
+                                    P(X=xi)</em>.</p>
+                            <div class="formula-box">Σ pi = 1</div>
+                        </section>
+
+                        <!-- SECTION 2 -->
+                        <section class="mb-5">
+                            <h2>2. Espérance et Variance</h2>
+                            <h4>Espérance E(X)</h4>
+                            <p>C'est la valeur moyenne théorique ("moyenne pondérée").</p>
+                            <div class="formula-box">E(X) = Σ xi * pi</div>
+
+                            <h4>Variance V(X)</h4>
+                            <p>Mesure la dispersion autour de la moyenne.</p>
+                            <div class="formula-box">V(X) = E(X²) - [E(X)]²</div>
+                            <p>L'<strong>Écart-Type</strong> σ(X) est la racine carrée de la Variance.</p>
+                        </section>
+
+                        <!-- SECTION 3 -->
+                        <section class="mb-5">
+                            <h2>3. Lois Usuelles</h2>
+
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5>Loi de Bernoulli B(p)</h5>
+                                    <p>Expérience à 2 issues : Succès (p) ou Échec (1-p). X vaut 1 ou 0.</p>
+                                    <p><em>E(X) = p, V(X) = p(1-p)</em></p>
+                                    <div class="alert alert-light border">
+                                        <strong>Exemple :</strong> Pile ou Face (p=0.5).<br>
+                                        Ou "La pièce est défectueuse" (Oui/Non).
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5>Loi Binomiale B(n, p)</h5>
+                                    <p>On répète <em>n</em> fois une épreuve de Bernoulli de manière indépendante.</p>
+                                    <p>X = Nombre de succès.</p>
+                                    <div class="formula-box">P(X=k) = C(n,k) * p^k * (1-p)^(n-k)</div>
+                                    <p><em>E(X) = np, V(X) = np(1-p)</em></p>
+                                    <div class="alert alert-light border">
+                                        <strong>Exemple :</strong> On lance 10 fois une pièce. X = nombre de Piles.<br>
+                                        B(10, 0.5). Moyenne attendue = 10 * 0.5 = 5 Piles.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5>Loi de Poisson P(λ)</h5>
+                                    <p>Modélise des événements rares dans un intervalle de temps.</p>
+                                    <div class="formula-box">P(X=k) = (e^-λ * λ^k) / k!</div>
+                                    <div class="alert alert-light border">
+                                        <strong>Exemple :</strong> Nombre d'appels reçus par un standard en 1h.<br>
+                                        Si moyenne λ=3 appels/heure, proba d'avoir 0 appel : P(X=0) = e^-3 ≈ 0.05.
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- QUIZ (5 Questions) -->
+                        <section class="my-5 p-4 border rounded bg-white shadow-sm">
+                            <h3 class="mb-4">🧠 Quiz Chapitre 2 (5 Questions)</h3>
+
+                            <!-- Q1 -->
+                            <div class="mb-4 bg-light p-3 rounded">
+                                <p class="fw-bold">1. Si on lance une pièce (p=0.5) 10 fois, X = Nb de Piles. Quelle loi
+                                    ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">Bernoulli</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Binomiale
+                                        B(10, 0.5)</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">Poisson</button>
+                                </div>
+                            </div>
+
+                            <!-- Q2 -->
+                            <div class="mb-4 bg-light p-3 rounded">
+                                <p class="fw-bold">2. L'espérance E(X) représente :</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">La valeur
+                                        maximale</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">La moyenne
+                                        pondérée (centre de gravité)</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">La
+                                        dispersion</button>
+                                </div>
+                            </div>
+
+                            <!-- Q3 -->
+                            <div class="mb-4 bg-light p-3 rounded">
+                                <p class="fw-bold">3. Pour une loi de Poisson de paramètre λ=4, que vaut E(X) ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">4</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">2</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">16</button>
+                                </div>
+                            </div>
+
+                            <!-- Q4 -->
+                            <div class="mb-4 bg-light p-3 rounded">
+                                <p class="fw-bold">4. Quelle loi modélise le nombre d'erreurs sur une page ? (événement
+                                    rare)</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">Binomiale</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, true)">Poisson</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">Uniforme</button>
+                                </div>
+                            </div>
+
+                            <!-- Q5 -->
+                            <div class="mb-4 bg-light p-3 rounded">
+                                <p class="fw-bold">5. Si V(X) = 9, que vaut l'écart-type σ(X) ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">81</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">4.5</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">3 (Racine de
+                                        9)</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCICES GRADUÉS (5 Exercices) -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">✍️ Exercices d'Application</h3>
+
+                            <!-- Débutant -->
+                            <div class="card mb-4 border-success">
+                                <div class="card-header bg-success text-white">Niveau Débutant</div>
+                                <div class="card-body">
+                                    <h5>Ex 1 : Espérance Simple</h5>
+                                    <p>Soit X une VA prenant les valeurs {1, 2, 5} avec probas {0.2, 0.5, 0.3}. Calculez
+                                        E(X).</p>
+                                    <button class="btn btn-outline-success btn-sm mt-2"
+                                        onclick="toggleSolution('ex_deb1')">Solution</button>
+                                    <div id="ex_deb1" class="solution-box">
+                                        <p>E(X) = 1*0.2 + 2*0.5 + 5*0.3<br>
+                                            = 0.2 + 1.0 + 1.5 = <strong>2.7</strong>.</p>
+                                    </div>
+                                    <hr>
+                                    <h5>Ex 2 : Le Dé truqué</h5>
+                                    <p>Un dé est truqué : le 6 sort 50% du temps. Les autres faces sont équiprobables
+                                        (0.1 chacune). Calculez E(X).</p>
+                                    <button class="btn btn-outline-success btn-sm mt-2"
+                                        onclick="toggleSolution('ex_deb2')">Solution</button>
+                                    <div id="ex_deb2" class="solution-box">
+                                        <p>E(X) = 1*0.1 + 2*0.1 + ... + 5*0.1 + 6*0.5<br>
+                                            = (1+2+3+4+5)*0.1 + 3<br>
+                                            = 15*0.1 + 3 = 1.5 + 3 = <strong>4.5</strong>.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Intermédiaire -->
+                            <div class="card mb-4 border-primary">
+                                <div class="card-header bg-primary text-white">Niveau Intermédiaire</div>
+                                <div class="card-body">
+                                    <h5>Ex 3 : Le QCM au pif</h5>
+                                    <p>Un QCM a 10 questions. 4 choix par question. Vous répondez au hasard. X = nb de
+                                        bonnes réponses.</p>
+                                    <ol>
+                                        <li>Quelle est la loi de X ?</li>
+                                        <li>Quelle est la moyenne espérée ?</li>
+                                    </ol>
+                                    <button class="btn btn-outline-primary btn-sm mt-2"
+                                        onclick="toggleSolution('ex_inter3')">Solution</button>
+                                    <div id="ex_inter3" class="solution-box">
+                                        <p>X suit une loi Binomiale B(10, 0.25).</p>
+                                        <p>E(X) = n*p = 10 * 0.25 = <strong>2.5</strong> bonnes réponses.</p>
+                                    </div>
+
+                                    <hr>
+                                    <h5>Ex 4 : Panne de machine</h5>
+                                    <p>Une machine a une probabilité p=0.1 de tomber en panne chaque jour. Sur 5 jours,
+                                        probabilité d'avoir 0 panne ?</p>
+                                    <button class="btn btn-outline-primary btn-sm mt-2"
+                                        onclick="toggleSolution('ex_inter4')">Solution</button>
+                                    <div id="ex_inter4" class="solution-box">
+                                        <p>X ~ B(5, 0.1). On veut P(X=0).</p>
+                                        <p>P(X=0) = (0.9)^5 ≈ <strong>0.59 (59%)</strong>.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Expert -->
+                            <div class="card mb-4 border-danger">
+                                <div class="card-header bg-danger text-white">Niveau Expert</div>
+                                <div class="card-body">
+                                    <h5>Ex 5 : Le Tireur à l'arc (Calcul Complet)</h5>
+                                    <p>Un tireur atteint sa cible avec p=0.8. Il tire 5 fois.</p>
+                                    <p>Quelle est la probabilité qu'il touche la cible <strong>au moins 4 fois</strong>
+                                        ?</p>
+                                    <button class="btn btn-outline-danger btn-sm mt-2"
+                                        onclick="toggleSolution('ex1')">Voir Solution</button>
+                                    <div id="ex1" class="solution-box">
+                                        <p>Loi Binomiale X ~ B(5, 0.8).</p>
+                                        <p>On cherche P(X ≥ 4) = P(X=4) + P(X=5).</p>
+                                        <p>P(X=5) = 0.8^5 ≈ 0.327</p>
+                                        <p>P(X=4) = C(5,4) * 0.8^4 * 0.2^1 = 5 * 0.4096 * 0.2 ≈ 0.409</p>
+                                        <p>Total = 0.327 + 0.409 = <strong>0.736</strong></p>
+                                        <p>Il a 73.6% de chances.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div class="d-flex justify-content-between my-5">
+                            <a href="ch01-introduction-combinatoire.html" class="btn btn-outline-primary">← Chapitre
+                                1</a>
+                            <a href="ch03-lois-continues-statistiques.html" class="btn btn-primary">Chapitre 3 →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            Array.from(group.children).forEach(b => {
+                b.classList.remove('btn-success', 'btn-danger');
+                b.classList.add('btn-outline-secondary');
+            });
+            if (isCorrect) {
+                btn.classList.add('btn-success');
+                btn.classList.remove('btn-outline-secondary');
+            } else {
+                btn.classList.add('btn-danger');
+                btn.classList.remove('btn-outline-secondary');
+            }
+        }
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

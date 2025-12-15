@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 5 : Liens et navigation - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours HTML</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours HTML</a></li>
+                                <li class="breadcrumb-item active">Chapitre 5 : Liens et navigation</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 5</span>
+                            <h1 class="mb-3">Liens et navigation</h1>
+                            <p class="text-lg text-secondary">
+                                Apprenez à créer des liens hypertextes pour naviguer entre les pages et créer une
+                                expérience web connectée.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 1h</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch04-texte-formatage.html" class="chapter-nav-btn">← Précédent</a>
+                            <a href="ch06-images-medias.html" class="chapter-nav-btn">Suivant →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>La balise &lt;a&gt; (anchor)</h2>
+
+                            <p>La balise <code>&lt;a&gt;</code> crée des <strong>liens hypertextes</strong> - l'essence
+                                même du web. L'attribut <code>href</code> spécifie la destination.</p>
+
+                            <pre><code class="language-html">&lt;a href="https://www.example.com"&gt;Visitez notre site&lt;/a&gt;</code></pre>
+
+                            <h2>Types de liens</h2>
+
+                            <h3>1. Liens externes (absolus)</h3>
+                            <p>Liens vers des sites externes avec URL complète :</p>
+                            <pre><code class="language-html">&lt;a href="https://www.google.com"&gt;Google&lt;/a&gt;
+&lt;a href="https://www.wikipedia.org"&gt;Wikipédia&lt;/a&gt;</code></pre>
+
+                            <h3>2. Liens internes (relatifs)</h3>
+                            <p>Liens vers d'autres pages de votre site :</p>
+                            <pre><code class="language-html">&lt;!-- Page dans le même dossier --&gt;
+&lt;a href="contact.html"&gt;Contact&lt;/a&gt;
+
+&lt;!-- Page dans un sous-dossier --&gt;
+&lt;a href="articles/article1.html"&gt;Article 1&lt;/a&gt;
+
+&lt;!-- Remonter d'un niveau --&gt;
+&lt;a href="../index.html"&gt;Retour à l'accueil&lt;/a&gt;</code></pre>
+
+                            <h3>3. Ancres (liens vers sections)</h3>
+                            <p>Liens vers une section spécifique de la page :</p>
+                            <pre><code class="language-html">&lt;!-- Créer une ancre --&gt;
+&lt;h2 id="section-contact"&gt;Contact&lt;/h2&gt;
+
+&lt;!-- Lien vers l'ancre --&gt;
+&lt;a href="#section-contact"&gt;Aller à la section contact&lt;/a&gt;
+
+&lt;!-- Ancre sur autre page --&gt;
+&lt;a href="page2.html#section-tarifs"&gt;Voir les tarifs&lt;/a&gt;</code></pre>
+
+                            <h3>4. Lien email</h3>
+                            <pre><code class="language-html">&lt;a href="mailto:contact@example.com"&gt;Envoyez-nous un email&lt;/a&gt;
+
+&lt;!-- Avec sujet et corps --&gt;
+&lt;a href="mailto:contact@example.com?subject=Demande d'info&body=Bonjour,"&gt;
+    Nous contacter
+&lt;/a&gt;</code></pre>
+
+                            <h3>5. Lien téléphone</h3>
+                            <pre><code class="language-html">&lt;a href="tel:+33123456789"&gt;Appelez-nous&lt;/a&gt;</code></pre>
+
+                            <h2>Attributs importants</h2>
+
+                            <h3>target - Contrôler où s'ouvre le lien</h3>
+                            <pre><code class="language-html">&lt;!-- Ouvrir dans un nouvel onglet --&gt;
+&lt;a href="https://example.com" target="_blank"&gt;Site externe&lt;/a&gt;
+
+&lt;!-- Ouvrir dans la même fenêtre (par défaut) --&gt;
+&lt;a href="page2.html" target="_self"&gt;Page 2&lt;/a&gt;</code></pre>
+
+                            <div class="alert alert-warning">
+                                <h4>⚠️ Sécurité avec target="_blank"</h4>
+                                <p>Toujours ajouter <code>rel="noopener noreferrer"</code> pour la sécurité :</p>
+                                <pre><code class="language-html">&lt;a href="https://example.com" target="_blank" rel="noopener noreferrer"&gt;
+    Lien sécurisé
+&lt;/a&gt;</code></pre>
+                            </div>
+
+                            <h3>title - Info-bulle</h3>
+                            <pre><code class="language-html">&lt;a href="about.html" title="En savoir plus sur nous"&gt;À propos&lt;/a&gt;</code></pre>
+
+                            <h3>download - Téléchargement</h3>
+                            <pre><code class="language-html">&lt;a href="document.pdf" download&gt;Télécharger le PDF&lt;/a&gt;
+&lt;a href="image.jpg" download="ma-photo.jpg"&gt;Télécharger&lt;/a&gt;</code></pre>
+
+                            <h2>Bonnes pratiques</h2>
+
+                            <div class="tips alert">
+                                <h3>💡 Astuces</h3>
+                                <ul>
+                                    <li><strong>Texte descriptif</strong> : Évitez "cliquez ici", préférez "Télécharger
+                                        le guide PDF"</li>
+                                    <li><strong>Liens externes</strong> : Utilisez <code>target="_blank"</code> avec
+                                        <code>rel="noopener"</code></li>
+                                    <li><strong>Accessibilité</strong> : Le texte du lien doit être explicite même hors
+                                        contexte</li>
+                                    <li><strong>Ancres</strong> : Utilisez des IDs uniques et descriptifs</li>
+                                    <li><strong>Email</strong> : Attention au spam, utilisez des technique d'obfuscation
+                                        si nécessaire</li>
+                                    <li><strong>URLs relatives</strong> : Préférez-les pour les liens internes (plus
+                                        portable)</li>
+                                </ul>
+                            </div>
+
+                            <aside class="common-mistakes alert">
+                                <h3>⚠️ Erreurs fréquentes</h3>
+                                <ul>
+                                    <li><strong>Oublier href</strong> : <code>&lt;a&gt;Lien&lt;/a&gt;</code> ne
+                                        fonctionne pas</li>
+                                    <li><strong>"Cliquez ici"</strong> : Mauvais pour l'accessibilité et le SEO</li>
+                                    <li><strong>target="_blank" sans rel</strong> : Faille de sécurité</li>
+                                    <li><strong>Liens cassés</strong> : Vérifiez toujours vos chemins relatifs</li>
+                                    <li><strong>Mauvais chemins</strong> : <code>file.html</code> vs
+                                        <code>./file.html</code> vs <code>/file.html</code></li>
+                                    <li><strong>IDs dupliqués</strong> : Chaque ID doit être unique sur la page</li>
+                                </ul>
+                            </aside>
+
+                            <h2>Exemple complet de navigation</h2>
+                            <pre><code class="language-html">&lt;nav&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="index.html"&gt;Accueil&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="about.html"&gt;À propos&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="services.html"&gt;Services&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="contact.html"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;!-- Fil d'Ariane --&gt;
+&lt;nav aria-label="Fil d'Ariane"&gt;
+    &lt;a href="index.html"&gt;Accueil&lt;/a&gt; &gt;
+    &lt;a href="articles.html"&gt;Articles&lt;/a&gt; &gt;
+    &lt;span&gt;Article actuel&lt;/span&gt;
+&lt;/nav&gt;
+
+&lt;!-- Liens de réseaux sociaux --&gt;
+&lt;a href="https://twitter.com/moncompte" target="_blank" rel="noopener noreferrer"&gt;
+    Twitter
+&lt;/a&gt;</code></pre>
+
+                            <h2>Résumé</h2>
+                            <div class="card" style="background-color: var(--surface);">
+                                <div class="card-body">
+                                    <ul>
+                                        <li><code>&lt;a href="url"&gt;</code> : Créer un lien</li>
+                                        <li><code>target="_blank"</code> : Nouvel onglet</li>
+                                        <li><code>href="#id"</code> : Ancre vers section</li>
+                                        <li><code>href="mailto:"</code> : Lien email</li>
+                                        <li><code>href="tel:"</code> : Lien téléphone</li>
+                                        <li><code>download</code> : Forcer le téléchargement</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2>Quiz</h2>
+                            <div id="quiz-ch05"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2>Exercices</h2>
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Créer un menu de navigation</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez un menu avec 4 liens : Accueil, À propos, Services, Contact</p>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Table des matières</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez une page avec 3 sections (avec IDs) et une table des matières en haut avec
+                                        des ancres vers chaque section</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch04-texte-formatage.html" class="chapter-nav-btn">← Précédent</a>
+                            <a href="ch06-images-medias.html" class="chapter-nav-btn">Suivant →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">✓ Marquer comme
+                                terminé</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Learn2succeed</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'html';
+        const chapterId = 'ch05-liens-navigation';
+        const chapters = [{ id: "ch01-introduction", title: "Introduction au HTML" }, { id: "ch02-structure", title: "Structure d'un document HTML" }, { id: "ch03-balises-essentielles", title: "Les balises essentielles" }, { id: "ch04-texte-formatage", title: "Texte et formatage" }, { id: "ch05-liens-navigation", title: "Liens et navigation" }, { id: "ch06-images-medias", title: "Images et médias" }, { id: "ch07-listes", title: "Listes" }, { id: "ch08-tableaux", title: "Tableaux" }, { id: "ch09-formulaires-1", title: "Formulaires - Partie 1" }, { id: "ch10-formulaires-2", title: "Formulaires - Partie 2" }, { id: "ch11-html-semantique", title: "HTML sémantique" }, { id: "ch12-metadonnees-seo", title: "Métadonnées et SEO" }, { id: "ch13 accessibilite", title: "Accessibilité" }, { id: "ch14-html5-apis", title: "HTML5 APIs" }, { id: "ch15-bonnes-pratiques", title: "Bonnes pratiques" }];
+
+        const quizData = {
+            title: "Quiz - Liens et navigation",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                { question: "Quelle balise crée un lien hypertexte ?", type: "single", options: ["&lt;link&gt;", "&lt;href&gt;", "&lt;a&gt;", "&lt;url&gt;"], correct: 2, explanation: "La balise &lt;a&gt; (anchor) crée des liens hypertextes." },
+                { question: "Quel attribut spécifie la destination d'un lien ?", type: "single", options: ["src", "href", "url", "link"], correct: 1, explanation: "L'attribut href (hypertext reference) spécifie la destination." },
+                { question: "Comment ouvrir un lien dans un nouvel onglet ?", type: "single", options: ["target='_new'", "target='_blank'", "newtab='true'", "window='new'"], correct: 1, explanation: "target='_blank' ouvre le lien dans un nouvel onglet." },
+                { question: "Quel code crée un lien vers une section de la même page ?", type: "single", options: ["&lt;a href='section'&gt;", "&lt;a href='#section'&gt;", "&lt;a link='section'&gt;", "&lt;a anchor='section'&gt;"], correct: 1, explanation: "href='#id' créeun lien vers un élément ayant cet ID." },
+                { question: "Comment créer un lien email ?", type: "single", options: ["&lt;a href='email:test@test.com'&gt;", "&lt;a href='mailto:test@test.com'&gt;", "&lt;a email='test@test.com'&gt;", "&lt;email&gt;test@test.com&lt;/email&gt;"], correct: 1, explanation: "mailto: permet de créer un lien email." },
+                { question: "Pourquoi ajouter rel='noopener' avec target='_blank' ?", type: "single", options: ["Pour le style", "Pour la sécurité", "Pour le SEO", "C'est obligatoire"], correct: 1, explanation: "rel='noopener' protège contre certaines vulnérabilités de sécurité." }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+            QuizSystem.createQuiz(quizData, 'quiz-ch05');
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+    </script>
+</body>
+
+</html>

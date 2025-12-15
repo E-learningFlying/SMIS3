@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travaux Dirigés (TD) - Architecture des Ordinateurs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <style>
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #198754;
+            border-radius: 4px;
+        }
+
+        .math-expr {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #eee;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-reading section">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Architecture</a></li>
+                    <li class="breadcrumb-item active">Travaux Dirigés</li>
+                </ol>
+            </nav>
+
+            <h1 class="mb-4 text-center">📝 Travaux Dirigés (TD)</h1>
+            <p class="lead text-center mb-5">Recueil d'exercices universitaires (Filières MI/2IDL) avec corrections
+                détaillées.</p>
+
+            <!-- SERIE A : CODAGE -->
+            <div class="card mb-5 border-dark">
+                <div class="card-header bg-dark text-white">
+                    <h3>Série A : Codage des Nombres & IEEE 754</h3>
+                    <small>Similaire au TD N°1</small>
+                </div>
+                <div class="card-body">
+                    <!-- A.1 -->
+                    <div class="mb-5 pb-4 border-bottom">
+                        <h4>A.1 Conversions de Bases</h4>
+                        <p><strong>1. Convertir en décimal :</strong></p>
+                        <ul>
+                            <li><span class="math-expr">1110.101 (base 2)</span></li>
+                            <li><span class="math-expr">145 (base 8)</span></li>
+                            <li><span class="math-expr">4F,C (base 16)</span></li>
+                        </ul>
+                        <p><strong>2. Convertir 305,625 (décimal)</strong> en Bases 2, 8 et 16.</p>
+
+                        <button class="btn btn-outline-success btn-sm" onclick="toggleSolution('sol-a1')">Voir
+                            Correction A.1</button>
+                        <div id="sol-a1" class="solution-box">
+                            <p><strong>1. Vers Décimal :</strong></p>
+                            <ul>
+                                <li>1110.101 = 8+4+2 + 0.5 + 0.125 = <strong>14,625</strong></li>
+                                <li>145 (oct) = 1*64 + 4*8 + 5 = <strong>101</strong></li>
+                                <li>4F,C (hex) = 4*16 + 15 + 12/16 = 64 + 15 + 0.75 = <strong>79,75</strong></li>
+                            </ul>
+                            <p><strong>2. Depuis 305,625 :</strong></p>
+                            <ul>
+                                <li>Partie entière (305) = 256 + 32 + 16 + 1 = 100110001</li>
+                                <li>Partie fruc. (0,625) = 0.5 + 0.125 = .101</li>
+                                <li><strong>Binaire : 100110001,101</strong></li>
+                                <li><strong>Octal : 461,5</strong> (Regrouper par 3 bits : 100=4, 110=6, 001=1 . 101=5)
+                                </li>
+                                <li><strong>Hexa : 131,A</strong> (Regrouper par 4 : 0001=1, 0011=3, 0001=1 . 1010=10=A)
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- A.2 -->
+                    <div class="mb-5 pb-4 border-bottom">
+                        <h4>A.2 Représentation Signée (8 bits)</h4>
+                        <ol>
+                            <li>Représenter <strong>-53</strong> en Complément à 1 (C1) et Complément à 2 (C2).</li>
+                            <li>Calculer <strong>(+45) + (-60)</strong> en C2 sur 8 bits. Vérifier en décimal.</li>
+                        </ol>
+
+                        <button class="btn btn-outline-success btn-sm" onclick="toggleSolution('sol-a2')">Voir
+                            Correction A.2</button>
+                        <div id="sol-a2" class="solution-box">
+                            <p><strong>1. Codage de -53 :</strong></p>
+                            <ul>
+                                <li>+53 = 0011 0101</li>
+                                <li>C1 (Inverser) = <strong>1100 1010</strong></li>
+                                <li>C2 (Ajouter 1) = <strong>1100 1011</strong></li>
+                            </ul>
+                            <p><strong>2. Opération (+45) + (-60) :</strong></p>
+                            <ul>
+                                <li>+45 = 0010 1101</li>
+                                <li>+60 = 0011 1100 -> -60 (C2) = 1100 0100</li>
+                                <li>Somme : 00101101 + 11000100 = <strong>1111 0001</strong></li>
+                                <li>Vérification : 1111 0001 -> C1=0000 1110 -> Signe - (14+1) = <strong>-15</strong>.
+                                    Correct (45-60=-15).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- A.3 -->
+                    <div>
+                        <h4>A.3 IEEE 754 (32 bits)</h4>
+                        <ol>
+                            <li>Coder <strong>-24,0625</strong>.</li>
+                            <li>Décoder <strong>0xC1B40000</strong>.</li>
+                        </ol>
+
+                        <button class="btn btn-outline-success btn-sm" onclick="toggleSolution('sol-a3')">Voir
+                            Correction A.3</button>
+                        <div id="sol-a3" class="solution-box">
+                            <p><strong>1. Coder -24,0625 :</strong></p>
+                            <ul>
+                                <li>Signe : Négatif (1)</li>
+                                <li>Binaire : 24=11000, 0.0625=0.0001 -> 11000,0001</li>
+                                <li>Normalisé : 1,10000001 x 2^4</li>
+                                <li>Exposant : 4 + 127 = 131 = 10000011</li>
+                                <li>Mantisse : 1000000100...</li>
+                                <li><strong>Résultat : 1 10000011 10000001000000000000000</strong></li>
+                            </ul>
+                            <p><strong>2. Décoder 0xC1B40000 :</strong></p>
+                            <ul>
+                                <li>Binaire : 1100 0001 1011 0100 ...</li>
+                                <li>S=1 (-), Exp=10000011 (131 -> +4), M=01101...</li>
+                                <li>Val = -1,01101 x 2^4 = -10110,1</li>
+                                <li>10110 = 22, 0.1 = 0.5 -> <strong>-22,5</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SERIE B : BOOLE -->
+            <div class="card mb-5 border-primary">
+                <div class="card-header bg-primary text-white">
+                    <h3>Série B : Algèbre de Boole</h3>
+                    <small>Similaire au TD N°2</small>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h4>B.1 Simplification</h4>
+                        <p>Simplifier l'expression : <span class="math-expr">F = (A + non-B).(A + B).(non-A + B)</span>
+                        </p>
+
+                        <button class="btn btn-outline-primary btn-sm" onclick="toggleSolution('sol-b1')">Voir
+                            Correction B.1</button>
+                        <div id="sol-b1" class="solution-box">
+                            <p>Utilisons la distributivité :</p>
+                            <p>Termes 1 et 2 : (A + B̄).(A + B) = A + (B̄.B) = A + 0 = <strong>A</strong></p>
+                            <p>Reste : F = A . (Ā + B)</p>
+                            <p>Distribution : A.Ā + A.B = 0 + A.B</p>
+                            <p><strong>Résultat : A.B</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SERIE C : CIRCUITS -->
+            <div class="card mb-5 border-warning">
+                <div class="card-header bg-warning text-dark">
+                    <h3>Série C : Circuits Combinatoires</h3>
+                    <small>Similaire au TD N°3</small>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h4>C.1 Détecteur 3 sur 4</h4>
+                        <p>Sortie S=1 si exactement 3 entrées sur 4 (A,B,C,D) sont actives.</p>
+
+                        <button class="btn btn-outline-warning btn-sm" onclick="toggleSolution('sol-c1')">Voir
+                            Correction C.1</button>
+                        <div id="sol-c1" class="solution-box">
+                            <p>Il y a 4 cas possibles :</p>
+                            <ul>
+                                <li>ABC actif, D inactif : A.B.C.D̄</li>
+                                <li>ABD actif, C inactif : A.B.C̄.D</li>
+                                <li>ACD actif : A.B̄.C.D</li>
+                                <li>BCD actif : Ā.B.C.D</li>
+                            </ul>
+                            <p><strong>S = ABC D̄ + AB C̄ D + A B̄ CD + Ā BCD</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SERIE D : ARCHITECTURE -->
+            <div class="card mb-5 border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h3>Série D : Architecture & Mémoire</h3>
+                    <small>Similaire au TD N°4</small>
+                </div>
+                <div class="card-body">
+                    <!-- D.1 -->
+                    <div class="mb-5 pb-4 border-bottom">
+                        <h4>D.1 Adressage 8086</h4>
+                        <p>Segment CS = <strong>0x9000</strong>, Offset IP = <strong>0x1A00</strong>.</p>
+                        <p>Quelle est l'adresse physique ?</p>
+
+                        <button class="btn btn-outline-danger btn-sm" onclick="toggleSolution('sol-d1')">Voir Correction
+                            D.1</button>
+                        <div id="sol-d1" class="solution-box">
+                            <p>Adresse Physique = Segment * 16 + Offset</p>
+                            <p>90000 + 1A00 = <strong>91A00 h</strong></p>
+                        </div>
+                    </div>
+
+                    <!-- D.2 -->
+                    <div>
+                        <h4>D.2 Registre Flags</h4>
+                        <p>Opération 8 bits : <strong>0xF0 + 0x15</strong>. Donner le résultat et les flags ZF, CF, SF.
+                        </p>
+
+                        <button class="btn btn-outline-danger btn-sm" onclick="toggleSolution('sol-d2')">Voir Correction
+                            D.2</button>
+                        <div id="sol-d2" class="solution-box">
+                            <p>F0 (240) + 15 (21) = 261.</p>
+                            <p>Sur 8 bits, 261 modulo 256 = 5.</p>
+                            <p><strong>Résultat : 0x05</strong></p>
+                            <ul>
+                                <li><strong>ZF (Zero) : 0</strong> (Résultat non nul)</li>
+                                <li><strong>CF (Carry) : 1</strong> (Dépassement > 255)</li>
+                                <li><strong>SF (Sign) : 0</strong> (Bit de poids fort à 0)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="text-center mt-5">
+                <a href="index.html" class="btn btn-secondary">Retour au sommaire</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

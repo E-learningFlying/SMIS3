@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chapitre 5 : Modes d'adressage en assembleur 8086">
+    <title>Chapitre 5 : Modes d'adressage - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours Assembleur 8086</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours Assembleur 8086</a></li>
+                                <li class="breadcrumb-item active">Chapitre 5 : Adressage</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 5</span>
+                            <h1 class="mb-3">Modes d'adressage</h1>
+                            <p class="text-lg text-secondary">
+                                Maîtrisez les différentes façons d'accéder aux données : immédiat, registre, direct,
+                                indirect et indexé.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 1h30</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch04-instructions-base.html" class="chapter-nav-btn">← Précédent : Instructions</a>
+                            <a href="ch06-controle.html" class="chapter-nav-btn">Suivant : Contrôle →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>Qu'est-ce qu'un mode d'adressage ?</h2>
+
+                            <p>
+                                Un <strong>mode d'adressage</strong> définit comment le processeur localise l'opérande
+                                (donnée) d'une instruction.
+                            </p>
+
+                            <p>Le 8086 offre plusieurs modes pour accéder aux données de manière flexible.</p>
+
+                            <h2>1. Adressage immédiat</h2>
+
+                            <p>La <strong>valeur est directement dans l'instruction</strong> :</p>
+
+                            <pre><code class="language-asm">MOV AX, 100        ; AX = 100 (valeur immédiate)
+MOV BL, 'A'        ; BL = 65 (code ASCII)
+ADD CX, 50         ; CX = CX + 50</code></pre>
+
+                            <div class="alert alert-info">
+                                <h4>✅ Avantages</h4>
+                                <ul>
+                                    <li>Rapide (pas d'accès mémoire)</li>
+                                    <li>Simple et clair</li>
+                                </ul>
+                                <h4>❌ Inconvénients</h4>
+                                <ul>
+                                    <li>Valeur fixée à la compilation</li>
+                                    <li>Ne peut pas être modifiée</li>
+                                </ul>
+                            </div>
+
+                            <h2>2. Adressage registre</h2>
+
+                            <p>Les deux opérandes sont des <strong>registres</strong> :</p>
+
+                            <pre><code class="language-asm">MOV AX, BX         ; AX = BX
+ADD CX, DX         ; CX = CX + DX
+XCHG SI, DI        ; Échange SI et DI</code></pre>
+
+                            <div class="alert alert-success">
+                                <h4>⚡ Le plus rapide</h4>
+                                <p>L'adressage registre est le mode le plus rapide car tout se passe dans le CPU !</p>
+                            </div>
+
+                            <h2>3. Adressage direct</h2>
+
+                            <p>L'<strong>adresse mémoire est spécifiée directement</strong> :</p>
+
+                            <pre><code class="language-asm">MOV AX, [1234h]    ; AX = contenu de l'adresse DS:1234h
+MOV [5000h], BX    ; Stocke BX à l'adresse DS:5000h
+
+.DATA
+    valeur DB 42
+.CODE
+    MOV AL, [valeur]   ; AL = 42</code></pre>
+
+                            <div class="alert alert-warning">
+                                <h4>⚠️ Segment par défaut</h4>
+                                <p>Par défaut, l'adressage direct utilise le segment <strong>DS</strong> (Data Segment).
+                                </p>
+                            </div>
+
+                            <h2>4. Adressage indirect (registre)</h2>
+
+                            <p>Le <strong>registre contient l'adresse</strong> de la donnée :</p>
+
+                            <pre><code class="language-asm">; BX, SI, DI peuvent être utilisés
+LEA BX, tableau     ; BX = adresse du tableau
+MOV AL, [BX]        ; AL = premier élément
+MOV CL, [SI]        ; CL = contenu pointé par SI
+MOV [DI], AH        ; Stocke AH à l'adresse dans DI</code></pre>
+
+                            <h3>Registres utilisables</h3>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Registre</th>
+                                        <th>Segment par défaut</th>
+                                        <th>Usage typique</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>BX</strong></td>
+                                        <td>DS</td>
+                                        <td>Pointeur base, tableaux</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>SI</strong></td>
+                                        <td>DS</td>
+                                        <td>Index source</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>DI</strong></td>
+                                        <td>DS (ou ES)</td>
+                                        <td>Index destination</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>BP</strong></td>
+                                        <td>SS</td>
+                                        <td>Pointeur pile, paramètres</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h2>5. Adressage indexé (avec déplacement)</h2>
+
+                            <p>Combine un <strong>registre + déplacement constant</strong> :</p>
+
+                            <pre><code class="language-asm">MOV AL, [BX + 2]    ; AL = contenu de DS:(BX + 2)
+MOV CL, [SI + 5]    ; CL = contenu de DS:(SI + 5)
+MOV [DI + 10], AX   ; Stocke AX à DS:(DI + 10)
+
+; Exemple pratique : accéder au 3ème élément
+LEA BX, tableau
+MOV AL, [BX + 2]    ; 3ème élément (offset 2)</code></pre>
+
+                            <div class="alert alert-info">
+                                <h4>💡 Utilisation</h4>
+                                <p>Parfait pour accéder à des éléments de tableau ou des champs de structure !</p>
+                            </div>
+
+                            <h2>6. Adressage base + index</h2>
+
+                            <p>Combine <strong>deux registres</strong> (un de base + un d'index) :</p>
+
+                            <pre><code class="language-asm">; Combinaisons valides :
+MOV AL, [BX + SI]     ; DS:(BX + SI)
+MOV CL, [BX + DI]     ; DS:(BX + DI)
+MOV DL, [BP + SI]     ; SS:(BP + SI)
+MOV DH, [BP + DI]     ; SS:(BP + DI)</code></pre>
+
+                            <h3>Paires valides</h3>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Base</th>
+                                        <th>Index</th>
+                                        <th>Segment par défaut</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>BX</td>
+                                        <td>SI ou DI</td>
+                                        <td>DS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>BP</td>
+                                        <td>SI ou DI</td>
+                                        <td>SS</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h2>7. Adressage base + index + déplacement</h2>
+
+                            <p>Le mode le plus complet : <strong>base + index + constante</strong> :</p>
+
+                            <pre><code class="language-asm">MOV AL, [BX + SI + 4]    ; DS:(BX + SI + 4)
+MOV CL, [BP + DI + 10]   ; SS:(BP + DI + 10)
+
+; Exemple : tableau 2D
+; matrice[ligne][colonne]
+LEA BX, matrice         ; Base = début matrice
+MOV SI, ligne           ; Index = numéro ligne
+MOV AL, [BX + SI + 3]   ; Accès colonne 3</code></pre>
+
+                            <h2>Exemples pratiques</h2>
+
+                            <h3>Parcourir un tableau</h3>
+
+                            <pre><code class="language-asm">.DATA
+    tableau DB 10, 20, 30, 40, 50
+    taille EQU 5
+    
+.CODE
+    ; Méthode 1 : avec BX
+    LEA BX, tableau
+    MOV AL, [BX]        ; 1er élément
+    MOV AL, [BX + 1]    ; 2ème élément
+    MOV AL, [BX + 2]    ; 3ème élément
+    
+    ; Méthode 2 : avec SI (incrémentation)
+    LEA SI, tableau
+    MOV CX, taille
+parcours:
+    MOV AL, [SI]        ; Élément actuel
+    INC SI              ; Passer au suivant
+    LOOP parcours</code></pre>
+
+                            <h3>Tableau 2D (matrice)</h3>
+
+                            <pre><code class="language-asm">.DATA
+    ; Matrice 3×4
+    matrice DB 1,2,3,4
+            DB 5,6,7,8
+            DB 9,10,11,12
+    largeur EQU 4
+    
+.CODE
+    ; Accès à matrice[ligne][colonne]
+    LEA BX, matrice
+    MOV AH, 0
+    MOV AL, ligne       ; Ligne à accéder
+    MOV CL, largeur
+    MUL CL              ; AX = ligne × largeur
+    ADD AX, colonne     ; AX = (ligne × largeur) + colonne
+    MOV SI, AX
+    MOV AL, [BX + SI]   ; AL = matrice[ligne][colonne]</code></pre>
+
+                            <h2>Tableau récapitulatif</h2>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Mode</th>
+                                        <th>Syntaxe</th>
+                                        <th>Exemple</th>
+                                        <th>Usage</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Immédiat</td>
+                                        <td>valeur</td>
+                                        <td>MOV AX, 100</td>
+                                        <td>Constantes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Registre</td>
+                                        <td>reg</td>
+                                        <td>MOV AX, BX</td>
+                                        <td>Variables temporaires</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Direct</td>
+                                        <td>[addr]</td>
+                                        <td>MOV AX, [1000h]</td>
+                                        <td>Variables globales</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Indirect</td>
+                                        <td>[reg]</td>
+                                        <td>MOV AX, [BX]</td>
+                                        <td>Pointeurs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Indexé</td>
+                                        <td>[reg+disp]</td>
+                                        <td>MOV AX, [BX+2]</td>
+                                        <td>Tableaux</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Base+Index</td>
+                                        <td>[base+index]</td>
+                                        <td>MOV AX, [BX+SI]</td>
+                                        <td>Structures</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Complet</td>
+                                        <td>[base+index+disp]</td>
+                                        <td>MOV AX, [BX+SI+4]</td>
+                                        <td>Tableaux 2D</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+
+                        <aside class="tips alert">
+                            <h3>💡 Astuces</h3>
+                            <ul>
+                                <li>BX, SI, DI pour tableaux et données (segment DS)</li>
+                                <li>BP pour paramètres et variables locales (segment SS)</li>
+                                <li>Adressage registre = plus rapide</li>
+                                <li>[BX + SI] pour tableaux 2D ou structures</li>
+                                <li>LEA charge l'adresse, MOV charge le contenu</li>
+                            </ul>
+                        </aside>
+
+                        <aside class="common-mistakes alert">
+                            <h3>⚠️ Erreurs fréquentes</h3>
+                            <ul>
+                                <li><strong>Utiliser AX comme pointeur</strong> : Seulement BX, SI, DI, BP !</li>
+                                <li><strong>Oublier les crochets []</strong> : MOV AX, BX ≠ MOV AX, [BX]</li>
+                                <li><strong>Mauvaise paire base+index</strong> : [AX + SI] invalide</li>
+                                <li><strong>Confondre LEA et MOV</strong> : LEA = adresse, MOV = contenu</li>
+                                <li><strong>Segment incorrect</strong> : BP utilise SS, pas DS</li>
+                            </ul>
+                        </aside>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch05"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Accéder à un tableau</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez un tableau de 5 nombres et :</p>
+                                    <ul>
+                                        <li>Utilisez BX pour accéder au 1er élément</li>
+                                        <li>Utilisez [BX + 2] pour le 3ème élément</li>
+                                        <li>Affichez les valeurs dans emu8086</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle" onclick="toggleSolution('sol-ch05-ex1')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch05-ex1" class="solution-box" style="display: none;">
+                                    <h4>Solution - Accès tableau</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.DATA
+    tableau DB 10, 20, 30, 40, 50
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    LEA BX, tableau
+    
+    MOV AL, [BX]         ; AL = 10 (1er)
+    MOV CL, [BX + 2]     ; CL = 30 (3ème)
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+<p><strong>Résultats :</strong> AL = 10, CL = 30</p>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Parcourir avec SI</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Parcours de tableau :</p>
+                                    <ul>
+                                        <li>Tableau de 10 nombres</li>
+                                        <li>Utilisez SI avec INC SI</li>
+                                        <li>Boucle LOOP pour parcourir tous</li>
+                                        <li>Calculez la somme dans AX</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle" onclick="toggleSolution('sol-ch05-ex2')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch05-ex2" class="solution-box" style="display: none;">
+                                    <h4>Solution - Parcours et somme</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.DATA
+    tableau DB 5, 10, 15, 20, 25, 30, 35, 40, 45, 50
+    taille EQU 10
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    LEA SI, tableau
+    MOV CX, taille
+    XOR AX, AX
+
+parcours:
+    MOV BL, [SI]
+    ADD AL, BL
+    INC SI
+    LOOP parcours
+    
+    ; AX = 275 (113h)
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+<p><strong>Résultat :</strong> AX = 275 (113h)</p>
+<p>5+10+15+20+25+30+35+40+45+50 = 275</p>
+                                </div>
+                            </div>
+
+                            <div class="exercise hard">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Matrice 2D</h3>
+                                    <span class="exercise-difficulty">Difficile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Manipuler une matrice 3×3 :</p>
+                                    <ul>
+                                        <li>Déclarez une matrice 3×3</li>
+                                        <li>Calculez (ligne × largeur) + colonne</li>
+                                        <li>Utilisez [BX + SI] pour accéder</li>
+                                        <li>Affichez l'élément [1][2]</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle" onclick="toggleSolution('sol-ch05-ex3')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch05-ex3" class="solution-box" style="display: none;">
+                                    <h4>Solution - Matrice 2D</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.DATA
+    matrice DB 1, 2, 3
+            DB 4, 5, 6
+            DB 7, 8, 9
+    largeur EQU 3
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    LEA BX, matrice
+    
+    ; matrice[1][2]
+    MOV AL, 1           ; ligne
+    MOV CL, largeur
+    MUL CL              ; AX = 3
+    ADD AL, 2           ; AX = 5
+    
+    MOV SI, AX
+    MOV DL, [BX + SI]   ; DL = 6
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+<p><strong>Explication :</strong></p>
+<ul>
+<li>Ligne 1, colonne 2 (index 0-based)</li>
+<li>Offset = 1 × 3 + 2 = 5</li>
+<li>Élément à offset 5 = 6 ✓</li>
+</ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch04-instructions-base.html" class="chapter-nav-btn">← Précédent : Instructions</a>
+                            <a href="ch06-controle.html" class="chapter-nav-btn">Suivant : Contrôle →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">✓ Marquer ce chapitre comme
+                                terminé</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nasm.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'assembly-x86-64';
+        const chapterId = 'ch05-adressage';
+
+        const chapters = [
+            { id: "ch01-introduction", title: "Introduction" },
+            { id: "ch02-architecture", title: "Architecture 8086" },
+            { id: "ch03-registres", title: "Registres 16-bit" },
+            { id: "ch04-instructions-base", title: "Instructions de base" },
+            { id: "ch05-adressage", title: "Modes d'adressage" },
+            { id: "ch06-controle", title: "Instructions de contrôle" },
+            { id: "ch07-pile", title: "La pile" },
+            { id: "ch08-procedures", title: "Procédures" },
+            { id: "ch09-chaines", title: "Chaînes" },
+            { id: "ch10-tableaux", title: "Tableaux" },
+            { id: "ch11-interruptions", title: "Interruptions DOS" },
+            { id: "ch12-video", title: "Affichage vidéo" },
+            { id: "ch13-ports", title: "Ports" },
+            { id: "ch14-debugging", title: "Debugging" },
+            { id: "ch15-projets", title: "Projets" }
+        ];
+
+        const quizData = {
+            title: "Quiz - Modes d'adressage",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                {
+                    question: "MOV AX, 50 utilise quel mode d'adressage ?",
+                    type: "single",
+                    options: ["Registre", "Immédiat", "Direct", "Indirect"],
+                    correct: 1,
+                    explanation: "La valeur 50 est une constante immédiate directement dans l'instruction."
+                },
+                {
+                    question: "MOV AX, [BX] utilise quel mode ?",
+                    type: "single",
+                    options: ["Direct", "Indirect registre", "Immédiat", "Indexé"],
+                    correct: 1,
+                    explanation: "BX contient l'adresse, on accède au contenu de cette adresse (adressage indirect)."
+                },
+                {
+                    question: "Quelle paire peut être base + index ?",
+                    type: "single",
+                    options: ["AX + BX", "BX + SI", "CX + DX", "AL + AH"],
+                    correct: 1,
+                    explanation: "Les paires valides sont BX+SI, BX+DI, BP+SI, BP+DI."
+                },
+                {
+                    question: "MOV AX, [1000h] accède à... ?",
+                    type: "single",
+                    options: [
+                        "La valeur 1000h",
+                        "Le contenu de l'adresse 1000h",
+                        "Le registre 1000h",
+                        "Erreur"
+                    ],
+                    correct: 1,
+                    explanation: "Les crochets [] indiquent un accès mémoire à l'adresse 1000h (segment DS)."
+                },
+                {
+                    question: "[BX + 5] est quel mode d'adressage ?",
+                    type: "single",
+                    options: ["Direct", "Indirect", "Indexé", "Immédiat"],
+                    correct: 2,
+                    explanation: "Adressage indexé : registre + déplacement constant."
+                },
+                {
+                    question: "Quels registres peuvent être utilisés comme pointeurs indirects ?",
+                    type: "multiple",
+                    options: ["BX", "AX", "SI", "CX"],
+                    correct: [0, 2],
+                    explanation: "Seuls BX, SI, DI et BP peuvent être utilisés pour l'adressage indirect."
+                },
+                {
+                    question: "[BP] utilise quel segment par défaut ?",
+                    type: "single",
+                    options: ["CS", "DS", "SS", "ES"],
+                    correct: 2,
+                    explanation: "BP (Base Pointer) utilise par défaut le segment SS (Stack Segment)."
+                },
+                {
+                    question: "Quelle différence entre LEA et MOV ?",
+                    type: "single",
+                    options: [
+                        "Aucune",
+                        "LEA charge l'adresse, MOV le contenu",
+                        "MOV plus rapide",
+                        "LEA seulement pour registres"
+                    ],
+                    correct: 1,
+                    explanation: "LEA charge l'adresse effective, MOV charge le contenu de la mémoire."
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+
+            QuizSystem.createQuiz(quizData, 'quiz-ch05');
+
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+    </script>
+
+    <script>
+        // Solution toggle function
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            const button = event.target;
+            
+            if (solution.style.display === 'none') {
+                solution.style.display = 'block';
+                button.textContent = '🙈 Masquer la solution';
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-primary');
+            } else {
+                solution.style.display = 'none';
+                button.textContent = '👁️ Voir la solution';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline-primary');
+            }
+        }
+    </script>
+    
+    <style>
+        .solution-box {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 0.375rem;
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        .solution-box h4 {
+            color: #0d6efd;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .solution-box pre {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .solution-toggle {
+            transition: all 0.2s ease;
+        }
+        
+        .solution-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+</body>
+
+</html>

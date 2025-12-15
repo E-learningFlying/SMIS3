@@ -1,0 +1,525 @@
+{
+  "courses": [
+    {
+      "id": "html",
+      "title": "HTML - HyperText Markup Language",
+      "category": "web-development",
+      "categoryLabel": "Développement Web",
+      "level": "Débutant à Avancé",
+      "description": "Apprenez les fondamentaux du HTML, de la structure de base aux API HTML5 avancées. Un cours complet pour maîtriser le langage de balisage du web.",
+      "duration": "15-20 heures",
+      "chapters": 15,
+      "image": "assets/images/courses/html.jpg",
+      "keywords": [
+        "html",
+        "web",
+        "balisage",
+        "semantic",
+        "formulaires",
+        "accessibilité"
+      ],
+      "chapterList": [
+        {
+          "id": "ch01",
+          "title": "Introduction au HTML",
+          "duration": "1h"
+        },
+        {
+          "id": "ch02",
+          "title": "Structure d'un document HTML",
+          "duration": "1h"
+        },
+        {
+          "id": "ch03",
+          "title": "Les balises essentielles",
+          "duration": "1.5h"
+        },
+        {
+          "id": "ch04",
+          "title": "Texte et formatage",
+          "duration": "1h"
+        },
+        {
+          "id": "ch05",
+          "title": "Liens et navigation",
+          "duration": "1h"
+        },
+        {
+          "id": "ch06",
+          "title": "Images et médias",
+          "duration": "1.5h"
+        },
+        {
+          "id": "ch07",
+          "title": "Listes",
+          "duration": "45min"
+        },
+        {
+          "id": "ch08",
+          "title": "Tableaux",
+          "duration": "1h"
+        },
+        {
+          "id": "ch09",
+          "title": "Formulaires - Partie 1",
+          "duration": "1.5h"
+        },
+        {
+          "id": "ch10",
+          "title": "Formulaires - Partie 2",
+          "duration": "1.5h"
+        },
+        {
+          "id": "ch11",
+          "title": "HTML sémantique",
+          "duration": "1h"
+        },
+        {
+          "id": "ch12",
+          "title": "Métadonnées et SEO",
+          "duration": "1h"
+        },
+        {
+          "id": "ch13",
+          "title": "Accessibilité",
+          "duration": "1.5h"
+        },
+        {
+          "id": "ch14",
+          "title": "HTML5 APIs",
+          "duration": "2h"
+        },
+        {
+          "id": "ch15",
+          "title": "Bonnes pratiques",
+          "duration": "1h"
+        }
+      ]
+    },
+    {
+      "id": "css",
+      "title": "CSS - Cascading Style Sheets",
+      "category": "web-development",
+      "categoryLabel": "Développement Web",
+      "level": "Débutant à Avancé",
+      "description": "Maîtrisez le CSS pour créer des designs web modernes, responsives et accessibles.",
+      "duration": "À venir",
+      "chapters": 0,
+      "image": "assets/images/courses/css.jpg",
+      "keywords": [
+        "css",
+        "style",
+        "design",
+        "responsive",
+        "flexbox",
+        "grid"
+      ],
+      "chapterList": []
+    },
+    {
+      "id": "bootstrap",
+      "title": "Bootstrap - Framework CSS",
+      "category": "web-development",
+      "categoryLabel": "Développement Web",
+      "level": "Intermédiaire",
+      "description": "Créez rapidement des interfaces web responsives avec Bootstrap, le framework CSS le plus populaire.",
+      "duration": "À venir",
+      "chapters": 0,
+      "image": "assets/images/courses/bootstrap.jpg",
+      "keywords": [
+        "bootstrap",
+        "framework",
+        "css",
+        "responsive",
+        "components"
+      ],
+      "chapterList": []
+    },
+    {
+      "id": "php",
+      "title": "PHP - Langage serveur",
+      "category": "programmation",
+      "categoryLabel": "Programmation",
+      "level": "Débutant à Avancé",
+      "description": "Apprenez PHP pour créer des applications web dynamiques et interagir avec des bases de données.",
+      "duration": "À venir",
+      "chapters": 0,
+      "image": "assets/images/courses/php.jpg",
+      "keywords": [
+        "php",
+        "serveur",
+        "backend",
+        "mysql",
+        "web dynamique"
+      ],
+      "chapterList": []
+    },
+    {
+      "id": "c",
+      "title": "Langage C",
+      "category": "programmation",
+      "categoryLabel": "Programmation",
+      "level": "Débutant à Avancé",
+      "description": "Maîtrisez les fondamentaux de la programmation avec le langage C, base de nombreux langages modernes.",
+      "duration": "À venir",
+      "chapters": 15,
+      "image": "assets/images/courses/c.jpg",
+      "keywords": [
+        "c",
+        "programmation",
+        "pointeurs",
+        "mémoire",
+        "algorithmique"
+      ],
+      "chapterList": [
+        {
+          "id": "ch01-introduction",
+          "title": "Introduction au C",
+          "duration": "1h"
+        },
+        {
+          "id": "ch02-variables",
+          "title": "Variables et Types",
+          "duration": "1.5h"
+        },
+        {
+          "id": "ch03-operateurs",
+          "title": "Opérateurs et Expressions",
+          "duration": "1h"
+        },
+        {
+          "id": "ch04-conditions",
+          "title": "Structures de Contrôle",
+          "duration": "1.5h"
+        },
+        {
+          "id": "ch05-boucles",
+          "title": "Les Boucles",
+          "duration": "1.5h"
+        },
+        {
+          "id": "ch06-fonctions",
+          "title": "Fonctions",
+          "duration": "2h"
+        },
+        {
+          "id": "ch07-pointeurs-bases",
+          "title": "Pointeurs - Bases",
+          "duration": "2.5h"
+        },
+        {
+          "id": "ch08-tableaux",
+          "title": "Tableaux",
+          "duration": "1.5h"
+        },
+        {
+          "id": "ch09-chaines",
+          "title": "Chaînes de Caractères",
+          "duration": "2h"
+        },
+        {
+          "id": "ch10-allocation",
+          "title": "Allocation Dynamique",
+          "duration": "2h"
+        },
+        {
+          "id": "ch11-structures",
+          "title": "Structures (struct)",
+          "duration": "2h"
+        },
+        {
+          "id": "ch12-pointeurs-avances",
+          "title": "Pointeurs Avancés",
+          "duration": "2h"
+        },
+        {
+          "id": "ch13-fichiers",
+          "title": "Gestion de Fichiers",
+          "duration": "1.5h"
+        },
+        {
+          "id": "ch14-modularite",
+          "title": "Préprocesseur et Modularité",
+          "duration": "1.5h"
+        },
+        {
+          "id": "ch15-projet",
+          "title": "Projet Final",
+          "duration": "3h"
+        }
+      ]
+    },
+    {
+      "id": "linux",
+      "title": "Systèmes d'exploitation : Linux",
+      "category": "systemes-exploitation",
+      "categoryLabel": "Systèmes d'exploitation",
+      "level": "Débutant à Avancé",
+      "description": "Découvrez Linux, de l'utilisation basique à l'administration système avancée.",
+      "duration": "À venir",
+      "chapters": 0,
+      "image": "assets/images/courses/linux.jpg",
+      "keywords": [
+        "linux",
+        "unix",
+        "terminal",
+        "bash",
+        "administration"
+      ],
+      "chapterList": []
+    },
+    {
+      "id": "architecture-ordinateurs",
+      "title": "Architecture des Ordinateurs",
+      "category": "programmation",
+      "categoryLabel": "Programmation",
+      "level": "Débutant à Intermédiaire",
+      "description": "Comprenez le fonctionnement intime de nos machines : du transistor au processeur, en passant par le binaire et la logique booléenne.",
+      "duration": "10-15 heures",
+      "chapters": 6,
+      "image": "assets/images/courses/arch.jpg",
+      "keywords": [
+        "architecture",
+        "cpu",
+        "binaire",
+        "logique",
+        "mémoire",
+        "von neumann"
+      ],
+      "chapterList": [
+        {
+          "id": "ch01-codage-nombres",
+          "title": "Codage des Nombres et de l'Information",
+          "duration": "2h"
+        },
+        {
+          "id": "ch02-algebre-boole",
+          "title": "Algèbre de Boole",
+          "duration": "2h"
+        },
+        {
+          "id": "ch03-circuits-logiques",
+          "title": "Circuits Logiques",
+          "duration": "2.5h"
+        },
+        {
+          "id": "ch04-architecture-generale",
+          "title": "Architecture Générale (Von Neumann)",
+          "duration": "2h"
+        },
+        {
+          "id": "ch05-memoires",
+          "title": "Les Mémoires",
+          "duration": "2h"
+        },
+        {
+          "id": "ch06-fonctionnement-cpu",
+          "title": "Fonctionnement du CPU",
+          "duration": "2h"
+        }
+      ]
+    },
+    {
+      "id": "assembly-x86-64",
+      "title": "Assembleur 8086 (emu8086)",
+      "category": "programmation",
+      "categoryLabel": "Programmation",
+      "level": "Débutant à Intermédiaire",
+      "description": "Apprenez la programmation en assembleur 8086 avec emu8086. Découvrez l'architecture 16-bit, les registres, les interruptions DOS et créez vos premiers programmes.",
+      "duration": "18-22 heures",
+      "chapters": 15,
+      "image": "assets/images/courses/asm.jpg",
+      "keywords": [
+        "assembleur",
+        "8086",
+        "emu8086",
+        "16-bit",
+        "DOS",
+        "interruptions",
+        "registres"
+      ],
+      "chapterList": [
+        {
+          "id": "ch01",
+          "title": "Introduction et emu8086",
+          "duration": "1.5h"
+        },
+        {
+          "id": "ch02",
+          "title": "Architecture 8086",
+          "duration": "2h"
+        },
+        {
+          "id": "ch03",
+          "title": "Les registres 16-bit",
+          "duration": "2h"
+        },
+        {
+          "id": "ch04",
+          "title": "Instructions de base",
+          "duration": "2h"
+        },
+        {
+          "id": "ch05",
+          "title": "Modes d'adressage",
+          "duration": "1.5h"
+        },
+        {
+          "id": "ch06",
+          "title": "Instructions de contrôle",
+          "duration": "2h"
+        },
+        {
+          "id": "ch07",
+          "title": "La pile (Stack)",
+          "duration": "1.5h"
+        },
+        {
+          "id": "ch08",
+          "title": "Procédures et fonctions",
+          "duration": "2h"
+        },
+        {
+          "id": "ch09",
+          "title": "Manipulation de chaînes",
+          "duration": "2h"
+        },
+        {
+          "id": "ch10",
+          "title": "Tableaux et données",
+          "duration": "1.5h"
+        },
+        {
+          "id": "ch11",
+          "title": "Interruptions DOS",
+          "duration": "2h"
+        },
+        {
+          "id": "ch12",
+          "title": "Affichage vidéo",
+          "duration": "2h"
+        },
+        {
+          "id": "ch13",
+          "title": "Ports et périphériques",
+          "duration": "1.5h"
+        },
+        {
+          "id": "ch14",
+          "title": "Debugging avec emu8086",
+          "duration": "1.5h"
+        },
+        {
+          "id": "ch15",
+          "title": "Projets pratiques",
+          "duration": "2h"
+        }
+      ]
+    },
+    {
+      "id": "iot",
+      "title": "IoT - Internet des Objets",
+      "category": "technologie-embarquee",
+      "categoryLabel": "Technologie embarquée",
+      "level": "Intermédiaire",
+      "description": "Créez des objets connectés avec Arduino, Raspberry Pi et découvrez l'univers de l'IoT.",
+      "duration": "À venir",
+      "chapters": 0,
+      "image": "assets/images/courses/iot.jpg",
+      "keywords": [
+        "iot",
+        "arduino",
+        "raspberry pi",
+        "capteurs",
+        "embarqué"
+      ],
+      "chapterList": []
+    },
+    {
+      "id": "probabilite",
+      "title": "Probabilités et Statistique",
+      "category": "modules-transversaux",
+      "categoryLabel": "Modules Transversaux",
+      "level": "Intermédiaire",
+      "description": "Maîtrisez les concepts fondamentaux : Combinatoire, Variables Aléatoires Discrètes et Continues, et Lois usuelles.",
+      "duration": "10-15 heures",
+      "chapters": 3,
+      "image": "assets/images/courses/stats.jpg",
+      "keywords": [
+        "probabilités",
+        "statistiques",
+        "combinatoire",
+        "lois",
+        "variables aléatoires"
+      ],
+      "chapterList": [
+        {
+          "id": "ch01-introduction-combinatoire",
+          "title": "Analyse Combinatoire et Probabilités",
+          "duration": "3h"
+        },
+        {
+          "id": "ch02-variables-discretes",
+          "title": "Variables Aléatoires Discrètes",
+          "duration": "3h"
+        },
+        {
+          "id": "ch03-lois-continues-statistiques",
+          "title": "Lois Continues et Statistiques",
+          "duration": "3h"
+        }
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "id": "web-development",
+      "name": "Développement Web",
+      "description": "HTML, CSS, JavaScript, frameworks et outils pour créer des sites et applications web modernes",
+      "icon": "🌐",
+      "color": "#0066cc"
+    },
+    {
+      "id": "programmation",
+      "name": "Programmation",
+      "description": "Langages de programmation, algorithmique et développement logiciel",
+      "icon": "💻",
+      "color": "#00a896"
+    },
+    {
+      "id": "intelligence-artificielle",
+      "name": "Intelligence Artificielle",
+      "description": "Machine Learning, Deep Learning, réseaux de neurones et IA",
+      "icon": "🤖",
+      "color": "#f77f00"
+    },
+    {
+      "id": "mathematiques",
+      "name": "Mathématiques",
+      "description": "Mathématiques pour l'informatique, statistiques et analyse de données",
+      "icon": "📊",
+      "color": "#dc3545"
+    },
+    {
+      "id": "systemes-exploitation",
+      "name": "Systèmes d'exploitation",
+      "description": "Linux, Windows, administration système et réseaux",
+      "icon": "⚙️",
+      "color": "#6f42c1"
+    },
+    {
+      "id": "technologie-embarquee",
+      "name": "Technologie embarquée",
+      "description": "IoT, Arduino, Raspberry Pi et systèmes embarqués",
+      "icon": "🔌",
+      "color": "#28a745"
+    },
+    {
+      "id": "modules-transversaux",
+      "name": "Modules Transversaux",
+      "description": "Mathématiques, Probabilités, et autres compétences fondamentales.",
+      "icon": "📐",
+      "color": "#e83e8c"
+    }
+  ]
+}

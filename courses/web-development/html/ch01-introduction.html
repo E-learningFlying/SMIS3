@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Chapitre 1 : Introduction au HTML - Découvrez les fondamentaux du langage de balisage web">
+
+    <title>Chapitre 1 : Introduction au HTML - Learn2succeed</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+
+    <!-- Prism.js for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo">
+                <span>📚</span>
+                <span>Learn2succeed</span>
+            </a>
+
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+                ☰
+            </button>
+
+            <nav class="main-nav" aria-label="Navigation principale">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours HTML</h3>
+                        <ul class="chapter-list" id="chapter-list">
+                            <!-- Généré dynamiquement -->
+                        </ul>
+                    </div>
+                </aside>
+
+                <!-- Chapter Content -->
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <!-- Breadcrumb -->
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours HTML</a></li>
+                                <li class="breadcrumb-item active">Chapitre 1 : Introduction au HTML</li>
+                            </ol>
+                        </nav>
+
+                        <!-- Chapter Header -->
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 1</span>
+                            <h1 class="mb-3">Introduction au HTML</h1>
+                            <p class="text-lg text-secondary">
+                                Découvrez ce qu'est le HTML, son rôle dans le développement web et comment fonctionne le
+                                langage de balisage qui structure l'ensemble du web.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 1 heure</p>
+                        </header>
+
+                        <!-- Navigation buttons (top) -->
+                        <nav class="chapter-nav" aria-label="Navigation du chapitre">
+                            <div></div>
+                            <a href="ch02-structure.html" class="chapter-nav-btn">
+                                Suivant : Structure d'un document HTML →
+                            </a>
+                        </nav>
+
+                        <!-- Chapter Content -->
+                        <section class="chapter-content">
+                            <h2>Qu'est-ce que le HTML ?</h2>
+
+                            <p>
+                                <strong>HTML</strong> (HyperText Markup Language) est le langage de balisage standard
+                                utilisé pour créer des pages web.
+                                Ce n'est pas un langage de programmation, mais plutôt un langage de structuration qui
+                                permet de définir le contenu et la structure d'une page web.
+                            </p>
+
+                            <h3>Définition et signification</h3>
+                            <ul>
+                                <li><strong>HyperText</strong> : fait référence aux liens hypertextes qui connectent les
+                                    pages web entre elles</li>
+                                <li><strong>Markup</strong> : désigne le système de balisage qui permet d'annoter le
+                                    contenu</li>
+                                <li><strong>Language</strong> : c'est un langage avec sa propre syntaxe et ses propres
+                                    règles</li>
+                            </ul>
+
+                            <div class="alert alert-info">
+                                <h4>💡 Le saviez-vous ?</h4>
+                                <p>
+                                    HTML a été créé en 1991 par Tim Berners-Lee, le créateur du World Wide Web.
+                                    La version actuelle, HTML5, a été publiée en 2014 et continue d'évoluer.
+                                </p>
+                            </div>
+
+                            <h2>Le rôle du HTML dans le développement web</h2>
+
+                            <p>
+                                Le développement web moderne repose sur trois piliers fondamentaux, chacun ayant un rôle
+                                spécifique :
+                            </p>
+
+                            <div class="row g-3 my-4">
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <div style="font-size: 3rem;">📏</div>
+                                            <h5>HTML</h5>
+                                            <p class="text-sm">Structure et contenu</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <div style="font-size: 3rem;">🎨</div>
+                                            <h5>CSS</h5>
+                                            <p class="text-sm">Présentation et style</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <div style="font-size: 3rem;">⚡</div>
+                                            <h5>JavaScript</h5>
+                                            <p class="text-sm">Comportement et interactivité</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p>
+                                <strong>HTML</strong> joue le rôle de fondation : il définit la structure sémantique du
+                                contenu (titres, paragraphes, listes, liens, images, etc.).
+                                Sans HTML, il n'y a pas de page web !
+                            </p>
+
+                            <h2>Anatomie d'un élément HTML</h2>
+
+                            <p>Le HTML utilise des <strong>balises</strong> (tags en anglais) pour structurer le
+                                contenu. Voici l'anatomie d'un élément HTML :</p>
+
+                            <pre><code class="language-html">&lt;!-- Structure de base d'un élément HTML --&gt;
+&lt;nomBalise attribut="valeur"&gt;Contenu de l'élément&lt;/nomBalise&gt;
+
+&lt;!-- Exemple concret : un paragraphe --&gt;
+&lt;p class="introduction"&gt;Ceci est un paragraphe de texte.&lt;/p&gt;</code></pre>
+
+                            <p>Un élément HTML se compose de :</p>
+                            <ol>
+                                <li><strong>Balise ouvrante</strong> : <code>&lt;p&gt;</code> - marque le début de
+                                    l'élément</li>
+                                <li><strong>Attributs</strong> (optionnels) : <code>class="introduction"</code> -
+                                    fournissent des informations supplémentaires</li>
+                                <li><strong>Contenu</strong> : le texte ou d'autres éléments HTML à l'intérieur</li>
+                                <li><strong>Balise fermante</strong> : <code>&lt;/p&gt;</code> - marque la fin de
+                                    l'élément</li>
+                            </ol>
+
+                            <div class="alert alert-warning">
+                                <h4>⚠️ Attention !</h4>
+                                <p>
+                                    Certaines balises HTML sont <strong>auto-fermantes</strong> et n'ont pas de balise
+                                    fermante ni de contenu.
+                                    Exemples : <code>&lt;img&gt;</code>, <code>&lt;br&gt;</code>,
+                                    <code>&lt;input&gt;</code>.
+                                </p>
+                            </div>
+
+                            <h2>Votre premier document HTML</h2>
+
+                            <p>Créons ensemble votre tout premier document HTML. Voici la structure minimale d'une page
+                                web :</p>
+
+                            <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Ma première page HTML&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Bienvenue sur ma première page web !&lt;/h1&gt;
+    &lt;p&gt;Ceci est un paragraphe de texte.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+                            <p>Décortiquons ce code :</p>
+                            <ul>
+                                <li><code>&lt;!DOCTYPE html&gt;</code> : déclare que ce document utilise HTML5</li>
+                                <li><code>&lt;html lang="fr"&gt;</code> : élément racine, avec l'attribut de langue
+                                    française</li>
+                                <li><code>&lt;head&gt;</code> : contient les métadonnées (informations sur la page)</li>
+                                <li><code>&lt;meta charset="UTF-8"&gt;</code> : définit l'encodage de caractères (pour
+                                    les accents, etc.)</li>
+                                <li><code>&lt;title&gt;</code> : le titre qui apparaît dans l'onglet du navigateur</li>
+                                <li><code>&lt;body&gt;</code> : contient tout le contenu visible de la page</li>
+                            </ul>
+
+                            <h2>Comment créer et visualiser une page HTML ?</h2>
+
+                            <p>Pour créer votre première page HTML, suivez ces étapes simples :</p>
+
+                            <ol>
+                                <li>
+                                    <strong>Ouvrez un éditeur de texte</strong>
+                                    <ul>
+                                        <li>Windows : Notepad (ou mieux : VS Code, Notepad++)</li>
+                                        <li>Mac : TextEdit (ou mieux : VS Code, Sublime Text)</li>
+                                        <li>Linux : gedit, nano, vim (ou VS Code)</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Copiez le code</strong> HTML ci-dessus dans votre éditeur</li>
+                                <li><strong>Enregistrez le fichier</strong> avec l'extension <code>.html</code> (exemple
+                                    : <code>index.html</code>)</li>
+                                <li><strong>Ouvrez le fichier</strong> avec un navigateur web (double-clic sur le
+                                    fichier)</li>
+                                <li><strong>Admirez le résultat</strong> ! 🎉</li>
+                            </ol>
+
+                            <!-- Section Astuces -->
+                            <aside class="tips alert">
+                                <h3>💡 Astuces</h3>
+                                <ul>
+                                    <li>Utilisez toujours l'indentation (espaces ou tabulations) pour rendre votre code
+                                        lisible</li>
+                                    <li>Ajoutez des commentaires pour expliquer votre code :
+                                        <code>&lt;!-- Ceci est un commentaire --&gt;</code>
+                                    </li>
+                                    <li>Utilisez toujours des balises en minuscules (convention HTML5)</li>
+                                    <li>Fermez toujours vos balises dans le bon ordre (LIFO : Last In, First Out)</li>
+                                    <li>Utilisez un éditeur de code moderne comme VS Code pour le coloration syntaxique
+                                        et l'auto-complétion</li>
+                                    <li>Testez votre page dans plusieurs navigateurs (Chrome, Firefox, Safari, Edge)
+                                    </li>
+                                </ul>
+                            </aside>
+
+                            <!-- Section Erreurs fréquentes -->
+                            <aside class="common-mistakes alert">
+                                <h3>⚠️ Erreurs fréquentes à éviter</h3>
+                                <ul>
+                                    <li><strong>Oublier la balise fermante</strong> : <code>&lt;p&gt;Texte</code> ❌ →
+                                        <code>&lt;p&gt;Texte&lt;/p&gt;</code> ✓
+                                    </li>
+                                    <li><strong>Mal imbriquer les balises</strong> :
+                                        <code>&lt;p&gt;&lt;strong&gt;Texte&lt;/p&gt;&lt;/strong&gt;</code> ❌ →
+                                        <code>&lt;p&gt;&lt;strong&gt;Texte&lt;/strong&gt;&lt;/p&gt;</code> ✓
+                                    </li>
+                                    <li><strong>Oublier les guillemets</strong> dans les attributs :
+                                        <code>&lt;p class=intro&gt;</code> ❌ → <code>&lt;p class="intro"&gt;</code> ✓
+                                    </li>
+                                    <li><strong>Utiliser des majuscules</strong> : <code>&lt;P&gt;</code> ❌ →
+                                        <code>&lt;p&gt;</code> ✓ (HTML5 préfère les minuscules)
+                                    </li>
+                                    <li><strong>Oublier le DOCTYPE</strong> : peut causer des problèmes de rendu dans
+                                        les navigateurs</li>
+                                    <li><strong>Ne pas spécifier l'encodage UTF-8</strong> : les accents peuvent ne pas
+                                        s'afficher correctement</li>
+                                </ul>
+                            </aside>
+
+                            <h2>Résumé du chapitre</h2>
+
+                            <div class="card" style="background-color: var(--surface);">
+                                <div class="card-body">
+                                    <p><strong>Points clés à retenir :</strong></p>
+                                    <ul>
+                                        <li>HTML est le langage de balisage standard pour créer des pages web</li>
+                                        <li>HTML structure le contenu, CSS le stylise, JavaScript le rend interactif
+                                        </li>
+                                        <li>Un élément HTML se compose d'une balise ouvrante, d'attributs optionnels, de
+                                            contenu et d'une balise fermante</li>
+                                        <li>Tout document HTML commence par <code>&lt;!DOCTYPE html&gt;</code></li>
+                                        <li>La structure de base comprend <code>&lt;html&gt;</code>,
+                                            <code>&lt;head&gt;</code> et <code>&lt;body&gt;</code>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Quiz Section -->
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch01"></div>
+                        </section>
+
+                        <!-- Exercices -->
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Votre première page</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>
+                                        Créez une page HTML qui affiche votre nom dans un titre de niveau 1
+                                        (<code>&lt;h1&gt;</code>)
+                                        et une phrase de présentation dans un paragraphe (<code>&lt;p&gt;</code>).
+                                    </p>
+                                    <p><strong>Objectifs :</strong></p>
+                                    <ul>
+                                        <li>Utiliser la structure HTML5 de base</li>
+                                        <li>Ajouter un titre significatif à la page</li>
+                                        <li>Créer votre premier contenu visible</li>
+                                    </ul>
+                                </div>
+                                <div class="exercise-solution">
+                                    <button class="btn btn-outline btn-sm"
+                                        onclick="this.nextElementSibling.style.display='block'; this.style.display='none';">
+                                        Voir la solution
+                                    </button>
+                                    <div style="display:none;">
+                                        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Ma présentation&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Marie Dupont&lt;/h1&gt;
+    &lt;p&gt;Bonjour ! Je suis développeuse web junior et j'apprends le HTML.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Structure complète</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>
+                                        Créez une page HTML avec les éléments suivants :
+                                    </p>
+                                    <ul>
+                                        <li>Un titre principal (<code>&lt;h1&gt;</code>) : "Mon CV en ligne"</li>
+                                        <li>Trois sections avec des titres de niveau 2 (<code>&lt;h2&gt;</code>) :
+                                            "Formation", "Expérience", "Compétences"</li>
+                                        <li>Au moins un paragraphe de texte dans chaque section</li>
+                                        <li>Des commentaires HTML pour séparer les sections</li>
+                                    </ul>
+                                </div>
+                                <div class="exercise-solution">
+                                    <button class="btn btn-outline btn-sm"
+                                        onclick="this.nextElementSibling.style.display='block'; this.style.display='none';">
+                                        Voir la solution
+                                    </button>
+                                    <div style="display:none;">
+                                        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Mon CV en ligne&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Mon CV en ligne&lt;/h1&gt;
+    
+    &lt;!-- Section Formation --&gt;
+    &lt;h2&gt;Formation&lt;/h2&gt;
+    &lt;p&gt;Diplômée d'une licence en informatique, j'ai approfondi mes connaissances en développement web.&lt;/p&gt;
+    
+    &lt;!-- Section Expérience --&gt;
+    &lt;h2&gt;Expérience&lt;/h2&gt;
+    &lt;p&gt;Stage de 6 mois en tant que développeuse web junior dans une agence numérique.&lt;/p&gt;
+    
+    &lt;!-- Section Compétences --&gt;
+    &lt;h2&gt;Compétences&lt;/h2&gt;
+    &lt;p&gt;HTML5, CSS3, JavaScript, travail en équipe, gestion de projet.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Navigation buttons (bottom) -->
+                        <nav class="chapter-nav" aria-label="Navigation du chapitre">
+                            <div></div>
+                            <a href="ch02-structure.html" class="chapter-nav-btn">
+                                Suivant : Structure d'un document HTML →
+                            </a>
+                        </nav>
+
+                        <!-- Mark as complete button -->
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">
+                                ✓ Marquer ce chapitre comme terminé
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'html';
+        const chapterId = 'ch01-introduction';
+
+        const chapters = [
+            { id: "ch01-introduction", title: "Introduction au HTML" },
+            { id: "ch02-structure", title: "Structure d'un document HTML" },
+            { id: "ch03-balises-essentielles", title: "Les balises essentielles" },
+            { id: "ch04-texte-formatage", title: "Texte et formatage" },
+            { id: "ch05-liens-navigation", title: "Liens et navigation" },
+            { id: "ch06-images-medias", title: "Images et médias" },
+            { id: "ch07-listes", title: "Listes" },
+            { id: "ch08-tableaux", title: "Tableaux" },
+            { id: "ch09-formulaires-1", title: "Formulaires - Partie 1" },
+            { id: "ch10-formulaires-2", title: "Formulaires - Partie 2" },
+            { id: "ch11-html-semantique", title: "HTML sémantique" },
+            { id: "ch12-metadonnees-seo", title: "Métadonnées et SEO" },
+            { id: "ch13-accessibilite", title: "Accessibilité" },
+            { id: "ch14-html5-apis", title: "HTML5 APIs" },
+            { id: "ch15-bonnes-pratiques", title: "Bonnes pratiques" }
+        ];
+
+        // Données du quiz
+        const quizData = {
+            title: "Quiz - Introduction au HTML",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                {
+                    question: "Que signifie HTML ?",
+                    type: "single",
+                    options: [
+                        "HyperText Markup Language",
+                        "High Tech Modern Language",
+                        "Home Tool Markup Language",
+                        "HyperText Making Language"
+                    ],
+                    correct: 0,
+                    explanation: "HTML signifie HyperText Markup Language, où HyperText fait référence aux liens hypertextes, Markup au système de balisage, et Language indique qu'il s'agit d'un langage avec sa syntaxe."
+                },
+                {
+                    question: "Quel est le rôle principal du HTML dans le développement web ?",
+                    type: "single",
+                    options: [
+                        "Styliser les pages web",
+                        "Structurer le contenu des pages web",
+                        "Ajouter de l'interactivité",
+                        "Gérer les bases de données"
+                    ],
+                    correct: 1,
+                    explanation: "Le rôle principal du HTML est de structurer le contenu des pages web. Le CSS stylise les pages, et JavaScript ajoute l'interactivité."
+                },
+                {
+                    question: "Quelle est la structure correcte d'un élément HTML ?",
+                    type: "single",
+                    options: [
+                        "&lt;balise&gt;contenu&lt;balise&gt;",
+                        "&lt;balise&gt;contenu&lt;/balise&gt;",
+                        "[balise]contenu[/balise]",
+                        "{balise}contenu{/balise}"
+                    ],
+                    correct: 1,
+                    explanation: "Un élément HTML utilise des chevrons &lt; &gt; pour la balise ouvrante et &lt;/ &gt; pour la balise fermante."
+                },
+                {
+                    question: "Quelle balise déclare qu'un document utilise HTML5 ?",
+                    type: "single",
+                    options: [
+                        "&lt;html5&gt;",
+                        "&lt;!DOCTYPE html&gt;",
+                        "&lt;version html5&gt;",
+                        "&lt;meta html='5'&gt;"
+                    ],
+                    correct: 1,
+                    explanation: "&lt;!DOCTYPE html&gt; est la déclaration qui indique que le document utilise HTML5. C'est toujours la première ligne d'un document HTML."
+                },
+                {
+                    question: "Quelles sont les parties principales d'un document HTML ? (plusieurs réponses possibles)",
+                    type: "multiple",
+                    options: [
+                        "&lt;html&gt;",
+                        "&lt;head&gt;",
+                        "&lt;body&gt;",
+                        "&lt;footer&gt;"
+                    ],
+                    correct: [0, 1, 2],
+                    explanation: "Les trois parties principales d'un document HTML sont &lt;html&gt; (élément racine), &lt;head&gt; (métadonnées), et &lt;body&gt; (contenu visible). &lt;footer&gt; est un élément de contenu, pas une partie structurelle principale."
+                },
+                {
+                    question: "Pourquoi est-il important de spécifier l'encodage UTF-8 ?",
+                    type: "single",
+                    options: [
+                        "Pour que la page se charge plus vite",
+                        "Pour que les accents et caractères spéciaux s'affichent correctement",
+                        "Pour améliorer le référencement",
+                        "C'est obligatoire en HTML5"
+                    ],
+                    correct: 1,
+                    explanation: "L'encodage UTF-8 permet d'afficher correctement les accents, les caractères spéciaux et les symboles de différentes langues."
+                },
+                {
+                    question: "HTML est un langage de programmation.",
+                    type: "single",
+                    options: [
+                        "Vrai",
+                        "Faux"
+                    ],
+                    correct: 1,
+                    explanation: "Faux. HTML est un langage de balisage (markup language), pas un langage de programmation. Il structure le contenu mais ne contient pas de logique de programmation."
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Marquer comme visité
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+
+            // Charger la sidebar
+            const chapterList = document.getElementById('chapter-list');
+            const progress = ProgressTracker.getCourseProgress(courseId);
+
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+
+                if (chapter.id === chapterId) {
+                    link.classList.add('active');
+                } else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) {
+                    link.classList.add('completed');
+                }
+
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+
+            // Créer le quiz
+            QuizSystem.createQuiz(quizData, 'quiz-ch01');
+
+            // Bouton marquer comme terminé
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+
+                alert('Félicitations ! Chapitre marqué comme terminé. 🎉');
+
+                // Mettre à jour la sidebar
+                location.reload();
+            });
+        });
+    </script>
+</body>
+
+</html>

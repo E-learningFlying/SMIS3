@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chapitre 6 : Instructions de contrôle en assembleur 8086">
+    <title>Chapitre 6 : Instructions de contrôle - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours Assembleur 8086</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours Assembleur 8086</a></li>
+                                <li class="breadcrumb-item active">Chapitre 6 : Contrôle</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 6</span>
+                            <h1 class="mb-3">Instructions de contrôle</h1>
+                            <p class="text-lg text-secondary">
+                                Maîtrisez les sauts, boucles et structures de contrôle : JMP, CMP, Jxx, LOOP.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 2h</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch05-adressage.html" class="chapter-nav-btn">← Précédent : Adressage</a>
+                            <a href="ch07-pile.html" class="chapter-nav-btn">Suivant : Pile →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>Le flux d'exécution</h2>
+
+                            <p>
+                                Par défaut, les instructions s'exécutent <strong>séquentiellement</strong>. Les
+                                instructions de contrôle permettent de :
+                            </p>
+
+                            <ul>
+                                <li>Sauter à une autre partie du code</li>
+                                <li>Créer des boucles</li>
+                                <li>Implémenter des conditions (if/else)</li>
+                                <li>Répéter des opérations</li>
+                            </ul>
+
+                            <h2>CMP - Comparaison</h2>
+
+                            <p><strong>CMP</strong> compare deux opérandes en effectuant une soustraction (op1 - op2)
+                                <strong>sans stocker le résultat</strong>. Seuls les flags sont modifiés.</p>
+
+                            <pre><code class="language-asm">CMP AX, BX     ; Compare AX et BX
+               ; Effectue AX - BX, modifie les flags
+               ; AX et BX ne changent pas !</code></pre>
+
+                            <h3>Flags modifiés par CMP</h3>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Comparaison</th>
+                                        <th>Flags résultants</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>AX = BX</td>
+                                        <td>ZF = 1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AX &gt; BX (non-signé)</td>
+                                        <td>CF = 0, ZF = 0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AX &lt; BX (non-signé)</td>
+                                        <td>CF = 1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AX &gt; BX (signé)</td>
+                                        <td>ZF = 0, SF = OF</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AX &lt; BX (signé)</td>
+                                        <td>SF ≠ OF</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h2>JMP - Saut inconditionnel</h2>
+
+                            <p><strong>JMP</strong> saute toujours vers le label spécifié :</p>
+
+                            <pre><code class="language-asm">    MOV AX, 10
+    JMP suite      ; Saute à 'suite'
+    MOV BX, 20     ; Cette ligne est ignorée !
+suite:
+    ADD AX, 5      ; AX = 15</code></pre>
+
+                            <h2>Sauts conditionnels</h2>
+
+                            <p>Les sauts conditionnels testent les flags et sautent seulement si la condition est vraie.
+                            </p>
+
+                            <h3>Sauts basés sur l'égalité/zéro</h3>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Instruction</th>
+                                        <th>Condition</th>
+                                        <th>Flags testés</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>JE / JZ</strong></td>
+                                        <td>Jump if Equal / Zero</td>
+                                        <td>ZF = 1</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>JNE / JNZ</strong></td>
+                                        <td>Jump if Not Equal / Not Zero</td>
+                                        <td>ZF = 0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <pre><code class="language-asm">CMP AX, BX
+JE egal        ; Saute si AX = BX
+    ; Code si AX ≠ BX
+    JMP fin
+egal:
+    ; Code si AX = BX
+fin:</code></pre>
+
+                            <h3>Sauts pour nombres NON-SIGNÉS</h3>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Instruction</th>
+                                        <th>Condition</th>
+                                        <th>Signification</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>JA / JNBE</strong></td>
+                                        <td>Above / Not Below or Equal</td>
+                                        <td>op1 &gt; op2</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>JAE / JNB</strong></td>
+                                        <td>Above or Equal / Not Below</td>
+                                        <td>op1 ≥ op2</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>JB / JNAE</strong></td>
+                                        <td>Below / Not Above or Equal</td>
+                                        <td>op1 &lt; op2</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>JBE / JNA</strong></td>
+                                        <td>Below or Equal / Not Above</td>
+                                        <td>op1 ≤ op2</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h3>Sauts pour nombres SIGNÉS</h3>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Instruction</th>
+                                        <th>Condition</th>
+                                        <th>Signification</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>JG / JNLE</strong></td>
+                                        <td>Greater / Not Less or Equal</td>
+                                        <td>op1 &gt; op2</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>JGE / JNL</strong></td>
+                                        <td>Greater or Equal / Not Less</td>
+                                        <td>op1 ≥ op2</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>JL / JNGE</strong></td>
+                                        <td>Less / Not Greater or Equal</td>
+                                        <td>op1 &lt; op2</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>JLE / JNG</strong></td>
+                                        <td>Less or Equal / Not Greater</td>
+                                        <td>op1 ≤ op2</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="alert alert-warning">
+                                <h4>⚠️ Signé vs Non-signé</h4>
+                                <p>
+                                    <strong>Crucial :</strong> Utilisez JA/JB pour nombres non-signés (0-65535) et JG/JL
+                                    pour signés (-32768 à 32767) !
+                                </p>
+                            </div>
+
+                            <h3>Autres sauts conditionnels</h3>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Instruction</th>
+                                        <th>Condition</th>
+                                        <th>Flag testé</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>JS</strong></td>
+                                        <td>Jump if Sign</td>
+                                        <td>SF = 1 (négatif)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>JNS</strong></td>
+                                        <td>Jump if Not Sign</td>
+                                        <td>SF = 0 (positif)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>JC</strong></td>
+                                        <td>Jump if Carry</td>
+                                        <td>CF = 1</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>JNC</strong></td>
+                                        <td>Jump if Not Carry</td>
+                                        <td>CF = 0</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>JO</strong></td>
+                                        <td>Jump if Overflow</td>
+                                        <td>OF = 1</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>JNO</strong></td>
+                                        <td>Jump if Not Overflow</td>
+                                        <td>OF = 0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h2>LOOP - Boucles</h2>
+
+                            <p><strong>LOOP</strong> décrémente CX et saute au label si CX ≠ 0 :</p>
+
+                            <pre><code class="language-asm">MOV CX, 10      ; Compteur = 10
+boucle:
+    ; ... code à répéter ...
+    LOOP boucle     ; CX--, saute si CX ≠ 0
+                    ; Équivalent à : DEC CX / JNZ boucle</code></pre>
+
+                            <h3>Variantes de LOOP</h3>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Instruction</th>
+                                        <th>Condition de saut</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>LOOP</strong></td>
+                                        <td>CX ≠ 0</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>LOOPZ / LOOPE</strong></td>
+                                        <td>CX ≠ 0 ET ZF = 1</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>LOOPNZ / LOOPNE</strong></td>
+                                        <td>CX ≠ 0 ET ZF = 0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h2>Structures de contrôle classiques</h2>
+
+                            <h3>Structure if-else</h3>
+
+                            <pre><code class="language-asm">; if (AX > 10) { ... } else { ... }
+CMP AX, 10
+JLE sinon          ; Si AX ≤ 10, aller à sinon
+    ; Code si AX > 10
+    MOV BX, 1
+    JMP fin
+sinon:
+    ; Code si AX ≤ 10
+    MOV BX, 0
+fin:</code></pre>
+
+                            <h3>Structure if-else if-else</h3>
+
+                            <pre><code class="language-asm">; if (AX < 0) { ... } else if (AX == 0) { ... } else { ... }
+CMP AX, 0
+JL negatif         ; Si AX < 0
+JE zero            ; Si AX = 0
+    ; Code si AX > 0
+    MOV BX, 1
+    JMP fin
+negatif:
+    ; Code si AX < 0
+    MOV BX, -1
+    JMP fin
+zero:
+    ; Code si AX = 0
+    MOV BX, 0
+fin:</code></pre>
+
+                            <h3>Boucle for (avec LOOP)</h3>
+
+                            <pre><code class="language-asm">; for (i = 0; i < 10; i++) { ... }
+MOV CX, 10
+MOV SI, 0
+boucle:
+    ; ... utiliser SI comme indice ...
+    INC SI
+    LOOP boucle</code></pre>
+
+                            <h3>Boucle while</h3>
+
+                            <pre><code class="language-asm">; while (AX != 0) { ... }
+debut:
+    CMP AX, 0
+    JE fin             ; Si AX = 0, sortir
+    ; ... code de la boucle ...
+    DEC AX             ; Modifier condition
+    JMP debut
+fin:</code></pre>
+
+                            <h3>Boucle do-while</h3>
+
+                            <pre><code class="language-asm">; do { ... } while (BX > 0)
+debut:
+    ; ... code de la boucle ...
+    DEC BX
+    CMP BX, 0
+    JG debut           ; Continuer si BX > 0</code></pre>
+
+                            <h2>Exemples pratiques</h2>
+
+                            <h3>Trouver le maximum de deux nombres</h3>
+
+                            <pre><code class="language-asm">MOV AX, 15
+MOV BX, 23
+CMP AX, BX
+JG ax_plus_grand
+    ; BX >= AX
+    MOV CX, BX     ; CX = maximum
+    JMP fin
+ax_plus_grand:
+    MOV CX, AX     ; CX = maximum
+fin:
+; CX contient le maximum</code></pre>
+
+                            <h3>Compter les nombres pairs dans un tableau</h3>
+
+                            <pre><code class="language-asm">.DATA
+    tableau DB 1,2,3,4,5,6,7,8,9,10
+    taille EQU 10
+    
+.CODE
+    LEA SI, tableau
+    MOV CX, taille
+    XOR BX, BX         ; Compteur = 0
+    
+boucle:
+    MOV AL, [SI]
+    TEST AL, 1         ; Tester bit 0
+    JNZ impair         ; Si bit 0 = 1, impair
+        INC BX         ; Nombre pair, incrémenter
+    impair:
+    INC SI
+    LOOP boucle
+    
+; BX = nombre de pairs</code></pre>
+                        </section>
+
+                        <aside class="tips alert">
+                            <h3>💡 Astuces</h3>
+                            <ul>
+                                <li>CMP ne modifie pas les opérandes, seulement les flags</li>
+                                <li>Toujours CMP avant un saut conditionnel</li>
+                                <li>JA/JB pour unsigned, JG/JL pour signed</li>
+                                <li>LOOP automatique avec CX comme compteur</li>
+                                <li>JMP pour sortir d'une structure if/else</li>
+                                <li>Labels clairs et descriptifs pour la lisibilité</li>
+                            </ul>
+                        </aside>
+
+                        <aside class="common-mistakes alert">
+                            <h3>⚠️ Erreurs fréquentes</h3>
+                            <ul>
+                                <li><strong>Oublier CMP avant Jxx</strong> : Le saut testera les anciens flags !</li>
+                                <li><strong>Confondre JG et JA</strong> : Résultats incorrects avec nombres signés</li>
+                                <li><strong>Modifier CX dans une LOOP</strong> : Boucle infinie ou incorrecte</li>
+                                <li><strong>Oublier JMP après if</strong> : Exécute aussi le else !</li>
+                                <li><strong>Labels mal placés</strong> : Sauts vers mauvais endroit</li>
+                            </ul>
+                        </aside>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch06"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Structure if-else</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez un programme qui :</p>
+                                    <ul>
+                                        <li>Compare AX à 50</li>
+                                        <li>Si AX > 50, met BX à 1</li>
+                                        <li>Sinon, met BX à 0</li>
+                                        <li>Testez avec AX = 60 puis AX = 30</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle" onclick="toggleSolution('sol-ch06-ex1')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch06-ex1" class="solution-box" style="display: none;">
+                                    <h4>Solution - if-else</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.CODE
+MAIN PROC
+    ; Test 1 : AX = 60
+    MOV AX, 60
+    CMP AX, 50
+    JLE sinon
+        MOV BX, 1
+        JMP fin
+    sinon:
+        MOV BX, 0
+    fin:
+    ; BX = 1 (car 60 > 50)
+    
+    ; Test 2 : AX = 30
+    MOV AX, 30
+    CMP AX, 50
+    JLE sinon2
+        MOV CX, 1
+        JMP fin2
+    sinon2:
+        MOV CX, 0
+    fin2:
+    ; CX = 0 (car 30 ≤ 50)
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+<p><strong>Résultats :</strong> BX = 1, CX = 0</p>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Boucle 1 à 100</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Calculez la somme 1 + 2 + ... + 100 :</p>
+                                    <ul>
+                                        <li>Utilisez CX = 100 avec LOOP</li>
+                                        <li>Accumulez dans AX</li>
+                                        <li>Résultat attendu : 5050</li>
+                                        <li>Vérifiez dans emu8086</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle" onclick="toggleSolution('sol-ch06-ex2')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch06-ex2" class="solution-box" style="display: none;">
+                                    <h4>Solution - Somme 1 à 100</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.DATA
+    somme DW ?
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    MOV CX, 100
+    XOR AX, AX
+    MOV BX, 1
+
+boucle:
+    ADD AX, BX
+    INC BX
+    LOOP boucle
+    
+    ; AX = 5050 (13BAh)
+    MOV somme, AX
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+<p><strong>Résultat :</strong> 5050 (13BAh)</p>
+<p><strong>Formule :</strong> n(n+1)/2 = 100×101/2 = 5050</p>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Recherche dans tableau</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Recherchez une valeur :</p>
+                                    <ul>
+                                        <li>Tableau de 10 nombres</li>
+                                        <li>Cherchez la valeur 42</li>
+                                        <li>Si trouvée, BX = position (0-9)</li>
+                                        <li>Si non trouvée, BX = -1</li>
+                                        <li>Utilisez LOOP et CMP</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle" onclick="toggleSolution('sol-ch06-ex3')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch06-ex3" class="solution-box" style="display: none;">
+                                    <h4>Solution - Recherche</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.DATA
+    tableau DB 10, 25, 42, 18, 99, 42, 7, 33, 50, 12
+    taille EQU 10
+    cherche DB 42
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    LEA SI, tableau
+    MOV CX, taille
+    MOV AL, cherche
+    XOR BX, BX
+
+recherche:
+    CMP AL, [SI]
+    JE trouve
+    INC SI
+    INC BX
+    LOOP recherche
+    
+    MOV BX, -1
+    JMP fin
+
+trouve:
+    ; BX = position
+
+fin:
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+<p><strong>Résultat :</strong> BX = 2 (42 trouvé à l'index 2)</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch05-adressage.html" class="chapter-nav-btn">← Précédent : Adressage</a>
+                            <a href="ch07-pile.html" class="chapter-nav-btn">Suivant : Pile →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">✓ Marquer ce chapitre comme
+                                terminé</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nasm.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'assembly-x86-64';
+        const chapterId = 'ch06-controle';
+
+        const chapters = [
+            { id: "ch01-introduction", title: "Introduction" },
+            { id: "ch02-architecture", title: "Architecture 8086" },
+            { id: "ch03-registres", title: "Registres 16-bit" },
+            { id: "ch04-instructions-base", title: "Instructions de base" },
+            { id: "ch05-adressage", title: "Modes d'adressage" },
+            { id: "ch06-controle", title: "Instructions de contrôle" },
+            { id: "ch07-pile", title: "La pile" },
+            { id: "ch08-procedures", title: "Procédures" },
+            { id: "ch09-chaines", title: "Chaînes" },
+            { id: "ch10-tableaux", title: "Tableaux" },
+            { id: "ch11-interruptions", title: "Interruptions DOS" },
+            { id: "ch12-video", title: "Affichage vidéo" },
+            { id: "ch13-ports", title: "Ports" },
+            { id: "ch14-debugging", title: "Debugging" },
+            { id: "ch15-projets", title: "Projets" }
+        ];
+
+        const quizData = {
+            title: "Quiz - Instructions de contrôle",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                {
+                    question: "Que fait l'instruction CMP ?",
+                    type: "single",
+                    options: [
+                        "Copie les opérandes",
+                        "Compare en soustrayant sans stocker",
+                        "Compare et stocke le résultat",
+                        "Échange les opérandes"
+                    ],
+                    correct: 1,
+                    explanation: "CMP effectue op1 - op2, modifie les flags mais ne stocke pas le résultat."
+                },
+                {
+                    question: "JE saute si quel flag est activé ?",
+                    type: "single",
+                    options: ["CF", "ZF", "SF", "OF"],
+                    correct: 1,
+                    explanation: "JE (Jump if Equal) saute si ZF = 1, indiquant que le résultat de la comparaison est zéro (égalité)."
+                },
+                {
+                    question: "Que fait LOOP ?",
+                    type: "single",
+                    options: [
+                        "Saute toujours",
+                        "Décrémente CX et saute si CX ≠ 0",
+                        "Incrémente CX",
+                        "Compare CX à 0"
+                    ],
+                    correct: 1,
+                    explanation: "LOOP décrémente CX et saute au label si CX ≠ 0. C'est l'instruction idéale pour les boucles comptées."
+                },
+                {
+                    question: "Pour comparer des nombres signés, on utilise... ?",
+                    type: "single",
+                    options: ["JA/JB", "JG/JL", "JE/JNE", "JC/JNC"],
+                    correct: 1,
+                    explanation: "JG (Greater) et JL (Less) sont pour nombres signés. JA/JB pour non-signés."
+                },
+                {
+                    question: "JMP est... ?",
+                    type: "single",
+                    options: [
+                        "Conditionnel",
+                        "Inconditionnel",
+                        "Basé sur CX",
+                        "Basé sur ZF"
+                    ],
+                    correct: 1,
+                    explanation: "JMP (Jump) saute toujours, sans condition. C'est un saut inconditionnel."
+                },
+                {
+                    question: "Après CMP AX, BX suivi de JL, on saute si... ?",
+                    type: "single",
+                    options: [
+                        "AX > BX",
+                        "AX < BX",
+                        "AX = BX",
+                        "AX ≥ BX"
+                    ],
+                    correct: 1,
+                    explanation: "JL (Jump if Less) saute si op1 < op2, donc si AX < BX (nombres signés)."
+                },
+                {
+                    question: "Si CX = 0, que fait LOOP ?",
+                    type: "single",
+                    options: [
+                        "Saute quand même",
+                        "Ne saute pas",
+                        "Erreur",
+                        "Décrémente à -1 puis saute"
+                    ],
+                    correct: 1,
+                    explanation: "LOOP ne saute que si CX ≠ 0. Si CX = 0, l'exécution continue après LOOP."
+                },
+                {
+                    question: "Pour unsigned, utiliser JA ou JG pour tester si supérieur ?",
+                    type: "single",
+                    options: ["JG", "JA", "Les deux", "Aucun"],
+                    correct: 1,
+                    explanation: "JA (Jump if Above) est pour nombres non-signés. JG pour signés."
+                },
+                {
+                    question: "ZF = 1 signifie... ?",
+                    type: "single",
+                    options: [
+                        "Résultat négatif",
+                        "Résultat zéro ou égalité",
+                        "Débordement",
+                        "Retenue"
+                    ],
+                    correct: 1,
+                    explanation: "ZF (Zero Flag) = 1 indique que le résultat de l'opération est zéro, ou que deux valeurs comparées sont égales."
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+
+            QuizSystem.createQuiz(quizData, 'quiz-ch06');
+
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+    </script>
+
+    <script>
+        // Solution toggle function
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            const button = event.target;
+            
+            if (solution.style.display === 'none') {
+                solution.style.display = 'block';
+                button.textContent = '🙈 Masquer la solution';
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-primary');
+            } else {
+                solution.style.display = 'none';
+                button.textContent = '👁️ Voir la solution';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline-primary');
+            }
+        }
+    </script>
+    
+    <style>
+        .solution-box {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 0.375rem;
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        .solution-box h4 {
+            color: #0d6efd;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .solution-box pre {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .solution-toggle {
+            transition: all 0.2s ease;
+        }
+        
+        .solution-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+</body>
+
+</html>

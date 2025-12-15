@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Tableau de bord Learn2succeed - Suivez votre progression, vos cours et vos accomplissements">
+
+    <title>Mon tableau de bord - Learn2succeed</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="site-logo">
+                <span>📚</span>
+                <span>Learn2succeed</span>
+            </a>
+
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+                ☰
+            </button>
+
+            <nav class="main-nav" aria-label="Navigation principale">
+                <a href="index.html">Accueil</a>
+                <a href="dashboard.html" class="active">Mon tableau de bord</a>
+                <a href="search.html">Rechercher</a>
+                <a href="index.html#categories">Catégories</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="container section">
+            <h1 class="mb-4">📊 Mon tableau de bord</h1>
+
+            <!-- Vue d'ensemble de la progression -->
+            <section class="mb-5">
+                <div class="row g-4">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <div style="font-size: 2.5rem; color: var(--primary-color);">📚</div>
+                                <h3 class="mt-2 mb-1" id="total-courses">0</h3>
+                                <p class="text-secondary mb-0">Cours démarrés</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <div style="font-size: 2.5rem; color: var(--success);">✓</div>
+                                <h3 class="mt-2 mb-1" id="completed-courses">0</h3>
+                                <p class="text-secondary mb-0">Cours terminés</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <div style="font-size: 2.5rem; color: var(--secondary-color);">📖</div>
+                                <h3 class="mt-2 mb-1" id="total-chapters">0</h3>
+                                <p class="text-secondary mb-0">Chapitres étudiés</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <div style="font-size: 2.5rem; color: var(--accent-color);">🎯</div>
+                                <h3 class="mt-2 mb-1" id="overall-progress">0%</h3>
+                                <p class="text-secondary mb-0">Progression globale</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Progression circulaire -->
+            <section class="mb-5"
+                style="background: var(--surface); padding: var(--spacing-lg); border-radius: var(--radius-lg);">
+                <h2 class="mb-4">Votre progression</h2>
+                <div class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
+                    <div id="progress-circle-container" class="progress-circle">
+                        <svg width="120" height="120">
+                            <circle cx="60" cy="60" r="54" class="progress-circle-bg"></circle>
+                            <circle cx="60" cy="60" r="54" class="progress-circle-fill" id="progress-circle-fill"
+                                stroke-dasharray="339.292" stroke-dashoffset="339.292"></circle>
+                        </svg>
+                        <div class="progress-text" id="progress-percentage">0%</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cours en cours -->
+            <section class="mb-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2>Cours en cours</h2>
+                    <a href="index.html#courses" class="btn btn-outline btn-sm">Parcourir tous les cours</a>
+                </div>
+                <div id="courses-in-progress">
+                    <p class="text-secondary">Vous n'avez pas encore commencé de cours. <a
+                            href="index.html#courses">Explorez nos cours</a> pour commencer !</p>
+                </div>
+            </section>
+
+            <!-- Cours terminés -->
+            <section class="mb-5" id="completed-section" style="display: none;">
+                <h2 class="mb-3">Cours terminés 🎉</h2>
+                <div id="courses-completed"></div>
+            </section>
+
+            <!-- Actions -->
+            <section class="mb-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="mb-3">Actions</h3>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button onclick="ProgressTracker.exportProgress()" class="btn btn-outline btn-sm">
+                                📥 Exporter ma progression
+                            </button>
+                            <button onclick="document.getElementById('import-file').click()"
+                                class="btn btn-outline btn-sm">
+                                📤 Importer une progression
+                            </button>
+                            <button onclick="ProgressTracker.resetAllProgress()" class="btn btn-outline btn-sm"
+                                style="color: var(--error); border-color: var(--error);">
+                                🗑️ Réinitialiser tout
+                            </button>
+                        </div>
+                        <input type="file" id="import-file" accept=".json" style="display: none;"
+                            onchange="handleImport(event)">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dernière activité -->
+            <section>
+                <p class="text-secondary text-sm">
+                    <strong>Dernière activité :</strong> <span id="last-activity">Aucune activité</span>
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/progress-tracker.js"></script>
+
+    <script>
+        // Charger les données du tableau de bord
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Récupérer les statistiques de progression
+            const stats = ProgressTracker.getOverallProgress();
+            const progressData = ProgressTracker.getProgressData();
+
+            // Mettre à jour les statistiques
+            document.getElementById('total-courses').textContent = stats.started_courses;
+            document.getElementById('completed-courses').textContent = stats.completed_courses;
+            document.getElementById('total-chapters').textContent = stats.completed_chapters;
+            document.getElementById('overall-progress').textContent = stats.overall_progress + '%';
+            document.getElementById('progress-percentage').textContent = stats.overall_progress + '%';
+
+            // Mettre à jour le cercle de progression
+            updateProgressCircle(stats.overall_progress);
+
+            // Afficher la dernière activité
+            if (progressData.last_activity) {
+                const lastActivity = new Date(progressData.last_activity);
+                document.getElementById('last-activity').textContent = lastActivity.toLocaleString('fr-FR', {
+                    dateStyle: 'long',
+                    timeStyle: 'short'
+                });
+            }
+
+            // Charger les cours
+            try {
+                const response = await fetch('data/courses.json');
+                const data = await response.json();
+
+                // Afficher les cours en cours
+                const coursesInProgress = ProgressTracker.getCoursesInProgress();
+                displayCoursesInProgress(coursesInProgress, data.courses);
+
+                // Afficher les cours terminés
+                const coursesCompleted = ProgressTracker.getCompletedCourses();
+                if (coursesCompleted.length > 0) {
+                    document.getElementById('completed-section').style.display = 'block';
+                    displayCoursesCompleted(coursesCompleted, data.courses);
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des cours:', error);
+            }
+        });
+
+        function updateProgressCircle(percentage) {
+            const circle = document.getElementById('progress-circle-fill');
+            const circumference = 339.292; // 2 * π * 54
+            const offset = circumference - (percentage / 100) * circumference;
+            circle.style.strokeDashoffset = offset;
+        }
+
+        function displayCoursesInProgress(coursesInProgress, allCourses) {
+            const container = document.getElementById('courses-in-progress');
+
+            if (coursesInProgress.length === 0) {
+                return;
+            }
+
+            container.innerHTML = '';
+
+            coursesInProgress.forEach(courseProgress => {
+                const courseData = allCourses.find(c => c.id === courseProgress.id);
+                if (!courseData) return;
+
+                const courseCard = document.createElement('div');
+                courseCard.className = 'card mb-3';
+                courseCard.innerHTML = `
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <h4 class="mb-1">${courseData.title}</h4>
+                                <span class="badge badge-primary">${courseData.categoryLabel}</span>
+                            </div>
+                            <span class="badge badge-info">${courseProgress.progress}%</span>
+                        </div>
+                        <div class="progress-bar mb-2">
+                            <div class="progress-fill" style="width: ${courseProgress.progress}%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-secondary text-sm">
+                                ${Object.values(courseProgress.chapters).filter(ch => ch.completed).length} / ${courseData.chapters} chapitres
+                            </span>
+                            <a href="courses/${courseData.category}/${courseData.id}/index.html" class="btn btn-primary btn-sm">
+                                Continuer →
+                            </a>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(courseCard);
+            });
+        }
+
+        function displayCoursesCompleted(coursesCompleted, allCourses) {
+            const container = document.getElementById('courses-completed');
+            container.innerHTML = '';
+
+            coursesCompleted.forEach(courseProgress => {
+                const courseData = allCourses.find(c => c.id === courseProgress.id);
+                if (!courseData) return;
+
+                const completedDate = new Date(courseProgress.completed_at).toLocaleDateString('fr-FR');
+
+                const courseCard = document.createElement('div');
+                courseCard.className = 'card mb-3';
+                courseCard.innerHTML = `
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h4 class="mb-1">✓ ${courseData.title}</h4>
+                                <span class="badge badge-success">Terminé le ${completedDate}</span>
+                            </div>
+                            <a href="courses/${courseData.category}/${courseData.id}/index.html" class="btn btn-outline btn-sm">
+                                Revoir
+                            </a>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(courseCard);
+            });
+        }
+
+        function handleImport(event) {
+            const file = event.target.files[0];
+            if (file) {
+                ProgressTracker.importProgress(file);
+            }
+        }
+    </script>
+</body>
+
+</html>

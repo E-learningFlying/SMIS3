@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Learn2succeed - Plateforme d'apprentissage en ligne pour le développement web, la programmation, l'IA et plus. Cours académiques du niveau débutant à avancé.">
+    <meta name="keywords"
+        content="apprentissage, formation, développement web, programmation, HTML, CSS, JavaScript, PHP, C, Linux, IoT">
+    <meta name="author" content="Learn2succeed">
+
+    <title>Learn2succeed - Apprenez à réussir dans la tech</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+
+    <!-- Prism.js for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+</head>
+
+<body>
+    <!-- Skip to main content pour accessibilité -->
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="site-logo">
+                <span>📚</span>
+                <span>Learn2succeed</span>
+            </a>
+
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+                ☰
+            </button>
+
+            <nav class="main-nav" aria-label="Navigation principale">
+                <a href="index.html" class="active">Accueil</a>
+                <a href="dashboard.html">Mon tableau de bord</a>
+                <a href="search.html">Rechercher</a>
+                <a href="#categories">Catégories</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero section-lg"
+            style="background: linear-gradient(135deg, #0066cc 0%, #00a896 100%); color: white;">
+            <div class="container text-center">
+                <h1 style="color: white; font-size: var(--font-size-5xl); margin-bottom: var(--spacing-md);">
+                    Apprenez à réussir dans la tech
+                </h1>
+                <p class="text-lg"
+                    style="color: rgba(255,255,255,0.95); max-width: 700px; margin: 0 auto var(--spacing-xl);">
+                    Des cours académiques complets et structurés, du niveau débutant à avancé,
+                    dans les domaines du développement web, de la programmation, de l'IA et plus encore.
+                </p>
+                <div class="d-flex gap-3 justify-center" style="flex-wrap: wrap;">
+                    <a href="#courses" class="btn btn-lg" style="background-color: white; color: var(--primary-color);">
+                        Explorer les cours
+                    </a>
+                    <a href="dashboard.html" class="btn btn-lg btn-outline" style="border-color: white; color: white;">
+                        Mon tableau de bord
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section id="categories" class="section">
+            <div class="container">
+                <h2 class="text-center mb-4">Explorez nos catégories</h2>
+                <p class="text-center text-secondary mb-5"
+                    style="max-width: 600px; margin-left: auto; margin-right: auto;">
+                    Choisissez votre domaine d'intérêt et commencez votre parcours d'apprentissage
+                </p>
+
+                <div class="grid grid-3" id="categories-grid">
+                    <!-- Les catégories seront chargées dynamiquement via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Courses Section -->
+        <section id="courses" class="section" style="background-color: var(--surface);">
+            <div class="container">
+                <h2 class="text-center mb-4">Cours disponibles</h2>
+                <p class="text-center text-secondary mb-5">
+                    Commencez votre apprentissage avec nos cours structurés et progressifs
+                </p>
+
+                <!-- Container modifié pour accueillir les sections par catégories -->
+                <div id="courses-container">
+                    <!-- Les cours seront chargés dynamiquement et groupés par catégorie via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="section text-center">
+            <div class="container">
+                <h2 class="mb-3">Prêt à commencer votre parcours ?</h2>
+                <p class="text-secondary mb-4" style="max-width: 600px; margin-left: auto; margin-right: auto;">
+                    Rejoignez des milliers d'apprenants et développez vos compétences en technologie
+                </p>
+                <a href="#courses" class="btn btn-primary btn-lg">
+                    Commencer maintenant
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Learn2succeed</h4>
+                    <p class="text-secondary">
+                        Une plateforme d'apprentissage académique pour maîtriser les technologies du web,
+                        la programmation et l'informatique.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Catégories</h4>
+                    <ul>
+                        <li><a href="#web-development">Développement Web</a></li>
+                        <li><a href="#programmation">Programmation</a></li>
+                        <li><a href="#intelligence-artificielle">Intelligence Artificielle</a></li>
+                        <li><a href="#mathematiques">Mathématiques</a></li>
+                        <li><a href="#systemes-exploitation">Systèmes d'exploitation</a></li>
+                        <li><a href="#technologie-embarquee">Technologie embarquée</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Ressources</h4>
+                    <ul>
+                        <li><a href="dashboard.html">Tableau de bord</a></li>
+                        <li><a href="search.html">Recherche</a></li>
+                        <li><a href="#about">À propos</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Inspiration</h4>
+                    <ul>
+                        <li><a href="https://web.dev/learn" target="_blank" rel="noopener">web.dev</a></li>
+                        <li><a href="https://www.w3schools.com" target="_blank" rel="noopener">W3Schools</a></li>
+                        <li><a href="https://www.freecodecamp.org" target="_blank" rel="noopener">freeCodeCamp</a></li>
+                        <li><a href="https://www.codecademy.com" target="_blank" rel="noopener">Codecademy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Learn2succeed. Tous droits réservés. Fait avec ❤️ pour l'apprentissage.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="js/main.js"></script>
+
+    <script>
+        // Charger et afficher les catégories et cours
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('data/courses.json');
+                const data = await response.json();
+
+                // 1. Afficher les cartes de catégories
+                const categoriesGrid = document.getElementById('categories-grid');
+                data.categories.forEach(category => {
+                    const categoryCard = document.createElement('div');
+                    categoryCard.className = 'card';
+                    // Note: L'ancre href="#ID" va maintenant fonctionner car nous créons des sections avec ces ID en bas.
+                    categoryCard.innerHTML = `
+                        <div class="card-body" style="text-align: center;">
+                            <div style="font-size: 3rem; margin-bottom: var(--spacing-sm);">${category.icon}</div>
+                            <h3 class="card-title">${category.name}</h3>
+                            <p class="card-description">${category.description}</p>
+                            <a href="#${category.id}" class="btn btn-outline btn-sm">Voir les cours</a>
+                        </div>
+                    `;
+                    categoriesGrid.appendChild(categoryCard);
+                });
+
+                // 2. Afficher les cours GROUPÉS PAR CATÉGORIE
+                const coursesContainer = document.getElementById('courses-container');
+
+                data.categories.forEach(category => {
+                    // Filtrage des cours pour cette catégorie
+                    const categoryCourses = data.courses.filter(c => c.category === category.id);
+
+                    // On n'affiche la section que s'il y a des cours
+                    if (categoryCourses.length > 0) {
+                        // Création du wrapper de section
+                        const sectionDiv = document.createElement('div');
+                        sectionDiv.className = 'mb-5';
+
+                        // ID ajouté ici pour que les liens "Voir les cours" fonctionnent (ancre)
+                        sectionDiv.innerHTML = `
+                            <div id="${category.id}" style="padding-top: 100px; margin-top: -100px;"></div>
+                            <h3 class="mb-4 d-flex align-items-center" style="color: ${category.color}; border-bottom: 2px solid ${category.color}20; padding-bottom: 10px;">
+                                <span class="me-3" style="font-size: 1.5em;">${category.icon}</span>
+                                ${category.name}
+                            </h3>
+                            <div class="grid grid-3 category-grid"></div>
+                        `;
+
+                        const grid = sectionDiv.querySelector('.category-grid');
+
+                        // Création des cartes de cours
+                        categoryCourses.forEach(course => {
+                            const courseCard = document.createElement('a');
+                            courseCard.href = course.chapters > 0 ? `courses/${course.category}/${course.id}/index.html` : '#';
+                            courseCard.className = 'card-link';
+                            courseCard.innerHTML = `
+                                <div class="card h-100">
+                                    <div class="card-image" style="background: linear-gradient(135deg, ${category.color}, ${category.color}dd); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+                                        ${category.icon}
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-2">
+                                            <span class="badge badge-primary" style="background-color: ${category.color}">${category.name}</span>
+                                            <span class="badge badge-outline">${course.level}</span>
+                                        </div>
+                                        <h3 class="card-title">${course.title}</h3>
+                                        <p class="card-description">${course.description}</p>
+                                        ${course.chapters > 0 ?
+                                    `<div class="card-meta">
+                                                <span>📚 ${course.chapters} chapitres</span>
+                                                <span>⏱️ ${course.duration}</span>
+                                            </div>` :
+                                    `<div class="card-meta">
+                                                <span class="badge badge-warning">À venir</span>
+                                            </div>`
+                                }
+                                    </div>
+                                </div>
+                            `;
+
+                            // Gestion des cours "À venir"
+                            if (course.chapters === 0) {
+                                courseCard.style.opacity = '0.7';
+                                courseCard.style.cursor = 'not-allowed';
+                                courseCard.onclick = (e) => {
+                                    e.preventDefault();
+                                    alert('Ce cours sera bientôt disponible !');
+                                };
+                            }
+
+                            grid.appendChild(courseCard);
+                        });
+
+                        coursesContainer.appendChild(sectionDiv);
+                    }
+                });
+
+            } catch (error) {
+                console.error('Erreur lors du chargement des cours:', error);
+                document.getElementById('courses-container').innerHTML = '<div class="alert alert-danger">Impossible de charger les cours.</div>';
+            }
+        });
+
+        // Helpers retirés car plus nécessaires avec la nouvelle logique
+    </script>
+</body>
+
+</html>

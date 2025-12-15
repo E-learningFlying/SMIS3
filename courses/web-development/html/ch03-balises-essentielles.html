@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Chapitre 3 : Les balises essentielles - Découvrez les balises HTML fondamentales pour structurer vos pages web">
+
+    <title>Chapitre 3 : Les balises essentielles - Learn2succeed</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo">
+                <span>📚</span>
+                <span>Learn2succeed</span>
+            </a>
+
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours HTML</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours HTML</a></li>
+                                <li class="breadcrumb-item active">Chapitre 3 : Les balises essentielles</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 3</span>
+                            <h1 class="mb-3">Les balises essentielles</h1>
+                            <p class="text-lg text-secondary">
+                                Découvrez les balises HTML les plus importantes pour structurer le contenu de vos pages
+                                web : titres, paragraphes, emphases et sauts de ligne.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 1h30</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch02-structure.html" class="chapter-nav-btn">← Précédent : Structure d'un document
+                                HTML</a>
+                            <a href="ch04-texte-formatage.html" class="chapter-nav-btn">Suivant : Texte et formatage
+                                →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>Les titres (Headings)</h2>
+
+                            <p>
+                                HTML offre 6 niveaux de titres, de <code>&lt;h1&gt;</code> (le plus important) à
+                                <code>&lt;h6&gt;</code> (le moins important).
+                                Ces balises définissent la <strong>hiérarchie du contenu</strong>.
+                            </p>
+
+                            <pre><code class="language-html">&lt;h1&gt;Titre principal de la page&lt;/h1&gt;
+&lt;h2&gt;Section principale&lt;/h2&gt;
+&lt;h3&gt;Sous-section&lt;/h3&gt;
+&lt;h4&gt;Sous-sous-section&lt;/h4&gt;
+&lt;h5&gt;Titre de niveau 5&lt;/h5&gt;
+&lt;h6&gt;Titre de niveau 6&lt;/h6&gt;</code></pre>
+
+                            <div class="code-output">
+                                <h1 style="margin: 0.5rem 0;">Titre principal de la page</h1>
+                                <h2 style="margin: 0.5rem 0;">Section principale</h2>
+                                <h3 style="margin: 0.5rem 0;">Sous-section</h3>
+                                <h4 style="margin: 0.5rem 0;">Sous-sous-section</h4>
+                                <h5 style="margin: 0.5rem 0;">Titre de niveau 5</h5>
+                                <h6 style="margin: 0.5rem 0;">Titre de niveau 6</h6>
+                            </div>
+
+                            <h3>Importance de la hiérarchie</h3>
+                            <ul>
+                                <li><strong>SEO</strong> : Les moteurs de recherche utilisent les titres pour comprendre
+                                    la structure de votre contenu</li>
+                                <li><strong>Accessibilité</strong> : Les lecteurs d'écran naviguent via les titres</li>
+                                <li><strong>UX</strong> : Une hiérarchie claire aide les utilisateurs à scanner le
+                                    contenu</li>
+                            </ul>
+
+                            <div class="alert alert-info">
+                                <h4>📖 Règle d'or</h4>
+                                <p>
+                                    Il ne devrait y avoir qu'<strong>un seul &lt;h1&gt;</strong> par page (généralement
+                                    le titre principal).
+                                    Les autres niveaux peuvent être utilisés plusieurs fois.
+                                </p>
+                            </div>
+
+                            <h2>Les paragraphes</h2>
+
+                            <p>
+                                La balise <code>&lt;p&gt;</code> définit un paragraphe de texte. C'est la balise la plus
+                                utilisée pour le contenu textuel.
+                            </p>
+
+                            <pre><code class="language-html">&lt;p&gt;
+    Ceci est un premier paragraphe. Il contient plusieurs phrases qui 
+    forment un bloc de texte cohérent sur un sujet donné.
+&lt;/p&gt;
+
+&lt;p&gt;
+    Ceci est un deuxième paragraphe, séparé visuellement du premier 
+    par un espacement automatique.
+&lt;/p&gt;</code></pre>
+
+                            <div class="code-output">
+                                <p>Ceci est un premier paragraphe. Il contient plusieurs phrases qui forment un bloc de
+                                    texte cohérent sur un sujet donné.</p>
+                                <p>Ceci est un deuxième paragraphe, séparé visuellement du premier par un espacement
+                                    automatique.</p>
+                            </div>
+
+                            <h2>Les sauts de ligne et lignes horizontales</h2>
+
+                            <h3>Saut de ligne : &lt;br&gt;</h3>
+
+                            <p>
+                                La balise <code>&lt;br&gt;</code> crée un saut de ligne <strong>sans</strong> créer un
+                                nouveau paragraphe.
+                                C'est une balise <strong>auto-fermante</strong>.
+                            </p>
+
+                            <pre><code class="language-html">&lt;p&gt;
+    Première ligne&lt;br&gt;
+    Deuxième ligne&lt;br&gt;
+    Troisième ligne
+&lt;/p&gt;</code></pre>
+
+                            <div class="code-output">
+                                <p>
+                                    Première ligne<br>
+                                    Deuxième ligne<br>
+                                    Troisième ligne
+                                </p>
+                            </div>
+
+                            <h3>Ligne horizontale : &lt;hr&gt;</h3>
+
+                            <p>
+                                La balise <code>&lt;hr&gt;</code> crée une ligne horizontale pour séparer visuellement
+                                des sections de contenu.
+                                Elle représente une <strong>séparation thématique</strong>.
+                            </p>
+
+                            <pre><code class="language-html">&lt;p&gt;Section 1 : Introduction au sujet&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Section 2 : Développement du sujet&lt;/p&gt;</code></pre>
+
+                            <div class="code-output">
+                                <p>Section 1 : Introduction au sujet</p>
+                                <hr>
+                                <p>Section 2 : Développement du sujet</p>
+                            </div>
+
+                            <h2>Les balises d'emphase</h2>
+
+                            <h3>Texte en gras : &lt;strong&gt;</h3>
+
+                            <p>
+                                La balise <code>&lt;strong&gt;</code> indique que le texte a une <strong>grande
+                                    importance</strong>.
+                                Par défaut, il s'affiche en gras.
+                            </p>
+
+                            <pre><code class="language-html">&lt;p&gt;
+    Ceci est &lt;strong&gt;très important&lt;/strong&gt; à retenir.
+&lt;/p&gt;</code></pre>
+
+                            <div class="code-output">
+                                <p>Ceci est <strong>très important</strong> à retenir.</p>
+                            </div>
+
+                            <h3>Texte en italique : &lt;em&gt;</h3>
+
+                            <p>
+                                La balise <code>&lt;em&gt;</code> (emphasis) indique une <em>emphase</em> sur le texte.
+                                Par défaut, il s'affiche en italique.
+                            </p>
+
+                            <pre><code class="language-html">&lt;p&gt;
+    Je suis &lt;em&gt;vraiment&lt;/em&gt; content de vous voir.
+&lt;/p&gt;</code></pre>
+
+                            <div class="code-output">
+                                <p>Je suis <em>vraiment</em> content de vous voir.</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                                <h4>⚠️ &lt;strong&gt; vs &lt;b&gt; et &lt;em&gt; vs &lt;i&gt;</h4>
+                                <p>
+                                    HTML offre aussi <code>&lt;b&gt;</code> (bold) et <code>&lt;i&gt;</code> (italic),
+                                    mais ces balises sont purement visuelles.
+                                </p>
+                                <ul>
+                                    <li>Utilisez <code>&lt;strong&gt;</code> et <code>&lt;em&gt;</code> pour donner du
+                                        <strong>sens sémantique</strong></li>
+                                    <li>Utilisez <code>&lt;b&gt;</code> et <code>&lt;i&gt;</code> uniquement pour un
+                                        effet visuel sans importance particulière</li>
+                                </ul>
+                            </div>
+
+                            <h2>Combiner les balises</h2>
+
+                            <p>Les balises HTML peuvent être <strong>imbriquées</strong> pour combiner leurs effets :
+                            </p>
+
+                            <pre><code class="language-html">&lt;p&gt;
+    Ce texte est &lt;strong&gt;&lt;em&gt;très important et emphatique&lt;/em&gt;&lt;/strong&gt;.
+&lt;/p&gt;
+
+&lt;h2&gt;
+    Titre avec &lt;strong&gt;mot important&lt;/strong&gt;
+&lt;/h2&gt;</code></pre>
+
+                            <div class="code-output">
+                                <p>Ce texte est <strong><em>très important et emphatique</em></strong>.</p>
+                                <h2 style="margin: 0.5rem 0;">Titre avec <strong>mot important</strong></h2>
+                            </div>
+
+                            <h2>Exemple complet</h2>
+
+                            <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Article sur le HTML&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Introduction au HTML&lt;/h1&gt;
+    
+    &lt;p&gt;
+        Le &lt;strong&gt;HTML&lt;/strong&gt; (HyperText Markup Language) est le langage 
+        de base du web. Il permet de &lt;em&gt;structurer&lt;/em&gt; le contenu des pages.
+    &lt;/p&gt;
+    
+    &lt;h2&gt;Qu'est-ce qu'une balise ?&lt;/h2&gt;
+    
+    &lt;p&gt;
+        Une balise est un élément de syntaxe HTML qui&lt;br&gt;
+        commence par &lt;strong&gt;&amp;lt;&lt;/strong&gt; et&lt;br&gt;
+        se termine par &lt;strong&gt;&amp;gt;&lt;/strong&gt;
+    &lt;/p&gt;
+    
+    &lt;hr&gt;
+    
+    &lt;h2&gt;Pourquoi apprendre le HTML ?&lt;/h2&gt;
+    
+    &lt;p&gt;
+        Le HTML est &lt;strong&gt;essentiel&lt;/strong&gt; pour créer des sites web. 
+        C'est la &lt;em&gt;première&lt;/em&gt; compétence à maîtriser en développement web.
+    &lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+                            <aside class="tips alert">
+                                <h3>💡 Astuces</h3>
+                                <ul>
+                                    <li>Utilisez les titres pour créer une <strong>table des matières mentale</strong>
+                                        de votre page</li>
+                                    <li>Ne sautez pas de niveaux de titres (h1 → h3 ❌, utilisez h1 → h2 → h3 ✓)</li>
+                                    <li>Un paragraphe = une idée principale</li>
+                                    <li>Évitez d'abuser de <code>&lt;br&gt;</code> : utilisez plutôt plusieurs
+                                        <code>&lt;p&gt;</code></li>
+                                    <li>Utilisez <code>&lt;strong&gt;</code> et <code>&lt;em&gt;</code> avec parcimonie
+                                        pour qu'ils gardent leur impact</li>
+                                    <li>Préférez <code>&lt;strong&gt;</code>/<code>&lt;em&gt;</code> à
+                                        <code>&lt;b&gt;</code>/<code>&lt;i&gt;</code> pour le sens sémantique</li>
+                                </ul>
+                            </aside>
+
+                            <aside class="common-mistakes alert">
+                                <h3>⚠️ Erreurs fréquentes à éviter</h3>
+                                <ul>
+                                    <li><strong>Plusieurs &lt;h1&gt; sur une page</strong> : Un seul h1 par page pour le
+                                        référencement</li>
+                                    <li><strong>Utiliser les titres pour la taille visuelle</strong> : Utilisez CSS pour
+                                        le style, pas les balises de titre</li>
+                                    <li><strong>Sauter des niveaux</strong> : h1 → h3 directement (mauvais pour SEO et
+                                        accessibilité)</li>
+                                    <li><strong>Texte sans balise</strong> : Ne laissez pas de texte directement dans
+                                        &lt;body&gt;, utilisez &lt;p&gt;</li>
+                                    <li><strong>Abuser de &lt;br&gt;</strong> :
+                                        <code>&lt;br&gt;&lt;br&gt;&lt;br&gt;</code> pour espacer ❌ → utilisez CSS</li>
+                                    <li><strong>Oublier de fermer les balises</strong> :
+                                        <code>&lt;p&gt;Texte&lt;strong&gt;important&lt;/p&gt;&lt;/strong&gt;</code> ❌
+                                    </li>
+                                    <li><strong>Utiliser &lt;b&gt; et &lt;i&gt; partout</strong> : Préférez
+                                        &lt;strong&gt; et &lt;em&gt; pour le sens</li>
+                                </ul>
+                            </aside>
+
+                            <h2>Résumé du chapitre</h2>
+
+                            <div class="card" style="background-color: var(--surface);">
+                                <div class="card-body">
+                                    <p><strong>Balises essentielles apprises :</strong></p>
+                                    <ul>
+                                        <li><code>&lt;h1&gt;</code> à <code>&lt;h6&gt;</code> : Titres hiérarchiques (un
+                                            seul h1 par page)</li>
+                                        <li><code>&lt;p&gt;</code> : Paragraphes de texte</li>
+                                        <li><code>&lt;br&gt;</code> : Saut de ligne (auto-fermante)</li>
+                                        <li><code>&lt;hr&gt;</code> : Ligne horizontale de séparation (auto-fermante)
+                                        </li>
+                                        <li><code>&lt;strong&gt;</code> : Texte important (gras par défaut)</li>
+                                        <li><code>&lt;em&gt;</code> : Texte emphatique (italique par défaut)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch03"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Créer une hiérarchie de titres</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez une page HTML avec la structure suivante :</p>
+                                    <ul>
+                                        <li>Titre principal (h1) : "Mon blog de voyage"</li>
+                                        <li>Titre de section (h2) : "Voyage en France"</li>
+                                        <li>Sous-section (h3) : "Paris"</li>
+                                        <li>Sous-section (h3) : "Lyon"</li>
+                                        <li>Un paragraphe sous chaque h3</li>
+                                    </ul>
+                                </div>
+                                <div class="exercise-solution">
+                                    <button class="btn btn-outline btn-sm"
+                                        onclick="this.nextElementSibling.style.display='block'; this.style.display='none';">
+                                        Voir la solution
+                                    </button>
+                                    <div style="display:none;">
+                                        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Mon blog de voyage&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Mon blog de voyage&lt;/h1&gt;
+    
+    &lt;h2&gt;Voyage en France&lt;/h2&gt;
+    
+    &lt;h3&gt;Paris&lt;/h3&gt;
+    &lt;p&gt;Paris est une ville magnifique avec la Tour Eiffel et le Louvre.&lt;/p&gt;
+    
+    &lt;h3&gt;Lyon&lt;/h3&gt;
+    &lt;p&gt;Lyon est connue pour sa gastronomie et son vieux quartier.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Utiliser les emphases</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez un article avec :</p>
+                                    <ul>
+                                        <li>Un titre h1 : "L'apprentissage du HTML"</li>
+                                        <li>3 paragraphes avec des mots en <code>&lt;strong&gt;</code> et
+                                            <code>&lt;em&gt;</code></li>
+                                        <li>Une ligne horizontale entre le 2e et 3e paragraphe</li>
+                                        <li>Un paragraphe avec des sauts de ligne (<code>&lt;br&gt;</code>) pour
+                                            afficher une adresse</li>
+                                    </ul>
+                                </div>
+                                <div class="exercise-solution">
+                                    <button class="btn btn-outline btn-sm"
+                                        onclick="this.nextElementSibling.style.display='block'; this.style.display='none';">
+                                        Voir la solution
+                                    </button>
+                                    <div style="display:none;">
+                                        <pre><code class="language-html">&lt;h1&gt;L'apprentissage du HTML&lt;/h1&gt;
+
+&lt;p&gt;
+    Le &lt;strong&gt;HTML&lt;/strong&gt; est le langage de base du web. 
+    Il est &lt;em&gt;essentiel&lt;/em&gt; de le maîtriser.
+&lt;/p&gt;
+
+&lt;p&gt;
+    Avec de la &lt;strong&gt;pratique régulière&lt;/strong&gt;, vous deviendrez 
+    &lt;em&gt;rapidement&lt;/em&gt; compétent en HTML.
+&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;
+    Pour plus d'informations :&lt;br&gt;
+    Learn2succeed&lt;br&gt;
+    123 Rue du Web&lt;br&gt;
+    75000 Paris
+&lt;/p&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="exercise hard">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Article complet</h3>
+                                    <span class="exercise-difficulty">Difficile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez un article de blog complet sur un sujet de votre choix avec :</p>
+                                    <ul>
+                                        <li>Structure hiérarchique complète (h1, h2, h3)</li>
+                                        <li>Au moins 5 paragraphes</li>
+                                        <li>Utilisation appropriée de &lt;strong&gt;, &lt;em&gt;, &lt;br&gt; et
+                                            &lt;hr&gt;</li>
+                                        <li>Imbrication correcte des balises</li>
+                                        <li>Code HTML valide et indenté</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch02-structure.html" class="chapter-nav-btn">← Précédent : Structure d'un document
+                                HTML</a>
+                            <a href="ch04-texte-formatage.html" class="chapter-nav-btn">Suivant : Texte et formatage
+                                →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">
+                                ✓ Marquer ce chapitre comme terminé
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'html';
+        const chapterId = 'ch03-balises-essentielles';
+
+        const chapters = [
+            { id: "ch01-introduction", title: "Introduction au HTML" },
+            { id: "ch02-structure", title: "Structure d'un document HTML" },
+            { id: "ch03-balises-essentielles", title: "Les balises essentielles" },
+            { id: "ch04-texte-formatage", title: "Texte et formatage" },
+            { id: "ch05-liens-navigation", title: "Liens et navigation" },
+            { id: "ch06-images-medias", title: "Images et médias" },
+            { id: "ch07-listes", title: "Listes" },
+            { id: "ch08-tableaux", title: "Tableaux" },
+            { id: "ch09-formulaires-1", title: "Formulaires - Partie 1" },
+            { id: "ch10-formulaires-2", title: "Formulaires - Partie 2" },
+            { id: "ch11-html-semantique", title: "HTML sémantique" },
+            { id: "ch12-metadonnees-seo", title: "Métadonnées et SEO" },
+            { id: "ch13-accessibilite", title: "Accessibilité" },
+            { id: "ch14-html5-apis", title: "HTML5 APIs" },
+            { id: "ch15-bonnes-pratiques", title: "Bonnes pratiques" }
+        ];
+
+        const quizData = {
+            title: "Quiz - Les balises essentielles",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                {
+                    question: "Combien de balises &lt;h1&gt; devrait-on utiliser par page ?",
+                    type: "single",
+                    options: [
+                        "Autant qu'on veut",
+                        "Une seule",
+                        "Maximum 3",
+                        "Aucune"
+                    ],
+                    correct: 1,
+                    explanation: "Il devrait y avoir un seul &lt;h1&gt; par page, représentant le titre principal. C'est important pour le SEO et l'accessibilité."
+                },
+                {
+                    question: "Quelle est la différence entre &lt;strong&gt; et &lt;b&gt; ?",
+                    type: "single",
+                    options: [
+                        "Aucune différence",
+                        "&lt;strong&gt; a un sens sémantique d'importance, &lt;b&gt; est purement visuel",
+                        "&lt;b&gt; est plus moderne que &lt;strong&gt;",
+                        "&lt;strong&gt; est plus gros que &lt;b&gt;"
+                    ],
+                    correct: 1,
+                    explanation: "&lt;strong&gt; indique que le texte est important (sens sémantique), tandis que &lt;b&gt; est juste un effet visuel gras sans signification particulière."
+                },
+                {
+                    question: "Quelle balise utiliser pour créer un saut de ligne ?",
+                    type: "single",
+                    options: [
+                        "&lt;break&gt;",
+                        "&lt;br&gt;",
+                        "&lt;lb&gt;",
+                        "&lt;newline&gt;"
+                    ],
+                    correct: 1,
+                    explanation: "La balise &lt;br&gt; (break) crée un saut de ligne. C'est une balise auto-fermante."
+                },
+                {
+                    question: "Dans quelle balise mettre un paragraphe de texte ?",
+                    type: "single",
+                    options: [
+                        "&lt;par&gt;",
+                        "&lt;paragraph&gt;",
+                        "&lt;p&gt;",
+                        "&lt;text&gt;"
+                    ],
+                    correct: 2,
+                    explanation: "La balise &lt;p&gt; (paragraph) définit un paragraphe de texte."
+                },
+                {
+                    question: "Quelle est la hiérarchie correcte des titres ?",
+                    type: "single",
+                    options: [
+                        "h1 → h3 → h2",
+                        "h1 → h2 → h3",
+                        "h6 → h5 → h4",
+                        "Peu importe l'ordre"
+                    ],
+                    correct: 1,
+                    explanation: "Il faut respecter l'ordre hiérarchique : h1 (plus important) → h2 → h3 → h4 → h5 → h6 (moins important). Ne pas sauter de niveaux."
+                },
+                {
+                    question: "Quelle balise crée une ligne horizontale de séparation ?",
+                    type: "single",
+                    options: [
+                        "&lt;line&gt;",
+                        "&lt;hr&gt;",
+                        "&lt;horizontal&gt;",
+                        "&lt;sep&gt;"
+                    ],
+                    correct: 1,
+                    explanation: "La balise &lt;hr&gt; (horizontal rule) crée une ligne horizontale pour séparer des sections."
+                },
+                {
+                    question: "Les balises suivantes sont auto-fermantes (pas de balise fermante) :",
+                    type: "multiple",
+                    options: [
+                        "&lt;br&gt;",
+                        "&lt;p&gt;",
+                        "&lt;hr&gt;",
+                        "&lt;strong&gt;"
+                    ],
+                    correct: [0, 2],
+                    explanation: "&lt;br&gt; et &lt;hr&gt; sont auto-fermantes. &lt;p&gt; et &lt;strong&gt; nécessitent une balise fermante."
+                },
+                {
+                    question: "Quel code HTML est correct ?",
+                    type: "single",
+                    options: [
+                        "&lt;p&gt;&lt;strong&gt;Texte&lt;/p&gt;&lt;/strong&gt;",
+                        "&lt;p&gt;&lt;strong&gt;Texte&lt;/strong&gt;&lt;/p&gt;",
+                        "&lt;strong&gt;&lt;p&gt;Texte&lt;/strong&gt;&lt;/p&gt;",
+                        "&lt;p&gt;Texte&lt;strong&gt;&lt;/p&gt;&lt;/strong&gt;"
+                    ],
+                    correct: 1,
+                    explanation: "Les balises doivent être correctement imbriquées : ce qui est ouvert en dernier doit être fermé en premier."
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+
+            QuizSystem.createQuiz(quizData, 'quiz-ch03');
+
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+    </script>
+</body>
+
+</html>

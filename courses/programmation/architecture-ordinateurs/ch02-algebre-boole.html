@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 2 : Algèbre de Boole - Architecture des Ordinateurs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <style>
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 4px;
+        }
+
+        .truth-table {
+            width: 100%;
+            max-width: 400px;
+            margin: 1rem 0;
+            border-collapse: collapse;
+        }
+
+        .truth-table th,
+        .truth-table td {
+            border: 1px solid #dee2e6;
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        .truth-table th {
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Architecture</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch01-codage-nombres.html">1. Codage Nombres</a></li>
+                            <li><a href="ch02-algebre-boole.html" class="active">2. Algèbre Boole</a></li>
+                            <li><a href="ch03-circuits-logiques.html">3. Circuits Logiques</a></li>
+                            <li><a href="ch04-architecture-generale.html">4. Architecture</a></li>
+                            <li><a href="ch05-memoires.html">5. Mémoires</a></li>
+                            <li><a href="ch06-fonctionnement-cpu.html">6. CPU</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Architecture</a></li>
+                                <li class="breadcrumb-item active">Chapitre 2</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 2 : Algèbre de Boole</h1>
+
+                        <!-- SECTION 1 -->
+                        <section class="mb-5">
+                            <h2>1. Qu'est-ce que l'Algèbre de Boole ?</h2>
+                            <p>C'est une branche des mathématiques où les variables ne peuvent avoir que deux valeurs :
+                                VRAI (1) ou FAUX (0). C'est la base de la logique informatique.</p>
+                        </section>
+
+                        <!-- SECTION 2 -->
+                        <section class="mb-5">
+                            <h2>2. Les Opérateurs Logiques</h2>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card h-100">
+                                        <div class="card-header bg-dark text-white">NON (NOT)</div>
+                                        <div class="card-body">
+                                            <p>Inverse la valeur.</p>
+                                            <p>Si A=0, alors Ā=1.</p>
+                                            <table class="truth-table">
+                                                <tr>
+                                                    <th>A</th>
+                                                    <th>Sortie</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>0</td>
+                                                    <td>1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>0</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card h-100">
+                                        <div class="card-header bg-primary text-white">ET (AND)</div>
+                                        <div class="card-body">
+                                            <p>Vrai seulement si tout est vrai.</p>
+                                            <p>A . B</p>
+                                            <table class="truth-table">
+                                                <tr>
+                                                    <th>A</th>
+                                                    <th>B</th>
+                                                    <th>Sortie</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>0</td>
+                                                    <td>0</td>
+                                                    <td>0</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>0</td>
+                                                    <td>1</td>
+                                                    <td>0</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>0</td>
+                                                    <td>0</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>1</td>
+                                                    <td>1</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card h-100">
+                                        <div class="card-header bg-success text-white">OU (OR)</div>
+                                        <div class="card-body">
+                                            <p>Vrai si au moins un est vrai.</p>
+                                            <p>A + B</p>
+                                            <table class="truth-table">
+                                                <tr>
+                                                    <th>A</th>
+                                                    <th>B</th>
+                                                    <th>Sortie</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>0</td>
+                                                    <td>0</td>
+                                                    <td>0</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>0</td>
+                                                    <td>1</td>
+                                                    <td>1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>0</td>
+                                                    <td>1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>1</td>
+                                                    <td>1</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- SECTION 3 -->
+                        <section class="mb-5">
+                            <h2>3. Lois Fondamentales</h2>
+                            <ul>
+                                <li><strong>Identité :</strong> A . 1 = A | A + 0 = A</li>
+                                <li><strong>Nullité :</strong> A . 0 = 0 | A + 1 = 1</li>
+                                <li><strong>Idempotence :</strong> A . A = A | A + A = A</li>
+                                <li><strong>Complémentarité :</strong> A . Ā = 0 | A + Ā = 1</li>
+                                <li><strong>De Morgan :</strong>
+                                    <ul>
+                                        <li>La négation d'un ET est un OU de négations :
+                                            <code>____<br>A . B = Ā + B̄</code>
+                                        </li>
+                                        <li>La négation d'un OU est un ET de négations :
+                                            <code>____<br>A + B = Ā . B̄</code>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </section>
+
+                        <!-- SECTION 4 -->
+                        <section class="mb-5">
+                            <h2>4. Tableaux de Karnaugh</h2>
+                            <p>C'est une méthode graphique pour simplifier des équations logiques complexes.</p>
+                            <p>Le principe est de grouper les "1" adjacents par paquets de 2, 4, 8... pour éliminer les
+                                variables qui changent.</p>
+                            <div class="alert alert-info">
+                                <strong>Exemple 2 variables :</strong><br>
+                                Si on a des 1 pour A=0,B=0 et A=0,B=1.<br>
+                                On groupe ces deux cas -> B change (0 puis 1), donc B "disparaît".<br>
+                                Résultat simplifié : <strong>Non-A</strong>.
+                            </div>
+                        </section>
+
+                        <!-- QUIZ -->
+                        <section class="my-5 p-4 border rounded bg-white shadow-sm">
+                            <h3 class="mb-4">🧠 Quiz Logique</h3>
+
+                            <div class="mb-4">
+                                <p class="fw-bold">1. Si A=1 et B=0, que vaut A ET B ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">0</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">1</button>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <p class="fw-bold">2. Quelle est la loi de De Morgan correcte ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">NON(A et B) =
+                                        NON(A) et NON(B)</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">NON(A et B) =
+                                        NON(A) ou NON(B)</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCISES -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">✍️ Exercices de Simplification</h3>
+
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5>Simplifier : S = A + (A . B)</h5>
+                                    <p>Astuce : Factorisez par A.</p>
+                                    <button class="btn btn-outline-primary btn-sm mt-2"
+                                        onclick="toggleSolution('ex1')">Voir Solution</button>
+                                    <div id="ex1" class="solution-box">
+                                        S = A (1 + B)<br>
+                                        Or (1 + B) vaut toujours 1.<br>
+                                        Donc S = A . 1<br>
+                                        <strong>S = A</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCICES EXPERT -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">☠️ Exercices Expert</h3>
+
+                            <div class="card mb-4 border-danger">
+                                <div class="card-header bg-danger text-white">Ex 2 : Simplification Difficile</div>
+                                <div class="card-body">
+                                    <p>Simplifiez : <code>S = A.B + A.C + B.C</code> (Consensus) ?</p>
+                                    <button class="btn btn-outline-danger btn-sm mt-2"
+                                        onclick="toggleSolution('ex2')">Voir Solution</button>
+                                    <div id="ex2" class="solution-box">
+                                        C'est le théorème du Consensus.<br>
+                                        Si on ajoute A.B.C + A.B.Non-C...<br>
+                                        La forme la plus simple reste souvent telle quelle, ou peut s'écrire :<br>
+                                        <strong>S = A.B + C(A+B)</strong>.
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div class="text-center my-5">
+                            <a href="ch01-codage-nombres.html" class="btn btn-secondary me-2">← Précédent</a>
+                            <a href="ch03-circuits-logiques.html" class="btn btn-primary btn-lg">Chapitre 3 : Circuits
+                                Logiques →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            Array.from(group.children).forEach(b => {
+                b.classList.remove('btn-success', 'btn-danger');
+                b.classList.add('btn-outline-secondary');
+            });
+            if (isCorrect) {
+                btn.classList.add('btn-success');
+                btn.classList.remove('btn-outline-secondary');
+            } else {
+                btn.classList.add('btn-danger');
+                btn.classList.remove('btn-outline-secondary');
+            }
+        }
+
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

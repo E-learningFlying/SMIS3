@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chapitre 11 : Interruptions DOS et BIOS en assembleur 8086">
+    <title>Chapitre 11 : Interruptions - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 0.375rem;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .solution-box h4 {
+            color: #0d6efd;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .solution-box pre {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .solution-toggle {
+            transition: all 0.2s ease;
+        }
+
+        .solution-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours Assembleur 8086</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours Assembleur 8086</a></li>
+                                <li class="breadcrumb-item active">Chapitre 11 : Interruptions</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 11</span>
+                            <h1 class="mb-3">Interruptions DOS et BIOS</h1>
+                            <p class="text-lg text-secondary">
+                                Communiquez avec le système d'exploitation et le matériel : lecture clavier, affichage
+                                console et gestion des fichiers via INT 21h et INT 16h.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 1h30</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch10-tableaux.html" class="chapter-nav-btn">← Précédent : Tableaux</a>
+                            <a href="ch12-video.html" class="chapter-nav-btn">Suivant : Affichage vidéo →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>Le concept d'interruption</h2>
+
+                            <p>Une interruption est un signal qui suspend temporairement le programme principal pour
+                                exécuter une routine système (Interruption Service Routine - ISR). C'est le moyen
+                                standard d'accéder aux fonctionnalités du système d'exploitation (MS-DOS).</p>
+
+                            <h2>INT 21h : La boîte à outils DOS</h2>
+
+                            <p>C'est l'interruption la plus importante. On place le numéro de fonction dans
+                                <strong>AH</strong> et on appelle <code>INT 21h</code>.</p>
+
+                            <h3>Lecture / Écriture Caractère</h3>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Fonction (AH)</th>
+                                        <th>Description</th>
+                                        <th>Paramètres / Retour</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>01h</strong></td>
+                                        <td>Lire caractère avec écho</td>
+                                        <td>Retour : AL = code ASCII</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>02h</strong></td>
+                                        <td>Afficher caractère</td>
+                                        <td>Entrée : DL = code ASCII</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>08h</strong></td>
+                                        <td>Lire caractère sans écho</td>
+                                        <td>Retour : AL = code ASCII</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h3>Chaînes de caractères</h3>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Fonction (AH)</th>
+                                        <th>Description</th>
+                                        <th>Paramètres</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>09h</strong></td>
+                                        <td>Afficher chaîne terminée par $</td>
+                                        <td>DX = offset de la chaîne</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>0Ah</strong></td>
+                                        <td>Lire chaîne bufférisée</td>
+                                        <td>DX = offset du buffer</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>4Ch</strong></td>
+                                        <td>Terminer programme</td>
+                                        <td>(Retour au DOS)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="alert alert-info">
+                                <h4>📝 Structure du buffer pour 0Ah</h4>
+                                <p>Le buffer doit avoir une structure spécifique :</p>
+                                <ul>
+                                    <li>Octet 0 : Taille maximale du buffer (fixée par vous).</li>
+                                    <li>Octet 1 : Nombre de caractères lus (rempli par DOS).</li>
+                                    <li>Octet 2+ : Les caractères saisis.</li>
+                                </ul>
+                                <pre><code class="language-asm">buffer DB 20, ?, 20 DUP(?)</code></pre>
+                            </div>
+
+                            <h2>INT 16h : Services Clavier BIOS</h2>
+
+                            <p>Plus bas niveau que INT 21h. Utile pour les jeux (détection flèches, touches spéciales).
+                            </p>
+
+                            <ul>
+                                <li><strong>AH = 00h</strong> : Attendre et lire une touche. (AL = ASCII, AH = Scan
+                                    code).</li>
+                                <li><strong>AH = 01h</strong> : Vérifier si une touche est pressée (ZF=0 si oui) sans
+                                    attendre.</li>
+                            </ul>
+
+                        </section>
+
+                        <aside class="tips alert">
+                            <h3>💡 Astuces</h3>
+                            <ul>
+                                <li>Pour un saut de ligne propre, affichez toujours la paire CRLF (Carriage Return 13,
+                                    Line Feed 10).</li>
+                                <li>INT 21h / AH=0Ah termine la saisie avec Entrée (0Dh), qu'il place dans le buffer. Il
+                                    ne met <strong>pas</strong> de '$' à la fin ! Vous devez l'ajouter manuellement si
+                                    vous voulez réafficher la chaîne avec AH=09h.</li>
+                            </ul>
+                        </aside>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch11"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Écho majuscule</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez un programme qui :</p>
+                                    <ul>
+                                        <li>Attend une lettre minuscule (INT 21h, AH=01h).</li>
+                                        <li>La convertit en majuscule (soustraction simple, voir table ASCII, 'a'=97,
+                                            'A'=65).</li>
+                                        <li>Affiche le résultat (INT 21h, AH=02h).</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch11-ex1')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch11-ex1" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Conversion minuscule/majuscule</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.CODE
+MAIN PROC
+    MOV AH, 01h     ; Lire caractère avec écho
+    INT 21h         ; AL contient le caractère
+    
+    ; Conversion (si minuscule)
+    SUB AL, 32      ; 'a'(97) - 32 = 'A'(65)
+    
+    MOV DL, AL      ; Préparer pour affichage
+    MOV AH, 02h
+    INT 21h         ; Afficher caractère modifié
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+                                    <p>Note : Dans un vrai programme, il faudrait vérifier si le caractère est bien
+                                        entre 'a' et 'z' avant de soustraire.</p>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Saisie de nom</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Écrivez code qui :</p>
+                                    <ul>
+                                        <li>Affiche "Votre nom : "</li>
+                                        <li>Lit une chaîne avec INT 21h/0Ah.</li>
+                                        <li>Passe à la ligne.</li>
+                                        <li>Affiche "Bonjour [Nom] !".</li>
+                                        <li>Attention au format du buffer 0Ah et à l'absence de '$'.</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch11-ex2')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch11-ex2" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Saisie utilisateur</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.DATA
+    prompt  DB 'Votre nom : $'
+    bonjour DB 0Dh, 0Ah, 'Bonjour $'
+    buffer  DB 20           ; Max 20 chars
+            DB ?            ; Longueur lue
+            DB 20 DUP(?)    ; Espace pour la saisie
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    ; Prompt
+    LEA DX, prompt
+    MOV AH, 09h
+    INT 21h
+    
+    ; Lecture nom
+    LEA DX, buffer
+    MOV AH, 0Ah
+    INT 21h
+    
+    ; Transformer l'Entrée (0Dh) en '$' pour affichage
+    LEA BX, buffer + 2      ; Début réel du texte
+    MOV AL, [buffer + 1]    ; Longueur lue
+    MOV AH, 0
+    MOV SI, AX
+    MOV BYTE PTR [BX + SI], '$' ; Remplace le CR final par $
+    
+    ; Afficher Bonjour
+    LEA DX, bonjour
+    MOV AH, 09h
+    INT 21h
+    
+    ; Afficher Nom
+    LEA DX, buffer + 2      ; Adresse du texte saisi
+    MOV AH, 09h
+    INT 21h
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="exercise hard">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Menu interactif</h3>
+                                    <span class="exercise-difficulty">Difficile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez un menu simple :</p>
+                                    <pre>
+1. Dire Bonjour
+2. Dire Au revoir
+3. Quitter
+Choix : </pre>
+                                    <ul>
+                                        <li>Affichez le menu.</li>
+                                        <li>Lisez une touche (INT 21h/01h).</li>
+                                        <li>Si '1', affichez "Bonjour". Si '2', affichez "Au revoir". Si '3', quittez.
+                                        </li>
+                                        <li>Sinon, bouclez et réaffichez le menu.</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch11-ex3')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch11-ex3" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Menu Loop</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.DATA
+    menu    DB 0Dh, 0Ah, '1. Dire Bonjour', 0Dh, 0Ah
+            DB '2. Dire Au revoir', 0Dh, 0Ah
+            DB '3. Quitter', 0Dh, 0Ah
+            DB 'Choix : $'
+    msg1    DB 0Dh, 0Ah, 'Bonjour !$'
+    msg2    DB 0Dh, 0Ah, 'Au revoir !$'
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+
+afficher_menu:
+    LEA DX, menu
+    MOV AH, 09h
+    INT 21h
+    
+    MOV AH, 01h     ; Lire touche
+    INT 21h
+    
+    CMP AL, '1'
+    JE option1
+    
+    CMP AL, '2'
+    JE option2
+    
+    CMP AL, '3'
+    JE quitter
+    
+    JMP afficher_menu ; Option invalide, recommencer
+
+option1:
+    LEA DX, msg1
+    MOV AH, 09h
+    INT 21h
+    JMP afficher_menu
+
+option2:
+    LEA DX, msg2
+    MOV AH, 09h
+    INT 21h
+    JMP afficher_menu
+
+quitter:
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch10-tableaux.html" class="chapter-nav-btn">← Précédent : Tableaux</a>
+                            <a href="ch12-video.html" class="chapter-nav-btn">Suivant : Affichage vidéo →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">✓ Marquer ce chapitre comme
+                                terminé</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nasm.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'assembly-x86-64';
+        const chapterId = 'ch11-interruptions';
+
+        const chapters = [
+            { id: "ch01-introduction", title: "Introduction" },
+            { id: "ch02-architecture", title: "Architecture 8086" },
+            { id: "ch03-registres", title: "Registres 16-bit" },
+            { id: "ch04-instructions-base", title: "Instructions de base" },
+            { id: "ch05-adressage", title: "Modes d'adressage" },
+            { id: "ch06-controle", title: "Instructions de contrôle" },
+            { id: "ch07-pile", title: "La pile" },
+            { id: "ch08-procedures", title: "Procédures" },
+            { id: "ch09-chaines", title: "Chaînes" },
+            { id: "ch10-tableaux", title: "Tableaux" },
+            { id: "ch11-interruptions", title: "Interruptions DOS" },
+            { id: "ch12-video", title: "Affichage vidéo" },
+            { id: "ch13-ports", title: "Ports" },
+            { id: "ch14-debugging", title: "Debugging" },
+            { id: "ch15-projets", title: "Projets" }
+        ];
+
+        const quizData = {
+            title: "Quiz - Interruptions",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                {
+                    question: "Dans quel registre met-on le numéro de fonction pour INT 21h ?",
+                    type: "single",
+                    options: ["AX", "AH", "AL", "DX"],
+                    correct: 1,
+                    explanation: "AH contient toujours le numéro de la sous-fonction DOS."
+                },
+                {
+                    question: "Quelle fonction INT 21h affiche une chaîne ?",
+                    type: "single",
+                    options: ["01h", "02h", "09h", "4Ch"],
+                    correct: 2,
+                    explanation: "AH=09h affiche la chaîne pointée par DS:DX terminée par $."
+                },
+                {
+                    question: "Par quel caractère doit se terminer une chaîne (AH=09h) ?",
+                    type: "single",
+                    options: ["0 (NULL)", "\\n", "$", "."],
+                    correct: 2,
+                    explanation: "Le DOS 8086 utilise le dollar ($) comme terminateur de chaîne."
+                },
+                {
+                    question: "Quelle fonction permet de lire une chaîne complète (buffer) ?",
+                    type: "single",
+                    options: ["01h", "09h", "0Ah", "08h"],
+                    correct: 2,
+                    explanation: "AH=0Ah lit une chaîne dans un buffer structuré."
+                },
+                {
+                    question: "Dans INT 21h AH=02h, le caractère à afficher est dans... ?",
+                    type: "single",
+                    options: ["AL", "DL", "CL", "BL"],
+                    correct: 1,
+                    explanation: "DL doit contenir le code ASCII du caractère à afficher."
+                },
+                {
+                    question: "Quelle interruption gère le clavier au niveau BIOS ?",
+                    type: "single",
+                    options: ["INT 10h", "INT 16h", "INT 21h", "INT 33h"],
+                    correct: 1,
+                    explanation: "INT 16h est l'interruption BIOS pour les services clavier."
+                },
+                {
+                    question: "Comment terminer proprement un programme ?",
+                    type: "single",
+                    options: ["RET", "HLT", "INT 21h / AH=4Ch", "JMP 0"],
+                    correct: 2,
+                    explanation: "C'est la méthode standard pour rendre la main au système d'exploitation."
+                },
+                {
+                    question: "Le premier octet du buffer pour AH=0Ah doit contenir... ?",
+                    type: "single",
+                    options: ["La longueur lue", "La taille max", "Le premier caractère", "Rien"],
+                    correct: 1,
+                    explanation: "Vous devez indiquer au DOS la taille maximale de votre buffer pour éviter les débordements (Buffer Overflow)."
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+
+            QuizSystem.createQuiz(quizData, 'quiz-ch11');
+
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            const button = event.target;
+            if (solution.style.display === 'none') {
+                solution.style.display = 'block';
+                button.textContent = '🙈 Masquer la solution';
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-primary');
+            } else {
+                solution.style.display = 'none';
+                button.textContent = '👁️ Voir la solution';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline-primary');
+            }
+        }
+    </script>
+</body>
+
+</html>

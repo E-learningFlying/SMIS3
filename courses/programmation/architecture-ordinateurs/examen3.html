@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen 3 : Projet - Architecture des Ordinateurs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-reading section">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Architecture</a></li>
+                    <li class="breadcrumb-item active">Examen Final 3</li>
+                </ol>
+            </nav>
+
+            <h1 class="mb-4 text-center">🚀 Examen Final : Mini-Projet</h1>
+            <p class="lead text-center mb-5">Conception d'un mini-système. À faire chez soi !</p>
+
+            <div class="card shadow-lg mb-5">
+                <div class="card-body p-5">
+                    <h2 class="text-primary mb-4">Sujet : Conception d'une UAL (ALU) 4 bits</h2>
+
+                    <div class="alert alert-info">
+                        <strong>Objectif :</strong> Dessiner le schéma logique d'une unité capable d'additionner ou de
+                        soustraire deux nombres de 4 bits.
+                    </div>
+
+                    <h4>Cahier des charges :</h4>
+                    <ol class="list-group list-group-numbered mb-4">
+                        <li class="list-group-item">Le système prend deux entrées de 4 bits : <strong>A</strong>
+                            (A3..A0) et <strong>B</strong> (B3..B0).</li>
+                        <li class="list-group-item">Il possède une entrée de commande <strong>OP</strong> (Opération).
+                        </li>
+                        <li class="list-group-item">Si <strong>OP = 0</strong>, le système fait <strong>A + B</strong>.
+                        </li>
+                        <li class="list-group-item">Si <strong>OP = 1</strong>, le système fait <strong>A - B</strong>.
+                        </li>
+                        <li class="list-group-item">Il doit y avoir une sortie <strong>S</strong> (4 bits) et un drapeau
+                            <strong>Overflow</strong>.</li>
+                    </ol>
+
+                    <h4>Guide de réalisation :</h4>
+                    <ul>
+                        <li>Utilisez des <strong>Additionneurs Complets</strong> (Full Adders) en cascade.</li>
+                        <li>Pour la soustraction, rappelez-vous du <strong>Complément à 2</strong> : A - B = A + (NON B)
+                            + 1.</li>
+                        <li>Utilisez des portes <strong>XOR</strong> pour inverser B si OP=1.</li>
+                        <li>Entrez OP comme "Retenue d'entrée" du premier additionneur pour faire le "+1".</li>
+                    </ul>
+
+                    <hr>
+
+                    <div class="text-center">
+                        <p><em>Une fois votre schéma dessiné sur papier, vérifiez-le avec les exemples suivants :</em>
+                        </p>
+                        <ul class="list-inline">
+                            <li class="list-inline-item badge bg-secondary">2 + 3 = 5</li>
+                            <li class="list-inline-item badge bg-secondary">7 - 2 = 5</li>
+                            <li class="list-inline-item badge bg-secondary">5 - 7 = -2 (1110)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="index.html" class="btn btn-primary btn-lg">J'ai terminé le cours ! 🎓</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

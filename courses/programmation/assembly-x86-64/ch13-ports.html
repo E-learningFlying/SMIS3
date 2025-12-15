@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chapitre 13 : Ports et périphériques en assembleur 8086">
+    <title>Chapitre 13 : Ports - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 0.375rem;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .solution-box h4 {
+            color: #0d6efd;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .solution-box pre {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .solution-toggle {
+            transition: all 0.2s ease;
+        }
+
+        .solution-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours Assembleur 8086</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours Assembleur 8086</a></li>
+                                <li class="breadcrumb-item active">Chapitre 13 : Ports</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 13</span>
+                            <h1 class="mb-3">Ports Entrée/Sortie (I/O)</h1>
+                            <p class="text-lg text-secondary">
+                                Communiquez directement avec le matériel (clavier, port série, imprimante) avec les
+                                instructions IN et OUT.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 1h</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch12-video.html" class="chapter-nav-btn">← Précédent : Vidéo</a>
+                            <a href="ch14-debugging.html" class="chapter-nav-btn">Suivant : Debugging →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>Le concept de Port</h2>
+
+                            <p>Le processeur 8086 peut communiquer avec la mémoire RAM (instructions MOV), mais aussi
+                                avec les périphériques via des <strong>Ports I/O</strong>. Chaque périphérique a une
+                                adresse (un numéro) de port.</p>
+
+                            <h2>Instructions IN et OUT</h2>
+
+                            <p>Ces instructions ne fonctionnent qu'avec le registre <strong>AL</strong> (ou AX) et
+                                <strong>DX</strong> (ou immédiat pour les ports 0-255).</p>
+
+                            <ul>
+                                <li><strong>IN AL, DX</strong> : Lit un octet depuis le port DX vers AL.</li>
+                                <li><strong>OUT DX, AL</strong> : Écrit l'octet dans AL vers le port DX.</li>
+                            </ul>
+
+                            <h2>Ports Standards (PC/XT)</h2>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Port (Hex)</th>
+                                        <th>Périphérique</th>
+                                        <th>Usage</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>60h</td>
+                                        <td>Contrôleur Clavier</td>
+                                        <td>Lecture Scan Code / Contrôle LEDs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>61h</td>
+                                        <td>Contrôleur Système</td>
+                                        <td>Haut-parleur PC (Beeper)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3F8h</td>
+                                        <td>COM1 (Série)</td>
+                                        <td>Transmission de données</td>
+                                    </tr>
+                                    <tr>
+                                        <td>378h</td>
+                                        <td>LPT1 (Parallèle)</td>
+                                        <td>Imprimante / Contrôle IO simple</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h2>Exemple : Lire le Clavier (Port 60h)</h2>
+
+                            <pre><code class="language-asm">; Lire le dernier scan code du clavier
+IN AL, 60h
+; AL contient le scan code (ex: 1 Eh pour 'A')</code></pre>
+
+                            <h2>Exemple : Contrôler des LEDs simulées</h2>
+
+                            <p>Dans beaucoup de simulateurs (dont emu8086 avec devices virtuels) ou cartes d'interface,
+                                écrire sur un port (comme 199 ou 378h) allume des LEDs.</p>
+
+                            <pre><code class="language-asm">MOV AL, 11110000b ; 4 LEDs ON, 4 LEDs OFF
+OUT 199, AL       ; Port virtuel 199</code></pre>
+
+                        </section>
+
+                        <aside class="tips alert">
+                            <h3>💡 Astuces</h3>
+                            <ul>
+                                <li>ATTENTION : Manipuler les ports directement sur un vrai PC moderne (sous
+                                    Windows/Linux) est généralement interdit (Privileged Instruction) et fera planter le
+                                    programme. Cela fonctionne en mode réel (DOS pur) ou émulateur.</li>
+                                <li>Le port 61h permet d'activer le PC Speaker en modifiant les bits 0 et 1.</li>
+                            </ul>
+                        </aside>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch13"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Clignotement de LED virtuelle</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Sur emu8086, le port 199 contrôle une barre de LEDs virtuelle.</p>
+                                    <ul>
+                                        <li>Allumez toutes les LEDs (envoyer FFh).</li>
+                                        <li>Attendez un peu.</li>
+                                        <li>Éteignez tout (envoyer 00h).</li>
+                                        <li>Attendez (boucle).</li>
+                                        <li>Répétez à l'infini.</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch13-ex1')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch13-ex1" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Clignotement</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.CODE
+MAIN PROC
+boucle_led:
+    ; Allumer
+    MOV AL, 0FFh
+    OUT 199, AL     ; Port virtuel LED
+    
+    ; Délai
+    MOV CX, 0FFFFh
+d1: LOOP d1
+    
+    ; Éteindre
+    MOV AL, 00h
+    OUT 199, AL
+    
+    ; Délai
+    MOV CX, 0FFFFh
+d2: LOOP d2
+    
+    JMP boucle_led
+MAIN ENDP
+END MAIN</code></pre>
+                                    <p>Note : Nécessite le périphérique "LED Display" activé dans emu8086.</p>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Chenillard (K2000)</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Faites bouger une seule LED allumée de droite à gauche puis gauche à droite sur
+                                        le port 199 :</p>
+                                    <ul>
+                                        <li>Initialisez AL à 1.</li>
+                                        <li>Bouclez : ROL AL, 1 (Rotation Gauche).</li>
+                                        <li>Envoyez AL au port 199.</li>
+                                        <li>Attendez.</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch13-ex2')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch13-ex2" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Chenillard</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.CODE
+MAIN PROC
+    MOV AL, 1
+boucle:
+    OUT 199, AL
+    
+    ; Délai
+    MOV CX, 0A000h  ; Ajuster selon vitesse
+delai: LOOP delai
+    
+    ROL AL, 1       ; Rotation bit suivant
+    JMP boucle
+MAIN ENDP
+END MAIN</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="exercise hard">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Lecture Clavier Directe</h3>
+                                    <span class="exercise-difficulty">Difficile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Lisez le port 60h en boucle et affichez la valeur (Scan Code) à l'écran en
+                                        hexadécimal.</p>
+                                    <ul>
+                                        <li>Note : C'est complexe car le clavier attend un acquittement sur de vrais PC,
+                                            mais sur émulateur simple, on peut parfois lire en continu.</li>
+                                        <li>Alternative sûre : Utilisez le port virtuel Thermomètre ou Stepper si
+                                            disponible, sinon tentez le port 60h et affichez la valeur si elle change.
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch13-ex3')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch13-ex3" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Lecture Port 60h</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.CODE
+MAIN PROC
+    MOV AH, 0
+    MOV AL, 3       ; Mode texte
+    INT 10h
+
+lire_clavier:
+    IN AL, 60h      ; Lire port clavier
+    MOV BL, AL      ; Sauver
+    
+    ; Afficher valeur hex (simplifié)
+    ; (Code complet conversion Hex->ASCII requis normalement)
+    
+    ; Astuce: on affiche juste un témoin
+    MOV AH, 0
+    MOV AL, BL      ; Si on tape 'A' (1E), AL=1E
+    
+    ; Quitter si ESC (scan code 1)
+    CMP BL, 1
+    JE fin
+    
+    JMP lire_clavier
+fin:
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch12-video.html" class="chapter-nav-btn">← Précédent : Vidéo</a>
+                            <a href="ch14-debugging.html" class="chapter-nav-btn">Suivant : Debugging →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">✓ Marquer ce chapitre comme
+                                terminé</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nasm.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'assembly-x86-64';
+        const chapterId = 'ch13-ports';
+
+        const chapters = [
+            { id: "ch01-introduction", title: "Introduction" },
+            { id: "ch02-architecture", title: "Architecture 8086" },
+            { id: "ch03-registres", title: "Registres 16-bit" },
+            { id: "ch04-instructions-base", title: "Instructions de base" },
+            { id: "ch05-adressage", title: "Modes d'adressage" },
+            { id: "ch06-controle", title: "Instructions de contrôle" },
+            { id: "ch07-pile", title: "La pile" },
+            { id: "ch08-procedures", title: "Procédures" },
+            { id: "ch09-chaines", title: "Chaînes" },
+            { id: "ch10-tableaux", title: "Tableaux" },
+            { id: "ch11-interruptions", title: "Interruptions DOS" },
+            { id: "ch12-video", title: "Affichage vidéo" },
+            { id: "ch13-ports", title: "Ports" },
+            { id: "ch14-debugging", title: "Debugging" },
+            { id: "ch15-projets", title: "Projets" }
+        ];
+
+        const quizData = {
+            title: "Quiz - Ports I/O",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                {
+                    question: "Quelle instruction lit depuis un port ?",
+                    type: "single",
+                    options: ["MOV", "IN", "OUT", "LEA"],
+                    correct: 1,
+                    explanation: "IN AL, DX lit la valeur du port DX dans AL."
+                },
+                {
+                    question: "Dans quel registre doit être la donnée pour OUT ?",
+                    type: "single",
+                    options: ["AX ou AL", "BX", "CX", "DS"],
+                    correct: 0,
+                    explanation: "Les instructions I/O utilisent obligatoirement l'accumulateur (AL pour 8 bits, AX pour 16 bits)."
+                },
+                {
+                    question: "Le port 60h correspond généralement à... ?",
+                    type: "single",
+                    options: ["L'écran", "L'imprimante", "Le clavier", "La souris"],
+                    correct: 2,
+                    explanation: "C'est le port de données du contrôleur clavier (Keyboard Controller chip 8042)."
+                },
+                {
+                    question: "Si je veux écrire au port 3F8h, où je mets cette adresse ?",
+                    type: "single",
+                    options: ["Dans AX", "Dans DX", "Directement (OUT 3F8h, AL)", "Dans SI"],
+                    correct: 1,
+                    explanation: "Pour les adresses > 255, il faut obligatoirement passer par DX. (OUT DX, AL)."
+                },
+                {
+                    question: "Quelle instruction est dangereuse sous Windows moderne ?",
+                    type: "single",
+                    options: ["MOV AX, BX", "ADD AX, 1", "IN/OUT", "INC CX"],
+                    correct: 2,
+                    explanation: "Les instructions IN/OUT accèdent directement au matériel, ce qui est bloqué par les OS protégés."
+                },
+                {
+                    question: "Le port virtuel 199 dans emu8086 sert à... ?",
+                    type: "single",
+                    options: ["Rien", "Contrôler des LEDs", "Lire un fichier", "Afficher du texte"],
+                    correct: 1,
+                    explanation: "C'est un port simulé pour interagir avec le visualiseur de périphériques."
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+
+            QuizSystem.createQuiz(quizData, 'quiz-ch13');
+
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            const button = event.target;
+            if (solution.style.display === 'none') {
+                solution.style.display = 'block';
+                button.textContent = '🙈 Masquer la solution';
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-primary');
+            } else {
+                solution.style.display = 'none';
+                button.textContent = '👁️ Voir la solution';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline-primary');
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chapitre 2 : Architecture du processeur 8086">
+    <title>Chapitre 2 : Architecture 8086 - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours Assembleur 8086</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours Assembleur 8086</a></li>
+                                <li class="breadcrumb-item active">Chapitre 2 : Architecture</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 2</span>
+                            <h1 class="mb-3">Architecture du processeur 8086</h1>
+                            <p class="text-lg text-secondary">
+                                Comprenez l'architecture interne du Intel 8086 : bus 16-bit, unité d'exécution,
+                                segmentation mémoire et pipeline.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 2h</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch01-introduction.html" class="chapter-nav-btn">← Précédent : Introduction</a>
+                            <a href="ch03-registres.html" class="chapter-nav-btn">Suivant : Registres 16-bit →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>Le processeur Intel 8086</h2>
+
+                            <p>
+                                Lancé en 1978, le <strong>Intel 8086</strong> est le premier processeur 16-bit de la
+                                famille x86. Il contient <strong>29 000 transistors</strong> et peut fonctionner jusqu'à
+                                <strong>10 MHz</strong>.
+                            </p>
+
+                            <div class="alert alert-info">
+                                <h4>📊 Caractéristiques principales</h4>
+                                <ul>
+                                    <li><strong>Architecture</strong> : 16-bit</li>
+                                    <li><strong>Bus de données</strong> : 16-bit (2 octets à la fois)</li>
+                                    <li><strong>Bus d'adresses</strong> : 20-bit (1 MB de mémoire adressable)</li>
+                                    <li><strong>Fréquence</strong> : 5-10 MHz</li>
+                                    <li><strong>Registres</strong> : 14 registres 16-bit</li>
+                                </ul>
+                            </div>
+
+                            <h2>Architecture interne</h2>
+
+                            <p>Le 8086 utilise une architecture à <strong>2 unités</strong> qui travaillent en parallèle
+                                :</p>
+
+                            <h3>1. Unité d'Interface Bus (BIU)</h3>
+                            <p>Gère la communication avec la mémoire et les périphériques :</p>
+                            <ul>
+                                <li>Lecture/écriture mémoire</li>
+                                <li>Accès aux ports I/O</li>
+                                <li>Pré-chargement des instructions (queue)</li>
+                                <li>Calcul des adresses physiques</li>
+                            </ul>
+
+                            <h3>2. Unité d'Exécution (EU)</h3>
+                            <p>Exécute les instructions :</p>
+                            <ul>
+                                <li>Décodage des instructions</li>
+                                <li>Opérations arithmétiques et logiques (ALU)</li>
+                                <li>Gestion des registres</li>
+                                <li>Gestion des drapeaux (flags)</li>
+                            </ul>
+
+                            <h2>Pipeline d'instructions</h2>
+
+                            <p>Le 8086 peut <strong>pré-charger jusqu'à 6 octets</strong> d'instructions pendant que
+                                l'EU exécute :</p>
+
+                            <pre><code class="language-asm">; BIU charge les instructions suivantes
+; pendant que EU exécute l'instruction actuelle
+MOV AX, 10     ; EU exécute, BIU charge les prochaines
+ADD BX, 5      ; Déjà en queue !
+SUB CX, 2      ; Déjà en queue !</code></pre>
+
+                            <div class="alert alert-warning">
+                                <h4>⚠️ Attention aux sauts !</h4>
+                                <p>
+                                    Les instructions JMP vident la queue, ce qui ralentit l'exécution. C'est pourquoi
+                                    les sauts sont "coûteux" en performance.
+                                </p>
+                            </div>
+
+                            <h2>Organisation mémoire et segmentation</h2>
+
+                            <h3>Pourquoi la segmentation ?</h3>
+
+                            <p>Le 8086 a un problème : ses registres font 16-bit mais il a besoin d'adresser 1 MB de
+                                mémoire (20-bit) !</p>
+
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td><strong>Registres 16-bit</strong></td>
+                                    <td>Peuvent adresser : 2^16 = 64 KB</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Mémoire totale</strong></td>
+                                    <td>Nécessite : 2^20 = 1 MB</td>
+                                </tr>
+                            </table>
+
+                            <p><strong>Solution</strong> : Diviser la mémoire en <strong>segments de 64 KB</strong> !
+                            </p>
+
+                            <h3>Calcul d'adresse physique</h3>
+
+                            <p>Pour accéder à la mémoire, le 8086 combine un registre de segment et un offset :</p>
+
+                            <pre><code class="language-asm">Adresse Physique = (Segment × 16) + Offset
+                         = (Segment << 4) + Offset
+
+Exemple :
+DS = 1000h
+Offset = 0234h
+Adresse Physique = (1000h × 16) + 0234h
+                 = 10000h + 0234h
+                 = 10234h</code></pre>
+
+                            <h3>Les 4 segments principaux</h3>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Registre</th>
+                                        <th>Nom</th>
+                                        <th>Usage</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>CS</strong></td>
+                                        <td>Code Segment</td>
+                                        <td>Stocke le code du programme</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>DS</strong></td>
+                                        <td>Data Segment</td>
+                                        <td>Stocke les données</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>SS</strong></td>
+                                        <td>Stack Segment</td>
+                                        <td>Gère la pile</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>ES</strong> </td>
+                                        <td>Extra Segment</td>
+                                        <td>Segment supplémentaire</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h3>Exemple pratique</h3>
+
+                            <pre><code class="language-asm">; Initialiser DS pour accéder aux données
+MOV AX, @DATA    ; @DATA = adresse segment données
+MOV DS, AX       ; DS pointe maintenant sur nos données
+
+; Accéder à une variable
+MOV AL, [msg]    ; Adresse = DS:offset(msg)</code></pre>
+
+                            <h2>Bus du 8086</h2>
+
+                            <h3>Bus de données (16-bit)</h3>
+                            <p>Transporte les données entre CPU et mémoire. Peut transférer :</p>
+                            <ul>
+                                <li><strong>1 byte</strong> : Sur adresse paire ou impaire</li>
+                                <li><strong>2 bytes (1 word)</strong> : Sur adresse paire en un cycle</li>
+                            </ul>
+
+                            <h3>Bus d'adresses (20-bit)</h3>
+                            <p>Permet d'adresser 2^20 = <strong>1 048 576 bytes = 1 MB</strong> de mémoire.</p>
+
+                            <pre><code class="language-asm">Plage d'adresses : 00000h à FFFFFh (hexadécimal)
+                    0 à 1 048 575 (décimal)</code></pre>
+
+                            <h2>Modes de fonctionnement</h2>
+
+                            <h3>Mode Minimum vs Maximum</h3>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Mode Minimum</th>
+                                        <th>Mode Maximum</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>CPU seul</td>
+                                        <td>Plusieurs processeurs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Systèmes simples</td>
+                                        <td>Systèmes complexes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>PC personnels</td>
+                                        <td>Serveurs, multiprocessing</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <p>Pour emu8086 et nos programmes, nous utilisons le <strong>mode minimum</strong>.</p>
+
+                            <h2>Flags (Drapeaux)</h2>
+
+                            <p>Le 8086 possède un registre FLAGS de 16-bit avec 9 flags actifs :</p>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Flag</th>
+                                        <th>Nom</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>CF</strong></td>
+                                        <td>Carry Flag</td>
+                                        <td>Retenue pour opérations non-signées</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>PF</strong></td>
+                                        <td>Parity Flag</td>
+                                        <td>Parité du résultat (pair/impair)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>AF</strong></td>
+                                        <td>Auxiliary Flag</td>
+                                        <td>Retenue BCD</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>ZF</strong></td>
+                                        <td>Zero Flag</td>
+                                        <td>Résultat = 0</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>SF</strong></td>
+                                        <td>Sign Flag</td>
+                                        <td>Résultat négatif (bit de signe)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>TF</strong></td>
+                                        <td>Trap Flag</td>
+                                        <td>Mode pas-à-pas (debug)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>IF</strong></td>
+                                        <td>Interrupt Flag</td>
+                                        <td>Activer/désactiver interruptions</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>DF</strong></td>
+                                        <td>Direction Flag</td>
+                                        <td>Direction des opérations sur chaînes</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>OF</strong></td>
+                                        <td>Overflow Flag</td>
+                                        <td>Débordement signé</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h3>Visualiser les flags dans emu8086</h3>
+
+                            <p>Dans emu8086, les flags sont affichés en temps réel. Testez :</p>
+
+                            <pre><code class="language-asm">MOV AL, 255
+ADD AL, 1      ; CF=1 (débordement non-signé)
+               ; ZF=1 (résultat = 0)
+               ; PF=1 (parité paire)</code></pre>
+                        </section>
+
+                        <aside class="tips alert">
+                            <h3>💡 Astuces</h3>
+                            <ul>
+                                <li>Visualisez la segmentation dans emu8086 (fenêtre Memory)</li>
+                                <li>Observez les flags après chaque instruction</li>
+                                <li>Rappelez-vous : Adresse = (Segment × 16) + Offset</li>
+                                <li>CS, DS, SS, ES sont TOUJOURS des segments</li>
+                                <li>Le pipeline rend les sauts plus lents</li>
+                            </ul>
+                        </aside>
+
+                        <aside class="common-mistakes alert">
+                            <h3>⚠️ Erreurs fréquentes</h3>
+                            <ul>
+                                <li><strong>Oublier d'initialiser DS</strong> : Accès données incorrect</li>
+                                <li><strong>Confondre segment et offset</strong> : MOV DS, 1000h n'est PAS 1000h en
+                                    mémoire</li>
+                                <li><strong>Ignorer les flags</strong> : Nécessaires pour les sauts conditionnels</li>
+                                <li><strong>Mauvais calcul d'adresse</strong> : Segment × 16, pas × 10 !</li>
+                            </ul>
+                        </aside>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch02"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Calcul d'adresse physique</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Calculez les adresses physiques :</p>
+                                    <ul>
+                                        <li>DS = 2000h, Offset = 0100h → Adresse physique ?</li>
+                                        <li>CS = 1234h, Offset = 5678h → Adresse physique ?</li>
+                                        <li>SS = FFFFh, Offset = 000Fh → Adresse physique ?</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle" onclick="toggleSolution('sol-ch02-ex1')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch02-ex1" class="solution-box" style="display: none;">
+                                    <h4>Solution - Calcul d'adresses</h4>
+                                    <p><strong>Formule :</strong> Adresse physique = Segment × 16 + Offset</p>
+<ol>
+<li><strong>DS = 2000h, Offset = 0100h</strong>
+<pre><code class="language-asm">= 2000h × 10h + 0100h
+= 20000h + 0100h
+= 20100h</code></pre>
+</li>
+<li><strong>CS = 1234h, Offset = 5678h</strong>
+<pre><code class="language-asm">= 1234h × 10h + 5678h
+= 12340h + 5678h
+= 179B8h</code></pre>
+</li>
+<li><strong>SS = FFFFh, Offset = 000Fh</strong>
+<pre><code class="language-asm">= FFFFh × 10h + 000Fh
+= FFFF0h + 000Fh
+= FFFFFh (dernière adresse)</code></pre>
+</li>
+</ol>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Observer les flags</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Dans emu8086, créez un programme qui :</p>
+                                    <ul>
+                                        <li>Fait ADD de deux nombres qui débordent</li>
+                                        <li>Fait SUB qui donne zéro</li>
+                                        <li>Observez CF, ZF, SF dans la fenêtre Flags</li>
+                                        <li>Notez les valeurs des flags</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle" onclick="toggleSolution('sol-ch02-ex2')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch02-ex2" class="solution-box" style="display: none;">
+                                    <h4>Solution - Observer les flags</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.CODE
+MAIN PROC
+    ; Test 1 : Débordement
+    MOV AL, 255
+    ADD AL, 1
+    ; AL = 0, CF = 1, ZF = 1
+    
+    ; Test 2 : Résultat zéro
+    MOV AX, 100
+    SUB AX, 100
+    ; AX = 0, ZF = 1, CF = 0, SF = 0
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+<p><strong>Observations :</strong></p>
+<ul>
+<li><strong>CF = 1</strong> : Lors du débordement (255 + 1)</li>
+<li><strong>ZF = 1</strong> : Résultat = 0</li>
+<li><strong>SF = 0/1</strong> : Selon le signe du résultat</li>
+</ul>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Segmentation en pratique</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Écrivez un programme qui :</p>
+                                    <ul>
+                                        <li>Déclare une variable dans .DATA</li>
+                                        <li>Affiche la valeur de DS (utilisez emu8086 debugger)</li>
+                                        <li>Calculez l'adresse physique de votre variable</li>
+                                        <li>Vérifiez dans la fenêtre Memory de emu8086</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle" onclick="toggleSolution('sol-ch02-ex3')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch02-ex3" class="solution-box" style="display: none;">
+                                    <h4>Solution - Segmentation pratique</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.DATA
+    valeur DW 1234h
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    ; Observer DS dans emu8086
+    ; Puis Memory view pour voir la variable
+    
+    MOV BX, valeur
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+<p><strong>Dans emu8086 :</strong></p>
+<ol>
+<li>Lancez le debugger (F8)</li>
+<li>Regardez la valeur de DS</li>
+<li>Calculez : DS × 10h + offset de valeur</li>
+<li>Vérifiez dans Memory View</li>
+</ol>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch01-introduction.html" class="chapter-nav-btn">← Précédent : Introduction</a>
+                            <a href="ch03-registres.html" class="chapter-nav-btn">Suivant : Registres 16-bit →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">✓ Marquer ce chapitre comme
+                                terminé</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nasm.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'assembly-x86-64';
+        const chapterId = 'ch02-architecture';
+
+        const chapters = [
+            { id: "ch01-introduction", title: "Introduction" },
+            { id: "ch02-architecture", title: "Architecture 8086" },
+            { id: "ch03-registres", title: "Registres 16-bit" },
+            { id: "ch04-instructions-base", title: "Instructions de base" },
+            { id: "ch05-adressage", title: "Modes d'adressage" },
+            { id: "ch06-controle", title: "Instructions de contrôle" },
+            { id: "ch07-pile", title: "La pile" },
+            { id: "ch08-procedures", title: "Procédures" },
+            { id: "ch09-chaines", title: "Chaînes" },
+            { id: "ch10-tableaux", title: "Tableaux" },
+            { id: "ch11-interruptions", title: "Interruptions DOS" },
+            { id: "ch12-video", title: "Affichage vidéo" },
+            { id: "ch13-ports", title: "Ports" },
+            { id: "ch14-debugging", title: "Debugging" },
+            { id: "ch15-projets", title: "Projets" }
+        ];
+
+        const quizData = {
+            title: "Quiz - Architecture 8086",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                {
+                    question: "Quelle est la taille du bus de données du 8086 ?",
+                    type: "single",
+                    options: ["8-bit", "16-bit", "20-bit", "32-bit"],
+                    correct: 1,
+                    explanation: "Le 8086 a un bus de données de 16-bit, permettant de transférer 2 octets à la fois."
+                },
+                {
+                    question: "Quelle est la taille du bus d'adresses ?",
+                    type: "single",
+                    options: ["16-bit", "20-bit", "24-bit", "32-bit"],
+                    correct: 1,
+                    explanation: "Le bus d'adresses fait 20-bit, permettant d'adresser 2^20 = 1 MB de mémoire."
+                },
+                {
+                    question: "Comment calculer l'adresse physique ?",
+                    type: "single",
+                    options: [
+                        "Segment + Offset",
+                        "Segment × 16 + Offset",
+                        "Segment × 10 + Offset",
+                        "Segment / 16 + Offset"
+                    ],
+                    correct: 1,
+                    explanation: "Adresse physique = (Segment × 16) + Offset. On décale le segment de 4 bits à gauche."
+                },
+                {
+                    question: "Combien de bytes peut contenir un segment ?",
+                    type: "single",
+                    options: ["16 KB", "32 KB", "64 KB", "1 MB"],
+                    correct: 2,
+                    explanation: "Un segment peut contenir 64 KB (2^16 bytes) car l'offset est sur 16-bit."
+                },
+                {
+                    question: "Quel registre stocke l'adresse du segment de données ?",
+                    type: "single",
+                    options: ["CS", "DS", "SS", "ES"],
+                    correct: 1,
+                    explanation: "DS (Data Segment) pointe vers le segment contenant les données du programme."
+                },
+                {
+                    question: "Que fait le pipeline du 8086 ?",
+                    type: "single",
+                    options: [
+                        "Exécute plusieurs instructions en parallèle",
+                        "Pré-charge les instructions suivantes",
+                        "Accélère les calculs",
+                        "Gère la mémoire"
+                    ],
+                    correct: 1,
+                    explanation: "Le pipeline pré-charge jusqu'à 6 octets d'instructions pendant que l'EU exécute."
+                },
+                {
+                    question: "Quel flag indique un résultat zéro ?",
+                    type: "single",
+                    options: ["CF", "ZF", "SF", "OF"],
+                    correct: 1,
+                    explanation: "ZF (Zero Flag) est mis à 1 quand le résultat d'une opération est zéro."
+                },
+                {
+                    question: "Quelle est la mémoire maximale du 8086 ?",
+                    type: "single",
+                    options: ["64 KB", "256 KB", "1 MB", "4 MB"],
+                    correct: 2,
+                    explanation: "Avec 20-bit d'adressage, le 8086 peut adresser 2^20 = 1 MB de mémoire."
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+
+            QuizSystem.createQuiz(quizData, 'quiz-ch02');
+
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+    </script>
+
+    <script>
+        // Solution toggle function
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            const button = event.target;
+            
+            if (solution.style.display === 'none') {
+                solution.style.display = 'block';
+                button.textContent = '🙈 Masquer la solution';
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-primary');
+            } else {
+                solution.style.display = 'none';
+                button.textContent = '👁️ Voir la solution';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline-primary');
+            }
+        }
+    </script>
+    
+    <style>
+        .solution-box {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 0.375rem;
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        .solution-box h4 {
+            color: #0d6efd;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .solution-box pre {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .solution-toggle {
+            transition: all 0.2s ease;
+        }
+        
+        .solution-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+</body>
+
+</html>

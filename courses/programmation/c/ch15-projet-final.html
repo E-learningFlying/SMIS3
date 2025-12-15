@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 15 : Projet Final - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Langage C</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch07-pointeurs-bases.html">7. Pointeurs</a></li>
+                            <li><a href="ch08-tableaux.html">8. Tableaux</a></li>
+                            <li><a href="ch09-chaines.html">9. Chaînes</a></li>
+                            <li><a href="ch10-allocation.html">10. All. Dynamique</a></li>
+                            <li><a href="ch11-structs.html">11. Structures</a></li>
+                            <li><a href="ch12-pointeurs-avances.html">12. Ptr Avancés</a></li>
+                            <li><a href="ch13-fichiers.html">13. Fichiers</a></li>
+                            <li><a href="ch14-preprocesseur.html">14. Module/Header</a></li>
+                            <li><a href="ch15-projet-final.html" class="active">15. Projet Final</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Cours C</a></li>
+                                <li class="breadcrumb-item active">Chapitre 15</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 15 : Projet Final et Conclusion</h1>
+
+                        <section class="mb-5">
+                            <h2>Félicitations !</h2>
+                            <p>Vous avez parcouru l'ensemble des concepts fondamentaux du langage C. Pour valider vos
+                                acquis, rien de mieux que de construire un projet complet de A à Z.</p>
+                            <p>Choisissez l'un des trois projets ci-dessous. Essayez de le faire sans regarder la
+                                solution !</p>
+                        </section>
+
+                        <!-- Projet 1 -->
+                        <section class="mb-5">
+                            <div class="card border-primary mb-4">
+                                <div class="card-header bg-primary text-white">
+                                    <h3>Projet 1 : Gestionnaire d'Étudiants (Niveau Facile)</h3>
+                                </div>
+                                <div class="card-body">
+                                    <h4>Objectif</h4>
+                                    <p>Créer un programme qui permet de gérer une classe d'étudiants.</p>
+                                    <h4>Fonctionnalités requises :</h4>
+                                    <ul>
+                                        <li>Définir une structure <code>Etudiant</code> (nom, note1, note2, moyenne).
+                                        </li>
+                                        <li>Demander à l'utilisateur combien d'étudiants il y a.</li>
+                                        <li>Allouer la mémoire dynamiquement pour le tableau d'étudiants.</li>
+                                        <li>Saisir les noms et notes.</li>
+                                        <li>Calculer automatiquement la moyenne de chaque étudiant.</li>
+                                        <li>Afficher la liste finale et la moyenne de la classe.</li>
+                                    </ul>
+                                    <button class="btn btn-outline-primary mt-3" onclick="toggleSolution('sol-p1')">Voir
+                                        le Code Complet</button>
+                                    <div id="sol-p1" class="solution-box">
+                                        <pre><code class="language-c">#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    char nom[50];
+    float note1;
+    float note2;
+    float moyenne;
+} Etudiant;
+
+int main() {
+    int nb;
+    printf("Nombre d'etudiants : ");
+    scanf("%d", &nb);
+
+    // Allocation dynamique
+    Etudiant *classe = malloc(nb * sizeof(Etudiant));
+
+    for(int i=0; i<nb; i++) {
+        printf("\nEtudiant %d :\n", i+1);
+        printf("Nom : "); scanf("%s", classe[i].nom);
+        printf("Note 1 : "); scanf("%f", &classe[i].note1);
+        printf("Note 2 : "); scanf("%f", &classe[i].note2);
+        
+        classe[i].moyenne = (classe[i].note1 + classe[i].note2) / 2;
+    }
+
+    printf("\n--- RESULTATS ---\n");
+    float moyenneGenerale = 0;
+    for(int i=0; i<nb; i++) {
+        printf("%s : %.2f\n", classe[i].nom, classe[i].moyenne);
+        moyenneGenerale += classe[i].moyenne;
+    }
+    printf("Moyenne Classe : %.2f\n", moyenneGenerale / nb);
+
+    free(classe); // Libération
+    return 0;
+}</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Projet 2 -->
+                        <section class="mb-5">
+                            <div class="card border-success mb-4">
+                                <div class="card-header bg-success text-white">
+                                    <h3>Projet 2 : Le Jeu du Pendu (Niveau Intermédiaire)</h3>
+                                </div>
+                                <div class="card-body">
+                                    <h4>Objectif</h4>
+                                    <p>Le classique jeu où il faut deviner un mot lettre par lettre.</p>
+                                    <h4>Fonctionnalités :</h4>
+                                    <ul>
+                                        <li>Avoir un mot secret (ex: "PROGRAMMATION").</li>
+                                        <li>Afficher le mot masqué (ex: "_____________").</li>
+                                        <li>Demander une lettre au joueur.</li>
+                                        <li>Si la lettre est dans le mot, la révéler. Sinon, décrémenter les vies.</li>
+                                        <li>Gagner si tout est trouvé, Perdre si 0 vies.</li>
+                                        <li>Utiliser <code>string.h</code>.</li>
+                                    </ul>
+                                    <button class="btn btn-outline-success mt-3" onclick="toggleSolution('sol-p2')">Voir
+                                        le Code Complet</button>
+                                    <div id="sol-p2" class="solution-box">
+                                        <pre><code class="language-c">#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char secret[] = "ORDINATEUR";
+    char masque[20];
+    int len = strlen(secret);
+    int vies = 5;
+    
+    // Initialiser masque
+    for(int i=0; i<len; i++) masque[i] = '_';
+    masque[len] = '\0';
+
+    while (vies > 0 && strcmp(secret, masque) != 0) {
+        printf("\nMot : %s | Vies : %d\n", masque, vies);
+        printf("Lettre ? ");
+        char c;
+        scanf(" %c", &c); // Espace avant %c pour vider buffer
+        
+        // Mettre en majuscule si minuscule
+        if(c >= 'a' && c <= 'z') c -= 32;
+
+        int trouve = 0;
+        for(int i=0; i<len; i++) {
+            if(secret[i] == c) {
+                masque[i] = c;
+                trouve = 1;
+            }
+        }
+
+        if(!trouve) {
+            printf("Non !\n");
+            vies--;
+        }
+    }
+
+    if(vies > 0) printf("\nBRAVO ! Le mot etait %s\n", secret);
+    else printf("\nPERDU... Le mot etait %s\n", secret);
+
+    return 0;
+}</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Projet 3 -->
+                        <section class="mb-5">
+                            <div class="card border-warning mb-4">
+                                <div class="card-header bg-warning text-dark">
+                                    <h3>Projet 3 : Annuaire Téléphonique (Fichiers)</h3>
+                                </div>
+                                <div class="card-body">
+                                    <h4>Objectif</h4>
+                                    <p>Gérer une liste de contacts persistante dans un fichier.</p>
+                                    <h4>Fonctionnalités :</h4>
+                                    <ul>
+                                        <li>Menu : 1. Ajouter, 2. Afficher, 3. Quitter.</li>
+                                        <li>Structure <code>Contact</code> (nom, telephone).</li>
+                                        <li>Option 1 : Demande les infos et AJOUTE à la fin du fichier
+                                            <code>contacts.txt</code>.</li>
+                                        <li>Option 2 : Lit tout le fichier et affiche les contacts.</li>
+                                    </ul>
+                                    <button class="btn btn-outline-warning mt-3" onclick="toggleSolution('sol-p3')">Voir
+                                        le Code Complet</button>
+                                    <div id="sol-p3" class="solution-box">
+                                        <pre><code class="language-c">#include <stdio.h>
+
+typedef struct {
+    char nom[50];
+    char tel[20];
+} Contact;
+
+void ajouter() {
+    FILE *f = fopen("contacts.txt", "a");
+    if(!f) return;
+    
+    Contact c;
+    printf("Nom : "); scanf("%s", c.nom);
+    printf("Tel : "); scanf("%s", c.tel);
+    
+    fprintf(f, "%s %s\n", c.nom, c.tel);
+    fclose(f);
+}
+
+void afficher() {
+    FILE *f = fopen("contacts.txt", "r");
+    if(!f) { printf("Annuaire vide.\n"); return; }
+    
+    Contact c;
+    printf("\n--- ANNUAIRE ---\n");
+    while(fscanf(f, "%s %s", c.nom, c.tel) != EOF) {
+        printf("%s : %s\n", c.nom, c.tel);
+    }
+    fclose(f);
+}
+
+int main() {
+    int choix;
+    do {
+        printf("\n1. Ajouter\n2. Afficher\n3. Quitter\nChoix : ");
+        scanf("%d", &choix);
+        if(choix == 1) ajouter();
+        if(choix == 2) afficher();
+    } while(choix != 3);
+    return 0;
+}</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div class="text-center my-5">
+                            <h2>Et maintenant ?</h2>
+                            <p>Vous êtes prêt ! Si vous avez maîtrisé tout ça, vous avez un niveau solide en C.</p>
+                            <a href="examens.html" class="btn btn-primary btn-lg mt-3">Passer les Examens Finaux →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

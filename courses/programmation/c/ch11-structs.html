@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 11 : Les Structures - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Langage C</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch07-pointeurs-bases.html">7. Pointeurs</a></li>
+                            <li><a href="ch08-tableaux.html">8. Tableaux</a></li>
+                            <li><a href="ch09-chaines.html">9. Chaînes</a></li>
+                            <li><a href="ch10-allocation.html">10. All. Dynamique</a></li>
+                            <li><a href="ch11-structs.html" class="active">11. Structures</a></li>
+                            <li><a href="ch12-pointeurs-avances.html">12. Ptr Avancés</a></li>
+                            <li><a href="ch13-fichiers.html">13. Fichiers</a></li>
+                            <li><a href="ch14-preprocesseur.html">14. Module/Header</a></li>
+                            <li><a href="ch15-projet-final.html">15. Projet Final</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Cours C</a></li>
+                                <li class="breadcrumb-item active">Chapitre 11</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 11 : Les Structures</h1>
+
+                        <!-- Section 1 -->
+                        <section class="mb-5">
+                            <h2>1. Qu'est-ce qu'une structure ?</h2>
+                            <p>Les variables simples (int, float) ne suffisent pas pour représenter des objets complexes
+                                (ex: un Personnage avec un Nom, des PV et des PM). Les structures permettent de créer
+                                vos propres types composés.</p>
+                            <pre><code class="language-c">struct Personnage {
+    char nom[50];
+    int pv;
+    int pm;
+};</code></pre>
+                        </section>
+
+                        <!-- Section 2 -->
+                        <section class="mb-5">
+                            <h2>2. Utilisation et typedef</h2>
+                            <p>Pour éviter d'écrire <code>struct Personnage</code> partout, on utilise
+                                <code>typedef</code>.</p>
+                            <pre><code class="language-c">typedef struct {
+    int x;
+    int y;
+} Point;
+
+int main() {
+    Point p1;
+    p1.x = 10; // Accès avec le point (.)
+    p1.y = 20;
+    return 0;
+}</code></pre>
+                        </section>
+
+                        <!-- Section 3 -->
+                        <section class="mb-5">
+                            <h2>3. Tableaux de Structures</h2>
+                            <p>On peut créer des tableaux de nos types personnalisés, exactement comme avec des int.</p>
+                            <pre><code class="language-c">Point ligne[10]; // 10 points
+ligne[0].x = 5;</code></pre>
+                        </section>
+
+                        <!-- QUIZ -->
+                        <section class="my-5 p-4 border rounded bg-white shadow-sm">
+                            <h3 class="mb-4">🧠 Quiz de Validation (6 Questions)</h3>
+
+                            <!-- Q1 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">1. Quel mot-clé permet de définir un nouveau type composé ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">class</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, true)">struct</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">object</button>
+                                </div>
+                            </div>
+
+                            <!-- Q2 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">2. Quel opérateur utilise-t-on pour accéder au champ d'une variable
+                                    structure ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">.
+                                        (point)</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">->
+                                        (flèche)</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">:: (deux
+                                        points)</button>
+                                </div>
+                            </div>
+
+                            <!-- Q3 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">3. À quoi sert `typedef` ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">À créer une
+                                        variable</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">À créer un
+                                        alias de type (raccourci)</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">À inclure un
+                                        fichier</button>
+                                </div>
+                            </div>
+
+                            <!-- Q4 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">4. Peut-on mettre une structure DANS une structure ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Oui</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Non</button>
+                                </div>
+                            </div>
+
+                            <!-- Q5 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">5. Combien d'octets occupe `struct { char c; int i; }`
+                                    (approximativement) ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">5 octets
+                                        (1+4)</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Probablement 8
+                                        octets (padding/alignement)</button>
+                                </div>
+                            </div>
+
+                            <!-- Q6 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">6. Où déclare-t-on généralement les structures ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Dans le
+                                        main</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">En dehors des
+                                        fonctions (scope global)</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCISES -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">💻 Exercices Pratiques</h3>
+
+                            <!-- Ex 1 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-header bg-primary text-white">Exercice 1 : Le Rectangle</div>
+                                    <div class="card-body">
+                                        <p>Définissez une structure <code>Rectangle</code> avec <code>longueur</code> et
+                                            <code>largeur</code>. Créez-en un, initialisez-le et affichez son aire.</p>
+                                        <button class="btn btn-outline-primary btn-sm"
+                                            onclick="toggleSolution('sol1')">Voir Solution</button>
+                                        <div id="sol1" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+typedef struct {
+    float longueur;
+    float largeur;
+} Rectangle;
+
+int main() {
+    Rectangle r;
+    r.longueur = 10.5;
+    r.largeur = 5.0;
+    
+    printf("Aire : %.2f\n", r.longueur * r.largeur);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 2 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-success text-white">Exercice 2 : Initialisation rapide
+                                    </div>
+                                    <div class="card-body">
+                                        <p>On peut initialiser une structure comme un tableau :
+                                            <code>Point p = {10, 20};</code>. Essayez avec une structure
+                                            <code>Etudiant</code> (nom, age, moyenne).</p>
+                                        <button class="btn btn-outline-success btn-sm"
+                                            onclick="toggleSolution('sol2')">Voir Solution</button>
+                                        <div id="sol2" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+typedef struct {
+    char nom[50];
+    int age;
+    float moyenne;
+} Etudiant;
+
+int main() {
+    Etudiant e = {"Alice", 20, 15.5};
+    printf("%s a %d ans et %.1f de moyenne.\n", e.nom, e.age, e.moyenne);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 3 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-info text-dark">Exercice 3 : Tableau de Points</div>
+                                    <div class="card-body">
+                                        <p>Créez un tableau de 3 Points. Remplissez-le avec (0,0), (1,1), (2,2) via une
+                                            boucle.</p>
+                                        <button class="btn btn-outline-info btn-sm"
+                                            onclick="toggleSolution('sol3')">Voir Solution</button>
+                                        <div id="sol3" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+typedef struct { int x; int y; } Point;
+
+int main() {
+    Point points[3];
+    for(int i=0; i<3; i++) {
+        points[i].x = i;
+        points[i].y = i;
+        printf("P%d(%d, %d)\n", i, points[i].x, points[i].y);
+    }
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 4 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-warning text-dark">Exercice 4 : Copie de structure</div>
+                                    <div class="card-body">
+                                        <p>Si on fait <code>p1 = p2;</code>, est-ce que ça copie tout ? Vérifiez en
+                                            modifiant p1 après la copie et en affichant p2.</p>
+                                        <button class="btn btn-outline-warning btn-sm"
+                                            onclick="toggleSolution('sol4')">Voir Solution</button>
+                                        <div id="sol4" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+typedef struct { int x; } Test;
+
+int main() {
+    Test t1 = {10};
+    Test t2 = t1; // COPIE par valeur
+    t1.x = 99;
+    
+    printf("t1.x = %d, t2.x = %d\n", t1.x, t2.x);
+    // t2.x vaut toujours 10 ! Les structures se copient entièrement.
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 5 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-danger">
+                                    <div class="card-header bg-danger text-white">Exercice 5 : Structure imbriquée</div>
+                                    <div class="card-body">
+                                        <p>Créez une struct <code>Date</code> (j, m, a). Créez une struct
+                                            <code>Personne</code> qui contient un nom et une <code>Date</code> de
+                                            naissance. Initialisez et affichez.</p>
+                                        <button class="btn btn-outline-danger btn-sm"
+                                            onclick="toggleSolution('sol5')">Voir Solution</button>
+                                        <div id="sol5" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+typedef struct { int j, m, a; } Date;
+
+typedef struct {
+    char nom[20];
+    Date naissance;
+} Personne;
+
+int main() {
+    Personne p = {"Bob", {15, 8, 1995}};
+    printf("Né le %d/%d/%d\n", p.naissance.j, p.naissance.m, p.naissance.a);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+
+                        <div class="text-center my-5">
+                            <a href="ch10-allocation.html" class="btn btn-outline-secondary btn-lg me-2">← Précédent</a>
+                            <a href="ch12-pointeurs-avances.html" class="btn btn-success btn-lg">Chapitre Suivant →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            if (isCorrect) {
+                btn.classList.add('btn-success');
+            } else {
+                btn.classList.add('btn-danger');
+            }
+        }
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

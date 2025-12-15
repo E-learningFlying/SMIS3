@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen 3 : Projet Final - Assembleur 8086</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/courses.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../index.html">Accueil</a>
+                <a href="../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Cours</a></li>
+                <li class="breadcrumb-item"><a href="examens.html">Examens</a></li>
+                <li class="breadcrumb-item active">Examen 3 - Projet</li>
+            </ol>
+        </nav>
+
+        <section class="text-center mb-5">
+            <h1>Examen 3 : Le Projet Final</h1>
+            <p class="lead">Votre mission : Créer une application complète en Assembleur 8086.</p>
+        </section>
+
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="alert alert-info">
+                    <strong>Instructions :</strong> Choisissez UN sujet parmi les 3 proposés ci-dessous. Vous devez
+                    livrer un code source fonctionnel (.asm) qui respecte les spécifications.
+                </div>
+
+                <!-- Sujet 1 -->
+                <div class="card mb-4 shadow-sm border-primary">
+                    <div class="card-header bg-primary text-white">sujet A : Le Jeu "Snake" (Simplifié)</div>
+                    <div class="card-body">
+                        <h5>Description</h5>
+                        <p>Implémentez un jeu où un caractère ('O') se déplace sur l'écran (80x25).</p>
+                        <h5>Spécifications Minimales :</h5>
+                        <ul>
+                            <li>Déplacement continu (pas besoin d'appuyer pour chaque pas).</li>
+                            <li>Contrôle avec les flèches ou ZQSD.</li>
+                            <li>Si on touche un "mur" (bords de l'écran), Game Over.</li>
+                            <li>Score affiché à la fin.</li>
+                        </ul>
+                        <h5>Bonus :</h5>
+                        <ul>
+                            <li>Ajouter des "pommes" (*) qui augmentent le score.</li>
+                            <li>Augmenter la vitesse avec le temps.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Sujet 2 -->
+                <div class="card mb-4 shadow-sm border-success">
+                    <div class="card-header bg-success text-white">Sujet B : Calculatrice Scientifique RPN</div>
+                    <div class="card-body">
+                        <h5>Description</h5>
+                        <p>Une calculatrice basée sur la Notation Polonaise Inverse (Pile).</p>
+                        <h5>Spécifications Minimales :</h5>
+                        <ul>
+                            <li>Saisie de nombres (0-99).</li>
+                            <li>Opérations (+, -, *, /) s'appliquent aux deux derniers nombres empilés.</li>
+                            <li>Utilisation explicite de la <code>STACK</code> ou d'un tableau simulant une pile.</li>
+                            <li>Affichage de la pile après chaque opération.</li>
+                        </ul>
+                        <h5>Exemple de flux :</h5>
+                        <code>> 5 [Entrée] (Pile: 5) <br> > 3 [Entrée] (Pile: 5, 3) <br> > + [Entrée] (Pile: 8)</code>
+                    </div>
+                </div>
+
+                <!-- Sujet 3 -->
+                <div class="card mb-4 shadow-sm border-warning">
+                    <div class="card-header bg-warning text-dark">Sujet C : Gestionnaire de Mots de Passe</div>
+                    <div class="card-body">
+                        <h5>Description</h5>
+                        <p>Un coffre-fort numérique simple simulé.</p>
+                        <h5>Spécifications Minimales :</h5>
+                        <ul>
+                            <li>Authentification au démarrage (Master Password).</li>
+                            <li>Menu : Ajouter service, Voir mdp, Quitter.</li>
+                            <li>Stockage en mémoire (Tableaux de chaînes).</li>
+                            <li>Cryptage simple (XOR ou César) des mots de passe en mémoire.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card bg-light mt-5">
+                    <div class="card-body">
+                        <h4>Critères d'évaluation</h4>
+                        <ul class="mb-0">
+                            <li><strong>Fonctionnalité (50%)</strong> : Le programme marche sans planter.</li>
+                            <li><strong>Code Propre (30%)</strong> : Code indenté, labels clairs, utilisation de PROC.
+                            </li>
+                            <li><strong>Commentaires (20%)</strong> : Chaque bloc de code est expliqué.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                    <p>Une fois terminé, hébergez votre code sur GitHub ou envoyez-le à votre instructeur.</p>
+                    <a href="examens.html" class="btn btn-outline-secondary">Retour aux examens</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

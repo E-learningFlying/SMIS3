@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Chapitre 2 : Structure d'un document HTML - Apprenez la structure complète d'une page HTML conforme aux standards">
+
+    <title>Chapitre 2 : Structure d'un document HTML - Learn2succeed</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+
+    <!-- Prism.js -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo">
+                <span>📚</span>
+                <span>Learn2succeed</span>
+            </a>
+
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+                ☰
+            </button>
+
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours HTML</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <!-- Chapter Content -->
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <!-- Breadcrumb -->
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours HTML</a></li>
+                                <li class="breadcrumb-item active">Chapitre 2 : Structure d'un document HTML</li>
+                            </ol>
+                        </nav>
+
+                        <!-- Chapter Header -->
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 2</span>
+                            <h1 class="mb-3">Structure d'un document HTML</h1>
+                            <p class="text-lg text-secondary">
+                                Maîtrisez la structure fondamentale d'un document HTML et comprenez le rôle de chaque
+                                section essentielle.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 1 heure</p>
+                        </header>
+
+                        <!-- Navigation (top) -->
+                        <nav class="chapter-nav">
+                            <a href="ch01-introduction.html" class="chapter-nav-btn">
+                                ← Précédent : Introduction au HTML
+                            </a>
+                            <a href="ch03-balises-essentielles.html" class="chapter-nav-btn">
+                                Suivant : Les balises essentielles →
+                            </a>
+                        </nav>
+
+                        <!-- Content -->
+                        <section class="chapter-content">
+                            <h2>La structure de base d'un document HTML</h2>
+
+                            <p>
+                                Chaque page HTML suit une structure standard qui permet aux navigateurs de l'interpréter
+                                correctement.
+                                Cette structure est composée de plusieurs éléments essentiels que nous allons détailler.
+                            </p>
+
+                            <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Titre de la page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Le contenu visible de la page --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+                            <h2>1. La déclaration DOCTYPE</h2>
+
+                            <pre><code class="language-html">&lt;!DOCTYPE html&gt;</code></pre>
+
+                            <p>
+                                La déclaration <code>&lt;!DOCTYPE html&gt;</code> doit toujours être la <strong>première
+                                    ligne</strong> de votre document HTML.
+                            </p>
+
+                            <ul>
+                                <li><strong>Rôle</strong> : Indique au navigateur qu'il s'agit d'un document HTML5</li>
+                                <li><strong>Impact</strong> : Assure que le navigateur affiche la page en mode
+                                    "standards" et non en mode "quirks"</li>
+                                <li><strong>Syntaxe</strong> : Toujours en majuscules par convention (mais les
+                                    minuscules fonctionnent aussi)</li>
+                            </ul>
+
+                            <div class="alert alert-warning">
+                                <h4>⚠️ Mode Quirks vs Standards</h4>
+                                <p>
+                                    Sans DOCTYPE, les navigateurs passent en "mode quirks" (compatibilité) qui peut
+                                    causer des problèmes d'affichage imprévisibles.
+                                    Toujours inclure le DOCTYPE !
+                                </p>
+                            </div>
+
+                            <h2>2. L'élément racine &lt;html&gt;</h2>
+
+                            <pre><code class="language-html">&lt;html lang="fr"&gt;
+    &lt;!-- Tout le contenu de la page --&gt;
+&lt;/html&gt;</code></pre>
+
+                            <p>
+                                L'élément <code>&lt;html&gt;</code> est l'<strong>élément racine</strong> qui contient
+                                tous les autres éléments de la page.
+                            </p>
+
+                            <h3>L'attribut lang</h3>
+
+                            <p>
+                                L'attribut <code>lang</code> est essentiel pour :
+                            </p>
+                            <ul>
+                                <li><strong>Accessibilité</strong> : Les lecteurs d'écran utilisent la langue pour
+                                    prononcer correctement le texte</li>
+                                <li><strong>SEO</strong> : Les moteurs de recherche identifient la langue du contenu
+                                </li>
+                                <li><strong>Traduction</strong> : Les navigateurs proposent de traduire la page si
+                                    nécessaire</li>
+                            </ul>
+
+                            <p>Exemples de codes de langue :</p>
+                            <ul>
+                                <li><code>fr</code> : Français</li>
+                                <li><code>en</code> : Anglais</li>
+                                <li><code>es</code> : Espagnol</li>
+                                <li><code>de</code> : Allemand</li>
+                                <li><code>fr-CA</code> : Français canadien</li>
+                            </ul>
+
+                            <h2>3. La section &lt;head&gt;</h2>
+
+                            <p>
+                                La section <code>&lt;head&gt;</code> contient les <strong>métadonnées</strong> de la
+                                page, c'est-à-dire des informations sur le document qui ne sont pas directement
+                                affichées.
+                            </p>
+
+                            <h3>Éléments essentiels du &lt;head&gt;</h3>
+
+                            <h4>a) L'encodage des caractères</h4>
+
+                            <pre><code class="language-html">&lt;meta charset="UTF-8"&gt;</code></pre>
+
+                            <p>
+                                Définit l'encodage des caractères à UTF-8, qui prend en charge tous les caractères
+                                internationaux, accents, symboles, emojis, etc.
+                            </p>
+
+                            <div class="alert alert-error">
+                                <strong>Sans cet élément :</strong> Les caractères spéciaux (é, à, ç, etc.) peuvent
+                                s'afficher comme des symboles étranges.
+                            </div>
+
+                            <h4>b) La balise viewport</h4>
+
+                            <pre><code class="language-html">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></pre>
+
+                            <p>
+                                Essentielle pour le <strong>responsive design</strong> (adaptation aux mobiles) :
+                            </p>
+                            <ul>
+                                <li><code>width=device-width</code> : La largeur de la page s'adapte à l'écran</li>
+                                <li><code>initial-scale=1.0</code> : Le niveau de zoom initial est de 100%</li>
+                            </ul>
+
+                            <h4>c) Le titre de la page</h4>
+
+                            <pre><code class="language-html">&lt;title&gt;Titre de ma page - Nom du site&lt;/title&gt;</code></pre>
+
+                            <p>
+                                Le titre apparaît :
+                            </p>
+                            <ul>
+                                <li>Dans l'onglet du navigateur</li>
+                                <li>Dans les résultats de recherche Google</li>
+                                <li>Dans les favoris</li>
+                                <li>Dans l'historique de navigation</li>
+                            </ul>
+
+                            <div class="tips alert">
+                                <h3>💡 Astuces pour un bon titre</h3>
+                                <ul>
+                                    <li>Soyez descriptif mais concis (50-60 caractères maximum)</li>
+                                    <li>Incluez des mots-clés pertinents pour le SEO</li>
+                                    <li>Format recommandé : "Page - Section - Nom du site"</li>
+                                    <li>Évitez "Sans titre" ou des titres génériques</li>
+                                </ul>
+                            </div>
+
+                            <h3>Métadonnées supplémentaires (optionnelles mais recommandées)</h3>
+
+                            <pre><code class="language-html">&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    
+    &lt;!-- Description pour les moteurs de recherche --&gt;
+    &lt;meta name="description" content="Une description concise de la page"&gt;
+    
+    &lt;!-- Mots-clés (moins important aujourd'hui) --&gt;
+    &lt;meta name="keywords" content="HTML, tutoriel, web"&gt;
+    
+    &lt;!-- Auteur --&gt;
+    &lt;meta name="author" content="Votre nom"&gt;
+    
+    &lt;title&gt;Titre de la page&lt;/title&gt;
+    
+    &lt;!-- Feuilles de style CSS --&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+    
+    &lt;!-- Favicon --&gt;
+    &lt;link rel="icon" href="favicon.ico"&gt;
+&lt;/head&gt;</code></pre>
+
+                            <h2>4. La section &lt;body&gt;</h2>
+
+                            <p>
+                                La section <code>&lt;body&gt;</code> contient tout le <strong>contenu visible</strong>
+                                de la page : texte, images, liens, vidéos, etc.
+                            </p>
+
+                            <pre><code class="language-html">&lt;body&gt;
+    &lt;h1&gt;Titre principal&lt;/h1&gt;
+    &lt;p&gt;Paragraphe de texte.&lt;/p&gt;
+    &lt;img src="image.jpg" alt="Description"&gt;
+    &lt;a href="page2.html"&gt;Lien vers une autre page&lt;/a&gt;
+&lt;/body&gt;</code></pre>
+
+                            <h2>Exemple complet annoté</h2>
+
+                            <pre><code class="language-html">&lt;!DOCTYPE html&gt; &lt;!-- Déclaration HTML5 --&gt;
+&lt;html lang="fr"&gt; &lt;!-- Élément racine, langue française --&gt;
+
+&lt;head&gt;
+    &lt;!-- === MÉTADONNÉES ESSENTIELLES === --&gt;
+    
+    &lt;!-- Encodage UTF-8 pour les accents et caractères spéciaux --&gt;
+    &lt;meta charset="UTF-8"&gt;
+    
+    &lt;!-- Configuration pour le responsive design (mobile) --&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    
+    &lt;!-- Titre affiché dans l'onglet et les résultats Google --&gt;
+    &lt;title&gt;Apprendre HTML - Learn2succeed&lt;/title&gt;
+    
+    &lt;!-- Description pour le référencement (150-160 caractères) --&gt;
+    &lt;meta name="description" content="Cours complet d'HTML pour débutants. Apprenez à créer des sites web avec HTML5."&gt;
+    
+    &lt;!-- Lien vers la feuille de style CSS --&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+    
+    &lt;!-- Icône du site (favicon) --&gt;
+    &lt;link rel="icon" type="image/png" href="favicon.png"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;!-- === CONTENU VISIBLE DE LA PAGE === --&gt;
+    
+    &lt;h1&gt;Bienvenue sur notre cours d'HTML&lt;/h1&gt;
+    
+    &lt;p&gt;
+        Ce cours vous apprendra toutes les bases de l'HTML, 
+        du niveau débutant au niveau avancé.
+    &lt;/p&gt;
+    
+    &lt;h2&gt;Pourquoi apprendre HTML ?&lt;/h2&gt;
+    &lt;p&gt;
+        HTML est la base de tout site web. C'est le premier langage 
+        à maîtriser pour devenir développeur web.
+    &lt;/p&gt;
+    
+    &lt;!-- Lien vers un autre chapitre --&gt;
+    &lt;a href="chapitre-suivant.html"&gt;Passer au chapitre suivant&lt;/a&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+
+                            <aside class="common-mistakes alert">
+                                <h3>⚠️ Erreurs fréquentes à éviter</h3>
+                                <ul>
+                                    <li><strong>Oublier le DOCTYPE</strong> : risque d'affichage incorrect dans certains
+                                        navigateurs</li>
+                                    <li><strong>Ne pas spécifier lang</strong> : problèmes d'accessibilité et de SEO
+                                    </li>
+                                    <li><strong>Charset mal placé</strong> : doit être dans les 1024 premiers octets du
+                                        fichier</li>
+                                    <li><strong>Oublier la balise viewport</strong> : page non-responsive sur mobile
+                                    </li>
+                                    <li><strong>Titre vide ou générique</strong> : mauvais pour le référencement</li>
+                                    <li><strong>Contenu visible dans &lt;head&gt;</strong> : ne sera pas affiché (sauf
+                                        &lt;title&gt;)</li>
+                                    <li><strong>Métadonnées dans &lt;body&gt;</strong> : non conforme et peut causer des
+                                        erreurs</li>
+                                </ul>
+                            </aside>
+
+                            <h2>Résumé du chapitre</h2>
+
+                            <div class="card" style="background-color: var(--surface);">
+                                <div class="card-body">
+                                    <p><strong>Structure HTML en 4 parties :</strong></p>
+                                    <ol>
+                                        <li><strong>DOCTYPE</strong> : Déclare HTML5</li>
+                                        <li><strong>&lt;html&gt;</strong> : Élément racine avec attribut lang</li>
+                                        <li><strong>&lt;head&gt;</strong> : Métadonnées (charset, viewport, title, etc.)
+                                        </li>
+                                        <li><strong>&lt;body&gt;</strong> : Tout le contenu visible</li>
+                                    </ol>
+                                    <p class="mt-3"><strong>À retenir :</strong> Cette structure est standard et doit
+                                        être respectée dans chaque page HTML !</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Quiz -->
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch02"></div>
+                        </section>
+
+                        <!-- Exercice -->
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercice pratique</h2>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice : Créer une structure HTML complète</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez une page HTML avec :</p>
+                                    <ul>
+                                        <li>La déclaration DOCTYPE HTML5</li>
+                                        <li>L'élément html avec la langue française</li>
+                                        <li>Un head comprenant charset UTF-8, viewport, titre et description</li>
+                                        <li>Un body avec un titre h1 et deux paragraphes</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Navigation (bottom) -->
+                        <nav class="chapter-nav">
+                            <a href="ch01-introduction.html" class="chapter-nav-btn">
+                                ← Précédent : Introduction au HTML
+                            </a>
+                            <a href="ch03-balises-essentielles.html" class="chapter-nav-btn">
+                                Suivant : Les balises essentielles →
+                            </a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">
+                                ✓ Marquer ce chapitre comme terminé
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'html';
+        const chapterId = 'ch02-structure';
+
+        const chapters = [
+            { id: "ch01-introduction", title: "Introduction au HTML" },
+            { id: "ch02-structure", title: "Structure d'un document HTML" },
+            { id: "ch03-balises-essentielles", title: "Les balises essentielles" },
+            { id: "ch04-texte-formatage", title: "Texte et formatage" },
+            { id: "ch05-liens-navigation", title: "Liens et navigation" },
+            { id: "ch06-images-medias", title: "Images et médias" },
+            { id: "ch07-listes", title: "Listes" },
+            { id: "ch08-tableaux", title: "Tableaux" },
+            { id: "ch09-formulaires-1", title: "Formulaires - Partie 1" },
+            { id: "ch10-formulaires-2", title: "Formulaires - Partie 2" },
+            { id: "ch11-html-semantique", title: "HTML sémantique" },
+            { id: "ch12-metadonnees-seo", title: "Métadonnées et SEO" },
+            { id: "ch13-accessibilite", title: "Accessibilité" },
+            { id: "ch14-html5-apis", title: "HTML5 APIs" },
+            { id: "ch15-bonnes-pratiques", title: "Bonnes pratiques" }
+        ];
+
+        const quizData = {
+            title: "Quiz - Structure d'un document HTML",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                {
+                    question: "Quelle doit être la première ligne d'un document HTML5 ?",
+                    type: "single",
+                    options: [
+                        "<!DOCTYPE HTML5>",
+                        "<!DOCTYPE html>",
+                        "<html>",
+                        "<head>"
+                    ],
+                    correct: 1,
+                    explanation: "<!DOCTYPE html> doit toujours être la première ligne pour indiquer que c'est un document HTML5."
+                },
+                {
+                    question: "À quoi sert l'attribut 'lang' dans <html> ?",
+                    type: "single",
+                    options: [
+                        "À définir le langage de programmation",
+                        "À indiquer la langue du contenu de la page",
+                        "À changer la langue du navigateur",
+                        "C'est optionnel et sans importance"
+                    ],
+                    correct: 1,
+                    explanation: "L'attribut lang indique la langue du contenu, essentiel pour l'accessibilité et le SEO."
+                },
+                {
+                    question: "Où doit-on placer la balise <title> ?",
+                    type: "single",
+                    options: [
+                        "Dans <body>",
+                        "Dans <head>",
+                        "Avant <!DOCTYPE>",
+                        "Dans <html>"
+                    ],
+                    correct: 1,
+                    explanation: "La balise <title> doit être placée dans la section <head> du document."
+                },
+                {
+                    question: "Que contient la section <head> ?",
+                    type: "single",
+                    options: [
+                        "Le contenu visible de la page",
+                        "Les métadonnées sur le document",
+                        "Le pied de page",
+                        "Les images"
+                    ],
+                    correct: 1,
+                    explanation: "La section <head> contient les métadonnées (informations sur le document) qui ne sont pas directement affichées."
+                },
+                {
+                    question: "Pourquoi spécifier meta charset='UTF-8' ?",
+                    type: "single",
+                    options: [
+                        "Pour accélérer le chargement",
+                        "Pour afficher correctement les accents et caractères spéciaux",
+                        "Pour le référencement SEO",
+                        "C'est optionnel"
+                    ],
+                    correct: 1,
+                    explanation: "UTF-8 permet d'afficher correctement tous les caractères internationaux, accents, symboles, etc."
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+
+            // Sidebar
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+
+            // Quiz
+            QuizSystem.createQuiz(quizData, 'quiz-ch02');
+
+            // Mark complete button
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+    </script>
+</body>
+
+</html>

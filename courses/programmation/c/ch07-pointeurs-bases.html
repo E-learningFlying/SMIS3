@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 7 : Les Pointeurs (Bases) - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Langage C</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch01-introduction.html">1. Introduction</a></li>
+                            <li><a href="ch02-variables.html">2. Variables</a></li>
+                            <li><a href="ch03-operateurs.html">3. Opérateurs</a></li>
+                            <li><a href="ch04-conditions.html">4. Conditions</a></li>
+                            <li><a href="ch05-boucles.html">5. Boucles</a></li>
+                            <li><a href="ch06-fonctions.html">6. Fonctions</a></li>
+                            <li><a href="ch07-pointeurs-bases.html" class="active">7. Pointeurs (Bases)</a></li>
+                            <li><a href="ch08-tableaux.html">8. Tableaux</a></li>
+                            <li><a href="ch09-chaines.html">9. Chaînes</a></li>
+                            <li><a href="ch10-allocation.html">10. All. Dynamique</a></li>
+                            <li><a href="ch11-structs.html">11. Structures</a></li>
+                            <li><a href="ch12-pointeurs-avances.html">12. Ptr Avancés</a></li>
+                            <li><a href="ch13-fichiers.html">13. Fichiers</a></li>
+                            <li><a href="ch14-preprocesseur.html">14. Module/Header</a></li>
+                            <li><a href="ch15-projet-final.html">15. Projet Final</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Cours C</a></li>
+                                <li class="breadcrumb-item active">Chapitre 7</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 7 : Les Pointeurs (Bases)</h1>
+
+                        <!-- Section 1 -->
+                        <section class="mb-5">
+                            <h2>1. Qu'est-ce qu'un pointeur ?</h2>
+                            <p>C'est le concept le plus important du C. Une variable normale stocke une
+                                <strong>valeur</strong>. Un pointeur est une variable spéciale qui stocke une
+                                <strong>adresse mémoire</strong>.
+                            </p>
+                            <div class="alert alert-info">
+                                Imaginez la mémoire comme une rue avec des boîtes aux lettres.
+                                <ul>
+                                    <li>La variable <code>age</code> est la boîte (et contient 25).</li>
+                                    <li>L'adresse de la boîte est écrite dessus (ex: N° 1024).</li>
+                                    <li>Un pointeur <code>p</code> est un papier où est écrit "N° 1024".</li>
+                                </ul>
+                            </div>
+                        </section>
+
+                        <!-- Section 2 -->
+                        <section class="mb-5">
+                            <h2>2. Syntaxe : & et *</h2>
+                            <ul>
+                                <li><code>&variable</code> : Donne l'<strong>adresse</strong> de la variable.</li>
+                                <li><code>*pointeur</code> : Accède à la <strong>valeur</strong> située à l'adresse
+                                    stockée (Déréférencement).</li>
+                            </ul>
+                            <pre><code class="language-c">int age = 20;
+int *ptr = &age; // ptr contient l'adresse de age (ex: 0x7ffd...)
+
+printf("%d", age);  // Affiche 20
+printf("%p", ptr);  // Affiche l'adresse (ex: 0060FF0C)
+printf("%d", *ptr); // Va voir à l'adresse et affiche la valeur : 20</code></pre>
+                        </section>
+
+                        <!-- Section 3 -->
+                        <section class="mb-5">
+                            <h2>3. Pourquoi utiliser des pointeurs ?</h2>
+                            <p>Ils sont indispensables pour :</p>
+                            <ol>
+                                <li>Modifier une variable passée en paramètre d'une fonction (Passage par référence).
+                                </li>
+                                <li>Gérer des tableaux et chaînes de caractères.</li>
+                                <li>Allouer de la mémoire dynamiquement (gérer la RAM manuellement).</li>
+                            </ol>
+                            <pre><code class="language-c">void reset(int *n) {
+    *n = 0; // Modifie la vraie variable à distance !
+}
+
+int main() {
+    int x = 10;
+    reset(&x); // Envoie l'adresse de x
+    // x vaut maintenant 0
+}</code></pre>
+                        </section>
+
+                        <!-- Section 4 (NEW) -->
+                        <section class="mb-5">
+                            <h2>4. Arithmétique des Pointeurs</h2>
+                            <p>Les pointeurs ne sont pas de simples entiers. <code>ptr + 1</code> n'ajoute pas toujours
+                                1 à l'adresse !</p>
+                            <p>Si <code>ptr</code> pointe vers un <code>int</code> (4 octets), alors
+                                <code>ptr + 1</code> avance de <strong>4 octets</strong> dans la mémoire (case suivante
+                                d'un tableau hypothétique).</p>
+                            <pre><code class="language-c">int t[] = {10, 20, 30};
+int *p = t; // p pointe sur 10
+
+p++; // p pointe maintenant sur 20 (adresse + sizeof(int))
+printf("%d", *p); // Affiche 20</code></pre>
+                        </section>
+
+                        <!-- Section 5 (NEW) -->
+                        <section class="mb-5">
+                            <h2>5. Pièges Courants (Warning!)</h2>
+                            <div class="alert alert-warning">
+                                <strong>Pointeur non initialisé :</strong><br>
+                                <code>int *p; *p = 5;</code> <br>
+                                ⛔ <strong>CRASH (Segfault) !</strong> p contient une adresse poubelle. Il pointe
+                                n'importe où. Toujours initialiser avec <code>NULL</code> ou une adresse valide.
+                            </div>
+                        </section>
+
+                        <!-- QUIZ -->
+                        <section class="my-5 p-4 border rounded bg-white shadow-sm">
+                            <h3 class="mb-4">🧠 Quiz de Validation (8 Questions)</h3>
+
+                            <!-- Q1 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">1. Que stocke un pointeur ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Une valeur
+                                        entière</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Une adresse
+                                        mémoire</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Un
+                                        caractère</button>
+                                </div>
+                            </div>
+
+                            <!-- Q2 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">2. Quel symbole permet de récupérer l'adresse d'une variable ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">*</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">&</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">-></button>
+                                </div>
+                            </div>
+
+                            <!-- Q3 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">3. Si `ptr` est un pointeur, que fait `*ptr` ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Accède à la
+                                        valeur pointée (déréférencement)</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Multiplie le
+                                        pointeur</button>
+                                </div>
+                            </div>
+
+                            <!-- Q4 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">4. Comment déclarer un pointeur sur un entier ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">int
+                                        *p;</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">int
+                                        &p;</button>
+                                </div>
+                            </div>
+
+                            <!-- Q5 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">5. Valeur d'un pointeur vide ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">0xFF</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">NULL</button>
+                                </div>
+                            </div>
+
+                            <!-- Q6 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">6. Format printf pour adresse ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">%d</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">%p</button>
+                                </div>
+                            </div>
+
+                            <!-- Q7 (NEW) -->
+                            <div class="mb-4">
+                                <p class="fw-bold">7. `int *p; *p = 10;` est-il correct ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Oui, p prend
+                                        l'adresse de 10</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Non, Crash
+                                        immédiat (Segmentation Fault)</button>
+                                </div>
+                            </div>
+
+                            <!-- Q8 (NEW) -->
+                            <div class="mb-4">
+                                <p class="fw-bold">8. Si `p` est `short*` (2 octets), que fait `p++` ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Ajoute 1 à
+                                        l'adresse</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Ajoute 2 à
+                                        l'adresse</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCISES -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">💻 Exercices Pratiques</h3>
+
+                            <!-- Ex 1 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-header bg-primary text-white">Exercice 1 : Adresse et Valeur</div>
+                                    <div class="card-body">
+                                        <p>Déclarez un entier <code>nb = 42</code>. Affichez sa valeur, puis son adresse
+                                            mémoire.</p>
+                                        <button class="btn btn-outline-primary btn-sm"
+                                            onclick="toggleSolution('sol1')">Voir Solution</button>
+                                        <div id="sol1" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+int main() {
+    int nb = 42;
+    printf("Valeur : %d\n", nb);
+    printf("Adresse : %p\n", &nb);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 2 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-success text-white">Exercice 2 : Manipulation via
+                                        Pointeur</div>
+                                    <div class="card-body">
+                                        <p>Changez la valeur de x pour 20 <strong>en passant uniquement par p</strong>.
+                                        </p>
+                                        <button class="btn btn-outline-success btn-sm"
+                                            onclick="toggleSolution('sol2')">Voir Solution</button>
+                                        <div id="sol2" class="solution-box">
+                                            <pre><code class="language-c">int main() {
+    int x = 10;
+    int *p = &x; 
+    *p = 20; 
+    printf("x=%d\n", x);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 3 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-info text-dark">Exercice 3 : Échange (Swap)</div>
+                                    <div class="card-body">
+                                        <p>Créez <code>void echanger(int *a, int *b)</code>.</p>
+                                        <button class="btn btn-outline-info btn-sm"
+                                            onclick="toggleSolution('sol3')">Voir Solution</button>
+                                        <div id="sol3" class="solution-box">
+                                            <pre><code class="language-c">void echanger(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 4 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-warning text-dark">Exercice 4 : Double Pointeur</div>
+                                    <div class="card-body">
+                                        <p>Utilisez <code>int **pptr</code> pour afficher la valeur de a.</p>
+                                        <button class="btn btn-outline-warning btn-sm"
+                                            onclick="toggleSolution('sol4')">Voir Solution</button>
+                                        <div id="sol4" class="solution-box">
+                                            <pre><code class="language-c">int main() {
+    int a = 10;
+    int *p = &a;
+    int **pp = &p;
+    printf("%d", **pp);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 5 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-danger">
+                                    <div class="card-header bg-danger text-white">Exercice 5 : La taille d'un pointeur
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Affichez <code>sizeof(int*)</code>.</p>
+                                        <button class="btn btn-outline-danger btn-sm"
+                                            onclick="toggleSolution('sol5')">Voir Solution</button>
+                                        <div id="sol5" class="solution-box">
+                                            <pre><code class="language-c">printf("%lu", sizeof(int*)); // 8 sur 64-bit</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 6 (NEW) -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-dark">
+                                    <div class="card-header bg-dark text-white">Exercice 6 : Tableau sans crochets []
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Déclarez <code>int tab[] = {1, 2, 3, 4, 5};</code>. Affichez toutes les
+                                            valeurs en utilisant une boucle et l'arithmétique des pointeurs
+                                            (<code>*(tab + i)</code>), sans jamais utiliser <code>tab[i]</code>.</p>
+                                        <button class="btn btn-outline-light btn-sm"
+                                            onclick="toggleSolution('sol6')">Voir Solution</button>
+                                        <div id="sol6" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int tab[] = {1, 2, 3, 4, 5};
+    for(int i=0; i<5; i++) {
+        // Accès par pointeur
+        printf("%d ", *(tab + i)); 
+    }
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+
+                        <div class="text-center my-5">
+                            <a href="ch06-fonctions.html" class="btn btn-outline-secondary btn-lg me-2">← Précédent</a>
+                            <a href="ch08-tableaux.html" class="btn btn-success btn-lg">Chapitre Suivant →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Injection Scripts UI Globaux -->
+    <script src="../../../js/course-controls.js"></script>
+
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            Array.from(group.children).forEach(b => {
+                b.classList.remove('btn-success', 'btn-danger');
+                b.classList.add('btn-outline-secondary');
+            });
+            if (isCorrect) {
+                btn.classList.add('btn-success');
+                btn.classList.remove('btn-outline-secondary');
+            } else {
+                btn.classList.add('btn-danger');
+                btn.classList.remove('btn-outline-secondary');
+            }
+        }
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

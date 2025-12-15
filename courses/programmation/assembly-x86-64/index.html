@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Cours complet d'Assembleur 8086 avec emu8086 - Du niveau débutant à intermédiaire">
+    <title>Assembleur 8086 (emu8086) - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container section-sm">
+            <nav aria-label="Fil d'Ariane">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                    <li class="breadcrumb-item active">Assembleur 8086</li>
+                </ol>
+            </nav>
+
+            <header class="text-center mb-5">
+                <span class="badge badge-success mb-3">Programmation</span>
+                <h1 class="display-4 mb-3">Assembleur 8086 (emu8086)</h1>
+                <p class="lead text-secondary">
+                    Apprenez la programmation en assembleur 8086 avec emu8086. Découvrez l'architecture 16-bit, les
+                    registres, les interruptions DOS et créez vos premiers programmes.
+                </p>
+                <div class="mt-4">
+                    <span class="badge bg-secondary">Débutant à Intermédiaire</span>
+                    <span class="badge bg-info">15 chapitres</span>
+                    <span class="badge bg-warning">18-22 heures</span>
+                </div>
+            </header>
+
+            <div class="alert alert-info mb-5">
+                <h3>🎯 Ce que vous allez apprendre</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul>
+                            <li>Architecture du processeur 8086</li>
+                            <li>Registres 16-bit (AX, BX, CX, DX...)</li>
+                            <li>Instructions assembleur de base</li>
+                            <li>Gestion de la pile</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li>Interruptions DOS (INT 21h, INT 10h)</li>
+                            <li>Affichage texte et graphique</li>
+                            <li>Procédures et sous-programmes</li>
+                            <li>Projets pratiques avec emu8086</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <section class="mb-5">
+                <h2 class="mb-4">📖 Sommaire du cours</h2>
+
+                <div class="course-chapters">
+                    <div class="chapter-group">
+                        <h3 class="chapter-group-title">Fondamentaux</h3>
+                        <a href="ch01-introduction.html" class="chapter-card">
+                            <div class="chapter-number">1</div>
+                            <div class="chapter-info">
+                                <h4>Introduction et emu8086</h4>
+                                <p>Découvrez l'assembleur 8086, installez emu8086 et créez votre premier programme.</p>
+                                <span class="chapter-duration">⏱️ 1h30</span>
+                            </div>
+                        </a>
+                        <a href="ch02-architecture.html" class="chapter-card">
+                            <div class="chapter-number">2</div>
+                            <div class="chapter-info">
+                                <h4>Architecture 8086</h4>
+                                <p>Comprenez l'architecture interne du processeur Intel 8086.</p>
+                                <span class="chapter-duration">⏱️ 2h</span>
+                            </div>
+                        </a>
+                        <a href="ch03-registres.html" class="chapter-card">
+                            <div class="chapter-number">3</div>
+                            <div class="chapter-info">
+                                <h4>Les registres 16-bit</h4>
+                                <p>Maîtrisez AX, BX, CX, DX, SI, DI, BP, SP et les registres de segment.</p>
+                                <span class="chapter-duration">⏱️ 2h</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="chapter-group">
+                        <h3 class="chapter-group-title">Instructions</h3>
+                        <a href="ch04-instructions-base.html" class="chapter-card">
+                            <div class="chapter-number">4</div>
+                            <div class="chapter-info">
+                                <h4>Instructions de base</h4>
+                                <p>MOV, ADD, SUB, MUL, DIV, AND, OR, XOR et instructions arithmétiques.</p>
+                                <span class="chapter-duration">⏱️ 2h</span>
+                            </div>
+                        </a>
+                        <a href="ch05-adressage.html" class="chapter-card">
+                            <div class="chapter-number">5</div>
+                            <div class="chapter-info">
+                                <h4>Modes d'adressage</h4>
+                                <p>Adressage immédiat, registre, direct, indirect et indexé.</p>
+                                <span class="chapter-duration">⏱️ 1h30</span>
+                            </div>
+                        </a>
+                        <a href="ch06-controle.html" class="chapter-card">
+                            <div class="chapter-number">6</div>
+                            <div class="chapter-info">
+                                <h4>Instructions de contrôle</h4>
+                                <p>Sauts (JMP, JE, JNE, JG...), boucles et structures conditionnelles.</p>
+                                <span class="chapter-duration">⏱️ 2h</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="chapter-group">
+                        <h3 class="chapter-group-title">Pile et procédures</h3>
+                        <a href="ch07-pile.html" class="chapter-card">
+                            <div class="chapter-number">7</div>
+                            <div class="chapter-info">
+                                <h4>La pile (Stack)</h4>
+                                <p>PUSH, POP, gestion de la pile avec SP et BP.</p>
+                                <span class="chapter-duration">⏱️ 1h30</span>
+                            </div>
+                        </a>
+                        <a href="ch08-procedures.html" class="chapter-card">
+                            <div class="chapter-number">8</div>
+                            <div class="chapter-info">
+                                <h4>Procédures et fonctions</h4>
+                                <p>CALL, RET, passage de paramètres, procédures récursives.</p>
+                                <span class="chapter-duration">⏱️ 2h</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="chapter-group">
+                        <h3 class="chapter-group-title">Données et chaînes</h3>
+                        <a href="ch09-chaines.html" class="chapter-card">
+                            <div class="chapter-number">9</div>
+                            <div class="chapter-info">
+                                <h4>Manipulation de chaînes</h4>
+                                <p>Instructions MOVS, LODS, STOS, SCAS, CMPS avec préfixes REP.</p>
+                                <span class="chapter-duration">⏱️ 2h</span>
+                            </div>
+                        </a>
+                        <a href="ch10-tableaux.html" class="chapter-card">
+                            <div class="chapter-number">10</div>
+                            <div class="chapter-info">
+                                <h4>Tableaux et données</h4>
+                                <p>Déclaration DB, DW, accès tableaux, tri et recherche.</p>
+                                <span class="chapter-duration">⏱️ 1h30</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="chapter-group">
+                        <h3 class="chapter-group-title">Entrées/Sorties</h3>
+                        <a href="ch11-interruptions.html" class="chapter-card">
+                            <div class="chapter-number">11</div>
+                            <div class="chapter-info">
+                                <h4>Interruptions DOS</h4>
+                                <p>INT 21h pour I/O texte, lecture clavier, affichage écran.</p>
+                                <span class="chapter-duration">⏱️ 2h</span>
+                            </div>
+                        </a>
+                        <a href="ch12-video.html" class="chapter-card">
+                            <div class="chapter-number">12</div>
+                            <div class="chapter-info">
+                                <h4>Affichage vidéo</h4>
+                                <p>INT 10h, modes vidéo, affichage graphique, couleurs.</p>
+                                <span class="chapter-duration">⏱️ 2h</span>
+                            </div>
+                        </a>
+                        <a href="ch13-ports.html" class="chapter-card">
+                            <div class="chapter-number">13</div>
+                            <div class="chapter-info">
+                                <h4>Ports et périphériques</h4>
+                                <p>IN, OUT, accès ports I/O, communication avec matériel.</p>
+                                <span class="chapter-duration">⏱️ 1h30</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="chapter-group">
+                        <h3 class="chapter-group-title">Pratique</h3>
+                        <a href="ch14-debugging.html" class="chapter-card">
+                            <div class="chapter-number">14</div>
+                            <div class="chapter-info">
+                                <h4>Debugging avec emu8086</h4>
+                                <p>Utiliser le debugger emu8086, breakpoints, inspection mémoire.</p>
+                                <span class="chapter-duration">⏱️ 1h30</span>
+                            </div>
+                        </a>
+                        <a href="ch15-projets.html" class="chapter-card">
+                            <div class="chapter-number">15</div>
+                            <div class="chapter-info">
+                                <h4>Projets pratiques</h4>
+                                <p>Calculatrice, jeux simples, utilitaires DOS.</p>
+                                <span class="chapter-duration">⏱️ 2h</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-5">
+                <h2 class="mb-4">🎓 Examens</h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100 border-warning">
+                            <div class="card-body">
+                                <h3 class="card-title">Examen 1 : QCM</h3>
+                                <p class="card-text">50 questions sur l'assembleur 8086.</p>
+                                <a href="examens.html" class="btn btn-warning">Voir les examens</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 border-primary">
+                            <div class="card-body">
+                                <h3 class="card-title">Examen 2 : Exercices</h3>
+                                <p class="card-text">5 exercices pratiques emu8086.</p>
+                                <a href="examens.html" class="btn btn-primary">Voir les examens</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 border-danger">
+                            <div class="card-body">
+                                <h3 class="card-title">Examen 3 : Projet</h3>
+                                <p class="card-text">Créez un programme complet.</p>
+                                <a href="examens.html" class="btn btn-danger">Voir les examens</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="text-center my-5">
+                <a href="ch01-introduction.html" class="btn btn-primary btn-lg">Commencer le cours →</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../js/main.js"></script>
+</body>
+
+</html>

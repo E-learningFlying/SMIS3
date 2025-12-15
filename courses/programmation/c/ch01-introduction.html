@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 1 : Introduction au C - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 4px;
+        }
+
+        .quiz-option {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Langage C</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch01-introduction.html" class="active">1. Introduction</a></li>
+                            <li><a href="ch02-variables.html">2. Variables et Types</a></li>
+                            <li><a href="ch03-operateurs.html">3. Opérateurs</a></li>
+                            <li><a href="ch04-conditions.html">4. Conditions</a></li>
+                            <li><a href="ch05-boucles.html">5. Boucles</a></li>
+                            <li><a href="ch06-fonctions.html">6. Fonctions</a></li>
+                            <li><a href="ch07-pointeurs-bases.html">7. Pointeurs (Bientôt)</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Cours C</a></li>
+                                <li class="breadcrumb-item active">Chapitre 1</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 1 : Introduction & Fondamentaux</h1>
+
+                        <!-- SECTION 1 -->
+                        <section class="mb-5">
+                            <h2>1. L'environnement C</h2>
+                            <p>Pour faire du C, il vous faut un <strong>éditeur</strong> (pour écrire le code) et un
+                                <strong>compilateur</strong> (pour traduire ce code en fichier exécutable
+                                <code>.exe</code>).</p>
+                            <ul>
+                                <li><strong>Fichier source (.c)</strong> : C'est votre texte lisible. Ex:
+                                    <code>main.c</code></li>
+                                <li><strong>Fichier exécutable (.exe)</strong> : C'est le résultat binaire. Ex:
+                                    <code>main.exe</code></li>
+                            </ul>
+
+                            <div class="card bg-light mt-3">
+                                <div class="card-body">
+                                    <h5>Exemple : Le cycle de vie</h5>
+                                    <p>Si vous tapez la commande <code>gcc main.c -o mon_programme</code> :</p>
+                                    <ol>
+                                        <li>GCC lit <code>main.c</code></li>
+                                        <li>GCC vérifie les erreurs</li>
+                                        <li>GCC crée le fichier <code>mon_programme.exe</code></li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- SECTION 2 -->
+                        <section class="mb-5">
+                            <h2>2. Analyse détaillée d'un programme</h2>
+                            <p>Décortiquons chaque ligne d'un code source valide.</p>
+
+                            <pre><code class="language-c">#include <stdio.h>    // (1) Librairie
+
+// (2) Fonction Principale
+int main() {
+    printf("Salut");  // (3) Instruction
+    return 0;         // (4) Retour
+}</code></pre>
+
+                            <div class="row mt-3">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-header bg-info text-white">1. Les Directives (#)</div>
+                                        <div class="card-body">
+                                            Tout ce qui commence par <code>#</code> est géré par le
+                                            <strong>Préprocesseur</strong>. <code>#include &lt;stdio.h&gt;</code>
+                                            importe les fonctions d'entrée/sortie standard (STandard Input Output).
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-header bg-success text-white">2. La fonction main</div>
+                                        <div class="card-body">
+                                            C'est le chef d'orchestre. Un programme = Une fonction <code>main</code>.
+                                            Elle renvoie un entier (<code>int</code>) au système d'exploitation.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-header bg-warning text-dark">3. Les Instructions</div>
+                                        <div class="card-body">
+                                            Chaque ordre donné à l'ordinateur finit par un <strong>point-virgule
+                                                (;)</strong>. L'oubli de ce caractère empêche la compilation.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-header bg-secondary text-white">4. Le retour</div>
+                                        <div class="card-body">
+                                            <code>return 0;</code> signifie "Tout va bien". Un autre chiffre (ex: -1)
+                                            signale une erreur.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- SECTION 3 -->
+                        <section class="mb-5">
+                            <h2>3. Commentaires et Style</h2>
+                            <p>Le code est lu par des humains ! Commentez votre code.</p>
+
+                            <pre><code class="language-c">// Commentaire sur une seule ligne
+
+/* 
+   Commentaire sur
+   plusieurs lignes
+*/
+
+int main() {
+    // Affiche un message important
+    printf("Code propre = Code heureux\n"); 
+    return 0;
+}</code></pre>
+                        </section>
+
+                        <!-- QUIZ SECTION -->
+                        <section class="my-5 p-4 border rounded bg-white shadow-sm">
+                            <h3 class="mb-4">🧠 Quiz de Validation (6 Questions)</h3>
+
+                            <!-- Q1 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">1. Quelle extension porte un fichier source C ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">.exe</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">.txt</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">.c</button>
+                                </div>
+                            </div>
+
+                            <!-- Q2 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">2. Le langage C est-il compilé ou interprété ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, true)">Compilé</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">Interprété</button>
+                                </div>
+                            </div>
+
+                            <!-- Q3 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">3. Quel caractère termine obligatoirement une instruction ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">:</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">;</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">.</button>
+                                </div>
+                            </div>
+
+                            <!-- Q4 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">4. Que fait `#include <stdio.h>` ?</p>
+                                <div class="list-group">
+                                    <button class="list-group-item list-group-item-action"
+                                        onclick="checkList(this, false)">C'est un commentaire</button>
+                                    <button class="list-group-item list-group-item-action"
+                                        onclick="checkList(this, true)">Importe la librairie d'entrée/sortie
+                                        standard</button>
+                                    <button class="list-group-item list-group-item-action"
+                                        onclick="checkList(this, false)">Définit la fonction main</button>
+                                </div>
+                            </div>
+
+                            <!-- Q5 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">5. Comment écrire un commentaire sur une seule ligne ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">#
+                                        ...</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">/* ...
+                                        */</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">//
+                                        ...</button>
+                                </div>
+                            </div>
+
+                            <!-- Q6 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">6. Quelle est la valeur de retour standard pour un succès ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">1</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">0</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">-1</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCISES SECTION -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">💻 Exercices Pratiques</h3>
+
+                            <!-- Ex 1 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-header bg-primary text-white d-flex justify-content-between">
+                                        <span>Exercice 1 : Le Classique</span>
+                                        <span class="badge bg-light text-primary">Niveau 1</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Écrivez un programme complet qui affiche exactement :
+                                            <code>Bonjour tout le monde !</code> et qui retourne 0.</p>
+                                        <button class="btn btn-outline-primary btn-sm"
+                                            onclick="toggleSolution('ex1')">Voir Solution</button>
+                                        <div id="ex1" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    printf("Bonjour tout le monde !\n");
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 2 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-danger">
+                                    <div class="card-header bg-danger text-white d-flex justify-content-between">
+                                        <span>Exercice 2 : Détective de Code</span>
+                                        <span class="badge bg-light text-danger">Niveau 2</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Ce code contient <strong>3 erreurs</strong>. Trouvez-les et corrigez-les.</p>
+                                        <pre><code class="language-c">include <stdio.h>
+
+int main() (
+    printf("Erreur 1")
+    printf("Erreur 2");
+    return 0;
+)</code></pre>
+                                        <button class="btn btn-outline-danger btn-sm"
+                                            onclick="toggleSolution('ex2')">Voir Correction</button>
+                                        <div id="ex2" class="solution-box">
+                                            <ol>
+                                                <li>Il manque le <code>#</code> devant include.</li>
+                                                <li>Les parenthèses <code>()</code> sont utilisées pour le bloc main au
+                                                    lieu des accolades <code>{}</code>.</li>
+                                                <li>Il manque le <code>;</code> après le premier printf.</li>
+                                            </ol>
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    printf("Erreur 1");
+    printf("Erreur 2");
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 3 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-success">
+                                    <div class="card-header bg-success text-white d-flex justify-content-between">
+                                        <span>Exercice 3 : L'Artiste ASCII</span>
+                                        <span class="badge bg-light text-success">Niveau 2</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Utilisez plusieurs <code>printf</code> pour dessiner un carré de 4x4 étoiles
+                                            (*) à l'écran.</p>
+                                        <p>Résultat attendu :<br>
+                                            ****<br>****<br>****<br>****</p>
+                                        <button class="btn btn-outline-success btn-sm"
+                                            onclick="toggleSolution('ex3')">Voir Solution</button>
+                                        <div id="ex3" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    printf("****\n");
+    printf("****\n");
+    printf("****\n");
+    printf("****\n");
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 4 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-dark text-white d-flex justify-content-between">
+                                        <span>Exercice 4 : Commentaires utiles</span>
+                                        <span class="badge bg-light text-dark">Niveau 1</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Prenez le code de l'exercice 1. Ajoutez un commentaire multi-lignes au début
+                                            pour décrire le programme, et un commentaire mono-ligne devant le printf.
+                                        </p>
+                                        <button class="btn btn-outline-dark btn-sm" onclick="toggleSolution('ex4')">Voir
+                                            Solution</button>
+                                        <div id="ex4" class="solution-box">
+                                            <pre><code class="language-c">/*
+ * Programme : Exercice 4
+ * Auteur : Moi
+ * Description : Affiche un bonjour
+ */
+#include <stdio.h>
+
+int main() {
+    // Affiche le message
+    printf("Bonjour !\n");
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 5 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-info">
+                                    <div class="card-header bg-info text-white d-flex justify-content-between">
+                                        <span>Exercice 5 : Ordre des instructions</span>
+                                        <span class="badge bg-light text-info">Niveau 3</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Remettez les lignes dans l'ordre pour faire un programme valide.</p>
+                                        <code>1. }</code><br>
+                                        <code>2. int main() {</code><br>
+                                        <code>3. return 0;</code><br>
+                                        <code>4. #include <stdio.h></code><br>
+                                        <code>5. printf("A");</code><br>
+                                        <button class="btn btn-outline-info btn-sm mt-3"
+                                            onclick="toggleSolution('ex5')">Voir Solution</button>
+                                        <div id="ex5" class="solution-box">
+                                            <p>Ordre correct : 4 -> 2 -> 5 -> 3 -> 1</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div class="text-center my-5">
+                            <button class="btn btn-secondary disabled me-2">← Précédent</button>
+                            <a href="ch02-variables.html" class="btn btn-success btn-lg">Chapitre Suivant →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            Array.from(group.children).forEach(b => {
+                b.classList.remove('btn-success', 'btn-danger');
+                b.classList.add('btn-outline-secondary');
+            });
+            if (isCorrect) {
+                btn.classList.add('btn-success');
+                btn.classList.remove('btn-outline-secondary');
+            } else {
+                btn.classList.add('btn-danger');
+                btn.classList.remove('btn-outline-secondary');
+            }
+        }
+
+        function checkList(btn, isCorrect) {
+            const group = btn.parentElement;
+            Array.from(group.children).forEach(b => {
+                b.classList.remove('list-group-item-success', 'list-group-item-danger');
+            });
+            if (isCorrect) {
+                btn.classList.add('list-group-item-success');
+            } else {
+                btn.classList.add('list-group-item-danger');
+            }
+        }
+
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

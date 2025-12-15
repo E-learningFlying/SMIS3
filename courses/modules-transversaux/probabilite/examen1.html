@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen 1 - Théorie</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+</head>
+
+<body>
+    <div class="container my-5">
+        <h1 class="mb-4">Examen 1 : Théorie (QCM)</h1>
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>1. Deux événements A et B sont indépendants si :</h5>
+                <div class="btn-group-vertical w-100">
+                    <button class="btn btn-outline-secondary text-start" onclick="check(this, false)">P(A ∩ B) =
+                        0</button>
+                    <button class="btn btn-outline-secondary text-start" onclick="check(this, true)">P(A ∩ B) = P(A) ×
+                        P(B)</button>
+                    <button class="btn btn-outline-secondary text-start" onclick="check(this, false)">P(A ∪ B) = P(A) +
+                        P(B)</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>2. L'espérance E(X) d'une loi Binomiale B(n,p) vaut :</h5>
+                <div class="btn-group-vertical w-100">
+                    <button class="btn btn-outline-secondary text-start" onclick="check(this, false)">n × p ×
+                        (1-p)</button>
+                    <button class="btn btn-outline-secondary text-start" onclick="check(this, true)">n × p</button>
+                    <button class="btn btn-outline-secondary text-start" onclick="check(this, false)">1 / p</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>3. La somme des probabilités de toutes les issues possibles vaut toujours :</h5>
+                <div class="btn-group-vertical w-100">
+                    <button class="btn btn-outline-secondary text-start" onclick="check(this, true)">1</button>
+                    <button class="btn btn-outline-secondary text-start" onclick="check(this, false)">0</button>
+                    <button class="btn btn-outline-secondary text-start" onclick="check(this, false)">Cela dépend de
+                        l'expérience</button>
+                </div>
+            </div>
+        </div>
+
+        <a href="evaluation.html" class="btn btn-secondary mt-3">Retour</a>
+    </div>
+
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            if (isCorrect) {
+                btn.className = 'btn btn-success text-start';
+            } else {
+                btn.className = 'btn btn-danger text-start';
+            }
+        }
+    </script>
+</body>
+
+</html>

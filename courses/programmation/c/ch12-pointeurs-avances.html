@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 12 : Pointeurs Avancés - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Langage C</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch07-pointeurs-bases.html">7. Pointeurs</a></li>
+                            <li><a href="ch08-tableaux.html">8. Tableaux</a></li>
+                            <li><a href="ch09-chaines.html">9. Chaînes</a></li>
+                            <li><a href="ch10-allocation.html">10. All. Dynamique</a></li>
+                            <li><a href="ch11-structs.html">11. Structures</a></li>
+                            <li><a href="ch12-pointeurs-avances.html" class="active">12. Ptr Avancés</a></li>
+                            <li><a href="ch13-fichiers.html">13. Fichiers</a></li>
+                            <li><a href="ch14-preprocesseur.html">14. Module/Header</a></li>
+                            <li><a href="ch15-projet-final.html">15. Projet Final</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Cours C</a></li>
+                                <li class="breadcrumb-item active">Chapitre 12</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 12 : Pointeurs Avancés</h1>
+
+                        <!-- Section 1 -->
+                        <section class="mb-5">
+                            <h2>1. Pointeurs de Structures</h2>
+                            <p>Quand on a un pointeur vers une structure, l'écriture <code>(*p).champ</code> est lourde.
+                                Le C a inventé l'opérateur flèche <code>-></code>.</p>
+                            <pre><code class="language-c">Point p = {10, 20};
+Point *ptr = &p;
+
+(*ptr).x = 5; // Possible, mais moche
+ptr->x = 5;   // Parfait !</code></pre>
+                            <p>C'est indispensable quand on passe des structures à des fonctions pour éviter de copier
+                                toute la structure.</p>
+                        </section>
+
+                        <!-- Section 2 -->
+                        <section class="mb-5">
+                            <h2>2. Pointeurs de Fonctions</h2>
+                            <p>On peut stocker l'adresse d'une fonction dans une variable pour l'appeler plus tard.
+                                C'est la base des "callbacks".</p>
+                            <pre><code class="language-c">int ajouter(int a, int b) { return a + b; }
+
+int main() {
+    int (*maFonction)(int, int); // Déclaration du pointeur
+    maFonction = ajouter;        // Assignation
+    printf("%d", maFonction(2, 3)); // Appel : 5
+}</code></pre>
+                        </section>
+
+                        <!-- Section 3 (NEW) -->
+                        <section class="mb-5">
+                            <h2>3. Pointeurs Génériques (void*)</h2>
+                            <p>Un pointeur <code>void*</code> est un pointeur "universel". Il peut contenir l'adresse de
+                                n'importe quel type de donnée (int, float, struct...).</p>
+                            <div class="alert alert-warning">
+                                <strong>Attention :</strong> On ne peut pas déréférencer un <code>void*</code>
+                                directement ! Il faut le "caster" (convertir) vers un type connu avant.
+                            </div>
+                            <pre><code class="language-c">int n = 10;
+void *p = &n; // Valide
+// printf("%d", *p); // ERREUR !
+printf("%d", *(int*)p); // Valide : on dit "traite p comme un int*"</code></pre>
+                        </section>
+
+                        <!-- QUIZ -->
+                        <section class="my-5 p-4 border rounded bg-white shadow-sm">
+                            <h3 class="mb-4">🧠 Quiz de Validation (8 Questions)</h3>
+
+                            <!-- Q1 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">1. Si `p` est un pointeur vers une struct, comment accéder à `age` ?
+                                </p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, true)">p->age</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">p.age</button>
+                                </div>
+                            </div>
+
+                            <!-- Q2 -> Q6 (Originals) -->
+                            <div class="mb-4">
+                                <p class="fw-bold">2. Intérêt du passage par pointeur pour une struct ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Performance
+                                        (évite la copie)</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">Sécurité</button>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <p class="fw-bold">3. `void (*f)();` déclare :</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Pointeur de
+                                        fonction (sans args)</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Fonction
+                                        void</button>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <p class="fw-bold">4. `->` remplace :</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">(*p).</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">&p.</button>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <p class="fw-bold">5. Tableau de pointeurs de fonctions ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Possible
+                                        (Menu, Table de sauts)</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">Impossible</button>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <p class="fw-bold">6. NULL dans un pointeur de fonction ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Valide (mais
+                                        ne pas appeler !)</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">Interdit</button>
+                                </div>
+                            </div>
+
+                            <!-- Q7 (NEW) -->
+                            <div class="mb-4">
+                                <p class="fw-bold">7. Peut-on faire `*v` si v est `void*` ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Oui, ça lit
+                                        un octet</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Non, le
+                                        compilateur ne connaît pas la taille</button>
+                                </div>
+                            </div>
+
+                            <!-- Q8 (NEW) -->
+                            <div class="mb-4">
+                                <p class="fw-bold">8. `malloc` renvoie quel type ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">void*</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">char*</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCISES -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">💻 Exercices Pratiques</h3>
+
+                            <!-- Ex 1 struct ptr -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-header bg-primary text-white">Exercice 1 : La Flèche Magique</div>
+                                    <div class="card-body">
+                                        <p>Utilisez <code>-></code> pour modifier les PV d'un Hero.</p>
+                                        <button class="btn btn-outline-primary btn-sm"
+                                            onclick="toggleSolution('sol1')">Voir Solution</button>
+                                        <div id="sol1" class="solution-box">
+                                            <pre><code class="language-c">void soigner(Hero *h) { h->pv = 100; }</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 2 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-success text-white">Exercice 2 : Passage par adresse
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Corrigez la fonction qui ne met pas à jour la variable.</p>
+                                        <button class="btn btn-outline-success btn-sm"
+                                            onclick="toggleSolution('sol2')">Voir Solution</button>
+                                        <div id="sol2" class="solution-box">
+                                            <pre><code class="language-c">void f(int *n) { *n = 0; }</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 3 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-info text-dark">Exercice 3 : Calculatrice Ptr Fonctions
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Appellez <code>add</code> ou <code>sub</code> via pointeur.</p>
+                                        <button class="btn btn-outline-info btn-sm"
+                                            onclick="toggleSolution('sol3')">Voir Solution</button>
+                                        <div id="sol3" class="solution-box">
+                                            <pre><code class="language-c">int (*op)(int,int) = add; op(10,5);</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 4 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-warning text-dark">Exercice 4 : Alloc Struct</div>
+                                    <div class="card-body">
+                                        <p>Allouez un Point, remplissez-le, libérez-le.</p>
+                                        <button class="btn btn-outline-warning btn-sm"
+                                            onclick="toggleSolution('sol4')">Voir Solution</button>
+                                        <div id="sol4" class="solution-box">
+                                            <pre><code class="language-c">Point *p = malloc(sizeof(Point)); p->x=1; p->y=2; free(p);</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 5 (NEW) -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-dark">
+                                    <div class="card-header bg-dark text-white">Exercice 5 : Affichage Générique (void*)
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Écrivez <code>printVal(void *data, char type)</code>. Si type='i', affiche
+                                            int, si 'f', affiche float.</p>
+                                        <button class="btn btn-outline-light btn-sm"
+                                            onclick="toggleSolution('sol5')">Voir Solution</button>
+                                        <div id="sol5" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+void printVal(void *data, char type) {
+    if (type == 'i')
+        printf("Int: %d\n", *(int*)data);
+    else if (type == 'f')
+        printf("Float: %.2f\n", *(float*)data);
+    else
+        printf("Type inconnu\n");
+}
+
+int main() {
+    int i = 42;
+    float f = 3.14;
+    printVal(&i, 'i');
+    printVal(&f, 'f');
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+
+                        <div class="text-center my-5">
+                            <a href="ch11-structs.html" class="btn btn-outline-secondary btn-lg me-2">← Précédent</a>
+                            <a href="ch13-fichiers.html" class="btn btn-success btn-lg">Chapitre Suivant →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Injection Scripts UI Globaux -->
+    <script src="../../../js/course-controls.js"></script>
+
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            if (isCorrect) {
+                btn.classList.add('btn-success');
+                btn.classList.remove('btn-outline-secondary');
+            } else {
+                btn.classList.add('btn-danger');
+                btn.classList.remove('btn-outline-secondary');
+            }
+        }
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

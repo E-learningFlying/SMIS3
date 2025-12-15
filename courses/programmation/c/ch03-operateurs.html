@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 3 : Opérateurs - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Langage C</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch01-introduction.html">1. Introduction</a></li>
+                            <li><a href="ch02-variables.html">2. Variables et Types</a></li>
+                            <li><a href="ch03-operateurs.html" class="active">3. Opérateurs</a></li>
+                            <li><a href="ch04-conditions.html">4. Conditions</a></li>
+                            <li><a href="ch05-boucles.html">5. Boucles</a></li>
+                            <li><a href="ch06-fonctions.html">6. Fonctions</a></li>
+                            <li><a href="ch07-pointeurs-bases.html">7. Pointeurs (Bientôt)</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Cours C</a></li>
+                                <li class="breadcrumb-item active">Chapitre 3</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 3 : Opérateurs et Expressions</h1>
+
+                        <!-- Section 1 -->
+                        <section class="mb-5">
+                            <h2>1. Opérateurs Arithmétiques</h2>
+                            <p>Le C supporte toutes les opérations classiques. Notez bien que la division de deux
+                                entiers DONNE un entier.</p>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>Opérateur</th>
+                                    <th>Nom</th>
+                                    <th>Exemple (a=10, b=3)</th>
+                                    <th>Résultat</th>
+                                </tr>
+                                <tr>
+                                    <td>+</td>
+                                    <td>Addition</td>
+                                    <td>a + b</td>
+                                    <td>13</td>
+                                </tr>
+                                <tr>
+                                    <td>-</td>
+                                    <td>Soustraction</td>
+                                    <td>a - b</td>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <td>*</td>
+                                    <td>Multiplication</td>
+                                    <td>a * b</td>
+                                    <td>30</td>
+                                </tr>
+                                <tr>
+                                    <td>/</td>
+                                    <td>Division Entière</td>
+                                    <td>a / b</td>
+                                    <td>3 (et non 3.33)</td>
+                                </tr>
+                                <tr>
+                                    <td>%</td>
+                                    <td>Modulo (Reste)</td>
+                                    <td>a % b</td>
+                                    <td>1</td>
+                                </tr>
+                            </table>
+                        </section>
+
+                        <!-- Section 2 -->
+                        <section class="mb-5">
+                            <h2>2. Incrémentation et Décrémentation</h2>
+                            <p>Pour ajouter ou retirer 1 rapidement :</p>
+                            <pre><code class="language-c">int x = 5;
+x++;   // x vaut maintenant 6
+x--;   // x vaut de nouveau 5
+++x;   // x vaut 6 (Pré-incrémentation)</code></pre>
+                            <div class="alert alert-info"><code>x++</code> incrémente après utilisation,
+                                <code>++x</code> incrémente avant. La différence est subtile mais importante dans des
+                                expressions complexes.</div>
+                        </section>
+
+                        <!-- Section 3 -->
+                        <section class="mb-5">
+                            <h2>3. Opérateurs de Comparaison et Logique</h2>
+                            <p>Le résultat d'une comparaison est <strong>1 (Vrai)</strong> ou <strong>0 (Faux)</strong>.
+                                Il n'y a pas de type "bool" natif en C89 (mais `stdbool.h` existe en C99).</p>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td><code>==</code></td>
+                                    <td>Égal à (Double égal !)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>!=</code></td>
+                                    <td>Différent de</td>
+                                </tr>
+                                <tr>
+                                    <td><code>&&</code></td>
+                                    <td>ET Logique (Les deux vrais)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>||</code></td>
+                                    <td>OU Logique (L'un ou l'autre vrai)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>!</code></td>
+                                    <td>NON Logique (Inverse)</td>
+                                </tr>
+                            </table>
+                        </section>
+
+                        <!-- QUIZ -->
+                        <section class="my-5 p-4 border rounded bg-white shadow-sm">
+                            <h3 class="mb-4">🧠 Quiz de Validation (6 Questions)</h3>
+
+                            <!-- Q1 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">1. Que vaut `10 / 4` (division d'entiers) ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">2.5</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">2</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">3</button>
+                                </div>
+                            </div>
+
+                            <!-- Q2 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">2. Quel symbole représente le modulo (reste) ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">#</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">/</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">%</button>
+                                </div>
+                            </div>
+                            <!-- Q3 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">3. Quel est l'opérateur pour "égal à" dans une condition ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">=</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">==</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">:=</button>
+                                </div>
+                            </div>
+                            <!-- Q4 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">4. Si A est Faux (0) et B est Vrai (1), que vaut `A && B` ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Faux
+                                        (0)</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Vrai
+                                        (1)</button>
+                                </div>
+                            </div>
+                            <!-- Q5 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">5. Que fait `x += 5;` ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">x vaut
+                                        5</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Ajoute 5 à
+                                        x</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Multiplie x
+                                        par 5</button>
+                                </div>
+                            </div>
+                            <!-- Q6 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">6. Quel est le résultat de `!0` ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">0</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">1</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">Erreur</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCISES -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">💻 Exercices Pratiques</h3>
+
+                            <!-- Ex 1 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-header bg-primary text-white d-flex justify-content-between">
+                                        <span>Exercice 1 : Calculatrice Express</span>
+                                        <span class="badge bg-light text-primary">Niveau 1</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Déclarez <code>a = 15</code> et <code>b = 4</code>. Affichez la somme, la
+                                            différence, le produit, la division et le modulo.</p>
+                                        <button class="btn btn-outline-primary btn-sm"
+                                            onclick="toggleSolution('sol1')">Voir Solution</button>
+                                        <div id="sol1" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int a = 15, b = 4;
+    printf("Somme : %d\n", a+b);
+    printf("Différence : %d\n", a-b);
+    printf("Produit : %d\n", a*b);
+    printf("Division : %d\n", a/b); // Affiche 3
+    printf("Modulo : %d\n", a%b);   // Affiche 3
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 2 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-success text-white">Exercice 2 : Parité</div>
+                                    <div class="card-body">
+                                        <p>Comment savoir si un nombre est pair ou impair ? Utilisez l'opérateur modulo
+                                            <code>%</code> sur une variable <code>n = 13</code>.</p>
+                                        <button class="btn btn-outline-success btn-sm"
+                                            onclick="toggleSolution('sol2')">Voir Solution</button>
+                                        <div id="sol2" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int n = 13;
+    printf("Reste de n / 2 : %d\n", n % 2);
+    // Si 0 -> Pair, Si 1 -> Impair
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 3 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-info text-dark">Exercice 3 : Moyenne précise</div>
+                                    <div class="card-body">
+                                        <p>Calculez la moyenne de 15 et 4, mais le résultat doit être précis (donc 9.5).
+                                            Attention au piège de la division entière !</p>
+                                        <button class="btn btn-outline-info btn-sm"
+                                            onclick="toggleSolution('sol3')">Voir Solution</button>
+                                        <div id="sol3" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int a = 15, b = 4;
+    // On force la conversion (cast) en float
+    float moy = (float)a / b; 
+    printf("Moyenne : %.1f\n", moy);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 4 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-warning text-dark">Exercice 4 : Priorité</div>
+                                    <div class="card-body">
+                                        <p>Sans exécuter, devinez ce qu'affiche ce code :
+                                            <code>printf("%d", 2 + 3 * 4);</code>. Vérifiez ensuite.</p>
+                                        <button class="btn btn-outline-warning btn-sm"
+                                            onclick="toggleSolution('sol4')">Voir Solution</button>
+                                        <div id="sol4" class="solution-box">
+                                            <p>La multiplication est prioritaire. 3*4 = 12. Puis 2+12 = 14.</p>
+                                            <pre><code class="language-c">printf("%d", 14);</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 5 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-danger">
+                                    <div class="card-header bg-danger text-white">Exercice 5 : Logique complexe</div>
+                                    <div class="card-body">
+                                        <p>Soit <code>age = 20</code> et <code>argent = 5</code>. La condition pour
+                                            entrer est : <code>(age >= 18) && (argent >= 10)</code>. Peut-il entrer ?
+                                            Mettez le résultat (0 ou 1) dans une variable <code>peut_entrer</code> et
+                                            affichez-la.</p>
+                                        <button class="btn btn-outline-danger btn-sm"
+                                            onclick="toggleSolution('sol5')">Voir Solution</button>
+                                        <div id="sol5" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int age = 20;
+    int argent = 5;
+    int peut_entrer = (age >= 18) && (argent >= 10);
+    // Vrai ET Faux -> Faux (0)
+
+    printf("Peut entrer : %d\n", peut_entrer);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+
+                        <div class="text-center my-5">
+                            <a href="ch02-variables.html" class="btn btn-outline-secondary btn-lg me-2">← Précédent</a>
+                            <a href="ch04-conditions.html" class="btn btn-success btn-lg">Chapitre Suivant →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            Array.from(group.children).forEach(b => {
+                b.classList.remove('btn-success', 'btn-danger');
+                b.classList.add('btn-outline-secondary');
+            });
+            if (isCorrect) {
+                btn.classList.add('btn-success');
+                btn.classList.remove('btn-outline-secondary');
+            } else {
+                btn.classList.add('btn-danger');
+                btn.classList.remove('btn-outline-secondary');
+            }
+        }
+
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

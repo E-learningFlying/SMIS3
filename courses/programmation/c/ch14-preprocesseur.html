@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 14 : Préprocesseur et Modularité - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Langage C</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch07-pointeurs-bases.html">7. Pointeurs</a></li>
+                            <li><a href="ch08-tableaux.html">8. Tableaux</a></li>
+                            <li><a href="ch09-chaines.html">9. Chaînes</a></li>
+                            <li><a href="ch10-allocation.html">10. All. Dynamique</a></li>
+                            <li><a href="ch11-structs.html">11. Structures</a></li>
+                            <li><a href="ch12-pointeurs-avances.html">12. Ptr Avancés</a></li>
+                            <li><a href="ch13-fichiers.html">13. Fichiers</a></li>
+                            <li><a href="ch14-preprocesseur.html" class="active">14. Module/Header</a></li>
+                            <li><a href="ch15-projet-final.html">15. Projet Final</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Cours C</a></li>
+                                <li class="breadcrumb-item active">Chapitre 14</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 14 : Préprocesseur et Modularité</h1>
+
+                        <!-- Section 1 -->
+                        <section class="mb-5">
+                            <h2>1. #define et Constantes</h2>
+                            <p>Le préprocesseur passe AVANT la compilation. Il remplace le texte.
+                                <code>#define PI 3.14</code> remplace tous les PI par 3.14.</p>
+                            <pre><code class="language-c">#define MAX_JOUEURS 10
+#define CARRE(x) ((x)*(x)) // Une Macro
+
+int main() {
+    int joueurs[MAX_JOUEURS]; // Devient int joueurs[10];
+    return 0;
+}</code></pre>
+                        </section>
+
+                        <!-- Section 2 -->
+                        <section class="mb-5">
+                            <h2>2. Modularité : .h et .c</h2>
+                            <p>Pour ne pas tout écrire dans le main, on sépare le code :</p>
+                            <ul>
+                                <li><strong>fichier.h</strong> (Header) : Contient les prototypes de fonctions et
+                                    définitions de structures. C'est le "Menu".</li>
+                                <li><strong>fichier.c</strong> (Source) : Contient le code réel des fonctions. C'est la
+                                    "Cuisine".</li>
+                                <li><strong>main.c</strong> : Utilise <code>#include "fichier.h"</code> pour commander.
+                                </li>
+                            </ul>
+                        </section>
+
+                        <!-- Section 3 -->
+                        <section class="mb-5">
+                            <h2>3. Protection contre les inclusions multiples</h2>
+                            <p>Dans un .h, on met toujours des gardiens :</p>
+                            <pre><code class="language-c">#ifndef MON_FICHIER_H
+#define MON_FICHIER_H
+
+// Contenu du header...
+
+#endif</code></pre>
+                        </section>
+
+                        <!-- QUIZ -->
+                        <section class="my-5 p-4 border rounded bg-white shadow-sm">
+                            <h3 class="mb-4">🧠 Quiz de Validation (6 Questions)</h3>
+
+                            <!-- Q1 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">1. Quand s'exécute le préprocesseur ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Avant la
+                                        compilation</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Pendant
+                                        l'exécution</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Après le
+                                        link</button>
+                                </div>
+                            </div>
+
+                            <!-- Q2 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">2. Que fait `#include <fichier>` ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Il compile le
+                                        fichier</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Il copie-colle
+                                        le contenu du fichier à cet endroit</button>
+                                </div>
+                            </div>
+
+                            <!-- Q3 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">3. Quelle est la différence entre <> et "" pour include ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">
+                                        <> cherche dans les dossiers système, "" dans le dossier courant
+                                    </button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Aucune
+                                        différence</button>
+                                </div>
+                            </div>
+
+                            <!-- Q4 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">4. Que doit contenir un fichier .h ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Le code
+                                        entier des fonctions</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Les prototypes
+                                        et déclarations de types</button>
+                                </div>
+                            </div>
+
+                            <!-- Q5 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">5. Les macros #define sont-elles typées ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Oui, comme
+                                        les variables</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Non, c'est du
+                                        remplacement de texte pur</button>
+                                </div>
+                            </div>
+
+                            <!-- Q6 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">6. À quoi sert le `ifndef` guard ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Éviter qu'un
+                                        header soit inclus 2 fois (erreurs de redéfinition)</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Optimiser la
+                                        vitesse</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCISES -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">💻 Exercices Pratiques</h3>
+
+                            <!-- Ex 1 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-header bg-primary text-white">Exercice 1 : Macro Max</div>
+                                    <div class="card-body">
+                                        <p>Créez une macro <code>MAX(a,b)</code> qui donne le plus grand des deux
+                                            nombres.</p>
+                                        <button class="btn btn-outline-primary btn-sm"
+                                            onclick="toggleSolution('sol1')">Voir Solution</button>
+                                        <div id="sol1" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+#define MAX(a,b) ((a) > (b) ? (a) : (b))
+
+int main() {
+    printf("Max : %d\n", MAX(10, 20));
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 2 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-success text-white">Exercice 2 : Création d'un header
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Imaginez un fichier <code>maths.h</code>. Écrivez son contenu pour déclarer
+                                            une fonction <code>bizarre(int x)</code>.</p>
+                                        <button class="btn btn-outline-success btn-sm"
+                                            onclick="toggleSolution('sol2')">Voir Solution</button>
+                                        <div id="sol2" class="solution-box">
+                                            <pre><code class="language-c">#ifndef MATHS_H
+#define MATHS_H
+
+int bizarre(int x);
+
+#endif</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 3 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-info text-dark">Exercice 3 : Compilation conditionnelle
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Utilisez <code>#ifdef DEBUG</code> pour afficher un message "Mode Debug
+                                            activé" uniquement si DEBUG est défini.</p>
+                                        <button class="btn btn-outline-info btn-sm"
+                                            onclick="toggleSolution('sol3')">Voir Solution</button>
+                                        <div id="sol3" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+#define DEBUG
+
+int main() {
+#ifdef DEBUG
+    printf("Mode Debug active !\n");
+#endif
+    printf("Le programme tourne.\n");
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+
+                        <div class="text-center my-5">
+                            <a href="ch13-fichiers.html" class="btn btn-outline-secondary btn-lg me-2">← Précédent</a>
+                            <a href="ch15-projet-final.html" class="btn btn-success btn-lg">Chapitre Suivant (Projets)
+                                →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            if (isCorrect) {
+                btn.classList.add('btn-success');
+            } else {
+                btn.classList.add('btn-danger');
+            }
+        }
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

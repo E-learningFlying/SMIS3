@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 1 : Analyse Combinatoire - Probabilités</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <style>
+        .formula-box {
+            background: #f8f9fa;
+            border-left: 4px solid #6610f2;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Probabilités</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch01-introduction-combinatoire.html" class="active">1. Combinatoire</a></li>
+                            <li><a href="ch02-variables-discretes.html">2. Var. Discrètes</a></li>
+                            <li><a href="ch03-lois-continues-statistiques.html">3. Var. Continues</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Probabilités</a></li>
+                                <li class="breadcrumb-item active">Chapitre 1</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 1 : Analyse Combinatoire et Fondements</h1>
+
+                        <!-- SECTION 1 -->
+                        <section class="mb-5">
+                            <h2>1. Analyse Combinatoire</h2>
+                            <p>Avant de calculer des probabilités, il faut savoir <strong>compter</strong>. L'analyse
+                                combinatoire permet de dénombrer les résultats possibles d'une expérience.</p>
+
+                            <h4>1.1 Permutations (Ordre, sans répétition)</h4>
+                            <p>Nombre de façons d'ordonner <em>n</em> éléments distincts.</p>
+                            <div class="formula-box">Pn = n! = n × (n-1) × ... × 1</div>
+                            <div class="alert alert-light border">
+                                <strong>Exemple :</strong> 3 livres (A, B, C) sur une étagère.<br>
+                                Ordres possibles : ABC, ACB, BAC, BCA, CAB, CBA.<br>
+                                Calcul : 3! = 3 × 2 × 1 = 6.
+                            </div>
+
+                            <h4>1.2 Arrangements (Ordre, choix de k parmi n)</h4>
+                            <p>On choisit et on ordonne <em>k</em> éléments parmi <em>n</em>.</p>
+                            <div class="formula-box">A(n,k) = n! / (n-k)!</div>
+                            <div class="alert alert-light border">
+                                <strong>Exemple :</strong> Podium de 3 personnes parmi 10 coureurs.<br>
+                                A(10, 3) = 10 × 9 × 8 = 720 tiercés possibles.
+                            </div>
+
+                            <h4>1.3 Combinaisons (Pas d'ordre, choix de k parmi n)</h4>
+                            <p>C'est le loto ! L'ordre ne compte pas.</p>
+                            <div class="formula-box">C(n,k) = n! / (k! * (n-k)!)</div>
+                            <div class="alert alert-light border">
+                                <strong>Exemple :</strong> Loto (choisir 6 boules parmi 49).<br>
+                                C(49, 6) = 13 983 816 combinaisons.
+                            </div>
+                        </section>
+
+                        <!-- SECTION 2 -->
+                        <section class="mb-5">
+                            <h2>2. Probabilités : Définitions</h2>
+                            <ul>
+                                <li><strong>Univers (Ω) :</strong> L'ensemble de tous les résultats possibles.</li>
+                                <li><strong>Événement (A) :</strong> Un sous-ensemble de Ω.</li>
+                                <li><strong>Probabilité P(A) :</strong> Nombre de cas favorables / Nombre de cas
+                                    possibles (si équiprobabilité).</li>
+                            </ul>
+                            <div class="alert alert-info">
+                                <strong>Propriétés :</strong><br>
+                                0 ≤ P(A) ≤ 1<br>
+                                P(Ω) = 1<br>
+                                P(Ā) = 1 - P(A) (Événement contraire)
+                            </div>
+                        </section>
+
+                        <!-- SECTION 3 -->
+                        <section class="mb-5">
+                            <h2>3. Probabilités Conditionnelles</h2>
+                            <p>Probabilité de A sachant que B est réalisé (notée PB(A) ou P(A|B)).</p>
+                            <div class="formula-box">P(A|B) = P(A ∩ B) / P(B)</div>
+
+                            <h4>Théorème de Bayes</h4>
+                            <p>Permet d'inverser le conditionnement (Cause ↔ Effet).</p>
+                            <div class="formula-box">P(B|A) = [P(A|B) * P(B)] / P(A)</div>
+                        </section>
+
+                        <!-- QUIZ (5 Questions) -->
+                        <section class="my-5 p-4 border rounded bg-white shadow-sm">
+                            <h3 class="mb-4">🧠 Quiz Chapitre 1 (5 Questions)</h3>
+
+                            <!-- Q1 -->
+                            <div class="mb-4 bg-light p-3 rounded">
+                                <p class="fw-bold">1. Combien de mots (anagrammes) peut-on former avec "MATHS" ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">25</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">120
+                                        (5!)</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">10</button>
+                                </div>
+                            </div>
+
+                            <!-- Q2 -->
+                            <div class="mb-4 bg-light p-3 rounded">
+                                <p class="fw-bold">2. Dans une combinaison (C(n,k)), l'ordre des éléments compte-t-il ?
+                                </p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Oui,
+                                        toujours</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Non,
+                                        jamais</button>
+                                </div>
+                            </div>
+
+                            <!-- Q3 -->
+                            <div class="mb-4 bg-light p-3 rounded">
+                                <p class="fw-bold">3. Si P(A)=0.2 et P(B)=0.5, et A et B sont disjoints (incompatibles),
+                                    que vaut P(A ∪ B) ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">0.7</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">0.1</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">On ne peut
+                                        pas savoir</button>
+                                </div>
+                            </div>
+
+                            <!-- Q4 -->
+                            <div class="mb-4 bg-light p-3 rounded">
+                                <p class="fw-bold">4. Quelle est la formule de P(A|B) ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">P(A ∩ B) ×
+                                        P(B)</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">P(A ∩ B) /
+                                        P(B)</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">P(A) /
+                                        P(B)</button>
+                                </div>
+                            </div>
+
+                            <!-- Q5 -->
+                            <div class="mb-4 bg-light p-3 rounded">
+                                <p class="fw-bold">5. Si on lance un dé, P(Pair) sachant P(>3) ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">1/2</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">2/3</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">1/3</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCICES GRADUÉS (5 Exercices) -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">✍️ Exercices d'Application</h3>
+
+                            <!-- Débutant -->
+                            <div class="card mb-4 border-success">
+                                <div class="card-header bg-success text-white">Niveau Débutant</div>
+                                <div class="card-body">
+                                    <h5>Ex 1 : Calculs simples</h5>
+                                    <p>Calculez : 5! , A(5, 2) , C(5, 2).</p>
+                                    <button class="btn btn-outline-success btn-sm mt-2"
+                                        onclick="toggleSolution('ex_deb1')">Solution</button>
+                                    <div id="ex_deb1" class="solution-box">
+                                        <ul>
+                                            <li>5! = 120</li>
+                                            <li>A(5, 2) = 20</li>
+                                            <li>C(5, 2) = 10</li>
+                                        </ul>
+                                    </div>
+
+                                    <hr>
+                                    <h5>Ex 2 : Le Code</h5>
+                                    <p>Code à 3 chiffres (0-9). Combien de codes possibles ?</p>
+                                    <button class="btn btn-outline-success btn-sm mt-2"
+                                        onclick="toggleSolution('ex_deb2')">Solution</button>
+                                    <div id="ex_deb2" class="solution-box">
+                                        <p>10 × 10 × 10 = <strong>1000</strong>.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Intermédiaire -->
+                            <div class="card mb-4 border-primary">
+                                <div class="card-header bg-primary text-white">Niveau Intermédiaire</div>
+                                <div class="card-body">
+                                    <h5>Ex 3 : Le Comité</h5>
+                                    <p>Une classe a 12 filles et 8 garçons. On veut former un comité de 3 élèves.</p>
+                                    <ol>
+                                        <li>Combien de comités possibles ?</li>
+                                        <li>Combien de comités avec exactement 3 filles ?</li>
+                                    </ol>
+                                    <button class="btn btn-outline-primary btn-sm mt-2"
+                                        onclick="toggleSolution('ex_inter3')">Solution</button>
+                                    <div id="ex_inter3" class="solution-box">
+                                        <ol>
+                                            <li>Total : C(20, 3) = <strong>1140</strong>.</li>
+                                            <li>3 filles : C(12, 3) = <strong>220</strong>.</li>
+                                        </ol>
+                                    </div>
+
+                                    <hr>
+                                    <h5>Ex 4 : Le Tirage de cartes</h5>
+                                    <p>On tire 2 cartes dans un jeu de 32. Quelle est la probabilité d'avoir 2 As ?</p>
+                                    <button class="btn btn-outline-primary btn-sm mt-2"
+                                        onclick="toggleSolution('ex_inter4')">Solution</button>
+                                    <div id="ex_inter4" class="solution-box">
+                                        <p>Cas possibles : C(32, 2) = (32×31)/2 = 496.</p>
+                                        <p>Cas favorables : C(4, 2) = 6 (2 As parmi 4).</p>
+                                        <p>Probabilité = 6/496 ≈ <strong>0.012</strong>.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Expert -->
+                            <div class="card mb-4 border-danger">
+                                <div class="card-header bg-danger text-white">Niveau Expert</div>
+                                <div class="card-body">
+                                    <h5>Ex 5 : Le Test Médical (Bayes)</h5>
+                                    <p>Une maladie touche 1% de la population. Un test est fiable à 99% (positif si
+                                        malade, négatif si sain).</p>
+                                    <p>Si le test est POSITIF, quelle est la probabilité d'être RÉELLEMENT malade ?</p>
+                                    <button class="btn btn-outline-danger btn-sm mt-2"
+                                        onclick="toggleSolution('ex_prof5')">Solution</button>
+                                    <div id="ex_prof5" class="solution-box">
+                                        <p>P(M)=0.01, P(T|M)=0.99.</p>
+                                        <p>P(T) = 0.99×0.01 + 0.01×0.99 = 0.0198.</p>
+                                        <p>P(M|T) = (0.99×0.01) / 0.0198 = <strong>0.5 (50%)</strong>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div class="d-flex justify-content-between my-5">
+                            <a href="index.html" class="btn btn-outline-primary">← Sommaire</a>
+                            <a href="ch02-variables-discretes.html" class="btn btn-primary">Chapitre 2 →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            Array.from(group.children).forEach(b => {
+                b.classList.remove('btn-success', 'btn-danger');
+                b.classList.add('btn-outline-secondary');
+            });
+            if (isCorrect) {
+                btn.classList.add('btn-success');
+                btn.classList.remove('btn-outline-secondary');
+            } else {
+                btn.classList.add('btn-danger');
+                btn.classList.remove('btn-outline-secondary');
+            }
+        }
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

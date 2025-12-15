@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen 1 : Théorie - Architecture des Ordinateurs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-reading section">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Architecture</a></li>
+                    <li class="breadcrumb-item active">Examen Final 1</li>
+                </ol>
+            </nav>
+
+            <h1 class="mb-4 text-center">📝 Examen Final : Théorie</h1>
+            <p class="lead text-center mb-5">Testez vos connaissances sur l'ensemble du cours. 10 Questions.</p>
+
+            <form id="examForm" class="mb-5">
+                <!-- Q1 -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">1. Quelle est la valeur décimale de 1011 (binaire) ?</h5>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q1" value="wrong">
+                            <label class="form-check-label">9</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q1" value="correct">
+                            <label class="form-check-label">11</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q1" value="wrong">
+                            <label class="form-check-label">13</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">2. L'opération logique ET est vraie si :</h5>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q2" value="wrong">
+                            <label class="form-check-label">Au moins une entrée est vraie</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q2" value="correct">
+                            <label class="form-check-label">Toutes les entrées sont vraies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">3. Selon Von Neumann, où est stocké le programme ?</h5>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q3" value="correct">
+                            <label class="form-check-label">En Mémoire Principale (avec les données)</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q3" value="wrong">
+                            <label class="form-check-label">Dans une mémoire séparée des données (Harvard)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">4. Quel composant réalise les calculs (Additions...) ?</h5>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q4" value="wrong">
+                            <label class="form-check-label">L'Unité de Contrôle</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q4" value="correct">
+                            <label class="form-check-label">L'UAL (ALU)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">5. La RAM est une mémoire...</h5>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q5" value="correct">
+                            <label class="form-check-label">Volatile (perdue sans courant)</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q5" value="wrong">
+                            <label class="form-check-label">Non-volatile (persistante)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary btn-lg w-100" onclick="calculateScore()">Valider mes
+                    réponses</button>
+            </form>
+
+            <div id="result" class="alert alert-success mt-4 text-center" style="display: none;">
+                <h3>Votre score : <span id="scoreVal"></span>/5</h3>
+                <p id="feedback"></p>
+                <a href="index.html" class="btn btn-outline-success mt-3">Retour au menu</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function calculateScore() {
+            let score = 0;
+            const form = document.getElementById('examForm');
+            const answers = form.querySelectorAll('input:checked');
+
+            answers.forEach(ans => {
+                if (ans.value === 'correct') score++;
+            });
+
+            const resultDiv = document.getElementById('result');
+            const scoreSpan = document.getElementById('scoreVal');
+            const feedback = document.getElementById('feedback');
+            const submitBtn = form.querySelector('button');
+
+            scoreSpan.innerText = score;
+            if (score === 5) {
+                feedback.innerText = "Parfait ! Vous maîtrisez les concepts ! 🏆";
+            } else if (score >= 3) {
+                feedback.innerText = "Bien joué ! Encore quelques efforts. 👍";
+            } else {
+                feedback.innerText = "Révisez encore un peu les chapitres. 📚";
+                resultDiv.classList.replace('alert-success', 'alert-warning');
+            }
+
+            resultDiv.style.display = 'block';
+            submitBtn.disabled = true;
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    </script>
+</body>
+
+</html>

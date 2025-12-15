@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen 2 : Pratique - Assembleur 8086</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .exercise-card {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            background: #fff;
+        }
+
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .points-badge {
+            background-color: #6c757d;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        .solution-box {
+            display: none;
+            margin-top: 15px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #0d6efd;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../index.html">Accueil</a>
+                <a href="../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Cours</a></li>
+                <li class="breadcrumb-item"><a href="examens.html">Examens</a></li>
+                <li class="breadcrumb-item active">Examen 2 - Pratique</li>
+            </ol>
+        </nav>
+
+        <div class="text-center mb-5">
+            <h1>Examen Final Pratique</h1>
+            <p class="lead">5 exercices pour prouver votre maîtrise du code. Durée recommandée : 2h.</p>
+            <div class="alert alert-warning d-inline-block">
+                Astuce : Essayez de résoudre chaque exercice dans emu8086 avant de vérifier la solution.
+            </div>
+        </div>
+
+        <!-- Exercice 1 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <h3>Exercice 1 : Traitement de Tableau</h3>
+                <span class="points-badge">4 Points</span>
+            </div>
+            <p><strong>Énoncé :</strong> Soit un tableau <code>tab DB 10, 20, 5, 8, 30, 12</code>. Écrivez un programme
+                qui parcourt ce tableau et compte combien de nombres sont supérieurs à 15. Le résultat doit être stocké
+                dans le registre <code>DX</code>.</p>
+            <button class="btn btn-outline-primary btn-sm" onclick="toggleSolution('sol1')">Voir Solution Type</button>
+            <div id="sol1" class="solution-box">
+                <pre><code class="language-asm">.MODEL SMALL
+.DATA
+    tab DB 10, 20, 5, 8, 30, 12
+    len EQU 6
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    LEA SI, tab
+    MOV CX, len
+    MOV DX, 0       ; Compteur
+    
+boucle:
+    CMP [SI], 15
+    JBE suite       ; Si <= 15, on saute
+    INC DX          ; Sinon on compte
+suite:
+    INC SI
+    LOOP boucle
+    
+    ; Fin : DX contient 2 (20 et 30 sont > 15)
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+            </div>
+        </div>
+
+        <!-- Exercice 2 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <h3>Exercice 2 : Procédure "Puissance"</h3>
+                <span class="points-badge">4 Points</span>
+            </div>
+            <p><strong>Énoncé :</strong> Créez une procédure <code>power</code> qui calcule X^Y.</p>
+            <ul>
+                <li>Entrée : BX = X, CX = Y.</li>
+                <li>Sortie : AX = Résultat.</li>
+                <li>Appelez-la pour calculer 2^5 (32).</li>
+                <li>Gérez le cas Y=0 (Résultat = 1).</li>
+            </ul>
+            <button class="btn btn-outline-primary btn-sm" onclick="toggleSolution('sol2')">Voir Solution Type</button>
+            <div id="sol2" class="solution-box">
+                <pre><code class="language-asm">.MODEL SMALL
+.CODE
+MAIN PROC
+    MOV BX, 2      ; Base
+    MOV CX, 5      ; Exposant
+    CALL power
+    ; AX devrait être 32
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+
+power PROC
+    CMP CX, 0
+    JE cas_zero
+    
+    MOV AX, 1      ; Init résultat
+boucle_pow:
+    MUL BX         ; AX = AX * BX
+    LOOP boucle_pow
+    RET
+    
+cas_zero:
+    MOV AX, 1
+    RET
+power ENDP
+END MAIN</code></pre>
+            </div>
+        </div>
+
+        <!-- Exercice 3 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <h3>Exercice 3 : Palindrome (Chaînes)</h3>
+                <span class="points-badge">4 Points</span>
+            </div>
+            <p><strong>Énoncé :</strong> Vérifiez si la chaîne "KAYAK" est un palindrome.</p>
+            <ul>
+                <li>Pointez SI au début et DI à la fin de la chaîne.</li>
+                <li>Comparez les caractères et rapprochez les pointeurs tant que SI < DI.</li>
+                <li>Si tous égaux : Palindrome (Mettre AX=1). Sinon AX=0.</li>
+            </ul>
+            <button class="btn btn-outline-primary btn-sm" onclick="toggleSolution('sol3')">Voir Solution Type</button>
+            <div id="sol3" class="solution-box">
+                <pre><code class="language-asm">.MODEL SMALL
+.DATA
+    mot DB "KAYAK"
+    len EQU 5
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    LEA SI, mot         ; Début
+    LEA DI, mot
+    ADD DI, len - 1     ; Fin (len-1)
+    
+    MOV CX, len         ; Sécurité (optionnel)
+    MOV AX, 1           ; Supposons vrai
+    
+boucle_verif:
+    CMP SI, DI          ; Si pointeurs se croisent
+    JAE fin_palindrome  ; Fini, c'est un palindrome
+    
+    MOV BL, [SI]
+    CMP BL, [DI]
+    JNE pas_palindrome
+    
+    INC SI
+    DEC DI
+    JMP boucle_verif
+    
+pas_palindrome:
+    MOV AX, 0
+
+fin_palindrome:
+    ; AX=1
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+            </div>
+        </div>
+
+        <!-- Exercice 4 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <h3>Exercice 4 : Saisie Contrôlée (Interruptions)</h3>
+                <span class="points-badge">4 Points</span>
+            </div>
+            <p><strong>Énoncé :</strong> Demandez à l'utilisateur de saisir un chiffre entre 1 et 5.</p>
+            <ul>
+                <li>Si la touche pressée n'est pas '1'-'5', ignorez-la (pas d'affichage).</li>
+                <li>Si valide, affichez-la et passez à la ligne.</li>
+                <li>Utilisez l'interruption clavier sans écho (AH=08h) ou avec écho conditionnel.</li>
+            </ul>
+            <button class="btn btn-outline-primary btn-sm" onclick="toggleSolution('sol4')">Voir Solution Type</button>
+            <div id="sol4" class="solution-box">
+                <pre><code class="language-asm">.MODEL SMALL
+.DATA
+    msg DB "Entrez 1-5: $"
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    LEA DX, msg
+    MOV AH, 9
+    INT 21h
+    
+saisie:
+    MOV AH, 7      ; Lire sans écho (ou 8)
+    INT 21h
+    
+    CMP AL, '1'
+    JB saisie      ; Trop petit
+    CMP AL, '5'
+    JA saisie      ; Trop grand
+    
+    ; Valide
+    MOV DL, AL
+    MOV AH, 2      ; Afficher
+    INT 21h
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+            </div>
+        </div>
+
+        <!-- Exercice 5 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <h3>Exercice 5 : Synthèse (Cryptage Simple)</h3>
+                <span class="points-badge">4 Points</span>
+            </div>
+            <p><strong>Énoncé :</strong> Cryptez une chaîne en mémoire en utilisant le code César (+1).</p>
+            <ul>
+                <li>Chaîne : "HELLO".</li>
+                <li>Pour chaque lettre, ajoutez 1 (H->I, E->F...).</li>
+                <li>Affichez le résultat.</li>
+            </ul>
+            <button class="btn btn-outline-primary btn-sm" onclick="toggleSolution('sol5')">Voir Solution Type</button>
+            <div id="sol5" class="solution-box">
+                <pre><code class="language-asm">.MODEL SMALL
+.DATA
+    txt DB "HELLO$"
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    LEA BX, txt     ; Index de base
+    
+    ; Étape 1 : Crypter
+boucle_crypt:
+    MOV AL, [BX]
+    CMP AL, '$'
+    JE fin_crypt
+    
+    INC AL          ; +1
+    MOV [BX], AL    ; Remettre en mémoire
+    
+    INC BX
+    JMP boucle_crypt
+    
+fin_crypt:
+    ; Étape 2 : Afficher "IFMMP"
+    LEA DX, txt
+    MOV AH, 9
+    INT 21h
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <p class="h5 mb-4">Vous avez terminé les exercices ?</p>
+            <a href="examens.html" class="btn btn-secondary">Retour aux examens</a>
+        </div>
+
+    </main>
+
+    <script>
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            if (el.style.display === 'block') {
+                el.style.display = 'none';
+            } else {
+                el.style.display = 'block';
+            }
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nasm.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

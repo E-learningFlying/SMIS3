@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Chapitre 7 : Les listes en HTML - Maîtrisez les listes ordonnées, non ordonnées et de définition">
+    <title>Chapitre 7 : Listes - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours HTML</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours HTML</a></li>
+                                <li class="breadcrumb-item active">Chapitre 7 : Listes</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 7</span>
+                            <h1 class="mb-3">Les listes en HTML</h1>
+                            <p class="text-lg text-secondary">
+                                Découvrez les trois types de listes HTML : non ordonnées, ordonnées et de définition
+                                pour structurer vos contenus.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 45min</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch06-images-medias.html" class="chapter-nav-btn">← Précédent : Images et médias</a>
+                            <a href="ch08-tableaux.html" class="chapter-nav-btn">Suivant : Tableaux →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>Pourquoi utiliser des listes ?</h2>
+
+                            <p>
+                                Les listes sont essentielles pour organiser et structurer les informations. Elles
+                                améliorent :
+                            </p>
+                            <ul>
+                                <li><strong>La lisibilité</strong> : Information claire et scannable</li>
+                                <li><strong>La sémantique</strong> : Sens structurel du contenu</li>
+                                <li><strong>L'accessibilité</strong> : Les lecteurs d'écran annoncent le nombre d'items
+                                </li>
+                                <li><strong>Le SEO</strong> : Les moteurs de recherche comprennent mieux la structure
+                                </li>
+                            </ul>
+
+                            <h2>Liste non ordonnée : &lt;ul&gt;</h2>
+
+                            <p>
+                                <code>&lt;ul&gt;</code> (Unordered List) crée une liste à puces où l'ordre des éléments
+                                n'est pas important.
+                            </p>
+
+                            <h3>Syntaxe de base</h3>
+
+                            <pre><code class="language-html">&lt;ul&gt;
+    &lt;li&gt;Premier élément&lt;/li&gt;
+    &lt;li&gt;Deuxième élément&lt;/li&gt;
+    &lt;li&gt;Troisième élément&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <div class="code-output">
+                                <ul>
+                                    <li>Premier élément</li>
+                                    <li>Deuxième élément</li>
+                                    <li>Troisième élément</li>
+                                </ul>
+                            </div>
+
+                            <h3>Exemple pratique : Liste de courses</h3>
+
+                            <pre><code class="language-html">&lt;h3&gt;Liste de courses&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;Pain&lt;/li&gt;
+    &lt;li&gt;Lait&lt;/li&gt;
+    &lt;li&gt;Œufs&lt;/li&gt;
+    &lt;li&gt;Fromage&lt;/li&gt;
+    &lt;li&gt;Fruits&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <div class="code-output">
+                                <h3 style="margin: 0.5rem 0;">Liste de courses</h3>
+                                <ul>
+                                    <li>Pain</li>
+                                    <li>Lait</li>
+                                    <li>Œufs</li>
+                                    <li>Fromage</li>
+                                    <li>Fruits</li>
+                                </ul>
+                            </div>
+
+                            <h2>Liste ordonnée : &lt;ol&gt;</h2>
+
+                            <p>
+                                <code>&lt;ol&gt;</code> (Ordered List) crée une liste numérotée où l'ordre des éléments
+                                est important
+                                (étapes, classement, instructions).
+                            </p>
+
+                            <h3>Syntaxe de base</h3>
+
+                            <pre><code class="language-html">&lt;ol&gt;
+    &lt;li&gt;Première étape&lt;/li&gt;
+    &lt;li&gt;Deuxième étape&lt;/li&gt;
+    &lt;li&gt;Troisième étape&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+
+                            <div class="code-output">
+                                <ol>
+                                    <li>Première étape</li>
+                                    <li>Deuxième étape</li>
+                                    <li>Troisième étape</li>
+                                </ol>
+                            </div>
+
+                            <h3>Attributs de &lt;ol&gt;</h3>
+
+                            <h4>type - Type de numérotation</h4>
+
+                            <pre><code class="language-html">&lt;!-- Numérotation par défaut (1, 2, 3) --&gt;
+&lt;ol type="1"&gt;
+    &lt;li&gt;Item 1&lt;/li&gt;
+    &lt;li&gt;Item 2&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!-- Lettres majuscules (A, B, C) --&gt;
+&lt;ol type="A"&gt;
+    &lt;li&gt;Item A&lt;/li&gt;
+    &lt;li&gt;Item B&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!-- Lettres minuscules (a, b, c) --&gt;
+&lt;ol type="a"&gt;
+    &lt;li&gt;Item a&lt;/li&gt;
+    &lt;li&gt;Item b&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!-- Chiffres romains majuscules (I, II, III) --&gt;
+&lt;ol type="I"&gt;
+    &lt;li&gt;Item I&lt;/li&gt;
+    &lt;li&gt;Item II&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!-- Chiffres romains minuscules (i, ii, iii) --&gt;
+&lt;ol type="i"&gt;
+    &lt;li&gt;Item i&lt;/li&gt;
+    &lt;li&gt;Item ii&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+
+                            <div class="code-output">
+                                <p><strong>type="1"</strong> (défaut):</p>
+                                <ol type="1">
+                                    <li>Item 1</li>
+                                    <li>Item 2</li>
+                                </ol>
+                                <p><strong>type="A"</strong>:</p>
+                                <ol type="A">
+                                    <li>Item A</li>
+                                    <li>Item B</li>
+                                </ol>
+                                <p><strong>type="I"</strong>:</p>
+                                <ol type="I">
+                                    <li>Item I</li>
+                                    <li>Item II</li>
+                                </ol>
+                            </div>
+
+                            <h4>start - Numéro de départ</h4>
+
+                            <pre><code class="language-html">&lt;ol start="5"&gt;
+    &lt;li&gt;Cinquième item&lt;/li&gt;
+    &lt;li&gt;Sixième item&lt;/li&gt;
+    &lt;li&gt;Septième item&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+
+                            <div class="code-output">
+                                <ol start="5">
+                                    <li>Cinquième item</li>
+                                    <li>Sixième item</li>
+                                    <li>Septième item</li>
+                                </ol>
+                            </div>
+
+                            <h4>reversed - Liste inversée</h4>
+
+                            <pre><code class="language-html">&lt;ol reversed&gt;
+    &lt;li&gt;Troisième&lt;/li&gt;
+    &lt;li&gt;Deuxième&lt;/li&gt;
+    &lt;li&gt;Premier&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+
+                            <div class="code-output">
+                                <ol reversed>
+                                    <li>Troisième</li>
+                                    <li>Deuxième</li>
+                                    <li>Premier</li>
+                                </ol>
+                            </div>
+
+                            <h3>Exemple pratique : Recette de cuisine</h3>
+
+                            <pre><code class="language-html">&lt;h3&gt;Recette de crêpes&lt;/h3&gt;
+&lt;ol&gt;
+    &lt;li&gt;Mélanger la farine et les œufs&lt;/li&gt;
+    &lt;li&gt;Ajouter progressivement le lait&lt;/li&gt;
+    &lt;li&gt;Laisser reposer 30 minutes&lt;/li&gt;
+    &lt;li&gt;Faire chauffer la poêle&lt;/li&gt;
+    &lt;li&gt;Verser une louche de pâte&lt;/li&gt;
+    &lt;li&gt;Cuire 2 minutes de chaque côté&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+
+                            <div class="code-output">
+                                <h3 style="margin: 0.5rem 0;">Recette de crêpes</h3>
+                                <ol>
+                                    <li>Mélanger la farine et les œufs</li>
+                                    <li>Ajouter progressivement le lait</li>
+                                    <li>Laisser reposer 30 minutes</li>
+                                    <li>Faire chauffer la poêle</li>
+                                    <li>Verser une louche de pâte</li>
+                                    <li>Cuire 2 minutes de chaque côté</li>
+                                </ol>
+                            </div>
+
+                            <h2>Listes imbriquées</h2>
+
+                            <p>Les listes peuvent être imbriquées à l'intérieur d'autres listes pour créer une
+                                hiérarchie :</p>
+
+                            <pre><code class="language-html">&lt;ul&gt;
+    &lt;li&gt;Fruits
+        &lt;ul&gt;
+            &lt;li&gt;Pommes&lt;/li&gt;
+            &lt;li&gt;Bananes&lt;/li&gt;
+            &lt;li&gt;Oranges&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;Légumes
+        &lt;ul&gt;
+            &lt;li&gt;Carottes&lt;/li&gt;
+            &lt;li&gt;Tomates&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <div class="code-output">
+                                <ul>
+                                    <li>Fruits
+                                        <ul>
+                                            <li>Pommes</li>
+                                            <li>Bananes</li>
+                                            <li>Oranges</li>
+                                        </ul>
+                                    </li>
+                                    <li>Légumes
+                                        <ul>
+                                            <li>Carottes</li>
+                                            <li>Tomates</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <h3>Mélanger &lt;ol&gt; et &lt;ul&gt;</h3>
+
+                            <pre><code class="language-html">&lt;ol&gt;
+    &lt;li&gt;Préparer les ingrédients
+        &lt;ul&gt;
+            &lt;li&gt;Farine&lt;/li&gt;
+            &lt;li&gt;Sucre&lt;/li&gt;
+            &lt;li&gt;Œufs&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;Mélanger dans un saladier&lt;/li&gt;
+    &lt;li&gt;Cuire au four&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+
+                            <div class="code-output">
+                                <ol>
+                                    <li>Préparer les ingrédients
+                                        <ul>
+                                            <li>Farine</li>
+                                            <li>Sucre</li>
+                                            <li>Œufs</li>
+                                        </ul>
+                                    </li>
+                                    <li>Mélanger dans un saladier</li>
+                                    <li>Cuire au four</li>
+                                </ol>
+                            </div>
+
+                            <h2>Liste de définition : &lt;dl&gt;</h2>
+
+                            <p>
+                                <code>&lt;dl&gt;</code> (Definition List) crée une liste de termes et leurs définitions.
+                                Utilisée pour glossaires, FAQ, métadonnées.
+                            </p>
+
+                            <h3>Structure</h3>
+
+                            <ul>
+                                <li><code>&lt;dl&gt;</code> : Conteneur de la liste</li>
+                                <li><code>&lt;dt&gt;</code> : Definition Term (terme à définir)</li>
+                                <li><code>&lt;dd&gt;</code> : Definition Description (définition)</li>
+                            </ul>
+
+                            <pre><code class="language-html">&lt;dl&gt;
+    &lt;dt&gt;HTML&lt;/dt&gt;
+    &lt;dd&gt;HyperText Markup Language, langage de balisage du web&lt;/dd&gt;
+    
+    &lt;dt&gt;CSS&lt;/dt&gt;
+    &lt;dd&gt;Cascading Style Sheets, langage de style pour le web&lt;/dd&gt;
+    
+    &lt;dt&gt;JavaScript&lt;/dt&gt;
+    &lt;dd&gt;Langage de programmation pour rendre les pages interactives&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+
+                            <div class="code-output">
+                                <dl style="margin-left: 1rem;">
+                                    <dt><strong>HTML</strong></dt>
+                                    <dd style="margin-left: 2rem; margin-bottom: 0.5rem;">HyperText Markup Language,
+                                        langage de balisage du web</dd>
+
+                                    <dt><strong>CSS</strong></dt>
+                                    <dd style="margin-left: 2rem; margin-bottom: 0.5rem;">Cascading Style Sheets,
+                                        langage de style pour le web</dd>
+
+                                    <dt><strong>JavaScript</strong></dt>
+                                    <dd style="margin-left: 2rem; margin-bottom: 0.5rem;">Langage de programmation pour
+                                        rendre les pages interactives</dd>
+                                </dl>
+                            </div>
+
+                            <h3>Plusieurs définitions pour un terme</h3>
+
+                            <pre><code class="language-html">&lt;dl&gt;
+    &lt;dt&gt;HTML&lt;/dt&gt;
+    &lt;dd&gt;Langage de balisage hypertexte&lt;/dd&gt;
+    &lt;dd&gt;Standard du W3C depuis 1997&lt;/dd&gt;
+    &lt;dd&gt;Base de toutes les pages web&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+
+                            <aside class="tips alert">
+                                <h3>💡 Astuces</h3>
+                                <ul>
+                                    <li>Utilisez <code>&lt;ul&gt;</code> quand l'ordre n'a pas d'importance (liste de
+                                        courses, caractéristiques)</li>
+                                    <li>Utilisez <code>&lt;ol&gt;</code> quand l'ordre compte (étapes, instructions,
+                                        classement)</li>
+                                    <li>Utilisez <code>&lt;dl&gt;</code> pour paires terme-définition (glossaires, FAQ)
+                                    </li>
+                                    <li>Les listes imbriquées doivent être à l'intérieur d'un <code>&lt;li&gt;</code>,
+                                        pas directement dans <code>&lt;ul&gt;</code> ou <code>&lt;ol&gt;</code></li>
+                                    <li>Indentez votre code pour voir la hiérarchie</li>
+                                    <li>Les <code>&lt;li&gt;</code> peuvent contenir n'importe quel contenu HTML (texte,
+                                        images, liens, paragraphes...)</li>
+                                    <li>Pour le styling, utilisez CSS plutôt que l'attribut <code>type</code></li>
+                                </ul>
+                            </aside>
+
+                            <aside class="common-mistakes alert">
+                                <h3>⚠️ Erreurs fréquentes à éviter</h3>
+                                <ul>
+                                    <li><strong>Contenu direct dans &lt;ul&gt; ou &lt;ol&gt;</strong> :
+                                        <code>&lt;ul&gt;Texte&lt;/ul&gt;</code> ❌ →
+                                        <code>&lt;ul&gt;&lt;li&gt;Texte&lt;/li&gt;&lt;/ul&gt;</code> ✓
+                                    </li>
+                                    <li><strong>&lt;li&gt; sans parent</strong> :
+                                        Chaque <code>&lt;li&gt;</code> doit être dans un <code>&lt;ul&gt;</code> ou
+                                        <code>&lt;ol&gt;</code></li>
+                                    <li><strong>Imbrication incorrecte</strong> :
+                                        <code>&lt;ul&gt;&lt;ul&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;</code>
+                                        ❌ →
+                                        <code>&lt;ul&gt;&lt;li&gt;...&lt;ul&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;</code>
+                                        ✓
+                                    </li>
+                                    <li><strong>Utiliser des listes pour la mise en page</strong> : Utilisez
+                                        CSS/Flexbox/Grid pour la mise en page</li>
+                                    <li><strong>Oublier de fermer &lt;li&gt;</strong> : Toujours fermer
+                                        <code>&lt;li&gt;...&lt;/li&gt;</code></li>
+                                    <li><strong>Mauvais choix de liste</strong> : Liste ordonnée pour une liste sans
+                                        ordre logique</li>
+                                    <li><strong>&lt;dd&gt; sans &lt;dt&gt;</strong> : Dans <code>&lt;dl&gt;</code>,
+                                        toujours avoir un terme avant la définition</li>
+                                </ul>
+                            </aside>
+
+                            <h2>Résumé du chapitre</h2>
+
+                            <div class="card" style="background-color: var(--surface);">
+                                <div class="card-body">
+                                    <p><strong>Types de listes HTML :</strong></p>
+                                    <ul>
+                                        <li><code>&lt;ul&gt;</code> + <code>&lt;li&gt;</code> : Liste non ordonnée
+                                            (puces)</li>
+                                        <li><code>&lt;ol&gt;</code> + <code>&lt;li&gt;</code> : Liste ordonnée (numéros)
+                                        </li>
+                                        <li><code>&lt;dl&gt;</code> + <code>&lt;dt&gt;</code> + <code>&lt;dd&gt;</code>
+                                            : Liste de définitions</li>
+                                    </ul>
+                                    <p class="mt-3"><strong>Attributs &lt;ol&gt; :</strong></p>
+                                    <ul>
+                                        <li><code>type</code> : Type de numérotation (1, A, a, I, i)</li>
+                                        <li><code>start</code> : Numéro de départ</li>
+                                        <li><code>reversed</code> : Ordre décroissant</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch07"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Liste de courses</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez une liste non ordonnée de 8 produits à acheter au supermarché.</p>
+                                </div>
+                                <div class="exercise-solution">
+                                    <button class="btn btn-outline btn-sm"
+                                        onclick="this.nextElementSibling.style.display='block'; this.style.display='none';">
+                                        Voir la solution
+                                    </button>
+                                    <div style="display:none;">
+                                        <pre><code class="language-html">&lt;h3&gt;Liste de courses&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;Pain&lt;/li&gt;
+    &lt;li&gt;Lait&lt;/li&gt;
+    &lt;li&gt;Œufs&lt;/li&gt;
+    &lt;li&gt;Beurre&lt;/li&gt;
+    &lt;li&gt;Fromage&lt;/li&gt;
+    &lt;li&gt;Tomates&lt;/li&gt;
+    &lt;li&gt;Salade&lt;/li&gt;
+    &lt;li&gt;Pâtes&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Top 5 des films</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez une liste ordonnée de vos 5 films préférés, classés du meilleur au moins
+                                        bon. Utilisez <code>reversed</code> pour commencer par le 5ème.</p>
+                                </div>
+                                <div class="exercise-solution">
+                                    <button class="btn btn-outline btn-sm"
+                                        onclick="this.nextElementSibling.style.display='block'; this.style.display='none';">
+                                        Voir la solution
+                                    </button>
+                                    <div style="display:none;">
+                                        <pre><code class="language-html">&lt;h3&gt;Mon Top 5 des films&lt;/h3&gt;
+&lt;ol reversed&gt;
+    &lt;li&gt;Inception&lt;/li&gt;
+    &lt;li&gt;The Shawshank Redemption&lt;/li&gt;
+    &lt;li&gt;The Dark Knight&lt;/li&gt;
+    &lt;li&gt;Pulp Fiction&lt;/li&gt;
+    &lt;li&gt;The Godfather&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="exercise hard">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Site web structuré</h3>
+                                    <span class="exercise-difficulty">Difficile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez une page complète avec :</p>
+                                    <ul>
+                                        <li>Une liste ordonnée "Étapes de création d'un site web" (5 étapes)</li>
+                                        <li>Chaque étape contient une liste non ordonnée de 2-3 tâches</li>
+                                        <li>En bas, un glossaire (liste de définition) avec 4 termes techniques</li>
+                                        <li>Utilisez les attributs <code>type</code> et <code>start</code> de manière
+                                            créative</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch06-images-medias.html" class="chapter-nav-btn">← Précédent : Images et médias</a>
+                            <a href="ch08-tableaux.html" class="chapter-nav-btn">Suivant : Tableaux →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">
+                                ✓ Marquer ce chapitre comme terminé
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'html';
+        const chapterId = 'ch07-listes';
+        const chapters = [{ id: "ch01-introduction", title: "Introduction au HTML" }, { id: "ch02-structure", title: "Structure d'un document HTML" }, { id: "ch03-balises-essentielles", title: "Les balises essentielles" }, { id: "ch04-texte-formatage", title: "Texte et formatage" }, { id: "ch05-liens-navigation", title: "Liens et navigation" }, { id: "ch06-images-medias", title: "Images et médias" }, { id: "ch07-listes", title: "Listes" }, { id: "ch08-tableaux", title: "Tableaux" }, { id: "ch09-formulaires-1", title: "Formulaires - Partie 1" }, { id: "ch10-formulaires-2", title: "Formulaires - Partie 2" }, { id: "ch11-html-semantique", title: "HTML sémantique" }, { id: "ch12-metadonnees-seo", title: "Métadonnées et SEO" }, { id: "ch13-accessibilite", title: "Accessibilité" }, { id: "ch14-html5-apis", title: "HTML5 APIs" }, { id: "ch15-bonnes-pratiques", title: "Bonnes pratiques" }];
+
+        const quizData = {
+            title: "Quiz - Les listes",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                { question: "Quelle balise crée une liste non ordonnée ?", type: "single", options: ["<ol>", "<ul>", "<list>", "<nl>"], correct: 1, explanation: "<ul> (Unordered List) crée une liste à puces." },
+                { question: "Quelle balise crée une liste ordonnée ?", type: "single", options: ["<ol>", "<ul>", "<ordered>", "<nl>"], correct: 0, explanation: "<ol> (Ordered List) crée une liste numérotée." },
+                { question: "Quel élément contient les items de liste ?", type: "single", options: ["<item>", "<li>", "<list-item>", "<i>"], correct: 1, explanation: "<li> (List Item) contient chaque élément d'une liste." },
+                { question: "Comment numéroter une liste avec des lettres majuscules ?", type: "single", options: ["<ol type='letters'>", "<ol type='ABC'>", "<ol type='A'>", "<ol letters='true'>"], correct: 2, explanation: "<ol type='A'> numérote avec des lettres majuscules (A, B, C...)." },
+                { question: "Quel attribut commence la numérotation à un nombre spécifique ?", type: "single", options: ["begin", "start", "from", "number"], correct: 1, explanation: "L'attribut start='N' permet de commencer à un numéro spécifique." },
+                { question: "Comment créer une liste en ordre décroissant ?", type: "single", options: ["<ol reverse>", "<ol reversed>", "<ol desc>", "<ol decreasing>"], correct: 1, explanation: "L'attribut reversed crée une numérotation décroissante." },
+                { question: "Quelle structure compose une liste de définition ?", type: "multiple", options: ["<dl>", "<dt>", "<dd>", "<def>"], correct: [0, 1, 2], explanation: "<dl> contient des paires <dt> (terme) et <dd> (définition)." },
+                { question: "Peut-on imbriquer une <ul> dans une <ol> ?", type: "single", options: ["Oui", "Non"], correct: 0, explanation: "Oui, on peut imbriquer n'importe quel type de liste dans un autre, mais toujours à l'intérieur d'un <li>." },
+                { question: "Quelle est la structure correcte d'une liste imbriquée ?", type: "single", options: ["<ul><ul><li>...</li></ul></ul>", "<ul><li>...<ul><li>...</li></ul></li></ul>", "<ul><li><li>...</li></li></ul>", "<ul></ul><ul><li>...</li></ul>"], correct: 1, explanation: "La liste imbriquée doit être à l'intérieur d'un <li>, pas directement dans <ul>." }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+            QuizSystem.createQuiz(quizData, 'quiz-ch07');
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+    </script>
+</body>
+
+</html>

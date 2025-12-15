@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen 1 : Théorie C - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+</head>
+
+<body>
+    <div class="container py-5">
+        <h1>Examen Théorique C</h1>
+        <p class="lead">Répondez aux questions suivantes. 1 point par bonne réponse.</p>
+
+        <form id="quizForm">
+            <!-- Q1 -->
+            <div class="mb-4 bg-light p-3 rounded">
+                <p class="fw-bold">1. Quelle est la taille de `char` en C ?</p>
+                <div class="form-check"><input type="radio" name="q1" value="0"> 4 octets</div>
+                <div class="form-check"><input type="radio" name="q1" value="1"> 1 octet</div> <!-- Correct -->
+                <div class="form-check"><input type="radio" name="q1" value="0"> Ça dépend</div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="mb-4 bg-light p-3 rounded">
+                <p class="fw-bold">2. Quel caractère termine une chaîne ?</p>
+                <div class="form-check"><input type="radio" name="q2" value="0"> \n</div>
+                <div class="form-check"><input type="radio" name="q2" value="1"> \0</div> <!-- Correct -->
+                <div class="form-check"><input type="radio" name="q2" value="0"> EOS</div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="mb-4 bg-light p-3 rounded">
+                <p class="fw-bold">3. `malloc` renvoie quoi si erreur ?</p>
+                <div class="form-check"><input type="radio" name="q3" value="1"> NULL</div> <!-- Correct -->
+                <div class="form-check"><input type="radio" name="q3" value="0"> 0</div>
+                <div class="form-check"><input type="radio" name="q3" value="0"> void</div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="mb-4 bg-light p-3 rounded">
+                <p class="fw-bold">4. Comment accéder à un champ via un pointeur struct ?</p>
+                <div class="form-check"><input type="radio" name="q4" value="0"> .</div>
+                <div class="form-check"><input type="radio" name="q4" value="1"> -></div> <!-- Correct -->
+                <div class="form-check"><input type="radio" name="q4" value="0"> >></div>
+            </div>
+
+            <!-- Q5 -->
+            <div class="mb-4 bg-light p-3 rounded">
+                <p class="fw-bold">5. Quelle fonction ouvre un fichier ?</p>
+                <div class="form-check"><input type="radio" name="q5" value="1"> fopen</div> <!-- Correct -->
+                <div class="form-check"><input type="radio" name="q5" value="0"> open</div>
+                <div class="form-check"><input type="radio" name="q5" value="0"> file_create</div>
+            </div>
+
+            <button type="button" class="btn btn-primary btn-lg" onclick="calculerNon()">Valider</button>
+        </form>
+
+        <div id="resultat" class="mt-4 alert alert-info" style="display:none;"></div>
+        <a href="examens.html" class="btn btn-secondary mt-3">Retour</a>
+    </div>
+
+    <script>
+        function calculerNon() {
+            let score = 0;
+            const form = document.getElementById('quizForm');
+            const data = new FormData(form);
+
+            for (let value of data.values()) {
+                score += parseInt(value);
+            }
+
+            const div = document.getElementById('resultat');
+            div.style.display = 'block';
+            div.innerHTML = `<h3>Votre Score : ${score} / 5</h3>`;
+            if (score === 5) div.innerHTML += "<p>Excellent ! Maîtrise totale.</p>";
+            else div.innerHTML += "<p>Encore quelques efforts.</p>";
+        }
+    </script>
+</body>
+
+</html>

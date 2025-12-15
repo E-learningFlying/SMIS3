@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 8 : Les Tableaux - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Langage C</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch01-introduction.html">1. Introduction</a></li>
+                            <li><a href="ch02-variables.html">2. Variables</a></li>
+                            <li><a href="ch03-operateurs.html">3. Opérateurs</a></li>
+                            <li><a href="ch04-conditions.html">4. Conditions</a></li>
+                            <li><a href="ch05-boucles.html">5. Boucles</a></li>
+                            <li><a href="ch06-fonctions.html">6. Fonctions</a></li>
+                            <li><a href="ch07-pointeurs-bases.html">7. Pointeurs (Bases)</a></li>
+                            <li><a href="ch08-tableaux.html" class="active">8. Tableaux</a></li>
+                            <li><a href="ch09-chaines.html">9. Chaînes</a></li>
+                            <li><a href="ch10-allocation.html">10. All. Dynamique</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Cours C</a></li>
+                                <li class="breadcrumb-item active">Chapitre 8</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 8 : Les Tableaux</h1>
+
+                        <!-- Section 1 -->
+                        <section class="mb-5">
+                            <h2>1. Déclaration et Initialisation</h2>
+                            <p>Un tableau permet de stocker plusieurs variables **du même type** de manière contiguë en
+                                mémoire.</p>
+                            <pre><code class="language-c">int notes[5]; // Tableau de 5 entiers (indices 0 à 4)
+int scores[3] = {10, 20, 30}; // Initialisation directe
+int zeros[100] = {0}; // Tout à zéro !</code></pre>
+                            <div class="alert alert-danger">Attention : Si vous accédez à <code>notes[5]</code>, vous
+                                êtes HORS du tableau (indices 0,1,2,3,4). Cela peut faire planter le programme !</div>
+                        </section>
+
+                        <!-- Section 2 -->
+                        <section class="mb-5">
+                            <h2>2. Parcours d'un tableau</h2>
+                            <p>On utilise presque toujours une boucle <code>for</code>.</p>
+                            <pre><code class="language-c">for (int i = 0; i < 5; i++) {
+    printf("Note %d : %d\n", i, notes[i]);
+}</code></pre>
+                        </section>
+
+                        <!-- Section 3 -->
+                        <section class="mb-5">
+                            <h2>3. Le lien Tableau / Pointeur</h2>
+                            <p>C'est la subtilité du C : <strong>Le nom du tableau est un pointeur vers sa première
+                                    case.</strong></p>
+                            <pre><code class="language-c">int tab[3] = {1, 2, 3};
+// tab est équivalent à &tab[0]
+// *tab vaut 1 (tab[0])
+// *(tab + 1) vaut 2 (tab[1])</code></pre>
+                        </section>
+
+                        <!-- QUIZ -->
+                        <section class="my-5 p-4 border rounded bg-white shadow-sm">
+                            <h3 class="mb-4">🧠 Quiz de Validation (6 Questions)</h3>
+
+                            <!-- Q1 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">1. Quel est l'indice du premier élément d'un tableau ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">1</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">0</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">-1</button>
+                                </div>
+                            </div>
+
+                            <!-- Q2 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">2. Si je déclare `int t[10]`, quel est le dernier indice valide ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">10</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">9</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">11</button>
+                                </div>
+                            </div>
+
+                            <!-- Q3 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">3. Comment initialiser un tableau de 10 int tout à zéro ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">int t[10] =
+                                        {0};</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">int t[10] =
+                                        0;</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">int t[10] =
+                                        {0,0,0...};</button>
+                                </div>
+                            </div>
+
+                            <!-- Q4 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">4. Que signifie `*(t + 2)` ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">t[2] +
+                                        1</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">t +
+                                        2</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">t[2]</button>
+                                </div>
+                            </div>
+
+                            <!-- Q5 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">5. Peut-on changer la taille d'un tableau `int t[5]` après
+                                    déclaration ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Non, c'est
+                                        statique</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Oui, avec
+                                        resize()</button>
+                                </div>
+                            </div>
+
+                            <!-- Q6 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">6. En C, le compilateur vérifie-t-il si vous dépassez les bornes du
+                                    tableau ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Oui,
+                                        toujours</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Non, jamais
+                                        (danger !)</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCISES -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">💻 Exercices Pratiques</h3>
+
+                            <!-- Ex 1 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-header bg-primary text-white">Exercice 1 : Initialisation et
+                                        Affichage</div>
+                                    <div class="card-body">
+                                        <p>Créez un tableau de 4 entiers contenant 10, 20, 30, 40. Affichez-les un par
+                                            un avec une boucle.</p>
+                                        <button class="btn btn-outline-primary btn-sm"
+                                            onclick="toggleSolution('sol1')">Voir Solution</button>
+                                        <div id="sol1" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int tab[4] = {10, 20, 30, 40};
+    for (int i = 0; i < 4; i++) {
+        printf("%d\n", tab[i]);
+    }
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 2 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-success text-white">Exercice 2 : Somme du tableau</div>
+                                    <div class="card-body">
+                                        <p>Calculez la somme des éléments du tableau {5, 10, 15, 20}.</p>
+                                        <button class="btn btn-outline-success btn-sm"
+                                            onclick="toggleSolution('sol2')">Voir Solution</button>
+                                        <div id="sol2" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int tab[] = {5, 10, 15, 20};
+    int somme = 0;
+    // La taille auto est 4 ici
+    for (int i = 0; i < 4; i++) {
+        somme += tab[i];
+    }
+    printf("Somme : %d\n", somme);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 3 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-info text-dark">Exercice 3 : Trouver le max</div>
+                                    <div class="card-body">
+                                        <p>Trouvez la valeur maximale dans le tableau {12, 5, 89, 4, 33}.</p>
+                                        <button class="btn btn-outline-info btn-sm"
+                                            onclick="toggleSolution('sol3')">Voir Solution</button>
+                                        <div id="sol3" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int tab[] = {12, 5, 89, 4, 33};
+    int max = tab[0]; // On suppose le premier
+    for (int i = 1; i < 5; i++) {
+        if (tab[i] > max) max = tab[i];
+    }
+    printf("Max : %d\n", max);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 4 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-warning text-dark">Exercice 4 : Moyenne (Fonction)</div>
+                                    <div class="card-body">
+                                        <p>Créez une fonction <code>float moyenne(int tab[], int taille)</code> qui
+                                            retourne la moyenne.</p>
+                                        <button class="btn btn-outline-warning btn-sm"
+                                            onclick="toggleSolution('sol4')">Voir Solution</button>
+                                        <div id="sol4" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+float moyenne(int tab[], int taille) {
+    int s = 0;
+    for(int i=0; i < taille; i++) s += tab[i];
+    return (float)s / taille;
+}
+
+int main() {
+    int t[3] = {10, 20, 15};
+    printf("Moyenne : %.2f\n", moyenne(t, 3));
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 5 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-danger">
+                                    <div class="card-header bg-danger text-white">Exercice 5 : Tableau à 2 dimensions
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Déclarez une "matrice" 2x2. Mettez 1, 2, 3, 4 dedans et affichez sous forme
+                                            de grille.</p>
+                                        <button class="btn btn-outline-danger btn-sm"
+                                            onclick="toggleSolution('sol5')">Voir Solution</button>
+                                        <div id="sol5" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int mat[2][2] = {{1, 2}, {3, 4}};
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            printf("%d ", mat[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+
+                        <div class="text-center my-5">
+                            <a href="ch07-pointeurs-bases.html" class="btn btn-outline-secondary btn-lg me-2">←
+                                Précédent</a>
+                            <a href="ch09-chaines.html" class="btn btn-success btn-lg">Chapitre Suivant →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            Array.from(group.children).forEach(b => {
+                b.classList.remove('btn-success', 'btn-danger');
+                b.classList.add('btn-outline-secondary');
+            });
+            if (isCorrect) {
+                btn.classList.add('btn-success');
+                btn.classList.remove('btn-outline-secondary');
+            } else {
+                btn.classList.add('btn-danger');
+                btn.classList.remove('btn-outline-secondary');
+            }
+        }
+
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

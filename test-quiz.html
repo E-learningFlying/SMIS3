@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Quiz System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/courses.css">
+</head>
+
+<body>
+    <div class="container my-5">
+        <h1>Test du Système de Quiz</h1>
+        <p>Cette page teste si le système de quiz fonctionne correctement.</p>
+
+        <div class="alert alert-info">
+            <h4>État du système :</h4>
+            <ul id="system-status"></ul>
+        </div>
+
+        <h2>Quiz de Test</h2>
+        <div id="test-quiz"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/progress-tracker.js"></script>
+    <script src="js/quiz.js"></script>
+
+    <script>
+        const statusList = document.getElementById('system-status');
+
+        // Vérifier que quiz.js est chargé
+        function checkStatus(name, condition) {
+            const li = document.createElement('li');
+            li.innerHTML = condition
+                ? `✅ <strong>${name}</strong> : OK`
+                : `❌ <strong>${name}</strong> : ERREUR`;
+            statusList.appendChild(li);
+            return condition;
+        }
+
+        // Tests
+        checkStatus('quiz.js chargé', typeof QuizSystem !== 'undefined');
+        checkStatus('QuizSystem.createQuiz existe', typeof QuizSystem?.createQuiz === 'function');
+        checkStatus('Container test-quiz existe', document.getElementById('test-quiz') !== null);
+
+        // Données de quiz de test
+        const testQuizData = {
+            title: "Quiz de Test",
+            description: "Test du système",
+            course_id: 'test',
+            chapter_id: 'test-ch01',
+            questions: [
+                {
+                    question: "Quelle est la capitale de la France ?",
+                    type: "single",
+                    options: ["Londres", "Paris", "Berlin", "Madrid"],
+                    correct: 1,
+                    explanation: "Paris est la capitale de la France."
+                },
+                {
+                    question: "Quels sont des langages web ? (plusieurs réponses)",
+                    type: "multiple",
+                    options: ["HTML", "CSS", "Python", "JavaScript"],
+                    correct: [0, 1, 3],
+                    explanation: "HTML, CSS et JavaScript sont les langages web de base. Python est utilisé côté serveur."
+                }
+            ]
+        };
+
+        // Créer le quiz
+        try {
+            if (typeof QuizSystem !== 'undefined') {
+                const quiz = QuizSystem.createQuiz(testQuizData, 'test-quiz');
+                checkStatus('Quiz créé avec succès', quiz !== null);
+            } else {
+                throw new Error('QuizSystem non défini');
+            }
+        } catch (error) {
+            checkStatus('Quiz créé avec succès', false);
+            console.error('Erreur lors de la création du quiz:', error);
+
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'alert alert-danger';
+            errorDiv.innerHTML = `<strong>Erreur:</strong> ${error.message}`;
+            document.getElementById('test-quiz').appendChild(errorDiv);
+        }
+    </script>
+</body>
+
+</html>

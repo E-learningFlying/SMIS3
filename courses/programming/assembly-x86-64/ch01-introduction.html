@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Chapitre 1 : Introduction à l'Assembleur - Découvrez l'assembleur x86/x64 et créez votre premier programme">
+    <title>Chapitre 1 : Introduction à l'Assembleur - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours Assembleur x86/x64</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours Assembleur</a></li>
+                                <li class="breadcrumb-item active">Chapitre 1 : Introduction</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 1</span>
+                            <h1 class="mb-3">Introduction à l'Assembleur</h1>
+                            <p class="text-lg text-secondary">
+                                Découvrez l'assembleur, son histoire, ses avantages, et créez votre premier programme
+                                "Hello World" en assembleur x86/x64.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 1h30</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <div></div>
+                            <a href="ch02-architecture.html" class="chapter-nav-btn">Suivant : Architecture du
+                                processeur →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>Qu'est-ce que l'assembleur ?</h2>
+
+                            <p>
+                                L'<strong>assembleur</strong> (ou <strong>Assembly language</strong>) est un langage de
+                                programmation de <strong>bas niveau</strong> qui établit une correspondance directe avec
+                                les instructions machine du processeur.
+                            </p>
+
+                            <p>
+                                Contrairement aux langages de haut niveau (C, Python, Java), chaque instruction
+                                assembleur correspond généralement à une seule instruction machine exécutée par le
+                                processeur.
+                            </p>
+
+                            <div class="alert alert-info">
+                                <h4>💡 Le saviez-vous ?</h4>
+                                <p>
+                                    L'assembleur est le langage le plus proche du langage machine (code binaire 0 et 1)
+                                    tout en restant lisible par un humain.
+                                </p>
+                            </div>
+
+                            <h3>Différence Assembleur vs Langage Machine</h3>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Langage Machine</th>
+                                        <th>Assembleur</th>
+                                        <th>Langage de haut niveau</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>10110000 01100001</code></td>
+                                        <td><code>mov al, 97</code></td>
+                                        <td><code>char c = 'a';</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Binaire pur (0 et 1)</td>
+                                        <td>Mnémoniques lisibles</td>
+                                        <td>Instructions abstraites</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Impossible à lire/écrire</td>
+                                        <td>Difficile mais lisible</td>
+                                        <td>Facilement compréhensible</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h2>Histoire et évolution</h2>
+
+                            <h3>Timeline de l'architecture Intel</h3>
+
+                            <ul>
+                                <li><strong>1978 - Intel 8086</strong> : Premier processeur 16-bit, crée l'architecture
+                                    x86</li>
+                                <li><strong>1985 - Intel 80386</strong> : Premier processeur 32-bit (IA-32)</li>
+                                <li><strong>2003 - AMD64/x86-64</strong> : AMD introduit l'architecture 64-bit</li>
+                                <li><strong>2004 - Intel 64 (EM64T)</strong> : Intel adopte l'architecture 64-bit</li>
+                                <li><strong>Aujourd'hui</strong> : x86-64 domine les processeurs desktop et serveurs
+                                </li>
+                            </ul>
+
+                            <h2>Avantages et inconvénients</h2>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h3>✅ Avantages</h3>
+                                    <ul>
+                                        <li><strong>Performance maximale</strong> : Code ultra-optimisé</li>
+                                        <li><strong>Contrôle total</strong> : Accès direct au matériel</li>
+                                        <li><strong>Taille réduite</strong> : Programmes très compacts</li>
+                                        <li><strong>Compréhension CPU</strong> : Comprendre comment fonctionne un
+                                            processeur</li>
+                                        <li><strong>Reverse engineering</strong> : Analyse de programmes compilés</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h3>❌ Inconvénients</h3>
+                                    <ul>
+                                        <li><strong>Complexité</strong> : Courbe d'apprentissage élevée</li>
+                                        <li><strong>Non portable</strong> : Spécifique à une architecture</li>
+                                        <li><strong>Temps de développement</strong> : Beaucoup plus long</li>
+                                        <li><strong>Maintenance difficile</strong> : Code dur à lire/modifier</li>
+                                        <li><strong>Pas de sécurité</strong> : Accès direct mémoire = bugs graves</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <h2>Quand utiliser l'assembleur ?</h2>
+
+                            <p>L'assembleur est utilisé dans des contextes spécifiques où la performance ou le contrôle
+                                matériel sont critiques :</p>
+
+                            <ul>
+                                <li>🎮 <strong>Jeux vidéo</strong> : Optimisations critiques (physique, rendu)</li>
+                                <li>🔐 <strong>Cryptographie</strong> : Algorithmes ultra-rapides</li>
+                                <li>⚙️ <strong>Systèmes d'exploitation</strong> : Noyau, bootloader, drivers</li>
+                                <li>🎛️ <strong>Systèmes embarqués</strong> : Microcontrôleurs, IoT</li>
+                                <li>🛡️ <strong>Sécurité informatique</strong> : Exploits, shellcode, reverse
+                                    engineering</li>
+                                <li>🔬 <strong>Optimisation</strong> : Sections critiques de code</li>
+                            </ul>
+
+                            <h2>NASM - Netwide Assembler</h2>
+
+                            <p>
+                                Dans ce cours, nous utiliserons <strong>NASM</strong> (Netwide Assembler), un assembleur
+                                populaire et open-source pour x86/x64.
+                            </p>
+
+                            <h3>Pourquoi NASM ?</h3>
+
+                            <ul>
+                                <li>✅ Syntaxe Intel (plus lisible que AT&T)</li>
+                                <li>✅ Gratuit et open-source</li>
+                                <li>✅ Multi-plateforme (Windows, Linux, macOS)</li>
+                                <li>✅ Excellent support 64-bit</li>
+                                <li>✅ Documentation complète</li>
+                            </ul>
+
+                            <h3>Installation de NASM</h3>
+
+                            <h4>🪟 Windows</h4>
+                            <pre><code class="language-bash"># Télécharger depuis https://www.nasm.us/
+# Ou avec Chocolatey :
+choco install nasm
+
+# Vérifier l'installation :
+nasm -version</code></pre>
+
+                            <h4>🐧 Linux</h4>
+                            <pre><code class="language-bash"># Ubuntu/Debian
+sudo apt-get install nasm
+
+# Fedora
+sudo dnf install nasm
+
+# Arch Linux
+sudo pacman -S nasm
+
+# Vérifier
+nasm -version</code></pre>
+
+                            <h2>Votre premier programme : Hello World</h2>
+
+                            <h3>Version Linux (x64)</h3>
+
+                            <pre><code class="language-nasm">; hello_linux.asm - Affiche "Hello, World!" sur Linux
+section .data
+    msg db "Hello, World!", 10    ; Message avec retour à la ligne (10 = '\n')
+    len equ $ - msg               ; Longueur du message
+
+section .text
+    global _start                  ; Point d'entrée
+
+_start:
+    ; Appel système write (syscall 1)
+    mov rax, 1                     ; syscall: sys_write
+    mov rdi, 1                     ; fd: stdout
+    mov rsi, msg                   ; buffer: notre message
+    mov rdx, len                   ; count: longueur
+    syscall                        ; Appel système
+    
+    ; Appel système exit (syscall 60)
+    mov rax, 60                    ; syscall: sys_exit
+    xor rdi, rdi                   ; status: 0
+    syscall                        ; Terminer le programme</code></pre>
+
+                            <h3>Compilation et exécution (Linux)</h3>
+
+                            <pre><code class="language-bash"># Assembler le fichier
+nasm -f elf64 hello_linux.asm -o hello_linux.o
+
+# Linker
+ld hello_linux.o -o hello_linux
+
+# Exécuter
+./hello_linux
+# Affiche: Hello, World!</code></pre>
+
+                            <h3>Version Windows (x64)</h3>
+
+                            <pre><code class="language-nasm">; hello_windows.asm - Affiche "Hello, World!" sur Windows
+extern ExitProcess              ; Importer ExitProcess de kernel32.dll
+extern printf                    ; Importer printf de msvcrt.dll
+
+section .data
+    msg db "Hello, World!", 10, 0   ; Message null-terminated
+
+section .text
+    global main                  ; Point d'entrée
+
+main:
+    sub rsp, 40                  ; Aligner la pile (shadow space)
+    
+    lea rcx, [msg]               ; Premier paramètre : message
+    call printf                  ; Appeler printf
+    
+    xor rcx, rcx                 ; Code de retour 0
+    call ExitProcess             ; Terminer</code></pre>
+
+                            <h3>Compilation et exécution (Windows)</h3>
+
+                            <pre><code class="language-bash"># Assembler
+nasm -f win64 hello_windows.asm -o hello_windows.obj
+
+# Linker (avec Visual Studio)
+link hello_windows.obj /subsystem:console /entry:main /defaultlib:msvcrt.lib /defaultlib:kernel32.lib
+
+# Exécuter
+hello_windows.exe</code></pre>
+
+                            <h2>Explication ligne par ligne</h2>
+
+                            <h3>Section .data</h3>
+                            <pre><code class="language-nasm">section .data
+    msg db "Hello, World!", 10
+    len equ $ - msg</code></pre>
+
+                            <ul>
+                                <li><code>section .data</code> : Déclare la section des données initialisées</li>
+                                <li><code>msg db "..."</code> : Déclare un tableau de bytes contenant le message</li>
+                                <li><code>10</code> : Code ASCII du '\n' (nouvelle ligne)</li>
+                                <li><code>len equ $ - msg</code> : Calcule la longueur ($ = position actuelle)</li>
+                            </ul>
+
+                            <h3>Point d'entrée</h3>
+                            <pre><code class="language-nasm">global _start
+_start:</code></pre>
+
+                            <ul>
+                                <li><code>global _start</code> : Rend le symbole _start visible au linker</li>
+                                <li><code>_start:</code> : Label du point d'entrée du programme</li>
+                            </ul>
+
+                            <h3>Appel système write</h3>
+                            <pre><code class="language-nasm">mov rax, 1        ; syscall number
+mov rdi, 1        ; file descriptor (stdout)
+mov rsi, msg      ; buffer address
+mov rdx, len      ; buffer length
+syscall           ; invoke system call</code></pre>
+
+                            <ul>
+                                <li><code>mov</code> : Instruction de déplacement de données</li>
+                                <li><code>rax, rdi, rsi, rdx</code> : Registres pour les paramètres</li>
+                                <li><code>syscall</code> : Invoque l'appel système</li>
+                            </ul>
+                        </section>
+
+                        <aside class="tips alert">
+                            <h3>💡 Astuces</h3>
+                            <ul>
+                                <li>Commencez par des programmes simples et augmentez progressivement</li>
+                                <li>Utilisez des commentaires généreux dans votre code assembleur</li>
+                                <li>Testez sur les deux plateformes (Linux et Windows) si possible</li>
+                                <li>Gardez une référence des instructions ASM à portée de main</li>
+                                <li>Utilisez un debugger (GDB, x64dbg) pour comprendre l'exécution</li>
+                            </ul>
+                        </aside>
+
+                        <aside class="common-mistakes alert">
+                            <h3>⚠️ Erreurs fréquentes</h3>
+                            <ul>
+                                <li><strong>Oublier l'appel système exit</strong> : Le programme plantera</li>
+                                <li><strong>Mauvais format d'assemblage</strong> : -f elf64 pour Linux, -f win64 pour
+                                    Windows</li>
+                                <li><strong>Oublier global _start</strong> : Erreur au linkage</li>
+                                <li><strong>Mauvais registres pour syscall</strong> : RAX pour le numéro, RDI/RSI/RDX
+                                    pour paramètres</li>
+                                <li><strong>Alignement pile Windows</strong> : sub rsp, 40 nécessaire avant appel
+                                    fonction</li>
+                            </ul>
+                        </aside>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch01"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Installer NASM et compiler Hello World</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p><strong>Objectif :</strong> Configurer votre environnement et compiler votre
+                                        premier programme.</p>
+                                    <ul>
+                                        <li>Installer NASM sur votre système</li>
+                                        <li>Copier le code Hello World selon votre OS</li>
+                                        <li>L'assembler et le linker</li>
+                                        <li>L'exécuter avec succès</li>
+                                        <li>Vérifier que "Hello, World!" s'affiche</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Modifier le message</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p><strong>Objectif :</strong> Comprendre la section .data et modifier le programme.
+                                    </p>
+                                    <ul>
+                                        <li>Modifier le message pour afficher votre nom</li>
+                                        <li>Calculer correctement la nouvelle longueur</li>
+                                        <li>Recompiler et exécuter</li>
+                                        <li>Ajouter une deuxième ligne au message</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Afficher plusieurs lignes</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p><strong>Objectif :</strong> Appeler write plusieurs fois.</p>
+                                    <ul>
+                                        <li>Créer 3 messages différents dans .data</li>
+                                        <li>Les afficher un par un avec 3 appels à write</li>
+                                        <li>Exemple : afficher "Ligne 1", "Ligne 2", "Ligne 3"</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <div></div>
+                            <a href="ch02-architecture.html" class="chapter-nav-btn">Suivant : Architecture du
+                                processeur →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">✓ Marquer ce chapitre comme
+                                terminé</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nasm.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'assembly-x86-64';
+        const chapterId = 'ch01-introduction';
+
+        const chapters = [
+            { id: "ch01-introduction", title: "Introduction" },
+            { id: "ch02-architecture", title: "Architecture" },
+            { id: "ch03-registres", title: "Registres" },
+            { id: "ch04-instructions-base", title: "Instructions de base" },
+            { id: "ch05-adressage", title: "Modes d'adressage" },
+            { id: "ch06-controle", title: "Instructions de contrôle" },
+            { id: "ch07-pile", title: "La pile" },
+            { id: "ch08-procedures", title: "Procédures" },
+            { id: "ch09-chaines", title: "Chaînes" },
+            { id: "ch10-tableaux", title: "Tableaux" },
+            { id: "ch11-memoire", title: "Mémoire" },
+            { id: "ch12-simd", title: "SIMD" },
+            { id: "ch13-entrees-sorties", title: "Entrées/Sorties" },
+            { id: "ch14-debugging", title: "Debugging" },
+            { id: "ch15-optimisation", title: "Optimisation" }
+        ];
+
+        const quizData = {
+            title: "Quiz - Introduction à l'Assembleur",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                {
+                    question: "Qu'est-ce que l'assembleur ?",
+                    type: "single",
+                    options: [
+                        "Un langage de haut niveau comme Python",
+                        "Un langage de bas niveau proche du langage machine",
+                        "Un compilateur C",
+                        "Un système d'exploitation"
+                    ],
+                    correct: 1,
+                    explanation: "L'assembleur est un langage de bas niveau qui correspond directement aux instructions machine du processeur."
+                },
+                {
+                    question: "Quelle est la différence entre assembleur et langage machine ?",
+                    type: "single",
+                    options: [
+                        "Il n'y a pas de différence",
+                        "Le langage machine utilise des mnémoniques, l'assembleur du binaire",
+                        "L'assembleur utilise des mnémoniques lisibles, le langage machine du binaire",
+                        "L'assembleur est plus rapide"
+                    ],
+                    correct: 2,
+                    explanation: "L'assembleur utilise des mnémoniques lisibles (mov, add, etc.) tandis que le langage machine utilise du code binaire pur."
+                },
+                {
+                    question: "Quel est l'avantage principal de l'assembleur ?",
+                    type: "single",
+                    options: [
+                        "Facile à apprendre",
+                        "Portable sur toutes plateformes",
+                        "Performance maximale et contrôle total du matériel",
+                        "Pas besoin de compilation"
+                    ],
+                    correct: 2,
+                    explanation: "L'assembleur permet d'obtenir la performance maximale et un contrôle total sur le matériel."
+                },
+                {
+                    question: "Que signifie NASM ?",
+                    type: "single",
+                    options: [
+                        "New Assembly Machine",
+                        "Netwide Assembler",
+                        "Native Assembler",
+                        "Next Assembly"
+                    ],
+                    correct: 1,
+                    explanation: "NASM signifie Netwide Assembler, un assembleur populaire pour x86/x64."
+                },
+                {
+                    question: "Quelle architecture est x64 ?",
+                    type: "single",
+                    options: [
+                        "16-bit",
+                        "32-bit",
+                        "64-bit",
+                        "128-bit"
+                    ],
+                    correct: 2,
+                    explanation: "x64 (aussi appelé x86-64 ou AMD64) est une architecture 64-bit."
+                },
+                {
+                    question: "Sur Linux x64, quel registre contient le numéro de syscall ?",
+                    type: "single",
+                    options: [
+                        "RBX",
+                        "RCX",
+                        "RAX",
+                        "RDX"
+                    ],
+                    correct: 2,
+                    explanation: "RAX contient le numéro du syscall sur Linux x64. sys_write = 1, sys_exit = 60."
+                },
+                {
+                    question: "Quelle est l'extension typique d'un fichier assembleur NASM ?",
+                    type: "single",
+                    options: [
+                        ".s",
+                        ".asm",
+                        ".asx",
+                        ".assembly"
+                    ],
+                    correct: 1,
+                    explanation: "Les fichiers assembleur NASM utilisent généralement l'extension .asm"
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+
+            // Sidebar
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+
+            // Quiz
+            QuizSystem.createQuiz(quizData, 'quiz-ch01');
+
+            // Mark complete
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+    </script>
+</body>
+
+</html>

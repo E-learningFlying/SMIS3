@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 9 : Les Chaînes de Caractères - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Langage C</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch01-introduction.html">1. Introduction</a></li>
+                            <li><a href="ch02-variables.html">2. Variables</a></li>
+                            <li><a href="ch03-operateurs.html">3. Opérateurs</a></li>
+                            <li><a href="ch04-conditions.html">4. Conditions</a></li>
+                            <li><a href="ch05-boucles.html">5. Boucles</a></li>
+                            <li><a href="ch06-fonctions.html">6. Fonctions</a></li>
+                            <li><a href="ch07-pointeurs-bases.html">7. Pointeurs (Bases)</a></li>
+                            <li><a href="ch08-tableaux.html">8. Tableaux</a></li>
+                            <li><a href="ch09-chaines.html" class="active">9. Chaînes</a></li>
+                            <li><a href="ch10-allocation.html">10. All. Dynamique</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Cours C</a></li>
+                                <li class="breadcrumb-item active">Chapitre 9</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 9 : Les Chaînes de Caractères</h1>
+
+                        <!-- Section 1 -->
+                        <section class="mb-5">
+                            <h2>1. Une chaîne, c'est quoi ?</h2>
+                            <p>En C, une chaîne N'EXISTE PAS en tant que type primitif ! C'est un <strong>tableau de
+                                    char</strong> qui se termine par un caractère spécial invisible : <code>\0</code>
+                                (Backslash Zéro).</p>
+                            <pre><code class="language-c">char nom[] = "Paul";
+// En mémoire, c'est : ['P', 'a', 'u', 'l', '\0']
+// Taille du tableau : 5 octets (4 lettres + 1 finisseur)</code></pre>
+                            <div class="alert alert-warning">
+                                <strong>Piège mortel :</strong> Si vous oubliez le <code>\0</code>, les fonctions de
+                                lecture continueront indéfiniment jusqu'à un crash. C'est l'histoire de tous les bugs C.
+                            </div>
+                        </section>
+
+                        <!-- Section 2 -->
+                        <section class="mb-5">
+                            <h2>2. La bibliothèque string.h</h2>
+                            <p>Ne réinventez pas la roue, utilisez <code>#include <string.h></code> pour manipuler les
+                                textes.</p>
+                            <table class="table">
+                                <tr>
+                                    <th>Fonction</th>
+                                    <th>Description</th>
+                                </tr>
+                                <tr>
+                                    <td><code>strlen(S)</code></td>
+                                    <td>Longueur de la chaîne (sans le \0).</td>
+                                </tr>
+                                <tr>
+                                    <td><code>strcpy(Dest, Src)</code></td>
+                                    <td>Copie Src dans Dest.</td>
+                                </tr>
+                                <tr>
+                                    <td><code>strcmp(S1, S2)</code></td>
+                                    <td>Compare deux chaînes (0 si égales).</td>
+                                </tr>
+                                <tr>
+                                    <td><code>strcat(Dest, Src)</code></td>
+                                    <td>Ajoute Src à la suite de Dest.</td>
+                                </tr>
+                            </table>
+                        </section>
+
+                        <!-- Section 3 -->
+                        <section class="mb-5">
+                            <h2>3. Lire du texte</h2>
+                            <p>Oubliez <code>scanf</code> pour les phrases (il s'arrête au premier espace). Utilisez
+                                <code>fgets</code>.</p>
+                            <pre><code class="language-c">char buffer[100];
+printf("Votre nom : ");
+fgets(buffer, 100, stdin); // Lit jusqu'à 99 caractères + \0</code></pre>
+                        </section>
+
+                        <!-- QUIZ -->
+                        <section class="my-5 p-4 border rounded bg-white shadow-sm">
+                            <h3 class="mb-4">🧠 Quiz de Validation (6 Questions)</h3>
+
+                            <!-- Q1 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">1. Quel caractère termine TOUTES les chaînes en C ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">\n</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">\0</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">.</button>
+                                </div>
+                            </div>
+
+                            <!-- Q2 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">2. Si `char s[] = "ABC"`, quelle est la taille du tableau (sizeof) ?
+                                </p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">3</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">4 (A, B, C,
+                                        \0)</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">8</button>
+                                </div>
+                            </div>
+
+                            <!-- Q3 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">3. Peut-on faire `chaine1 = chaine2;` pour copier ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Oui, sans
+                                        problème</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Non, cela
+                                        copierait seulement l'adresse (pointeur)</button>
+                                </div>
+                            </div>
+
+                            <!-- Q4 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">4. Que retourne `strcmp("A", "A")` ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">1</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">0</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Vrai</button>
+                                </div>
+                            </div>
+
+                            <!-- Q5 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">5. Quelle fonction est sûre pour lire une phrase avec espaces ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">scanf("%s")</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, true)">fgets()</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">gets()
+                                        (Dangereux !)</button>
+                                </div>
+                            </div>
+
+                            <!-- Q6 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">6. Quel header faut-il inclure pour `strlen` ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">
+                                        < string.h>
+                                    </button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">
+                                        < stdio.h>
+                                    </button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">
+                                        < stdlib.h>
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCISES -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">💻 Exercices Pratiques</h3>
+
+                            <!-- Ex 1 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-header bg-primary text-white">Exercice 1 : Longueur manuelle</div>
+                                    <div class="card-body">
+                                        <p>Sans utiliser <code>strlen</code>, écrivez une boucle qui compte le nombre de
+                                            caractères de "Bonjour" (jusqu'au \0).</p>
+                                        <button class="btn btn-outline-primary btn-sm"
+                                            onclick="toggleSolution('sol1')">Voir Solution</button>
+                                        <div id="sol1" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    char mot[] = "Bonjour";
+    int i = 0;
+    while (mot[i] != '\0') {
+        i++;
+    }
+    printf("Longueur : %d\n", i);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 2 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-success text-white">Exercice 2 : Concaténation</div>
+                                    <div class="card-body">
+                                        <p>Créez <code>char prenom[] = "Jean"</code> et
+                                            <code>char non[]="Dupont"</code>. Utilisez <code>strcat</code> pour obtenir
+                                            "Jean Dupont" dans une variable <code>complet</code>.</p>
+                                        <button class="btn btn-outline-success btn-sm"
+                                            onclick="toggleSolution('sol2')">Voir Solution</button>
+                                        <div id="sol2" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char complet[50] = ""; // Assez grand !
+    strcat(complet, "Jean");
+    strcat(complet, " ");
+    strcat(complet, "Dupont");
+    
+    printf("Nom complet : %s\n", complet);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 3 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-info text-dark">Exercice 3 : Comparaison</div>
+                                    <div class="card-body">
+                                        <p>Demandez un mot de passe. Si c'est "secret", affichez "Accès autorisé". Sinon
+                                            "Refusé". Utilisez <code>strcmp</code>.</p>
+                                        <button class="btn btn-outline-info btn-sm"
+                                            onclick="toggleSolution('sol3')">Voir Solution</button>
+                                        <div id="sol3" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char mdp[20] = "secret"; // Simulation saisie
+    if (strcmp(mdp, "secret") == 0) {
+        printf("Accès autorisé !\n");
+    } else {
+        printf("Intrus !\n");
+    }
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 4 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-warning text-dark">Exercice 4 : Majuscules</div>
+                                    <div class="card-body">
+                                        <p>Transformez "abc" en "ABC" en manipulant le code ASCII
+                                            (<code>char - 32</code> passe en majuscule).</p>
+                                        <button class="btn btn-outline-warning btn-sm"
+                                            onclick="toggleSolution('sol4')">Voir Solution</button>
+                                        <div id="sol4" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    char s[] = "abc";
+    for(int i=0; s[i] != '\0'; i++) {
+        if(s[i] >= 'a' && s[i] <= 'z') {
+            s[i] -= 32; // On retire 32 pour avoir la majuscule
+        }
+    }
+    printf("%s\n", s);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 5 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-danger">
+                                    <div class="card-header bg-danger text-white">Exercice 5 : Palindrome</div>
+                                    <div class="card-body">
+                                        <p>Vérifiez si "KAYAK" est un palindrome (se lit pareil dans les deux sens).
+                                            L'exercice consiste juste à comparer le début et la fin.</p>
+                                        <button class="btn btn-outline-danger btn-sm"
+                                            onclick="toggleSolution('sol5')">Voir Solution</button>
+                                        <div id="sol5" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char mot[] = "KAYAK";
+    int len = strlen(mot);
+    int estPalindrome = 1;
+    
+    for(int i=0; i < len/2; i++) {
+        if(mot[i] != mot[len - 1 - i]) {
+            estPalindrome = 0;
+            break;
+        }
+    }
+    
+    if(estPalindrome) printf("C'est un palindrome.\n");
+    else printf("Ce n'est pas un palindrome.\n");
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+
+                        <div class="text-center my-5">
+                            <a href="ch08-tableaux.html" class="btn btn-outline-secondary btn-lg me-2">← Précédent</a>
+                            <a href="ch10-allocation.html" class="btn btn-success btn-lg">Chapitre Suivant →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            Array.from(group.children).forEach(b => {
+                b.classList.remove('btn-success', 'btn-danger');
+                b.classList.add('btn-outline-secondary');
+            });
+            if (isCorrect) {
+                btn.classList.add('btn-success');
+                btn.classList.remove('btn-outline-secondary');
+            } else {
+                btn.classList.add('btn-danger');
+                btn.classList.remove('btn-outline-secondary');
+            }
+        }
+
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

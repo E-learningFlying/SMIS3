@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 4 : Architecture Générale - Architecture des Ordinateurs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <style>
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Architecture</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch01-codage-nombres.html">1. Codage Nombres</a></li>
+                            <li><a href="ch02-algebre-boole.html">2. Algèbre Boole</a></li>
+                            <li><a href="ch03-circuits-logiques.html">3. Circuits Logiques</a></li>
+                            <li><a href="ch04-architecture-generale.html" class="active">4. Architecture</a></li>
+                            <li><a href="ch05-memoires.html">5. Mémoires</a></li>
+                            <li><a href="ch06-fonctionnement-cpu.html">6. CPU</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Architecture</a></li>
+                                <li class="breadcrumb-item active">Chapitre 4</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 4 : Architecture de Von Neumann</h1>
+
+                        <!-- SECTION 1 -->
+                        <section class="mb-5">
+                            <h2>1. Le Modèle de Von Neumann</h2>
+                            <p>En 1945, John von Neumann a décrit l'architecture universelle utilisée par presque tous
+                                les ordinateurs modernes.</p>
+                            <p>Elle se compose de 4 parties principales reliées par des <strong>Bus</strong> :</p>
+                            <div class="row text-center mt-4">
+                                <div class="col-md-3 mb-3">
+                                    <div class="p-3 bg-danger text-white rounded">CPU (Processeur)</div>
+                                </div>
+                                <div class="col-md-1 d-flex align-items-center justify-content-center">
+                                    ↔️
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="p-3 bg-primary text-white rounded">Mémoire (RAM)</div>
+                                </div>
+                                <div class="col-md-1 d-flex align-items-center justify-content-center">
+                                    ↔️
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="p-3 bg-secondary text-white rounded">Entrées / Sorties</div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- SECTION 2 -->
+                        <section class="mb-5">
+                            <h2>2. Les Bus</h2>
+                            <p>Ce sont les "autoroutes" de l'information. Il y en a trois types :</p>
+                            <ul>
+                                <li><strong>Bus de Données (Data Bus) :</strong> Transporte les données (ex: le résultat
+                                    d'un calcul). Bidirectionnel.</li>
+                                <li><strong>Bus d'Adresse (Address Bus) :</strong> Indique <em>où</em> on veut lire ou
+                                    écrire en mémoire. Unidirectionnel (CPU -> Mémoire).</li>
+                                <li><strong>Bus de Contrôle (Control Bus) :</strong> Transporte les ordres (Lecture ?
+                                    Écriture ? Interruption ?).</li>
+                            </ul>
+                        </section>
+
+                        <!-- SECTION 3 -->
+                        <section class="mb-5">
+                            <h2>3. Concept de Programme Enregistré</h2>
+                            <div class="alert alert-info">
+                                La grande idée révolutionnaire est que <strong>les instructions du programme et les
+                                    données sont stockées dans la même mémoire</strong>.
+                            </div>
+                            <p>Cela signifie qu'on peut changer de programme simplement en chargeant un autre code en
+                                mémoire, sans modifier le matériel.</p>
+                        </section>
+
+                        <!-- QUIZ -->
+                        <section class="my-5 p-4 border rounded bg-white shadow-sm">
+                            <h3 class="mb-4">🧠 Quiz Architecture</h3>
+
+                            <div class="mb-4">
+                                <p class="fw-bold">1. Lequel de ces bus est bidirectionnel (va dans les deux sens) ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Bus
+                                        d'Adresse</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Bus de
+                                        Données</button>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <p class="fw-bold">2. Dans l'architecture Von Neumann, où est stocké le programme ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Dans le CPU
+                                        uniquement</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Dans la
+                                        mémoire (avec les données)</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Sur le disque
+                                        dur uniquement</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCISES -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">✍️ Exercice de réflexion</h3>
+
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5>Largeur du Bus d'Adresse</h5>
+                                    <p>Si un processeur a un bus d'adresse de <strong>32 bits</strong> (32 fils),
+                                        combien de cases mémoires différentes peut-il adresser ?</p>
+                                    <p><em>Rappel : Avec n bits, on a 2^n combinaisons.</em></p>
+
+                                    <button class="btn btn-outline-primary btn-sm mt-2"
+                                        onclick="toggleSolution('ex1')">Voir Solution</button>
+                                    <div id="ex1" class="solution-box">
+                                        2 puissance 32 = 4 294 967 296 adresses.<br>
+                                        Si chaque adresse pointe vers 1 octet, cela fait <strong>4 Go</strong>
+                                        (Gigaoctets) de RAM adressable.<br>
+                                        C'est pour cela que les systèmes 32 bits étaient limités à 4 Go de RAM !
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div class="text-center my-5">
+                            <a href="ch03-circuits-logiques.html" class="btn btn-secondary me-2">← Précédent</a>
+                            <a href="ch05-memoires.html" class="btn btn-primary btn-lg">Chapitre 5 : Les Mémoires →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            Array.from(group.children).forEach(b => {
+                b.classList.remove('btn-success', 'btn-danger');
+                b.classList.add('btn-outline-secondary');
+            });
+            if (isCorrect) {
+                btn.classList.add('btn-success');
+                btn.classList.remove('btn-outline-secondary');
+            } else {
+                btn.classList.add('btn-danger');
+                btn.classList.remove('btn-outline-secondary');
+            }
+        }
+
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

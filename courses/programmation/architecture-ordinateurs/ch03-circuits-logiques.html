@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 3 : Circuits Logiques - Architecture des Ordinateurs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <style>
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 4px;
+        }
+
+        .gate-symbol {
+            font-size: 2rem;
+            font-weight: bold;
+            border: 2px solid #333;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            min-width: 80px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Architecture</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch01-codage-nombres.html">1. Codage Nombres</a></li>
+                            <li><a href="ch02-algebre-boole.html">2. Algèbre Boole</a></li>
+                            <li><a href="ch03-circuits-logiques.html" class="active">3. Circuits Logiques</a></li>
+                            <li><a href="ch04-architecture-generale.html">4. Architecture</a></li>
+                            <li><a href="ch05-memoires.html">5. Mémoires</a></li>
+                            <li><a href="ch06-fonctionnement-cpu.html">6. CPU</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Architecture</a></li>
+                                <li class="breadcrumb-item active">Chapitre 3</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 3 : Circuits Logiques</h1>
+
+                        <!-- SECTION 1 -->
+                        <section class="mb-5">
+                            <h2>1. Des Maths à la Physique</h2>
+                            <p>Nous avons vu les opérations abstraites (ET, OU). Dans la réalité, elles sont réalisées
+                                par des composants électroniques appelés <strong>Portes Logiques</strong>, composées de
+                                transistors.</p>
+                        </section>
+
+                        <!-- SECTION 2 -->
+                        <section class="mb-5">
+                            <h2>2. Circuits Combinatoires</h2>
+                            <p>La sortie dépend <strong>uniquement</strong> des entrées actuelles. Il n'y a pas de
+                                mémoire.</p>
+
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h4>L'Additionneur (Demi-additionneur)</h4>
+                                    <p>Comment l'ordinateur additionne-t-il 1 + 1 ?</p>
+                                    <ul>
+                                        <li>1 + 1 = 0 (et je retiens 1)</li>
+                                    </ul>
+                                    <p>Il faut deux sorties : la <strong>Somme (S)</strong> et la <strong>Retenue
+                                            (C)</strong>.</p>
+                                    <p><strong>C = A . B</strong> (ET) | <strong>S = A ⊕ B</strong> (XOR)</p>
+                                </div>
+                            </div>
+
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h4>Le Multiplexeur (MUX)</h4>
+                                    <p>C'est un "aiguillage". Il a plusieurs entrées de données, une entrée de
+                                        sélection, et une seule sortie.</p>
+                                    <p>Si Select=0, Sortie=Entrée1. Si Select=1, Sortie=Entrée2.</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- SECTION 3 -->
+                        <section class="mb-5">
+                            <h2>3. Circuits Séquentiels</h2>
+                            <p>C'est ici que ça devient intéressant : la sortie dépend des entrées ET de l'<strong>état
+                                    précédent</strong>. C'est la base de la <strong>MÉMOIRE</strong>.</p>
+
+                            <div class="alert alert-warning">
+                                <strong>La Bascule (Flip-Flop)</strong><br>
+                                C'est le circuit mémoire le plus élémentaire. Il est capable de mémoriser 1 bit
+                                d'information tant qu'il est alimenté.
+                            </div>
+
+                            <h4>Le Chronogramme</h4>
+                            <p>Pour comprendre les circuits séquentiels, on utilise des chronogrammes : des graphiques
+                                montrant l'évolution des signaux (0 ou 1) en fonction du temps (et de l'horloge).</p>
+                        </section>
+
+                        <!-- QUIZ -->
+                        <section class="my-5 p-4 border rounded bg-white shadow-sm">
+                            <h3 class="mb-4">🧠 Quiz Circuits</h3>
+
+                            <div class="mb-4">
+                                <p class="fw-bold">1. Un circuit dont la sortie de dépend que des entrées est...</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, true)">Combinatoire</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">Séquentiel</button>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <p class="fw-bold">2. Quel composant sert à mémoriser un bit ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">Multiplexeur</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">Additionneur</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, true)">Bascule</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCISES -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">✍️ Exercice</h3>
+
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5>Analyse de circuit</h5>
+                                    <p>Imaginez un circuit avec deux entrées A et B.</p>
+                                    <p>1. On fait (A ET B).</p>
+                                    <p>2. On fait (A OU B).</p>
+                                    <p>3. On fait un ET entre le résultat de 1 et 2.</p>
+                                    <p><strong>Quelle est la sortie simplifiée ?</strong></p>
+
+                                    <button class="btn btn-outline-primary btn-sm mt-2"
+                                        onclick="toggleSolution('ex1')">Voir Solution</button>
+                                    <div id="ex1" class="solution-box">
+                                        Sortie = (A.B) . (A+B)<br>
+                                        Si A=1, B=1 -> (1.1).(1+1) = 1.1 = 1<br>
+                                        Si A=0, B=1 -> (0.1).(0+1) = 0.1 = 0<br>
+                                        En fait, si (A.B) est vrai, alors (A+B) est forcément vrai.<br>
+                                        Donc l'expression se simplifie en <strong>A . B</strong>.
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCICES EXPERT -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">☠️ Exercices Expert</h3>
+
+                            <div class="card mb-4 border-danger">
+                                <div class="card-header bg-danger text-white">Ex 2 : Chronogramme Bascule D</div>
+                                <div class="card-body">
+                                    <p>On a une Bascule D déclenchée sur <strong>Front Montant</strong>.</p>
+                                    <p>Si D passe à 1 <em>juste après</em> le front montant, quand Q passe-t-il à 1 ?
+                                    </p>
+                                    <button class="btn btn-outline-danger btn-sm mt-2"
+                                        onclick="toggleSolution('ex2')">Voir Solution</button>
+                                    <div id="ex2" class="solution-box">
+                                        Il faudra attendre le <strong>prochain front montant</strong> de l'horloge.<br>
+                                        La bascule ne "regarde" l'entrée D qu'au moment précis de la montée du signal
+                                        d'horloge.
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div class="text-center my-5">
+                            <a href="ch02-algebre-boole.html" class="btn btn-secondary me-2">← Précédent</a>
+                            <a href="ch04-architecture-generale.html" class="btn btn-primary btn-lg">Chapitre 4 :
+                                Architecture Générale →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            Array.from(group.children).forEach(b => {
+                b.classList.remove('btn-success', 'btn-danger');
+                b.classList.add('btn-outline-secondary');
+            });
+            if (isCorrect) {
+                btn.classList.add('btn-success');
+                btn.classList.remove('btn-outline-secondary');
+            } else {
+                btn.classList.add('btn-danger');
+                btn.classList.remove('btn-outline-secondary');
+            }
+        }
+
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

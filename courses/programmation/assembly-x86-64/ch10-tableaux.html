@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chapitre 10 : Tableaux et données en assembleur 8086">
+    <title>Chapitre 10 : Tableaux - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 0.375rem;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .solution-box h4 {
+            color: #0d6efd;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .solution-box pre {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .solution-toggle {
+            transition: all 0.2s ease;
+        }
+
+        .solution-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours Assembleur 8086</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours Assembleur 8086</a></li>
+                                <li class="breadcrumb-item active">Chapitre 10 : Tableaux</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 10</span>
+                            <h1 class="mb-3">Tableaux et données complexes</h1>
+                            <p class="text-lg text-secondary">
+                                Apprenez à déclarer et manipuler des structures de données telles que les tableaux
+                                d'octets ou de mots, et à implémenter des algorithmes de tri.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 1h30</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch09-chaines.html" class="chapter-nav-btn">← Précédent : Chaînes</a>
+                            <a href="ch11-interruptions.html" class="chapter-nav-btn">Suivant : Interruptions →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>Déclaration de données</h2>
+
+                            <p>En assembleur, vous avez un contrôle total sur la mémoire. Voici les directives
+                                principales :</p>
+
+                            <ul>
+                                <li><strong>DB</strong> (Define Byte) : 8 bits.</li>
+                                <li><strong>DW</strong> (Define Word) : 16 bits.</li>
+                                <li><strong>DD</strong> (Define Doubleword) : 32 bits.</li>
+                            </ul>
+
+                            <h3>Syntaxe</h3>
+
+                            <pre><code class="language-asm">.DATA
+    var1    DB 10               ; Variable simple
+    tab1    DB 10, 20, 30, 40   ; Tableau bytes
+    tab2    DW 1000h, 2000h     ; Tableau words
+    buffer  DB 100 DUP(0)       ; 100 octets à zéro
+    msg     DB 'Texte', 0       ; Chaîne terminée par 0</code></pre>
+
+                            <h2>Accès aux tableaux</h2>
+
+                            <p>Pour accéder au N-ième élément, il faut calculer son adresse (offset). C'est là que les
+                                registres d'index (SI, DI) ou de base (BX) sont utiles.</p>
+
+                            <div class="alert alert-info">
+                                <h4>🔢 Calcul d'adresse</h4>
+                                <p><strong>Byte (DB)</strong> : Adresse = Base + Index</p>
+                                <p><strong>Word (DW)</strong> : Adresse = Base + (Index × 2)</p>
+                            </div>
+
+                            <pre><code class="language-asm">.DATA
+    notes DW 15, 18, 12, 16
+.CODE
+    LEA BX, notes
+    
+    ; Accès note 1 (index 0)
+    MOV AX, [BX]        ; 15
+    
+    ; Accès note 2 (index 1)
+    MOV AX, [BX + 2]    ; 18 (car DW = 2 octets)
+    
+    ; Accès note 3 avec SI
+    MOV SI, 4           ; Index 2 * 2 = 4
+    MOV AX, [BX + SI]   ; 12</code></pre>
+
+                            <h2>Parcours de tableau (Boucle)</h2>
+
+                            <pre><code class="language-asm">LEA BX, tableau
+MOV CX, taille_tableau
+XOR SI, SI          ; Index à 0
+
+boucle:
+    MOV AL, [BX + SI]
+    ; ... faire quelque chose ...
+    INC SI          ; SI++ (pour DB)
+    ; (ADD SI, 2 pour DW)
+    LOOP boucle</code></pre>
+
+                            <h2>Opérations courantes</h2>
+
+                            <h3>1. Somme des éléments</h3>
+                            <p>Accumuler les valeurs dans un registre en parcourant le tableau.</p>
+
+                            <h3>2. Recherche de maximum</h3>
+                            <p>Comparer chaque élément avec le max actuel stocké dans un registre.</p>
+
+                            <h3>3. Tri</h3>
+                            <p>Le tri à bulles est classique : comparer deux éléments adjacents et les échanger s'ils
+                                sont dans le mauvais ordre.</p>
+                        </section>
+
+                        <aside class="tips alert">
+                            <h3>💡 Astuces</h3>
+                            <ul>
+                                <li>La directive <code>DUP</code> est très pratique pour réserver de l'espace sans
+                                    valeur initiale (<code>DUP(?)</code>) ou avec une valeur par défaut.</li>
+                                <li>Attention au Little Endian : <code>DW 1234h</code> est stocké en mémoire comme
+                                    <code>34 12</code>.</li>
+                            </ul>
+                        </aside>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch10"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Somme d'un tableau DW</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Écrivez un programme qui :</p>
+                                    <ul>
+                                        <li>Déclare un tableau de 5 mots (DW) : 100, 200, 300, 400, 500.</li>
+                                        <li>Calcule la somme de ces éléments.</li>
+                                        <li>Stocke le résultat dans une variable <code>somme</code>.</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch10-ex1')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch10-ex1" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Somme tableau 16-bit</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.DATA
+    tableau DW 100, 200, 300, 400, 500
+    somme   DW ?
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    LEA SI, tableau
+    MOV CX, 5
+    XOR AX, AX      ; Accumulateur somme à 0
+    
+boucle:
+    ADD AX, [SI]    ; Ajoute élément courant
+    ADD SI, 2       ; Passe au suivant (+2 car DW)
+    LOOP boucle
+    
+    MOV somme, AX   ; Stocke résultat (1500)
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Recherche de Maximum</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Écrivez code qui :</p>
+                                    <ul>
+                                        <li>Trouve la plus grande valeur dans un tableau d'octets (DB).</li>
+                                        <li>Tableau : 10, 45, 23, 89, 12, 67.</li>
+                                        <li>Stocke le maximum dans AL.</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch10-ex2')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch10-ex2" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Max dans tableau</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.DATA
+    tab DB 10, 45, 23, 89, 12, 67
+    len EQU 6
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    LEA SI, tab
+    MOV CX, len - 1  ; On compare le reste
+    MOV AL, [SI]     ; AL = max actuel (premier élément)
+    INC SI
+    
+boucle:
+    CMP [SI], AL
+    JBE pas_plus_grand
+    MOV AL, [SI]     ; Nouveau max trouvé
+pas_plus_grand:
+    INC SI
+    LOOP boucle
+    
+    ; AL contient 89
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="exercise hard">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Tri à bulles (Bubble Sort)</h3>
+                                    <span class="exercise-difficulty">Difficile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Implémentez un tri à bulles pour trier un tableau d'octets en ordre croissant :
+                                    </p>
+                                    <ul>
+                                        <li>Tableau : 5, 2, 9, 1, 5, 6.</li>
+                                        <li>Algorithme : Comparer adjacents, échanger si a > b. Répéter tant qu'il y a
+                                            des échanges.</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch10-ex3')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch10-ex3" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Bubble Sort</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.DATA
+    tab DB 5, 2, 9, 1, 5, 6
+    len DW 6
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    
+boucle_externe:
+    MOV CX, len
+    DEC CX          ; n-1 comparaisons
+    MOV SI, 0
+    MOV DL, 0       ; Flag échange (0 = faux)
+    
+boucle_interne:
+    MOV AL, tab[SI]
+    CMP AL, tab[SI+1]
+    JBE pas_echange
+    
+    ; Échange
+    XCHG AL, tab[SI+1]
+    MOV tab[SI], AL
+    MOV DL, 1       ; On a fait un échange
+    
+pas_echange:
+    INC SI
+    LOOP boucle_interne
+    
+    CMP DL, 1       ; Si un échange a eu lieu...
+    JE boucle_externe ; ... on recommence
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch09-chaines.html" class="chapter-nav-btn">← Précédent : Chaînes</a>
+                            <a href="ch11-interruptions.html" class="chapter-nav-btn">Suivant : Interruptions →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">✓ Marquer ce chapitre comme
+                                terminé</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nasm.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'assembly-x86-64';
+        const chapterId = 'ch10-tableaux';
+
+        const chapters = [
+            { id: "ch01-introduction", title: "Introduction" },
+            { id: "ch02-architecture", title: "Architecture 8086" },
+            { id: "ch03-registres", title: "Registres 16-bit" },
+            { id: "ch04-instructions-base", title: "Instructions de base" },
+            { id: "ch05-adressage", title: "Modes d'adressage" },
+            { id: "ch06-controle", title: "Instructions de contrôle" },
+            { id: "ch07-pile", title: "La pile" },
+            { id: "ch08-procedures", title: "Procédures" },
+            { id: "ch09-chaines", title: "Chaînes" },
+            { id: "ch10-tableaux", title: "Tableaux" },
+            { id: "ch11-interruptions", title: "Interruptions DOS" },
+            { id: "ch12-video", title: "Affichage vidéo" },
+            { id: "ch13-ports", title: "Ports" },
+            { id: "ch14-debugging", title: "Debugging" },
+            { id: "ch15-projets", title: "Projets" }
+        ];
+
+        const quizData = {
+            title: "Quiz - Tableaux et Données",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                {
+                    question: "DB déclare... ?",
+                    type: "single",
+                    options: ["Un octet (8 bits)", "Un mot (16 bits)", "Un double mot (32 bits)", "Une chaîne"],
+                    correct: 0,
+                    explanation: "DB = Define Byte (8 bits)."
+                },
+                {
+                    question: "DW déclare... ?",
+                    type: "single",
+                    options: ["1 octet", "2 octets", "4 octets", "8 octets"],
+                    correct: 1,
+                    explanation: "DW = Define Word (16 bits = 2 octets)."
+                },
+                {
+                    question: "Si tab DW, comment passer au 2ème élément ?",
+                    type: "single",
+                    options: ["tab+1", "tab+2", "tab+4", "tab+16"],
+                    correct: 1,
+                    explanation: "Chaque élément faisant 2 octets, le second commence à l'offset +2."
+                },
+                {
+                    question: "DUP(?) sert à... ?",
+                    type: "single",
+                    options: [
+                        "Dupliquer une ligne de code",
+                        "Réserver de l'espace non initialisé",
+                        "Définir une constante",
+                        "Créer une procédure"
+                    ],
+                    correct: 1,
+                    explanation: "100 DUP(?) réserve 100 éléments sans valeur définie."
+                },
+                {
+                    question: "Pour accéder à tab[SI] avec tab est un DB...",
+                    type: "single",
+                    options: ["MOV AL, [BX+SI]", "MOV AX, [BX+SI]", "MOV EAX, [BX+SI]", "MOV DL, SI"],
+                    correct: 0,
+                    explanation: "Avec DB on manipule des octets, donc registre 8-bit comme AL."
+                },
+                {
+                    question: "Little Endian signifie... ?",
+                    type: "single",
+                    options: [
+                        "Octet de poids faible d'abord",
+                        "Octet de poids fort d'abord",
+                        "Pas de signe",
+                        "Format texte"
+                    ],
+                    correct: 0,
+                    explanation: "x86 est Little Endian : 1234h est écrit en mémoire 34h puis 12h."
+                },
+                {
+                    question: "Tri à bulles complexité ?",
+                    type: "single",
+                    options: ["O(n)", "O(log n)", "O(n²)", "O(1)"],
+                    correct: 2,
+                    explanation: "Le tri à bulles est quadratique O(n²)"
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+
+            QuizSystem.createQuiz(quizData, 'quiz-ch10');
+
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            const button = event.target;
+            if (solution.style.display === 'none') {
+                solution.style.display = 'block';
+                button.textContent = '🙈 Masquer la solution';
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-primary');
+            } else {
+                solution.style.display = 'none';
+                button.textContent = '👁️ Voir la solution';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline-primary');
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chapitre 9 : Manipulation de chaînes de caractères en assembleur 8086">
+    <title>Chapitre 9 : Chaînes - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 0.375rem;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .solution-box h4 {
+            color: #0d6efd;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .solution-box pre {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .solution-toggle {
+            transition: all 0.2s ease;
+        }
+
+        .solution-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours Assembleur 8086</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours Assembleur 8086</a></li>
+                                <li class="breadcrumb-item active">Chapitre 9 : Chaînes</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 9</span>
+                            <h1 class="mb-3">Manipulation de chaînes</h1>
+                            <p class="text-lg text-secondary">
+                                Maîtrisez les instructions spécialisées pour le traitement de texte en masse : copie,
+                                recherche et comparaison optimisées.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 1h30</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch08-procedures.html" class="chapter-nav-btn">← Précédent : Procédures</a>
+                            <a href="ch10-tableaux.html" class="chapter-nav-btn">Suivant : Tableaux →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>Le pouvoir des instructions de chaîne</h2>
+
+                            <p>Le 8086 possède des instructions puissantes capables de traiter des blocs de mémoire
+                                entiers en une seule fois. Elles utilisent implicitement :</p>
+                            <ul>
+                                <li><strong>DS:SI</strong> pour la source (Source Index).</li>
+                                <li><strong>ES:DI</strong> pour la destination (Destination Index).</li>
+                                <li><strong>CX</strong> comme compteur.</li>
+                                <li><strong>DF</strong> (Direction Flag) pour le sens (0 = incrémente, 1 = décrémente).
+                                </li>
+                            </ul>
+
+                            <h2>Instructions de base (Suffixes B/W)</h2>
+                            <p>Ajoutez <strong>B</strong> pour Byte (octet) ou <strong>W</strong> pour Word (16 bits).
+                            </p>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Instruction</th>
+                                        <th>Description</th>
+                                        <th>Action implicite</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>MOVSB</strong></td>
+                                        <td>Déplacer (Copier)</td>
+                                        <td>[ES:DI] = [DS:SI], puis SI++, DI++</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>LODSB</strong></td>
+                                        <td>Charger (Load)</td>
+                                        <td>AL = [DS:SI], puis SI++</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>STOSB</strong></td>
+                                        <td>Stocker (Store)</td>
+                                        <td>[ES:DI] = AL, puis DI++</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>SCASB</strong></td>
+                                        <td>Scanner (Rechercher)</td>
+                                        <td>CMP AL, [ES:DI], puis DI++</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>CMPSB</strong></td>
+                                        <td>Comparer</td>
+                                        <td>CMP [DS:SI], [ES:DI], puis SI++, DI++</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h2>Les Préfixes de répétition (REP)</h2>
+
+                            <p>Ces instructions sont magiques quand on les combine avec un préfixe qui répète l'action
+                                <strong>CX fois</strong>.</p>
+
+                            <ul>
+                                <li><strong>REP</strong> : Répète tant que CX > 0. (Utilisé avec MOVS, STOS).</li>
+                                <li><strong>REPE / REPZ</strong> : Répète tant que CX > 0 ET ZF = 1 (Tant que égal).
+                                </li>
+                                <li><strong>REPNE / REPNZ</strong> : Répète tant que CX > 0 ET ZF = 0 (Tant que
+                                    différent).</li>
+                            </ul>
+
+                            <h2>Direction Flag (DF)</h2>
+
+                            <ul>
+                                <li><strong>CLD</strong> (Clear Direction Flag) : DF = 0. SI et DI sont
+                                    <strong>incrémentés</strong> (gauche à droite).</li>
+                                <li><strong>STD</strong> (Set Direction Flag) : DF = 1. SI et DI sont
+                                    <strong>décrémentés</strong> (droite à gauche).</li>
+                            </ul>
+
+                            <h2>Exemples Pratiques</h2>
+
+                            <h3>Copie de chaîne (strcpy)</h3>
+
+                            <pre><code class="language-asm">.DATA
+    source DB 'Bonjour$'
+    dest   DB 10 DUP(?)
+.CODE
+    LEA SI, source
+    LEA DI, dest
+    MOV CX, 7        ; Longueur
+    
+    CLD              ; Direction avant
+    REP MOVSB        ; Copie 7 octets de [SI] vers [DI]</code></pre>
+
+                            <h3>Calcul longueur chaîne (strlen)</h3>
+
+                            <pre><code class="language-asm">.DATA
+    texte DB 'Hello world', 0
+.CODE
+    LEA DI, texte
+    MOV CX, 0FFFFh   ; Max possible
+    MOV AL, 0        ; Chercher null terminator
+    
+    CLD
+    REPNE SCASB      ; Répète tant que != AL
+    
+    ; Maintenant DI pointe après le 0
+    ; Longueur = (Valeur initiale CX) - (Valeur finale CX) - 1</code></pre>
+
+                        </section>
+
+                        <aside class="tips alert">
+                            <h3>💡 Astuces</h3>
+                            <ul>
+                                <li>Pour que ES fonctionne comme prévu, assurez-vous que ES pointe vers le segment de
+                                    données (<code>MOV AX, DS</code> puis <code>MOV ES, AX</code>) au début de votre
+                                    programme .EXE (dans .COM CS=DS=ES=SS).</li>
+                                <li>STOSB est super rapide pour remplir un tableau ou effacer l'écran vidéo.</li>
+                            </ul>
+                        </aside>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch09"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Initialiser un tableau (memset)</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez un programme qui :</p>
+                                    <ul>
+                                        <li>Déclare un tampon de 50 octets non initialisé.</li>
+                                        <li>Utilise STOSB pour remplir tout ce tampon avec le caractère 'A'.</li>
+                                        <li>Affichez le résultat (n'oubliez pas d'ajouter un '$' à la fin pour INT
+                                            21h/09h !).</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch09-ex1')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch09-ex1" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - memset avec STOSB</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.DATA
+    buffer DB 50 DUP(?)
+    fin    DB '$'       ; Pour l'affichage
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    MOV ES, AX      ; Important pour STOSB (utilise ES:DI)
+    
+    LEA DI, buffer
+    MOV CX, 50      ; Remplir 50 octets
+    MOV AL, 'A'     ; Caractère de remplissage
+    
+    CLD             ; Direction positive
+    REP STOSB       ; Exécute [ES:DI] = AL, DI++ 50 fois
+    
+    ; Affichage
+    LEA DX, buffer
+    MOV AH, 09h
+    INT 21h
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : strlen (Longueur chaîne)</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Écrivez code qui :</p>
+                                    <ul>
+                                        <li>Déclare une chaîne terminée par 0 (ex: "Assembleur 8086", 0).</li>
+                                        <li>Utilise SCASB pour trouver la longueur.</li>
+                                        <li>Stocke la longueur dans AX.</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch09-ex2')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch09-ex2" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - strlen avec SCASB</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.DATA
+    chaine DB "Assembleur 8086", 0
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    MOV ES, AX      ; SCASB compare AL avec ES:DI
+    
+    LEA DI, chaine
+    MOV CX, -1      ; FFFFh, max count
+    MOV AL, 0       ; On cherche le 0
+    
+    CLD
+    REPNE SCASB
+    
+    ; Calcul longueur
+    ; CX a été décrémenté à chaque pas
+    ; Longueur = (-1) - CX - 1
+    
+    NOT CX          ; Inverse bits (~CX) équivaut à (FFFF - CX)
+    DEC CX          ; -1 pour ne pas compter le 0 final
+    
+    MOV AX, CX      ; AX contient la longueur (15)
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+                                    <p>Astuce mathématique : <code>NOT CX</code> est un moyen rapide de calculer la
+                                        distance parcourue quand on part de FFFFh.</p>
+                                </div>
+                            </div>
+
+                            <div class="exercise hard">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Comparaison de mots de passe</h3>
+                                    <span class="exercise-difficulty">Difficile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Simulez une vérification de mot de passe :</p>
+                                    <ul>
+                                        <li>Mot de passe correct stocké : "SECRET"</li>
+                                        <li>Saisie simulée : "SECRET" (ou autre chose pour tester)</li>
+                                        <li>Utilisez CMPSB pour comparer.</li>
+                                        <li>Si correct, affichez "OK", sinon "NO".</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch09-ex3')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch09-ex3" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - strcmp avec CMPSB</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.DATA
+    pass_ok DB "SECRET"
+    pass_in DB "SECRET" ; Essayez de changer une lettre ici
+    len     EQU 6
+    msg_ok  DB "OK$"
+    msg_no  DB "NO$"
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    MOV ES, AX      ; CMPSB compare DS:SI avec ES:DI
+    
+    LEA SI, pass_in
+    LEA DI, pass_ok
+    MOV CX, len
+    
+    CLD
+    REPE CMPSB      ; Répète tant que égal (ZF=1)
+    
+    JNE echec       ; Si ZF=0, différence trouvée
+    
+    ; Succès
+    LEA DX, msg_ok
+    JMP afficher
+    
+echec:
+    LEA DX, msg_no
+
+afficher:
+    MOV AH, 09h
+    INT 21h
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch08-procedures.html" class="chapter-nav-btn">← Précédent : Procédures</a>
+                            <a href="ch10-tableaux.html" class="chapter-nav-btn">Suivant : Tableaux →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">✓ Marquer ce chapitre comme
+                                terminé</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nasm.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'assembly-x86-64';
+        const chapterId = 'ch09-chaines';
+
+        const chapters = [
+            { id: "ch01-introduction", title: "Introduction" },
+            { id: "ch02-architecture", title: "Architecture 8086" },
+            { id: "ch03-registres", title: "Registres 16-bit" },
+            { id: "ch04-instructions-base", title: "Instructions de base" },
+            { id: "ch05-adressage", title: "Modes d'adressage" },
+            { id: "ch06-controle", title: "Instructions de contrôle" },
+            { id: "ch07-pile", title: "La pile" },
+            { id: "ch08-procedures", title: "Procédures" },
+            { id: "ch09-chaines", title: "Chaînes" },
+            { id: "ch10-tableaux", title: "Tableaux" },
+            { id: "ch11-interruptions", title: "Interruptions DOS" },
+            { id: "ch12-video", title: "Affichage vidéo" },
+            { id: "ch13-ports", title: "Ports" },
+            { id: "ch14-debugging", title: "Debugging" },
+            { id: "ch15-projets", title: "Projets" }
+        ];
+
+        const quizData = {
+            title: "Quiz - Manipulation de chaînes",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                {
+                    question: "Quel registre est Source Index pour les chaînes ?",
+                    type: "single",
+                    options: ["SI", "DI", "BX", "CX"],
+                    correct: 0,
+                    explanation: "SI (Source Index) pointe sur la source, généralement associé au segment DS."
+                },
+                {
+                    question: "Quel registre est Destination Index ?",
+                    type: "single",
+                    options: ["SI", "DI", "BX", "CX"],
+                    correct: 1,
+                    explanation: "DI (Destination Index) pointe sur la destination, toujours associé au segment ES."
+                },
+                {
+                    question: "REP répète combien de fois ?",
+                    type: "single",
+                    options: ["DX", "AX", "CX", "10 fois"],
+                    correct: 2,
+                    explanation: "CX est le registre compteur pour toutes les opérations de boucle et de répétition de chaîne."
+                },
+                {
+                    question: "MOVSB fait quoi ?",
+                    type: "single",
+                    options: [
+                        "Déplace un octet de DS:SI vers ES:DI",
+                        "Déplace un mot de DS:SI vers ES:DI",
+                        "Compare deux octets",
+                        "Charge un octet dans AL"
+                    ],
+                    correct: 0,
+                    explanation: "MOVSB (Move String Byte) copie un octet."
+                },
+                {
+                    question: "STOSB stocke la valeur de... ?",
+                    type: "single",
+                    options: ["AL vers ES:DI", "AX vers ES:DI", "ES:DI vers AL", "0 vers ES:DI"],
+                    correct: 0,
+                    explanation: "STOSB prend le contenu de AL et le met à l'adresse ES:DI."
+                },
+                {
+                    question: "CLD met le Flag Direction à... ?",
+                    type: "single",
+                    options: ["0 (Incrémente)", "1 (Décrémente)", "0 (Décrémente)", "1 (Incrémente)"],
+                    correct: 0,
+                    explanation: "CLD (Clear Direction) met DF à 0, ce qui fait avancer les pointeurs (incrémentation)."
+                },
+                {
+                    question: "REPE répète tant que... ?",
+                    type: "single",
+                    options: ["CX > 0 et ZF = 1", "CX > 0 et ZF = 0", "ZF = 1 uniquement", "CX = 0"],
+                    correct: 0,
+                    explanation: "REPE (Repeat Equal) continue tant qu'il reste des éléments (CX>0) ET que la comparaison est égale (ZF=1)."
+                },
+                {
+                    question: "Pour comparer deux chaînes, on utilise ?",
+                    type: "single",
+                    options: ["MOVSB", "STOSB", "LODSB", "CMPSB"],
+                    correct: 3,
+                    explanation: "CMPSB (Compare String Byte) compare les octets pointés par SI et DI."
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+
+            QuizSystem.createQuiz(quizData, 'quiz-ch09');
+
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            const button = event.target;
+            if (solution.style.display === 'none') {
+                solution.style.display = 'block';
+                button.textContent = '🙈 Masquer la solution';
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-primary');
+            } else {
+                solution.style.display = 'none';
+                button.textContent = '👁️ Voir la solution';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline-primary');
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chapitre 8 : Procédures et Fonctions en assembleur 8086">
+    <title>Chapitre 8 : Procédures - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 0.375rem;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .solution-box h4 {
+            color: #0d6efd;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .solution-box pre {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .solution-toggle {
+            transition: all 0.2s ease;
+        }
+
+        .solution-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours Assembleur 8086</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours Assembleur 8086</a></li>
+                                <li class="breadcrumb-item active">Chapitre 8 : Procédures</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 8</span>
+                            <h1 class="mb-3">Procédures et Fonctions</h1>
+                            <p class="text-lg text-secondary">
+                                Organisez votre code avec des procédures (PROC), gérez les appels (CALL/RET) et le
+                                passage de paramètres.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 2h</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch07-pile.html" class="chapter-nav-btn">← Précédent : La pile</a>
+                            <a href="ch09-chaines.html" class="chapter-nav-btn">Suivant : Chaînes →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>Pourquoi utiliser des procédures ?</h2>
+
+                            <p>Comme les fonctions en C ou Python, les procédures permettent de :</p>
+                            <ul>
+                                <li>✨ <strong>Réutiliser le code</strong> (éviter de répéter les mêmes instructions).
+                                </li>
+                                <li>🧩 <strong>Structurer le programme</strong> en blocs logiques.</li>
+                                <li>🔍 <strong>Simplifier le debugging</strong>.</li>
+                            </ul>
+
+                            <h2>Définir et appeler une procédure</h2>
+
+                            <h3>Syntaxe de base</h3>
+
+                            <pre><code class="language-asm">nom_proc PROC
+    ; ... corps de la procédure ...
+    RET            ; Retour à l'appelant
+nom_proc ENDP</code></pre>
+
+                            <h3>Appel avec CALL</h3>
+
+                            <pre><code class="language-asm">CALL nom_proc      ; Appelle la procédure
+; Le programme continue ici après le RET</code></pre>
+
+                            <h2>Mécanisme CALL et RET</h2>
+
+                            <ul>
+                                <li><strong>CALL</strong> :
+                                    <ol>
+                                        <li>Empile l'adresse de l'instruction <strong>suivante</strong> (IP) sur la
+                                            pile.</li>
+                                        <li>Saute à l'adresse de la procédure (modifie IP).</li>
+                                    </ol>
+                                </li>
+                                <li><strong>RET</strong> :
+                                    <ol>
+                                        <li>Dépile l'adresse de retour depuis la pile vers IP.</li>
+                                        <li>Le programme reprend son exécution juste après le CALL.</li>
+                                    </ol>
+                                </li>
+                            </ul>
+
+                            <div class="alert alert-danger">
+                                <h4>⚠️ Attention à la pile !</h4>
+                                <p>Si vous faites des PUSH dans une procédure, vous DEVEZ faire les POP correspondants
+                                    <strong>avant</strong> le RET. Sinon, RET dépilera une mauvaise valeur et le
+                                    programme plantera (IP incorrect) !</p>
+                            </div>
+
+                            <h2>Passage de paramètres</h2>
+
+                            <h3>1. Par registres (Simple et rapide)</h3>
+
+                            <p>On place les arguments dans des registres avant le CALL.</p>
+
+                            <pre><code class="language-asm">MOV AX, 5      ; Argument 1
+MOV BX, 10     ; Argument 2
+CALL addition  ; Résultat dans AX (par convention)</code></pre>
+
+                            <h3>2. Par la pile (Standard, plus flexible)</h3>
+
+                            <p>On empile les arguments, et la procédure les lit via BP.</p>
+
+                            <pre><code class="language-asm">; Appelant
+PUSH 5         ; Arg 1
+PUSH 10        ; Arg 2
+CALL addition  ; Appel</code></pre>
+
+                            <pre><code class="language-asm">; Procédure
+addition PROC
+    PUSH BP
+    MOV BP, SP
+    ; [BP] = Ancien BP
+    ; [BP+2] = Adresse retour
+    ; [BP+4] = Arg 2 (10)
+    ; [BP+6] = Arg 1 (5)
+    
+    MOV AX, [BP+6]
+    ADD AX, [BP+4]
+    
+    POP BP
+    RET 4          ; RET N : dépile aussi N octets d'arguments
+addition ENDP</code></pre>
+
+                            <h2>Récursivité</h2>
+
+                            <p>Une procédure peut s'appeler elle-même. C'est possible grâce à la pile qui sauvegarde le
+                                contexte de chaque appel.</p>
+
+                            <pre><code class="language-asm">.DATA
+    fact DW ?
+.CODE
+    PUSH 5
+    CALL factorielle
+    ; ... AX contient 120 (5!)</code></pre>
+                        </section>
+
+                        <aside class="tips alert">
+                            <h3>💡 Astuces</h3>
+                            <ul>
+                                <li>Utilisez des noms de procédures explicites (ex: <code>afficher_msg</code>).</li>
+                                <li>Indiquez en commentaire les entrées (registres attendus) et sorties (résultats).
+                                </li>
+                                <li>Sauvegardez (PUSH) les registres que vous modifiez dans la procédure si vous voulez
+                                    les préserver pour l'appelant.</li>
+                                <li>Pour les conventions d'appel standard (CDECL, STDCALL), la gestion de la pile
+                                    diffère légèrement (qui nettoie la pile).</li>
+                            </ul>
+                        </aside>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch08"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Procédure d'addition simple</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez une procédure <code>somme</code> qui :</p>
+                                    <ul>
+                                        <li>Prend deux nombres dans AX et BX.</li>
+                                        <li>Calcule la somme dans AX.</li>
+                                        <li>Gère le débordement (si résultat > 65535, mettre DX à 1, sinon 0).</li>
+                                        <li>Appelez-la depuis le MAIN avec 50000 et 20000.</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch08-ex1')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch08-ex1" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Procédure Somme</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.CODE
+MAIN PROC
+    MOV AX, 50000
+    MOV BX, 20000
+    
+    CALL somme_proc
+    ; AX contient le résultat (modulo 65536)
+    ; DX contient 1 si débordement
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+
+somme_proc PROC
+    ADD AX, BX
+    JC debordement    ; Si Carry Flag = 1
+    MOV DX, 0
+    RET
+debordement:
+    MOV DX, 1
+    RET
+somme_proc ENDP
+
+END MAIN</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Affichage 'Hello' n fois</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez une procédure <code>print_hello</code> qui :</p>
+                                    <ul>
+                                        <li>Affiche "Hello" suivi d'un saut de ligne.</li>
+                                        <li>Utilisez CX dans le MAIN pour appeler cette procédure 5 fois via une boucle
+                                            LOOP.</li>
+                                        <li>Attention : si votre procédure modifie CX, la boucle du MAIN sera cassée !
+                                            Sauvegardez CX.</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch08-ex2')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch08-ex2" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Affichage répétitif</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.DATA
+    msg DB 'Hello', 0Dh, 0Ah, '$'
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    MOV CX, 5       ; Boucle 5 fois
+boucle:
+    CALL print_hello
+    LOOP boucle
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+
+print_hello PROC
+    ; Sauvegarde des registres modifiés
+    PUSH AX
+    PUSH DX
+    
+    LEA DX, msg
+    MOV AH, 09h
+    INT 21h
+    
+    ; Restauration
+    POP DX
+    POP AX
+    RET
+print_hello ENDP
+
+END MAIN</code></pre>
+                                    <p>Note : Ici, pas besoin de sauver CX car <code>print_hello</code> ne modifie pas
+                                        CX. Mais c'est une bonne pratique de sauver AX et DX.</p>
+                                </div>
+                            </div>
+
+                            <div class="exercise hard">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Factorielle Récursive</h3>
+                                    <span class="exercise-difficulty">Difficile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Implémentez la fonction factorielle (n!) récursivement :</p>
+                                    <ul>
+                                        <li>Entrée : AX = n.</li>
+                                        <li>Sortie : AX = n!</li>
+                                        <li>Algorithme : si n<=1 return 1, sinon return n * fact(n-1).</li>
+                                        <li>Testez avec 5! (120).</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch08-ex3')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch08-ex3" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Factorielle Récursive</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.CODE
+MAIN PROC
+    MOV AX, 5
+    CALL factorielle
+    ; AX = 120 (78h)
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+
+factorielle PROC
+    CMP AX, 1
+    JLE cas_base
+    
+    PUSH AX        ; Sauve n
+    DEC AX         ; n-1
+    CALL factorielle ; AX = (n-1)!
+    
+    POP BX         ; BX = n (restauré)
+    MUL BX         ; AX = AX * BX = (n-1)! * n
+    RET
+    
+cas_base:
+    MOV AX, 1
+    RET
+factorielle ENDP
+
+END MAIN</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch07-pile.html" class="chapter-nav-btn">← Précédent : La pile</a>
+                            <a href="ch09-chaines.html" class="chapter-nav-btn">Suivant : Chaînes →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">✓ Marquer ce chapitre comme
+                                terminé</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nasm.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'assembly-x86-64';
+        const chapterId = 'ch08-procedures';
+
+        const chapters = [
+            { id: "ch01-introduction", title: "Introduction" },
+            { id: "ch02-architecture", title: "Architecture 8086" },
+            { id: "ch03-registres", title: "Registres 16-bit" },
+            { id: "ch04-instructions-base", title: "Instructions de base" },
+            { id: "ch05-adressage", title: "Modes d'adressage" },
+            { id: "ch06-controle", title: "Instructions de contrôle" },
+            { id: "ch07-pile", title: "La pile" },
+            { id: "ch08-procedures", title: "Procédures" },
+            { id: "ch09-chaines", title: "Chaînes" },
+            { id: "ch10-tableaux", title: "Tableaux" },
+            { id: "ch11-interruptions", title: "Interruptions DOS" },
+            { id: "ch12-video", title: "Affichage vidéo" },
+            { id: "ch13-ports", title: "Ports" },
+            { id: "ch14-debugging", title: "Debugging" },
+            { id: "ch15-projets", title: "Projets" }
+        ];
+
+        const quizData = {
+            title: "Quiz - Procédures et Fonctions",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                {
+                    question: "Que fait l'instruction CALL ?",
+                    type: "single",
+                    options: [
+                        "JMP vers l'adresse",
+                        "PUSH IP puis JMP vers l'adresse",
+                        "PUSH CS puis JMP",
+                        "Stocke IP dans AX et JMP"
+                    ],
+                    correct: 1,
+                    explanation: "CALL doit sauvegarder l'adresse de retour (IP) sur la pile avant de sauter, pour que RET puisse revenir."
+                },
+                {
+                    question: "Que fait l'instruction RET ?",
+                    type: "single",
+                    options: [
+                        "Termine le programme",
+                        "POP IP",
+                        "POP CS",
+                        "JMP au début"
+                    ],
+                    correct: 1,
+                    explanation: "RET dépile l'adresse stockée au sommet de la pile et la met dans IP, reprenant l'exécution après le CALL."
+                },
+                {
+                    question: "Quelle paire délimite une procédure ?",
+                    type: "single",
+                    options: [
+                        "START / END",
+                        "PROC / ENDP",
+                        "BEGIN / FINISH",
+                        "FUNC / ENDFUNC"
+                    ],
+                    correct: 1,
+                    explanation: "Une procédure en assembleur se déclare avec nom PROC et se termine avec nom ENDP."
+                },
+                {
+                    question: "Comment accéder au 1er paramètre passé par la pile (après PUSH BP, MOV BP, SP) ?",
+                    type: "single",
+                    options: [
+                        "[BP]",
+                        "[BP+2]",
+                        "[BP+4]",
+                        "[SP]"
+                    ],
+                    correct: 2,
+                    explanation: "La pile contient : Ancien BP (0), Adresse retour (2). Donc le 1er paramètre est à BP+4."
+                },
+                {
+                    question: "Si j'empile AX dans une procédure mais ne le dépile pas avant RET, que se passe-t-il ?",
+                    type: "single",
+                    options: [
+                        "Rien de grave",
+                        "AX est perdu",
+                        "RET dépile AX comme adresse de retour -> Crash",
+                        "La pile est nettoyée automatiquement"
+                    ],
+                    correct: 2,
+                    explanation: "RET prend aveuglément ce qu'il y a sur le sommet de la pile. Si c'est AX au lieu de l'adresse de retour, le processeur saute n'importe où."
+                },
+                {
+                    question: "L'instruction RET 4 fait quoi ?",
+                    type: "single",
+                    options: [
+                        "Retourne 4 fois",
+                        "POP IP puis ajoute 4 à SP",
+                        "Retourne la valeur 4",
+                        "Attend 4 cycles"
+                    ],
+                    correct: 1,
+                    explanation: "C'est utilisé pour nettoyer les paramètres passés sur la pile (Standard Call convention)."
+                },
+                {
+                    question: "Où stocke-t-on généralement la valeur de retour ?",
+                    type: "single",
+                    options: ["Dans la pile", "Dans AX", "Dans BP", "Dans DS"],
+                    correct: 1,
+                    explanation: "Par convention, les résultats 16-bit sont retournés dans AX (et 8-bit dans AL)."
+                },
+                {
+                    question: "Comment appelle-t-on une procédure 'affichage' ?",
+                    type: "single",
+                    options: ["JMP affichage", "CALL affichage", "RUN affichage", "GO affichage"],
+                    correct: 1,
+                    explanation: "L'instruction est CALL."
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+
+            QuizSystem.createQuiz(quizData, 'quiz-ch08');
+
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            const button = event.target;
+            if (solution.style.display === 'none') {
+                solution.style.display = 'block';
+                button.textContent = '🙈 Masquer la solution';
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-primary');
+            } else {
+                solution.style.display = 'none';
+                button.textContent = '👁️ Voir la solution';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline-primary');
+            }
+        }
+    </script>
+</body>
+
+</html>

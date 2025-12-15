@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 6 : Fonctions - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Langage C</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch01-introduction.html">1. Introduction</a></li>
+                            <li><a href="ch02-variables.html">2. Variables et Types</a></li>
+                            <li><a href="ch03-operateurs.html">3. Opérateurs</a></li>
+                            <li><a href="ch04-conditions.html">4. Conditions</a></li>
+                            <li><a href="ch05-boucles.html">5. Boucles</a></li>
+                            <li><a href="ch06-fonctions.html" class="active">6. Fonctions</a></li>
+                            <li><a href="ch07-pointeurs-bases.html">7. Pointeurs (Bientôt)</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Cours C</a></li>
+                                <li class="breadcrumb-item active">Chapitre 6</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 6 : Les Fonctions</h1>
+
+                        <!-- Section 1 -->
+                        <section class="mb-5">
+                            <h2>1. Pourquoi utiliser des fonctions ?</h2>
+                            <p>Les fonctions permettent de :</p>
+                            <ul>
+                                <li><strong>Réutiliser le code</strong> (Ne pas réécrire 10x la même chose).</li>
+                                <li><strong>Simplifier la lecture</strong> (Découper un gros problème en petits
+                                    morceaux).</li>
+                                <li><strong>Faciliter la maintenance</strong> (Si on corrige la fonction, c'est corrigé
+                                    partout).</li>
+                            </ul>
+                        </section>
+
+                        <!-- Section 2 -->
+                        <section class="mb-5">
+                            <h2>2. Déclaration et Définition</h2>
+                            <p>En C, on sépare souvent le prototype (l'en-tête) du corps de la fonction.</p>
+                            <pre><code class="language-c">#include <stdio.h>
+
+// 1. Prototype (La promesse)
+int addition(int a, int b);
+
+int main() {
+    // 2. Appel
+    int resultat = addition(5, 3);
+    printf("Résultat : %d\n", resultat);
+    return 0;
+}
+
+// 3. Définition (Le code réel)
+int addition(int a, int b) {
+    return a + b;
+}</code></pre>
+                        </section>
+
+                        <!-- Section 3 -->
+                        <section class="mb-5">
+                            <h2>3. Portée des variables (Scope)</h2>
+                            <p>Une variable déclarée DANS une fonction n'existe QUE dans cette fonction. C'est une
+                                <strong>variable locale</strong>.</p>
+                            <pre><code class="language-c">void test() {
+    int secret = 42;
+}
+
+int main() {
+    // printf("%d", secret); // ERREUR ! 'secret' n'existe pas ici.
+    return 0;
+}</code></pre>
+                        </section>
+
+                        <!-- Section 4 -->
+                        <section class="mb-5">
+                            <h2>4. Le type VOID</h2>
+                            <p>Si une fonction ne retourne rien (comme un simple affichage), on met <code>void</code>
+                                comme type de retour.</p>
+                        </section>
+
+                        <!-- QUIZ -->
+                        <section class="my-5 p-4 border rounded bg-white shadow-sm">
+                            <h3 class="mb-4">🧠 Quiz de Validation (6 Questions)</h3>
+
+                            <!-- Q1 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">1. Comment appelle-t-on une fonction qui ne renvoie rien ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">null</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">void</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">empty</button>
+                                </div>
+                            </div>
+
+                            <!-- Q2 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">2. Où doit-on placer le prototype d'une fonction ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Toujours à
+                                        l'intérieur du main</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Avant le main
+                                        (généralement après les includes)</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">À la toute
+                                        fin du fichier</button>
+                                </div>
+                            </div>
+
+                            <!-- Q3 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">3. Que fait l'instruction `return` ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Affiche une
+                                        valeur</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Renvoie une
+                                        valeur et arrête la fonction</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Recommence la
+                                        fonction</button>
+                                </div>
+                            </div>
+
+                            <!-- Q4 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">4. Peut-on avoir deux fonctions avec le même nom (sans surcharge en
+                                    C) ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Oui</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Non, le
+                                        compilateur renverra une erreur</button>
+                                </div>
+                            </div>
+
+                            <!-- Q5 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">5. Une variable locale définie dans `fonctionA` est-elle visible dans
+                                    `fonctionB` ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Non,
+                                        jamais</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Oui,
+                                        toujours</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Oui, si elles
+                                        sont dans le même fichier</button>
+                                </div>
+                            </div>
+
+                            <!-- Q6 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">6. Le `main` est-il une fonction ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Oui, c'est le
+                                        point d'entrée</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Non, c'est
+                                        une procédure spéciale</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCISES -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">💻 Exercices Pratiques</h3>
+
+                            <!-- Ex 1 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-header bg-primary text-white">Exercice 1 : Dire Bonjour</div>
+                                    <div class="card-body">
+                                        <p>Écrivez une fonction <code>void saluer()</code> qui affiche "Bonjour !".
+                                            Appelez-la depuis le main.</p>
+                                        <button class="btn btn-outline-primary btn-sm"
+                                            onclick="toggleSolution('sol1')">Voir Solution</button>
+                                        <div id="sol1" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+void saluer() {
+    printf("Bonjour !\n");
+}
+
+int main() {
+    saluer();
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 2 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-success text-white">Exercice 2 : Le Carré</div>
+                                    <div class="card-body">
+                                        <p>Écrivez une fonction <code>int carre(int n)</code> qui retourne le carré d'un
+                                            nombre (n * n).</p>
+                                        <button class="btn btn-outline-success btn-sm"
+                                            onclick="toggleSolution('sol2')">Voir Solution</button>
+                                        <div id="sol2" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int carre(int n) {
+    return n * n;
+}
+
+int main() {
+    printf("5 au carré = %d\n", carre(5));
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 3 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-info text-dark">Exercice 3 : Maximum</div>
+                                    <div class="card-body">
+                                        <p>Créez une fonction <code>int max(int a, int b)</code> qui renvoie le plus
+                                            grand des deux nombres.</p>
+                                        <button class="btn btn-outline-info btn-sm"
+                                            onclick="toggleSolution('sol3')">Voir Solution</button>
+                                        <div id="sol3" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int max(int a, int b) {
+    if (a > b) return a;
+    else return b;
+}
+
+int main() {
+    printf("Max entre 10 et 20 : %d\n", max(10, 20));
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 4 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-warning text-dark">Exercice 4 : Est Pair ?</div>
+                                    <div class="card-body">
+                                        <p>Écrivez une fonction <code>int estPair(int n)</code> qui renvoie 1 (Vrai) si
+                                            le nombre est pair, et 0 (Faux) s'il est impair.</p>
+                                        <button class="btn btn-outline-warning btn-sm"
+                                            onclick="toggleSolution('sol4')">Voir Solution</button>
+                                        <div id="sol4" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int estPair(int n) {
+    // Si le reste de la division par 2 est 0
+    return (n % 2 == 0);
+}
+
+int main() {
+    if (estPair(4)) printf("C'est pair !\n");
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 5 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-danger">
+                                    <div class="card-header bg-danger text-white">Exercice 5 : Menu de conversion</div>
+                                    <div class="card-body">
+                                        <p>Combinez tout ! Créez une fonction
+                                            <code>float eurosVersDollars(float euros)</code> (1€ = 1.1$). Dans le main,
+                                            demandez un montant et affichez la conversion.</p>
+                                        <button class="btn btn-outline-danger btn-sm"
+                                            onclick="toggleSolution('sol5')">Voir Solution</button>
+                                        <div id="sol5" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+float eurosVersDollars(float euros) {
+    return euros * 1.1;
+}
+
+int main() {
+    float montant = 100.0;
+    // En vrai, on utiliserait scanf
+    printf("%.2f Euros = %.2f Dollars\n", montant, eurosVersDollars(montant));
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+
+                        <div class="text-center my-5">
+                            <a href="ch05-boucles.html" class="btn btn-outline-secondary btn-lg me-2">← Précédent</a>
+                            <a href="ch07-pointeurs-bases.html" class="btn btn-success btn-lg">Chapitre Suivant →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            Array.from(group.children).forEach(b => {
+                b.classList.remove('btn-success', 'btn-danger');
+                b.classList.add('btn-outline-secondary');
+            });
+            if (isCorrect) {
+                btn.classList.add('btn-success');
+                btn.classList.remove('btn-outline-secondary');
+            } else {
+                btn.classList.add('btn-danger');
+                btn.classList.remove('btn-outline-secondary');
+            }
+        }
+
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

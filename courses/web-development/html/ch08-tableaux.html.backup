@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Chapitre 8 : Les tableaux HTML - Maîtrisez la création de tableaux pour organiser vos données">
+    <title>Chapitre 8 : Tableaux - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours HTML</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours HTML</a></li>
+                                <li class="breadcrumb-item active">Chapitre 8 : Tableaux</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 8</span>
+                            <h1 class="mb-3">Les tableaux HTML</h1>
+                            <p class="text-lg text-secondary">
+                                Apprenez à créer des tableaux HTML pour organiser et présenter des données tabulaires de
+                                manière structurée et accessible.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 1h30</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch07-listes.html" class="chapter-nav-btn">← Précédent : Listes</a>
+                            <a href="ch09-formulaires-1.html" class="chapter-nav-btn">Suivant : Formulaires Partie 1
+                                →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>Introduction aux tableaux</h2>
+
+                            <p>
+                                Les tableaux HTML permettent d'organiser des <strong>données tabulaires</strong> en
+                                lignes et colonnes.
+                                Ils sont essentiels pour présenter des informations structurées comme des horaires, des
+                                prix, des statistiques, etc.
+                            </p>
+
+                            <div class="alert alert-warning">
+                                <h4>⚠️ Important : Usage approprié</h4>
+                                <p>
+                                    Les tableaux doivent être utilisés <strong>uniquement pour des données
+                                        tabulaires</strong>,
+                                    pas pour la mise en page ! Utilisez CSS Grid ou Flexbox pour la mise en page.
+                                </p>
+                            </div>
+
+                            <h2>Structure de base d'un tableau</h2>
+
+                            <p>Un tableau HTML utilise plusieurs balises imbriquées :</p>
+
+                            <ul>
+                                <li><code>&lt;table&gt;</code> : Conteneur principal du tableau</li>
+                                <li><code>&lt;tr&gt;</code> : Table Row - une ligne du tableau</li>
+                                <li><code>&lt;td&gt;</code> : Table Data - une cellule de données</li>
+                                <li><code>&lt;th&gt;</code> : Table Header - une cellule d'en-tête</li>
+                            </ul>
+
+                            <h3>Tableau simple</h3>
+
+                            <pre><code class="language-html">&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Prénom&lt;/th&gt;
+        &lt;th&gt;Nom&lt;/th&gt;
+        &lt;th&gt;Âge&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Jean&lt;/td&gt;
+        &lt;td&gt;Dupont&lt;/td&gt;
+        &lt;td&gt;25&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Marie&lt;/td&gt;
+        &lt;td&gt;Martin&lt;/td&gt;
+        &lt;td&gt;30&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+
+                            <div class="code-output">
+                                <table
+                                    style="width: 100%; border-collapse: collapse; border: 1px solid var(--border-light);">
+                                    <tr style="background-color: var(--surface);">
+                                        <th
+                                            style="padding: var(--spacing-sm); border: 1px solid var(--border-light); font-weight: bold;">
+                                            Prénom</th>
+                                        <th
+                                            style="padding: var(--spacing-sm); border: 1px solid var(--border-light); font-weight: bold;">
+                                            Nom</th>
+                                        <th
+                                            style="padding: var(--spacing-sm); border: 1px solid var(--border-light); font-weight: bold;">
+                                            Âge</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Jean</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Dupont</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            25</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Marie</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Martin</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            30</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <h2>Sections sémantiques du tableau</h2>
+
+                            <p>Pour améliorer la sémantique et l'accessibilité, utilisez ces balises :</p>
+
+                            <ul>
+                                <li><code>&lt;thead&gt;</code> : Table Head - En-tête du tableau</li>
+                                <li><code>&lt;tbody&gt;</code> : Table Body - Corps du tableau</li>
+                                <li><code>&lt;tfoot&gt;</code> : Table Foot - Pied du tableau</li>
+                            </ul>
+
+                            <pre><code class="language-html">&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Produit&lt;/th&gt;
+            &lt;th&gt;Prix&lt;/th&gt;
+            &lt;th&gt;Quantité&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Ordinateur&lt;/td&gt;
+            &lt;td&gt;800€&lt;/td&gt;
+            &lt;td&gt;2&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Souris&lt;/td&gt;
+            &lt;td&gt;15€&lt;/td&gt;
+            &lt;td&gt;5&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;tfoot&gt;
+        &lt;tr&gt;
+            &lt;td colspan="2"&gt;Total&lt;/td&gt;
+            &lt;td&gt;1675€&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;</code></pre>
+
+                            <div class="code-output">
+                                <table
+                                    style="width: 100%; border-collapse: collapse; border: 1px solid var(--border-light);">
+                                    <thead>
+                                        <tr style="background-color: var(--primary-color); color: white;">
+                                            <th
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                Produit</th>
+                                            <th
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                Prix</th>
+                                            <th
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                Quantité</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                Ordinateur</td>
+                                            <td
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                800€</td>
+                                            <td
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                2</td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                Souris</td>
+                                            <td
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                15€</td>
+                                            <td
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                5</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr style="background-color: var(--surface); font-weight: bold;">
+                                            <td colspan="2"
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                Total</td>
+                                            <td
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                1675€</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+
+                            <h2>Fusion de cellules</h2>
+
+                            <h3>colspan - Fusionner des colonnes</h3>
+
+                            <p>L'attribut <code>colspan</code> permet de fusionner plusieurs colonnes horizontalement :
+                            </p>
+
+                            <pre><code class="language-html">&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th colspan="3"&gt;Informations personnelles&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Prénom&lt;/th&gt;
+        &lt;th&gt;Nom&lt;/th&gt;
+        &lt;th&gt;Âge&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Jean&lt;/td&gt;
+        &lt;td&gt;Dupont&lt;/td&gt;
+        &lt;td&gt;25&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+
+                            <div class="code-output">
+                                <table
+                                    style="width: 100%; border-collapse: collapse; border: 1px solid var(--border-light);">
+                                    <tr>
+                                        <th colspan="3"
+                                            style="padding: var(--spacing-sm); border: 1px solid var(--border-light); background-color: var(--primary-color); color: white; text-align: center;">
+                                            Informations personnelles</th>
+                                    </tr>
+                                    <tr style="background-color: var(--surface);">
+                                        <th style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Prénom</th>
+                                        <th style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Nom</th>
+                                        <th style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Âge</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Jean</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Dupont</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            25</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <h3>rowspan - Fusionner des lignes</h3>
+
+                            <p>L'attribut <code>rowspan</code> permet de fusionner plusieurs lignes verticalement :</p>
+
+                            <pre><code class="language-html">&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Jour&lt;/th&gt;
+        &lt;th&gt;Cours&lt;/th&gt;
+        &lt;th&gt;Horaire&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td rowspan="2"&gt;Lundi&lt;/td&gt;
+        &lt;td&gt;HTML&lt;/td&gt;
+        &lt;td&gt;9h-12h&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;CSS&lt;/td&gt;
+        &lt;td&gt;14h-17h&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+
+                            <div class="code-output">
+                                <table
+                                    style="width: 100%; border-collapse: collapse; border: 1px solid var(--border-light);">
+                                    <tr style="background-color: var(--surface);">
+                                        <th style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Jour</th>
+                                        <th style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Cours</th>
+                                        <th style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Horaire</th>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="2"
+                                            style="padding: var(--spacing-sm); border: 1px solid var(--border-light); vertical-align: middle; font-weight: bold;">
+                                            Lundi</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            HTML</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            9h-12h</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            CSS</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            14h-17h</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <h2>Attributs importants</h2>
+
+                            <h3>Attribut border (déprécié)</h3>
+
+                            <p>
+                                <code>border</code> était utilisé pour ajouter des bordures, mais il est maintenant
+                                <strong>déprécié</strong>.
+                                Utilisez CSS à la place :
+                            </p>
+
+                            <pre><code class="language-css">table {
+    border-collapse: collapse; /* Fusionne les bordures */
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}</code></pre>
+
+                            <h3>Caption - Légende du tableau</h3>
+
+                            <p>La balise <code>&lt;caption&gt;</code> ajoute un titre/légende au tableau :</p>
+
+                            <pre><code class="language-html">&lt;table&gt;
+    &lt;caption&gt;Résultats scolaires du trimestre&lt;/caption&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Matière&lt;/th&gt;
+        &lt;th&gt;Note&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Mathématiques&lt;/td&gt;
+        &lt;td&gt;15/20&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+
+                            <div class="code-output">
+                                <table
+                                    style="width: 100%; border-collapse: collapse; border: 1px solid var(--border-light);">
+                                    <caption
+                                        style="caption-side: top; padding: var(--spacing-sm); font-weight: bold; font-size: 1.1em;">
+                                        Résultats scolaires du trimestre</caption>
+                                    <tr style="background-color: var(--surface);">
+                                        <th style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Matière</th>
+                                        <th style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Note</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Mathématiques</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            15/20</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <h3>Scope - Améliorer l'accessibilité</h3>
+
+                            <p>L'attribut <code>scope</code> sur les <code>&lt;th&gt;</code> indique si l'en-tête
+                                concerne une colonne ou une ligne :</p>
+
+                            <pre><code class="language-html">&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th scope="col"&gt;Nom&lt;/th&gt;
+        &lt;th scope="col"&gt;Prénom&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;th scope="row"&gt;Étudiant 1&lt;/th&gt;
+        &lt;td&gt;Dupont&lt;/td&gt;
+        &lt;td&gt;Jean&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+
+                            <p><strong>Valeurs de scope :</strong></p>
+                            <ul>
+                                <li><code>col</code> : En-tête de colonne</li>
+                                <li><code>row</code> : En-tête de ligne</li>
+                                <li><code>colgroup</code> : En-tête de groupe de colonnes</li>
+                                <li><code>rowgroup</code> : En-tête de groupe de lignes</li>
+                            </ul>
+
+                            <h2>Exemple complet : Horaire de cours</h2>
+
+                            <pre><code class="language-html">&lt;table&gt;
+    &lt;caption&gt;Emploi du temps - Semaine 1&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope="col"&gt;Heure&lt;/th&gt;
+            &lt;th scope="col"&gt;Lundi&lt;/th&gt;
+            &lt;th scope="col"&gt;Mardi&lt;/th&gt;
+            &lt;th scope="col"&gt;Mercredi&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;9h-10h&lt;/th&gt;
+            &lt;td&gt;HTML&lt;/td&gt;
+            &lt;td&gt;CSS&lt;/td&gt;
+            &lt;td&gt;JavaScript&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;10h-11h&lt;/th&gt;
+            &lt;td&gt;HTML&lt;/td&gt;
+            &lt;td&gt;CSS&lt;/td&gt;
+            &lt;td&gt;JavaScript&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;11h-12h&lt;/th&gt;
+            &lt;td colspan="3" style="text-align: center;"&gt;Pause déjeuner&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+
+                            <div class="code-output">
+                                <table
+                                    style="width: 100%; border-collapse: collapse; border: 1px solid var(--border-light);">
+                                    <caption style="caption-side: top; padding: var(--spacing-sm); font-weight: bold;">
+                                        Emploi du temps - Semaine 1</caption>
+                                    <thead>
+                                        <tr style="background-color: var(--primary-color); color: white;">
+                                            <th
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                Heure</th>
+                                            <th
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                Lundi</th>
+                                            <th
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                Mardi</th>
+                                            <th
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                Mercredi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light); background-color: var(--surface);">
+                                                9h-10h</th>
+                                            <td
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                HTML</td>
+                                            <td
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                CSS</td>
+                                            <td
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                JavaScript</td>
+                                        </tr>
+                                        <tr>
+                                            <th
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light); background-color: var(--surface);">
+                                                10h-11h</th>
+                                            <td
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                HTML</td>
+                                            <td
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                CSS</td>
+                                            <td
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                                JavaScript</td>
+                                        </tr>
+                                        <tr>
+                                            <th
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light); background-color: var(--surface);">
+                                                11h-12h</th>
+                                            <td colspan="3"
+                                                style="padding: var(--spacing-sm); border: 1px solid var(--border-light); text-align: center; font-style: italic;">
+                                                Pause déjeuner</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <aside class="tips alert">
+                                <h3>💡 Astuces</h3>
+                                <ul>
+                                    <li>Utilisez toujours <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code> et
+                                        <code>&lt;tfoot&gt;</code> pour structurer vos tableaux</li>
+                                    <li>Ajoutez <code>scope</code> aux <code>&lt;th&gt;</code> pour l'accessibilité</li>
+                                    <li>Utilisez <code>&lt;caption&gt;</code> pour donner un titre descriptif au tableau
+                                    </li>
+                                    <li>Préférez CSS pour le style (bordures, couleurs, espacements)</li>
+                                    <li><code>border-collapse: collapse</code> en CSS fusionne les bordures doubles</li>
+                                    <li>Pour les tableaux responsives, enveloppez-les dans un <code>div</code> avec
+                                        <code>overflow-x: auto</code></li>
+                                    <li><code>colspan</code> et <code>rowspan</code> sont utiles mais gardez la
+                                        structure simple</li>
+                                    <li>Testez toujours l'accessibilité avec un lecteur d'écran</li>
+                                </ul>
+                            </aside>
+
+                            <aside class="common-mistakes alert">
+                                <h3>⚠️ Erreurs fréquentes à éviter</h3>
+                                <ul>
+                                    <li><strong>Utiliser des tableaux pour la mise en page</strong> : Utilisez CSS
+                                        Grid/Flexbox à la place</li>
+                                    <li><strong>Oublier &lt;thead&gt; et &lt;tbody&gt;</strong> : Important pour la
+                                        sémantique et le style</li>
+                                    <li><strong>Nombre de cellules incorrect par ligne</strong> : Chaque
+                                        <code>&lt;tr&gt;</code> doit avoir le même nombre de cellules (compte tenu de
+                                        colspan)</li>
+                                    <li><strong>Mal calculer colspan/rowspan</strong> : Vérifie que la structure reste
+                                        cohérente</li>
+                                    <li><strong>Pas de &lt;th&gt; pour les en-têtes</strong> : Utilisez
+                                        <code>&lt;th&gt;</code> au lieu de <code>&lt;td&gt;</code> pour les en-têtes
+                                    </li>
+                                    <li><strong>Oublier scope</strong> : Ajoutez <code>scope="col"</code> ou
+                                        <code>scope="row"</code> pour l'accessibilité</li>
+                                    <li><strong>Tableaux non responsives</strong> : Prévoyez le défilement horizontal
+                                        sur mobile</li>
+                                    <li><strong>Absence de caption</strong> : Toujours ajouter un titre descriptif avec
+                                        <code>&lt;caption&gt;</code></li>
+                                    <li><strong>Cellules vides sans contenu</strong> : Au minimum, ajoutez
+                                        <code>&amp;nbsp;</code> ou laissez vide avec balise fermante</li>
+                                </ul>
+                            </aside>
+
+                            <h2>Résumé du chapitre</h2>
+
+                            <div class="card" style="background-color: var(--surface);">
+                                <div class="card-body">
+                                    <p><strong>Structure du tableau :</strong></p>
+                                    <ul>
+                                        <li><code>&lt;table&gt;</code> : Conteneur</li>
+                                        <li><code>&lt;caption&gt;</code> : Titre du tableau</li>
+                                        <li><code>&lt;thead&gt;</code> : En-tête</li>
+                                        <li><code>&lt;tbody&gt;</code> : Corps</li>
+                                        <li><code>&lt;tfoot&gt;</code> : Pied</li>
+                                        <li><code>&lt;tr&gt;</code> : Ligne</li>
+                                        <li><code>&lt;th&gt;</code> : Cellule d'en-tête</li>
+                                        <li><code>&lt;td&gt;</code> : Cellule de données</li>
+                                    </ul>
+                                    <p class="mt-3"><strong>Attributs clés :</strong></p>
+                                    <ul>
+                                        <li><code>colspan</code> : Fusion horizontale de cellules</li>
+                                        <li><code>rowspan</code> : Fusion verticale de cellules</li>
+                                        <li><code>scope</code> : Portée de l'en-tête (col/row)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch08"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Tableau simple</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez un tableau avec :</p>
+                                    <ul>
+                                        <li>3 colonnes : "Ville", "Pays", "Population"</li>
+                                        <li>4 lignes de données (Paris, Londres, Tokyo, New York)</li>
+                                        <li>En-tête avec <code>&lt;th&gt;</code></li>
+                                    </ul>
+                                </div>
+                                <div class="exercise-solution">
+                                    <button class="btn btn-outline btn-sm"
+                                        onclick="this.nextElementSibling.style.display='block'; this.style.display='none';">
+                                        Voir la solution
+                                    </button>
+                                    <div style="display:none;">
+                                        <pre><code class="language-html">&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Ville&lt;/th&gt;
+        &lt;th&gt;Pays&lt;/th&gt;
+        &lt;th&gt;Population&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Paris&lt;/td&gt;
+        &lt;td&gt;France&lt;/td&gt;
+        &lt;td&gt;2,2 millions&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Londres&lt;/td&gt;
+        &lt;td&gt;Royaume-Uni&lt;/td&gt;
+        &lt;td&gt;9 millions&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Tokyo&lt;/td&gt;
+        &lt;td&gt;Japon&lt;/td&gt;
+        &lt;td&gt;14 millions&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;New York&lt;/td&gt;
+        &lt;td&gt;États-Unis&lt;/td&gt;
+        &lt;td&gt;8,3 millions&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Tableau avec sections</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez un tableau de prix avec :</p>
+                                    <ul>
+                                        <li><code>&lt;caption&gt;</code> : "Tarifs 2024"</li>
+                                        <li><code>&lt;thead&gt;</code> : Colonnes "Service", "Prix unitaire",
+                                            "Quantité", "Total"</li>
+                                        <li><code>&lt;tbody&gt;</code> : 3 services différents</li>
+                                        <li><code>&lt;tfoot&gt;</code> : Ligne totale avec <code>colspan</code></li>
+                                        <li>Attributs <code>scope</code> appropriés</li>
+                                    </ul>
+                                </div>
+                                <div class="exercise-solution">
+                                    <button class="btn btn-outline btn-sm"
+                                        onclick="this.nextElementSibling.style.display='block'; this.style.display='none';">
+                                        Voir la solution
+                                    </button>
+                                    <div style="display:none;">
+                                        <pre><code class="language-html">&lt;table&gt;
+    &lt;caption&gt;Tarifs 2024&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope="col"&gt;Service&lt;/th&gt;
+            &lt;th scope="col"&gt;Prix unitaire&lt;/th&gt;
+            &lt;th scope="col"&gt;Quantité&lt;/th&gt;
+            &lt;th scope="col"&gt;Total&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Hébergement web&lt;/td&gt;
+            &lt;td&gt;10€/mois&lt;/td&gt;
+            &lt;td&gt;12&lt;/td&gt;
+            &lt;td&gt;120€&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Nom de domaine&lt;/td&gt;
+            &lt;td&gt;15€/an&lt;/td&gt;
+            &lt;td&gt;1&lt;/td&gt;
+            &lt;td&gt;15€&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Certificat SSL&lt;/td&gt;
+            &lt;td&gt;0€&lt;/td&gt;
+            &lt;td&gt;1&lt;/td&gt;
+            &lt;td&gt;0€&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;tfoot&gt;
+        &lt;tr&gt;
+            &lt;td colspan="3"&gt;Total annuel&lt;/td&gt;
+            &lt;td&gt;135€&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="exercise hard">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Emploi du temps complet</h3>
+                                    <span class="exercise-difficulty">Difficile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez un emploi du temps de la semaine avec :</p>
+                                    <ul>
+                                        <li>Colonnes : Heure + 5 jours (Lundi à Vendredi)</li>
+                                        <li>Lignes : 8h-9h, 9h-10h, 10h-11h, 11h-12h, 12h-13h (pause), 13h-14h, 14h-15h
+                                        </li>
+                                        <li>Utiliser <code>rowspan</code> pour des cours de 2h</li>
+                                        <li>Utiliser <code>colspan</code> pour la pause déjeuner</li>
+                                        <li>Structure complète avec caption, thead, tbody</li>
+                                        <li>Scope appropriés sur tous les th</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch07-listes.html" class="chapter-nav-btn">← Précédent : Listes</a>
+                            <a href="ch09-formulaires-1.html" class="chapter-nav-btn">Suivant : Formulaires Partie 1
+                                →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">
+                                ✓ Marquer ce chapitre comme terminé
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'html';
+        const chapterId = 'ch08-tableaux';
+        const chapters = [{ id: "ch01-introduction", title: "Introduction au HTML" }, { id: "ch02-structure", title: "Structure d'un document HTML" }, { id: "ch03-balises-essentielles", title: "Les balises essentielles" }, { id: "ch04-texte-formatage", title: "Texte et formatage" }, { id: "ch05-liens-navigation", title: "Liens et navigation" }, { id: "ch06-images-medias", title: "Images et médias" }, { id: "ch07-listes", title: "Listes" }, { id: "ch08-tableaux", title: "Tableaux" }, { id: "ch09-formulaires-1", title: "Formulaires - Partie 1" }, { id: "ch10-formulaires-2", title: "Formulaires - Partie 2" }, { id: "ch11-html-semantique", title: "HTML sémantique" }, { id: "ch12-metadonnees-seo", title: "Métadonnées et SEO" }, { id: "ch13-accessibilite", title: "Accessibilité" }, { id: "ch14-html5-apis", title: "HTML5 APIs" }, { id: "ch15-bonnes-pratiques", title: "Bonnes pratiques" }];
+
+        const quizData = {
+            title: "Quiz - Les tableaux",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                { question: "Quelle balise crée un tableau ?", type: "single", options: ["<tab>", "<table>", "<grid>", "<data>"], correct: 1, explanation: "<table> est la balise pour créer un tableau HTML." },
+                { question: "Quelle balise crée une ligne de tableau ?", type: "single", options: ["<tr>", "<row>", "<line>", "<tl>"], correct: 0, explanation: "<tr> (Table Row) crée une ligne dans un tableau." },
+                { question: "Quelle est la différence entre <th> et <td> ?", type: "single", options: ["Aucune différence", "<th> est pour les en-têtes, <td> pour les données", "<th> est plus gros", "<th> est en gras automatiquement"], correct: 1, explanation: "<th> (Table Header) est pour les en-têtes, <td> (Table Data) pour les données. <th> est aussi en gras et centré par défaut." },
+                { question: "Quelles balises structurent sémantiquement un tableau ?", type: "multiple", options: ["<thead>", "<tbody>", "<tfoot>", "<tcols>"], correct: [0, 1, 2], explanation: "<thead>, <tbody> et <tfoot> structurent respectivement l'en-tête, le corps et le pied du tableau." },
+                { question: "À quoi sert l'attribut colspan ?", type: "single", options: ["Fusionner des lignes", "Fusionner des colonnes", "Définir la largeur", "Ajouter une couleur"], correct: 1, explanation: "colspan fusionne plusieurs cellules horizontalement (colonnes)." },
+                { question: "À quoi sert l'attribut rowspan ?", type: "single", options: ["Fusionner des lignes", "Fusionner des colonnes", "Définir la hauteur", "Aligner verticalement"], correct: 0, explanation: "rowspan fusionne plusieurs cellules verticalement (lignes)." },
+                { question: "Quelle balise ajoute une légende au tableau ?", type: "single", options: ["<title>", "<caption>", "<legend>", "<label>"], correct: 1, explanation: "<caption> ajoute un titre/légende au tableau." },
+                { question: "À quoi sert l'attribut scope sur <th> ?", type: "single", options: ["Définir la portée pour l'accessibilité", "Définir la taille", "Définir la couleur", "Fusionner des cellules"], correct: 0, explanation: "scope (col/row) indique si l'en-tête concerne une colonne ou une ligne, important pour l'accessibilité." },
+                { question: "Peut-on utiliser des tableaux pour la mise en page ?", type: "single", options: ["Oui, c'est recommandé", "Non, utiliser CSS Grid/Flexbox", "Oui, mais seulement pour le menu", "Ça dépend du navigateur"], correct: 1, explanation: "Les tableaux doivent être réservés aux données tabulaires. Utilisez CSS Grid ou Flexbox pour la mise en page." },
+                { question: "Quelle propriété CSS fusionne les bordures doubles ?", type: "single", options: ["border-merge", "border-collapse", "border-fusion", "border-combine"], correct: 1, explanation: "border-collapse: collapse fusionne les bordures doubles en une seule." }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+            QuizSystem.createQuiz(quizData, 'quiz-ch08');
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+    </script>
+</body>
+
+</html>

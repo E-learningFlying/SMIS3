@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 1 : Codage des Nombres - Architecture des Ordinateurs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <style>
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 4px;
+        }
+
+        .quiz-option {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Architecture</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch01-codage-nombres.html" class="active">1. Codage Nombres</a></li>
+                            <li><a href="ch02-algebre-boole.html">2. Algèbre Boole</a></li>
+                            <li><a href="ch03-circuits-logiques.html">3. Circuits Logiques</a></li>
+                            <li><a href="ch04-architecture-generale.html">4. Architecture</a></li>
+                            <li><a href="ch05-memoires.html">5. Mémoires</a></li>
+                            <li><a href="ch06-fonctionnement-cpu.html">6. CPU</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Architecture</a></li>
+                                <li class="breadcrumb-item active">Chapitre 1</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 1 : Codage de l'Information</h1>
+
+                        <!-- SECTION 1 -->
+                        <section class="mb-5">
+                            <h2>1. Pourquoi le Binaire ?</h2>
+                            <p>Les ordinateurs sont composés de milliards de minuscules interrupteurs (transistors). Un
+                                interrupteur ne peut avoir que deux états :</p>
+                            <ul>
+                                <li><strong>ON</strong> (Passage de courant) = <strong>1</strong></li>
+                                <li><strong>OFF</strong> (Pas de courant) = <strong>0</strong></li>
+                            </ul>
+                            <p>C'est pour cela que tout, dans un ordinateur (texte, image, son, programme), est codé en
+                                <strong>binaire (Base 2)</strong>.
+                            </p>
+                        </section>
+
+                        <!-- SECTION 2 -->
+                        <section class="mb-5">
+                            <h2>2. Les Bases de Numération</h2>
+
+                            <div class="card mb-4">
+                                <div class="card-header bg-primary text-white">Décimal (Base 10)</div>
+                                <div class="card-body">
+                                    <p>C'est celle qu'on utilise tous les jours. Chiffres : 0 à 9.</p>
+                                    <p>Exemple : <code>123</code> = 1x10² + 2x10¹ + 3x10⁰</p>
+                                </div>
+                            </div>
+
+                            <div class="card mb-4">
+                                <div class="card-header bg-success text-white">Binaire (Base 2)</div>
+                                <div class="card-body">
+                                    <p>Langage machine. Chiffres : 0 et 1 (bit).</p>
+                                    <p>Exemple : <code>101</code> en binaire = 1x2² + 0x2¹ + 1x2⁰ = 4 + 0 + 1 =
+                                        <strong>5</strong> en décimal.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="card mb-4">
+                                <div class="card-header bg-warning text-dark">Hexadécimal (Base 16)</div>
+                                <div class="card-body">
+                                    <p>Utilisé pour simplifier l'écriture du binaire. Chiffres : 0-9 et A-F.</p>
+                                    <p>A=10, B=11, C=12, D=13, E=14, F=15.</p>
+                                    <p>Exemple : <code>1F</code> = 1x16¹ + 15x16⁰ = 16 + 15 = <strong>31</strong> en
+                                        décimal.</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- SECTION 3 -->
+                        <section class="mb-5">
+                            <h2>3. Les Conversions</h2>
+
+                            <h4>Décimal vers Binaire</h4>
+                            <p>On divise successivement par 2 et on note les restes de bas en haut.</p>
+                            <div class="alert alert-info">
+                                <strong>Exemple : 6</strong><br>
+                                6 / 2 = 3 (reste <strong>0</strong>)<br>
+                                3 / 2 = 1 (reste <strong>1</strong>)<br>
+                                1 / 2 = 0 (reste <strong>1</strong>)<br>
+                                Lecture inverse : <strong>110</strong>
+                            </div>
+
+                            <h4>Binaire vers Hexadécimal</h4>
+                            <p>On regroupe les bits par paquets de 4 (quartets).</p>
+                            <p><code>1100 1010</code> -> 1100 (12=C) et 1010 (10=A) -> <strong>CA</strong>.</p>
+                            <!-- SECTION 4 -->
+                            <section class="mb-5">
+                                <h2>4. Nombres Réels : La Norme IEEE 754</h2>
+                                <p>Comment coder un nombre à virgule (ex: 3.14) avec des 0 et des 1 ? On utilise la
+                                    notation scientifique : <code>+/- 1,mantisse x 2^exposant</code>.</p>
+                                <p>En simple précision (32 bits) :</p>
+                                <ul>
+                                    <li><strong>1 bit de signe</strong> (0=+, 1=-)</li>
+                                    <li><strong>8 bits d'exposant</strong> (décalé de 127)</li>
+                                    <li><strong>23 bits de mantisse</strong> (la partie après la virgule)</li>
+                                </ul>
+                            </section>
+
+                            <!-- QUIZ -->
+                            <section class="my-5 p-4 border rounded bg-white shadow-sm">
+                                <h3 class="mb-4">🧠 Quiz : Maîtrisez-vous les bases ?</h3>
+
+                                <!-- Q1 -->
+                                <div class="mb-4">
+                                    <p class="fw-bold">1. Quelle est la valeur décimale du binaire 1010 ?</p>
+                                    <div class="btn-group w-100">
+                                        <button class="btn btn-outline-secondary"
+                                            onclick="check(this, false)">8</button>
+                                        <button class="btn btn-outline-secondary"
+                                            onclick="check(this, true)">10</button>
+                                        <button class="btn btn-outline-secondary"
+                                            onclick="check(this, false)">12</button>
+                                    </div>
+                                </div>
+
+                                <!-- Q2 -->
+                                <div class="mb-4">
+                                    <p class="fw-bold">2. Comment s'écrit 15 en Hexadécimal ?</p>
+                                    <div class="btn-group w-100">
+                                        <button class="btn btn-outline-secondary"
+                                            onclick="check(this, false)">E</button>
+                                        <button class="btn btn-outline-secondary" onclick="check(this, true)">F</button>
+                                        <button class="btn btn-outline-secondary"
+                                            onclick="check(this, false)">10</button>
+                                    </div>
+                                </div>
+
+                                <!-- Q3 -->
+                                <div class="mb-4">
+                                    <p class="fw-bold">3. Un octet (byte) contient combien de bits ?</p>
+                                    <div class="btn-group w-100">
+                                        <button class="btn btn-outline-secondary"
+                                            onclick="check(this, false)">4</button>
+                                        <button class="btn btn-outline-secondary" onclick="check(this, true)">8</button>
+                                        <button class="btn btn-outline-secondary"
+                                            onclick="check(this, false)">16</button>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- EXERCICES -->
+                            <section class="my-5">
+                                <h3 class="mb-4 border-bottom pb-2">✍️ Exercices</h3>
+
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <h5>Ex 1 : Convertir 25 en binaire</h5>
+                                        <button class="btn btn-outline-primary btn-sm mt-2"
+                                            onclick="toggleSolution('ex1')">Voir Solution</button>
+                                        <div id="ex1" class="solution-box">
+                                            25 / 2 = 12 (reste 1)<br>
+                                            12 / 2 = 6 (reste 0)<br>
+                                            6 / 2 = 3 (reste 0)<br>
+                                            3 / 2 = 1 (reste 1)<br>
+                                            1 / 2 = 0 (reste 1)<br>
+                                            <strong>Résultat : 11001</strong>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <h5>Ex 2 : Convertir le binaire 1111 0000 en Hexa</h5>
+                                        <button class="btn btn-outline-primary btn-sm mt-2"
+                                            onclick="toggleSolution('ex2')">Voir Solution</button>
+                                        <div id="ex2" class="solution-box">
+                                            1111 = 15 = F<br>
+                                            0000 = 0<br>
+                                            <strong>Résultat : F0</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- EXERCICES EXPERT -->
+                            <section class="my-5">
+                                <h3 class="mb-4 border-bottom pb-2">☠️ Exercices Expert</h3>
+
+                                <div class="card mb-4 border-danger">
+                                    <div class="card-header bg-danger text-white">Ex 3 : Complément à 2</div>
+                                    <div class="card-body">
+                                        <p>Codez <strong>-5</strong> en binaire sur 4 bits (Complément à 2).</p>
+                                        <button class="btn btn-outline-danger btn-sm mt-2"
+                                            onclick="toggleSolution('ex3')">Voir Solution</button>
+                                        <div id="ex3" class="solution-box">
+                                            1. +5 en binaire = 0101<br>
+                                            2. Inverser les bits = 1010<br>
+                                            3. Ajouter 1 = 1011<br>
+                                            <strong>Résultat : 1011</strong>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card mb-4 border-danger">
+                                    <div class="card-header bg-danger text-white">Ex 4 : IEEE 754</div>
+                                    <div class="card-body">
+                                        <p>Quel nombre décimal représente
+                                            <code>1 10000000 00000000000000000000000</code> ?</p>
+                                        <button class="btn btn-outline-danger btn-sm mt-2"
+                                            onclick="toggleSolution('ex4')">Voir Solution</button>
+                                        <div id="ex4" class="solution-box">
+                                            1. Signe = 1 -> Négatif<br>
+                                            2. Exposant = 10000000 (128). Décalage : 128 - 127 = 1. -> 2^1<br>
+                                            3. Mantisse = 0...0 -> 1,0<br>
+                                            Calcul : -1 * 1,0 * 2^1 = <strong>-2.0</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <div class="text-center my-5">
+                                <button class="btn btn-secondary disabled me-2">← Précédent</button>
+                                <a href="ch02-algebre-boole.html" class="btn btn-primary btn-lg">Chapitre 2 : Algèbre de
+                                    Boole →</a>
+                            </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            Array.from(group.children).forEach(b => {
+                b.classList.remove('btn-success', 'btn-danger');
+                b.classList.add('btn-outline-secondary');
+            });
+            if (isCorrect) {
+                btn.classList.add('btn-success');
+                btn.classList.remove('btn-outline-secondary');
+            } else {
+                btn.classList.add('btn-danger');
+                btn.classList.remove('btn-outline-secondary');
+            }
+        }
+
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

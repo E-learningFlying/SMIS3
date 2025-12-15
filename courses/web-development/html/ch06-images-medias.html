@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Chapitre 6 : Images et médias - Apprenez à intégrer images, vidéos et audio dans vos pages HTML">
+    <title>Chapitre 6 : Images et médias - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours HTML</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours HTML</a></li>
+                                <li class="breadcrumb-item active">Chapitre 6 : Images et médias</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 6</span>
+                            <h1 class="mb-3">Images et médias</h1>
+                            <p class="text-lg text-secondary">
+                                Apprenez à intégrer des images, vidéos et fichiers audio dans vos pages web de manière
+                                optimale et accessible.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 1h30</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch05-liens-navigation.html" class="chapter-nav-btn">← Précédent : Liens et
+                                navigation</a>
+                            <a href="ch07-listes.html" class="chapter-nav-btn">Suivant : Listes →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>La balise &lt;img&gt; - Images</h2>
+
+                            <p>
+                                La balise <code>&lt;img&gt;</code> permet d'afficher des images. C'est une balise
+                                <strong>auto-fermante</strong>
+                                qui nécessite deux attributs essentiels : <code>src</code> et <code>alt</code>.
+                            </p>
+
+                            <h3>Syntaxe de base</h3>
+
+                            <pre><code class="language-html">&lt;img src="chemin/vers/image.jpg" alt="Description de l'image"&gt;</code></pre>
+
+                            <h3>Attributs essentiels</h3>
+
+                            <h4>src (source) - Obligatoire</h4>
+                            <p>Spécifie le chemin vers le fichier image :</p>
+
+                            <pre><code class="language-html">&lt;!-- Chemin relatif --&gt;
+&lt;img src="images/photo.jpg" alt="Photo"&gt;
+
+&lt;!-- Chemin absolu --&gt;
+&lt;img src="/assets/logo.png" alt="Logo"&gt;
+
+&lt;!-- URL externe --&gt;
+&lt;img src="https://example.com/image.jpg" alt="Image externe"&gt;</code></pre>
+
+                            <h4>alt (alternative text) - Obligatoire</h4>
+                            <p>
+                                Fournit une description textuelle de l'image. <strong>Essentiel pour
+                                    l'accessibilité</strong>
+                                (lecteurs d'écran) et le SEO.
+                            </p>
+
+                            <pre><code class="language-html">&lt;!-- Bonne description --&gt;
+&lt;img src="sunset.jpg" alt="Coucher de soleil sur l'océan aux couleurs orangées"&gt;
+
+&lt;!-- Image décorative (alt vide) --&gt;
+&lt;img src="decoration.png" alt=""&gt;
+
+&lt;!-- Mauvaise description ❌ --&gt;
+&lt;img src="sunset.jpg" alt="image"&gt;</code></pre>
+
+                            <div class="alert alert-info">
+                                <h4>💡 Règle d'or pour l'attribut alt</h4>
+                                <ul>
+                                    <li><strong>Image informative</strong> : Décrivez ce que montre l'image</li>
+                                    <li><strong>Image décorative</strong> : Utilisez <code>alt=""</code> (vide)</li>
+                                    <li><strong>Image lien</strong> : Décrivez la destination du lien</li>
+                                    <li><strong>Graphique/diagramme</strong> : Résumez l'information essentielle</li>
+                                </ul>
+                            </div>
+
+                            <h3>Attributs de dimensions</h3>
+
+                            <pre><code class="language-html">&lt;img src="photo.jpg" 
+     alt="Photo de profil" 
+     width="300" 
+     height="200"&gt;</code></pre>
+
+                            <p><strong>Avantages de spécifier width et height :</strong></p>
+                            <ul>
+                                <li>Évite le décalage de contenu pendant le chargement (CLS - Cumulative Layout Shift)
+                                </li>
+                                <li>Améliore les performances perçues</li>
+                                <li>Le navigateur réserve l'espace avant le chargement</li>
+                            </ul>
+
+                            <div class="alert alert-warning">
+                                <h4>⚠️ Attention aux dimensions</h4>
+                                <p>
+                                    Les valeurs <code>width</code> et <code>height</code> sont en pixels par défaut.
+                                    Utilisez CSS pour un contrôle plus flexible du responsive :
+                                </p>
+                                <pre><code class="language-css">img {
+    max-width: 100%;
+    height: auto;
+}</code></pre>
+                            </div>
+
+                            <h3>Autres attributs utiles</h3>
+
+                            <h4>loading - Chargement paresseux</h4>
+                            <pre><code class="language-html">&lt;!-- Charge l'image seulement quand elle est visible --&gt;
+&lt;img src="large-image.jpg" alt="Grande image" loading="lazy"&gt;
+
+&lt;!-- Charge immédiatement (par défaut) --&gt;
+&lt;img src="hero.jpg" alt="Image principale" loading="eager"&gt;</code></pre>
+
+                            <h4>title - Info-bulle</h4>
+                            <pre><code class="language-html">&lt;img src="icon.png" alt="Icône info" title="Plus d'informations disponibles"&gt;</code></pre>
+
+                            <h2>Formats d'images recommandés</h2>
+
+                            <table style="width: 100%; border-collapse: collapse; margin: var(--spacing-md) 0;">
+                                <thead>
+                                    <tr style="background-color: var(--surface);">
+                                        <th style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Format</th>
+                                        <th style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Usage</th>
+                                        <th style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Avantages</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            <strong>JPEG (.jpg)</strong></td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Photos, images complexes</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Petite taille, bonne qualité</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            <strong>PNG (.png)</strong></td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Logos, icônes, transparence</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Transparence, sans perte</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            <strong>SVG (.svg)</strong></td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Logos, icônes, graphiques</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Vectoriel, redimensionnable</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            <strong>WebP (.webp)</strong></td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Tout type d'image</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Très compressé, moderne</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            <strong>GIF (.gif)</strong></td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Animations simples</td>
+                                        <td style="padding: var(--spacing-sm); border: 1px solid var(--border-light);">
+                                            Animations, compatibilité</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h2>Images responsives avec &lt;picture&gt;</h2>
+
+                            <p>
+                                L'élément <code>&lt;picture&gt;</code> permet de servir différentes images selon la
+                                taille d'écran
+                                ou les capacités du navigateur.
+                            </p>
+
+                            <pre><code class="language-html">&lt;picture&gt;
+    &lt;!-- Format moderne pour navigateurs compatibles --&gt;
+    &lt;source srcset="image.webp" type="image/webp"&gt;
+    
+    &lt;!-- Format de secours --&gt;
+    &lt;img src="image.jpg" alt="Description"&gt;
+&lt;/picture&gt;</code></pre>
+
+                            <h3>Images adaptatives selon la taille d'écran</h3>
+
+                            <pre><code class="language-html">&lt;picture&gt;
+    &lt;!-- Grande image pour desktop --&gt;
+    &lt;source media="(min-width: 1024px)" srcset="large.jpg"&gt;
+    
+    &lt;!-- Image moyenne pour tablette --&gt;
+    &lt;source media="(min-width: 768px)" srcset="medium.jpg"&gt;
+    
+    &lt;!-- Petite image pour mobile (par défaut) --&gt;
+    &lt;img src="small.jpg" alt="Image responsive"&gt;
+&lt;/picture&gt;</code></pre>
+
+                            <h2>Vidéo - &lt;video&gt;</h2>
+
+                            <p>La balise <code>&lt;video&gt;</code> permet d'intégrer des vidéos directement dans la
+                                page.</p>
+
+                            <h3>Syntaxe de base</h3>
+
+                            <pre><code class="language-html">&lt;video controls width="640" height="360"&gt;
+    &lt;source src="video.mp4" type="video/mp4"&gt;
+    &lt;source src="video.webm" type="video/webm"&gt;
+    Votre navigateur ne supporte pas la vidéo HTML5.
+&lt;/video&gt;</code></pre>
+
+                            <h3>Attributs de &lt;video&gt;</h3>
+
+                            <pre><code class="language-html">&lt;video 
+    src="video.mp4"
+    controls          &lt;!-- Affiche les contrôles (play, pause, volume) --&gt;
+    autoplay          &lt;!-- Lecture automatique (avec muted obligatoire) --&gt;
+    muted             &lt;!-- Sans son --&gt;
+    loop              &lt;!-- Lecture en boucle --&gt;
+    preload="auto"    &lt;!-- Précharge la vidéo (auto, metadata, none) --&gt;
+    poster="thumb.jpg" &lt;!-- Image de prévisualisation --&gt;
+    width="800"
+    height="450"&gt;
+&lt;/video&gt;</code></pre>
+
+                            <h3>Exemple complet avec poster</h3>
+
+                            <pre><code class="language-html">&lt;video controls 
+       width="800" 
+       height="450" 
+       poster="video-thumbnail.jpg"
+       preload="metadata"&gt;
+    &lt;source src="video.mp4" type="video/mp4"&gt;
+    &lt;source src="video.webm" type="video/webm"&gt;
+    &lt;p&gt;
+        Votre navigateur ne supporte pas la vidéo. 
+        &lt;a href="video.mp4"&gt;Télécharger la vidéo&lt;/a&gt;
+    &lt;/p&gt;
+&lt;/video&gt;</code></pre>
+
+                            <h2>Audio - &lt;audio&gt;</h2>
+
+                            <p>La balise <code>&lt;audio&gt;</code> permet d'intégrer des fichiers audio.</p>
+
+                            <pre><code class="language-html">&lt;audio controls&gt;
+    &lt;source src="audio.mp3" type="audio/mpeg"&gt;
+    &lt;source src="audio.ogg" type="audio/ogg"&gt;
+    Votre navigateur ne supporte pas l'audio HTML5.
+&lt;/audio&gt;</code></pre>
+
+                            <h3>Attributs de &lt;audio&gt;</h3>
+
+                            <pre><code class="language-html">&lt;audio 
+    controls          &lt;!-- Affiche les contrôles --&gt;
+    autoplay          &lt;!-- Lecture automatique --&gt;
+    loop              &lt;!-- Lecture en boucle --&gt;
+    muted             &lt;!-- Muet par défaut --&gt;
+    preload="auto"&gt;   &lt;!-- Préchargement --&gt;
+    &lt;source src="musique.mp3" type="audio/mpeg"&gt;
+&lt;/audio&gt;</code></pre>
+
+                            <h2>Iframe - Intégrer du contenu externe</h2>
+
+                            <p>
+                                <code>&lt;iframe&gt;</code> permet d'intégrer une page web dans une autre
+                                (YouTube, Google Maps, etc.).
+                            </p>
+
+                            <pre><code class="language-html">&lt;!-- Vidéo YouTube --&gt;
+&lt;iframe 
+    width="560" 
+    height="315" 
+    src="https://www.youtube.com/embed/VIDEO_ID"
+    title="Titre de la vidéo"
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen&gt;
+&lt;/iframe&gt;
+
+&lt;!-- Google Maps --&gt;
+&lt;iframe 
+    src="https://www.google.com/maps/embed?pb=..."
+    width="600" 
+    height="450" 
+    style="border:0;" 
+    allowfullscreen="" 
+    loading="lazy"&gt;
+&lt;/iframe&gt;</code></pre>
+
+                            <aside class="tips alert">
+                                <h3>💡 Astuces</h3>
+                                <ul>
+                                    <li><strong>Toujours</strong> inclure l'attribut <code>alt</code> sur les images
+                                        (obligatoire pour l'accessibilité)</li>
+                                    <li>Utilisez <code>loading="lazy"</code> pour les images en bas de page (améliore
+                                        les performances)</li>
+                                    <li>Optimisez vos images avant de les uploader (compression, dimensions adaptées)
+                                    </li>
+                                    <li>Préférez WebP pour un meilleur ratio qualité/taille</li>
+                                    <li>Utilisez <code>&lt;picture&gt;</code> pour le responsive design avancé</li>
+                                    <li>Ajoutez toujours <code>controls</code> aux vidéos et audios (accessibilité)</li>
+                                    <li>N'utilisez pas <code>autoplay</code> avec son (mauvaise UX)</li>
+                                    <li>Fournissez plusieurs formats (MP4 + WebM pour vidéos)</li>
+                                    <li>Spécifiez width/height pour éviter le layout shift</li>
+                                    <li>Utilisez un <code>poster</code> pour les vidéos (aperçu)</li>
+                                </ul>
+                            </aside>
+
+                            <aside class="common-mistakes alert">
+                                <h3>⚠️ Erreurs fréquentes à éviter</h3>
+                                <ul>
+                                    <li><strong>Oublier l'attribut alt</strong> : Obligatoire pour l'accessibilité (même
+                                        vide pour images décoratives)</li>
+                                    <li><strong>Images trop lourdes</strong> : Optimisez avant upload (compression JPEG
+                                        à 80-85%)</li>
+                                    <li><strong>Mauvais chemins</strong> : Vérifiez les chemins relatifs/absolus</li>
+                                    <li><strong>Alt="image"</strong> : Description trop générique, soyez précis</li>
+                                    <li><strong>autoplay avec son</strong> : Très mauvaise UX, interdit par certains
+                                        navigateurs</li>
+                                    <li><strong>Oublier controls</strong> : L'utilisateur ne peut pas contrôler la
+                                        lecture</li>
+                                    <li><strong>Un seul format vidéo</strong> : Toujours fournir MP4 + WebM pour
+                                        compatibilité</li>
+                                    <li><strong>Iframe sans title</strong> : Mauvais pour l'accessibilité</li>
+                                    <li><strong>Images dans HTML au lieu de CSS</strong> : Images décoratives devraient
+                                        être en CSS</li>
+                                    <li><strong>Ne pas spécifier les dimensions</strong> : Provoque du layout shift</li>
+                                </ul>
+                            </aside>
+
+                            <h2>Résumé du chapitre</h2>
+
+                            <div class="card" style="background-color: var(--surface);">
+                                <div class="card-body">
+                                    <p><strong>Balises médias apprises :</strong></p>
+                                    <ul>
+                                        <li><code>&lt;img src="..." alt="..."&gt;</code> : Images (attributs src et alt
+                                            obligatoires)</li>
+                                        <li><code>&lt;picture&gt;</code> : Images responsives avec plusieurs sources
+                                        </li>
+                                        <li><code>&lt;video controls&gt;</code> : Vidéos avec contrôles</li>
+                                        <li><code>&lt;audio controls&gt;</code> : Fichiers audio</li>
+                                        <li><code>&lt;iframe&gt;</code> : Contenu externe embarqué</li>
+                                    </ul>
+                                    <p class="mt-3"><strong>Attributs clés :</strong></p>
+                                    <ul>
+                                        <li><code>loading="lazy"</code> : Chargement paresseux</li>
+                                        <li><code>poster</code> : Image de prévisualisation pour vidéos</li>
+                                        <li><code>controls</code> : Afficher les contrôles média</li>
+                                        <li><code>alt</code> : Description alternative (accessibilité)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch06"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Galerie d'images simple</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez une galerie avec 4 images :</p>
+                                    <ul>
+                                        <li>Utilisez des images avec des URLs de placeholder
+                                            (https://via.placeholder.com/300x200)</li>
+                                        <li>Ajoutez des attributs alt descriptifs</li>
+                                        <li>Spécifiez width="300" et height="200"</li>
+                                        <li>Ajoutez loading="lazy" sauf pour la première image</li>
+                                    </ul>
+                                </div>
+                                <div class="exercise-solution">
+                                    <button class="btn btn-outline btn-sm"
+                                        onclick="this.nextElementSibling.style.display='block'; this.style.display='none';">
+                                        Voir la solution
+                                    </button>
+                                    <div style="display:none;">
+                                        <pre><code class="language-html">&lt;h2&gt;Ma galerie photo&lt;/h2&gt;
+
+&lt;img src="https://via.placeholder.com/300x200/FF6B6B/FFFFFF?text=Photo+1" 
+     alt="Paysage de montagne enneigée" 
+     width="300" 
+     height="200"&gt;
+
+&lt;img src="https://via.placeholder.com/300x200/4ECDC4/FFFFFF?text=Photo+2" 
+     alt="Plage paradisiaque avec palmiers" 
+     width="300" 
+     height="200" 
+     loading="lazy"&gt;
+
+&lt;img src="https://via.placeholder.com/300x200/45B7D1/FFFFFF?text=Photo+3" 
+     alt="Ville la nuit avec gratte-ciels illuminés" 
+     width="300" 
+     height="200" 
+     loading="lazy"&gt;
+
+&lt;img src="https://via.placeholder.com/300x200/96CEB4/FFFFFF?text=Photo+4" 
+     alt="Forêt dense avec rayons de soleil" 
+     width="300" 
+     height="200" 
+     loading="lazy"&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Lecteur vidéo HTML5</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez un lecteur vidéo avec :</p>
+                                    <ul>
+                                        <li>Balise <code>&lt;video&gt;</code> avec contrôles</li>
+                                        <li>Dimensions : 800x450</li>
+                                        <li>Image poster (utilisez un placeholder)</li>
+                                        <li>Deux sources : MP4 et WebM</li>
+                                        <li>Message de secours pour navigateurs incompatibles</li>
+                                        <li>Attribut preload="metadata"</li>
+                                    </ul>
+                                </div>
+                                <div class="exercise-solution">
+                                    <button class="btn btn-outline btn-sm"
+                                        onclick="this.nextElementSibling.style.display='block'; this.style.display='none';">
+                                        Voir la solution
+                                    </button>
+                                    <div style="display:none;">
+                                        <pre><code class="language-html">&lt;h2&gt;Vidéo de présentation&lt;/h2&gt;
+
+&lt;video controls 
+       width="800" 
+       height="450"
+       poster="https://via.placeholder.com/800x450/333/FFF?text=Vidéo"
+       preload="metadata"&gt;
+    &lt;source src="presentation.mp4" type="video/mp4"&gt;
+    &lt;source src="presentation.webm" type="video/webm"&gt;
+    &lt;p&gt;
+        Votre navigateur ne supporte pas la lecture de vidéos HTML5.
+        &lt;a href="presentation.mp4"&gt;Télécharger la vidéo&lt;/a&gt;
+    &lt;/p&gt;
+&lt;/video&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="exercise hard">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Page multimédia complète</h3>
+                                    <span class="exercise-difficulty">Difficile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez une page "Portfolio" avec :</p>
+                                    <ul>
+                                        <li>Un titre principal et une introduction</li>
+                                        <li>Section "Photos" : 6 images responsive avec &lt;picture&gt;</li>
+                                        <li>Section "Vidéo" : Lecteur vidéo HTML5 complet</li>
+                                        <li>Section "Podcast" : Lecteur audio avec 2 formats (MP3 + OGG)</li>
+                                        <li>Section "Localisation" : iframe Google Maps</li>
+                                        <li>Tous les éléments doivent être accessibles (alt, title, etc.)</li>
+                                        <li>Utilisation appropriée de loading="lazy"</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch05-liens-navigation.html" class="chapter-nav-btn">← Précédent : Liens et
+                                navigation</a>
+                            <a href="ch07-listes.html" class="chapter-nav-btn">Suivant : Listes →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">
+                                ✓ Marquer ce chapitre comme terminé
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'html';
+        const chapterId = 'ch06-images-medias';
+        const chapters = [{ id: "ch01-introduction", title: "Introduction au HTML" }, { id: "ch02-structure", title: "Structure d'un document HTML" }, { id: "ch03-balises-essentielles", title: "Les balises essentielles" }, { id: "ch04-texte-formatage", title: "Texte et formatage" }, { id: "ch05-liens-navigation", title: "Liens et navigation" }, { id: "ch06-images-medias", title: "Images et médias" }, { id: "ch07-listes", title: "Listes" }, { id: "ch08-tableaux", title: "Tableaux" }, { id: "ch09-formulaires-1", title: "Formulaires - Partie 1" }, { id: "ch10-formulaires-2", title: "Formulaires - Partie 2" }, { id: "ch11-html-semantique", title: "HTML sémantique" }, { id: "ch12-metadonnees-seo", title: "Métadonnées et SEO" }, { id: "ch13-accessibilite", title: "Accessibilité" }, { id: "ch14-html5-apis", title: "HTML5 APIs" }, { id: "ch15-bonnes-pratiques", title: "Bonnes pratiques" }];
+
+        const quizData = {
+            title: "Quiz - Images et médias",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                { question: "Quels attributs sont obligatoires pour la balise &lt;img&gt; ?", type: "multiple", options: ["src", "alt", "width", "height"], correct: [0, 1], explanation: "src (source) et alt (texte alternatif) sont obligatoires. width et height sont optionnels mais recommandés." },
+                { question: "Quelle est la bonne utilisation de l'attribut alt pour une image décorative ?", type: "single", options: ["alt='image'", "alt='decoration'", "alt=''", "Ne pas mettre d'attribut alt"], correct: 2, explanation: "Pour les images purement décoratives, utilisez alt='' (vide) pour que les lecteurs d'écran les ignorent." },
+                { question: "Quel format d'image est vectoriel et redimensionnable sans perte ?", type: "single", options: ["JPEG", "PNG", "SVG", "GIF"], correct: 2, explanation: "SVG (Scalable Vector Graphics) est vectoriel, donc redimensionnable à l'infini sans perte de qualité." },
+                { question: "Comment activer le chargement paresseux (lazy loading) ?", type: "single", options: ["lazy='true'", "loading='lazy'", "defer='lazy'", "preload='lazy'"], correct: 1, explanation: "L'attribut loading='lazy' active le chargement paresseux natif." },
+                { question: "Quelle balise permet de servir différentes images selon la taille d'écran ?", type: "single", options: ["&lt;img&gt;", "&lt;picture&gt;", "&lt;source&gt;", "&lt;media&gt;"], correct: 1, explanation: "&lt;picture&gt; avec plusieurs &lt;source&gt; permet des images adaptatives." },
+                { question: "Quel attribut affiche les contrôles d'une vidéo ?", type: "single", options: ["controls", "show-controls", "player", "display"], correct: 0, explanation: "L'attribut controls affiche les contrôles de lecture (play, pause, volume, etc.)." },
+                { question: "Comment spécifier une image de prévisualisation pour une vidéo ?", type: "single", options: ["preview", "thumbnail", "poster", "image"], correct: 2, explanation: "L'attribut poster spécifie l'image affichée avant la lecture." },
+                { question: "Formats vidéo recommandés pour compatibilité maximale :", type: "multiple", options: ["MP4", "AVI", "WebM", "MOV"], correct: [0, 2], explanation: "MP4 et WebM offrent la meilleure compatibilité navigateurs." },
+                { question: "Pourquoi éviter autoplay avec son sur les vidéos ?", type: "single", options: ["Consomme trop de bande passante", "Mauvaise expérience utilisateur", "Interdit par la loi", "Ralentit la page"], correct: 1, explanation: "Lecture automatique avec son est très intrusive et dégradé l'expérience utilisateur." },
+                { question: "Quelle balise permet d'intégrer une vidéo YouTube ?", type: "single", options: ["&lt;video&gt;", "&lt;embed&gt;", "&lt;iframe&gt;", "&lt;object&gt;"], correct: 2, explanation: "&lt;iframe&gt; est utilisée avec l'URL d'embed YouTube." }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+            QuizSystem.createQuiz(quizData, 'quiz-ch06');
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+    </script>
+</body>
+
+</html>

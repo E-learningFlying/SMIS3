@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 4 : Conditions - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Langage C</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch01-introduction.html">1. Introduction</a></li>
+                            <li><a href="ch02-variables.html">2. Variables et Types</a></li>
+                            <li><a href="ch03-operateurs.html">3. Opérateurs</a></li>
+                            <li><a href="ch04-conditions.html" class="active">4. Conditions</a></li>
+                            <li><a href="ch05-boucles.html">5. Boucles</a></li>
+                            <li><a href="ch06-fonctions.html">6. Fonctions</a></li>
+                            <li><a href="ch07-pointeurs-bases.html">7. Pointeurs (Bientôt)</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Cours C</a></li>
+                                <li class="breadcrumb-item active">Chapitre 4</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 4 : Structures de Contrôle</h1>
+
+                        <!-- Section 1 -->
+                        <section class="mb-5">
+                            <h2>1. Le bloc If / Else</h2>
+                            <p>La structure de base pour prendre des décisions.</p>
+                            <pre><code class="language-c">if (condition) {
+    // Exécuté si Vrai
+} else if (autre_condition) {
+    // Exécuté si la première est fausse et celle-ci vraie
+} else {
+    // Exécuté si tout est faux
+}</code></pre>
+                            <div class="alert alert-warning">
+                                <strong>Attention aux accolades :</strong> Elles sont optionnelles s'il n'y a qu'une
+                                seule instruction, mais il est recommandé de TOUJOURS les mettre pour éviter des bugs.
+                            </div>
+                        </section>
+
+                        <!-- Section 2 -->
+                        <section class="mb-5">
+                            <h2>2. Le Switch / Case</h2>
+                            <p>Idéal pour tester une seule variable contre plusieurs valeurs constantes (entiers ou
+                                caractères).</p>
+                            <pre><code class="language-c">switch (variable) {
+    case 1:
+        // Code
+        break; // TRES IMPORTANT
+    case 2:
+        // Code
+        break;
+    default:
+        // Si aucun cas ne correspond
+}</code></pre>
+                            <p>Sans le <code>break</code>, le programme continue d'exécuter les instructions du cas
+                                suivant (c'est le "fall-through").</p>
+                        </section>
+
+                        <!-- Section 3 -->
+                        <section class="mb-5">
+                            <h2>3. L'opérateur Ternaire</h2>
+                            <p>Une façon ultra-courte d'écrire un if/else qui renvoie une valeur.</p>
+                            <pre><code class="language-c">// Condition ? ValeurSiVrai : ValeurSiFaux
+int max = (a > b) ? a : b;</code></pre>
+                        </section>
+
+                        <!-- QUIZ -->
+                        <section class="my-5 p-4 border rounded bg-white shadow-sm">
+                            <h3 class="mb-4">🧠 Quiz de Validation (6 Questions)</h3>
+
+                            <!-- Q1 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">1. À quoi sert le `else` ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">À tester une
+                                        nouvelle condition</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">À exécuter un
+                                        code si la condition if est fausse</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">À répéter le
+                                        code</button>
+                                </div>
+                            </div>
+
+                            <!-- Q2 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">2. Dans un `switch`, que se passe-t-il si on oublie le `break` ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Erreur de
+                                        compilation</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Le code
+                                        continue dans le `case` suivant</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Le programme
+                                        s'arrête</button>
+                                </div>
+                            </div>
+
+                            <!-- Q3 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">3. Peut-on utiliser un `switch` avec des nombres flottants (float) ?
+                                </p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Oui</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Non, seulement
+                                        entiers et char</button>
+                                </div>
+                            </div>
+
+                            <!-- Q4 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">4. Quelle est la syntaxe correcte de l'opérateur ternaire ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">cond ? x :
+                                        y</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">cond : x ?
+                                        y</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">cond ? x ;
+                                        y</button>
+                                </div>
+                            </div>
+
+                            <!-- Q5 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">5. Comment tester si `x` est égal à 10 ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">if (x =
+                                        10)</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">if (x ==
+                                        10)</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">if (x :
+                                        10)</button>
+                                </div>
+                            </div>
+
+                            <!-- Q6 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">6. Le bloc `default` dans un switch est-il obligatoire ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Oui</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Non, c'est
+                                        optionnel</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCISES -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">💻 Exercices Pratiques</h3>
+
+                            <!-- Ex 1 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-header bg-primary text-white">Exercice 1 : Positif ou Négatif</div>
+                                    <div class="card-body">
+                                        <p>Écrivez un programme qui vérifie la valeur d'une variable <code>n</code>.
+                                            Affichez "Positif" si n > 0, "Négatif" si n < 0, et "Nul" si n==0.</p>
+                                                <button class="btn btn-outline-primary btn-sm"
+                                                    onclick="toggleSolution('sol1')">Voir Solution</button>
+                                                <div id="sol1" class="solution-box">
+                                                    <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int n = -5;
+    if (n > 0) {
+        printf("Positif\n");
+    } else if (n < 0) {
+        printf("Négatif\n");
+    } else {
+        printf("Nul\n");
+    }
+    return 0;
+}</code></pre>
+                                                </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 2 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-success text-white">Exercice 2 : Le Maximum</div>
+                                    <div class="card-body">
+                                        <p>Déclarez 3 variables a, b, c. Trouvez et affichez la plus grande des trois.
+                                        </p>
+                                        <button class="btn btn-outline-success btn-sm"
+                                            onclick="toggleSolution('sol2')">Voir Solution</button>
+                                        <div id="sol2" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int a = 10, b = 25, c = 5;
+    int max = a;
+    
+    if (b > max) max = b;
+    if (c > max) max = c;
+    
+    printf("Le max est : %d\n", max);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 3 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-info text-dark">Exercice 3 : Menu interactif</div>
+                                    <div class="card-body">
+                                        <p>Créez un menu avec switch :<br>
+                                            1. Jouer<br>
+                                            2. Options<br>
+                                            3. Quitter<br>
+                                            Affichez un message différent pour chaque choix, et "Erreur" si le choix est
+                                            invalide.</p>
+                                        <button class="btn btn-outline-info btn-sm"
+                                            onclick="toggleSolution('sol3')">Voir Solution</button>
+                                        <div id="sol3" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int choix = 2; // Simulé
+    switch (choix) {
+        case 1:
+            printf("Lancement du jeu...\n");
+            break;
+        case 2:
+            printf("Ouverture des options...\n");
+            break;
+        case 3:
+            printf("Au revoir !\n");
+            break;
+        default:
+            printf("Choix invalide.\n");
+    }
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 4 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-warning text-dark">Exercice 4 : Ternaire Express</div>
+                                    <div class="card-body">
+                                        <p>Utilisez l'opérateur ternaire pour dire si un nombre est "Pair" ou "Impair"
+                                            en une seule ligne de code (dans le printf).</p>
+                                        <button class="btn btn-outline-warning btn-sm"
+                                            onclick="toggleSolution('sol4')">Voir Solution</button>
+                                        <div id="sol4" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int n = 7;
+    printf("Le nombre est %s\n", (n % 2 == 0) ? "Pair" : "Impair");
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 5 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-danger">
+                                    <div class="card-header bg-danger text-white">Exercice 5 : Année Bissextile
+                                        (Difficile)</div>
+                                    <div class="card-body">
+                                        <p>Une année est bissextile si elle est divisible par 4, SAUF si elle est
+                                            divisible par 100 mais PAS par 400. Écrivez la condition.</p>
+                                        <p>Ex: 2000 (Oui), 2024 (Oui), 1900 (Non), 2023 (Non).</p>
+                                        <button class="btn btn-outline-danger btn-sm"
+                                            onclick="toggleSolution('sol5')">Voir Solution</button>
+                                        <div id="sol5" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int annee = 1900;
+    if ((annee % 4 == 0 && annee % 100 != 0) || (annee % 400 == 0)) {
+        printf("%d est bissextile.\n", annee);
+    } else {
+        printf("%d n'est pas bissextile.\n", annee);
+    }
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+
+                        <div class="text-center my-5">
+                            <a href="ch03-operateurs.html" class="btn btn-outline-secondary btn-lg me-2">← Précédent</a>
+                            <a href="ch05-boucles.html" class="btn btn-success btn-lg">Chapitre Suivant →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            Array.from(group.children).forEach(b => {
+                b.classList.remove('btn-success', 'btn-danger');
+                b.classList.add('btn-outline-secondary');
+            });
+            if (isCorrect) {
+                btn.classList.add('btn-success');
+                btn.classList.remove('btn-outline-secondary');
+            } else {
+                btn.classList.add('btn-danger');
+                btn.classList.remove('btn-outline-secondary');
+            }
+        }
+
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

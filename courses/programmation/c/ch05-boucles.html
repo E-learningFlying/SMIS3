@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 5 : Les Boucles - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Tableau de bord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Langage C</h3>
+                        <ul class="chapter-list">
+                            <li><a href="ch01-introduction.html">1. Introduction</a></li>
+                            <li><a href="ch02-variables.html">2. Variables et Types</a></li>
+                            <li><a href="ch03-operateurs.html">3. Opérateurs</a></li>
+                            <li><a href="ch04-conditions.html">4. Conditions</a></li>
+                            <li><a href="ch05-boucles.html" class="active">5. Boucles</a></li>
+                            <li><a href="ch06-fonctions.html">6. Fonctions</a></li>
+                            <li><a href="ch07-pointeurs-bases.html">7. Pointeurs (Bientôt)</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Cours C</a></li>
+                                <li class="breadcrumb-item active">Chapitre 5</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="mb-4">Chapitre 5 : Les Boucles</h1>
+
+                        <!-- Section 1 -->
+                        <section class="mb-5">
+                            <h2>1. La Boucle FOR</h2>
+                            <p>Parfaite quand on connaît le nombre de tours à l'avance.</p>
+                            <pre><code class="language-c">for (int i = 0; i < 5; i++) {
+    printf("Tour %d\n", i);
+}</code></pre>
+                            <ul>
+                                <li><strong>Initialisation (i=0)</strong> : Exécutée une seule fois au début.</li>
+                                <li><strong>Condition (i < 5)</strong> : Vérifiée avant chaque tour.</li>
+                                <li><strong>Incrémentation (i++)</strong> : Exécutée à la fin de chaque tour.</li>
+                            </ul>
+                        </section>
+
+                        <!-- Section 2 -->
+                        <section class="mb-5">
+                            <h2>2. La Boucle WHILE</h2>
+                            <p>Utilisée quand on ne sait pas combien de temps on doit boucler (ex: tant que le joueur
+                                est en vie).</p>
+                            <pre><code class="language-c">while (condition) {
+    // Code exécuté tant que la condition est VRAIE
+}</code></pre>
+                            <div class="alert alert-danger">Attention aux boucles infinies ! Assurez-vous que la
+                                condition devienne fausse à un moment donné.</div>
+                        </section>
+
+                        <!-- Section 3 -->
+                        <section class="mb-5">
+                            <h2>3. La Boucle DO...WHILE</h2>
+                            <p>La particularité ? Elle s'exécute <strong>au moins une fois</strong>, car la condition
+                                est testée à la fin.</p>
+                            <pre><code class="language-c">do {
+    // Code exécuté au moins une fois
+} while (condition);</code></pre>
+                        </section>
+
+                        <!-- Section 4 -->
+                        <section class="mb-5">
+                            <h2>4. Break et Continue</h2>
+                            <ul>
+                                <li><code>break</code> : Sort immédiatement de la boucle (arrête tout).</li>
+                                <li><code>continue</code> : Passe immédiatement au tour suivant (saute le code restant
+                                    dans le bloc pour ce tour).</li>
+                            </ul>
+                        </section>
+
+                        <!-- QUIZ -->
+                        <section class="my-5 p-4 border rounded bg-white shadow-sm">
+                            <h3 class="mb-4">🧠 Quiz de Validation (6 Questions)</h3>
+
+                            <!-- Q1 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">1. Quelle boucle s'exécute toujours au moins une fois ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">for</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, false)">while</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="check(this, true)">do...while</button>
+                                </div>
+                            </div>
+
+                            <!-- Q2 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">2. Que fait l'instruction `break` dans une boucle ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Elle arrête
+                                        complètement la boucle</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Elle met la
+                                        boucle en pause</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Elle saute au
+                                        tour suivant</button>
+                                </div>
+                            </div>
+                            <!-- Q3 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">3. `for(;;)` crée :</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Une erreur de
+                                        compilation</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Une boucle
+                                        infinie</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Une boucle
+                                        vide qui ne fait rien</button>
+                                </div>
+                            </div>
+                            <!-- Q4 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">4. Que fait `continue` ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Arrête le
+                                        programme</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Force le
+                                        passage à l'itération suivante</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Recommence le
+                                        tour actuel</button>
+                                </div>
+                            </div>
+                            <!-- Q5 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">5. Dans `for(A; B; C)`, quand C est-il exécuté ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Au début de
+                                        chaque tour</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">À la fin de
+                                        chaque tour</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Une seule
+                                        fois à la fin</button>
+                                </div>
+                            </div>
+                            <!-- Q6 -->
+                            <div class="mb-4">
+                                <p class="fw-bold">6. Peut-on imbriquer des boucles (une boucle dans une boucle) ?</p>
+                                <div class="btn-group w-100">
+                                    <button class="btn btn-outline-secondary" onclick="check(this, true)">Oui, bien
+                                        sûr</button>
+                                    <button class="btn btn-outline-secondary" onclick="check(this, false)">Non, interdit
+                                        en C</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- EXERCISES -->
+                        <section class="my-5">
+                            <h3 class="mb-4 border-bottom pb-2">💻 Exercices Pratiques</h3>
+
+                            <!-- Ex 1 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-header bg-primary text-white">Exercice 1 : Compter</div>
+                                    <div class="card-body">
+                                        <p>Affichez les nombres de 1 à 10 sur une même ligne, séparés par des espaces.
+                                        </p>
+                                        <button class="btn btn-outline-primary btn-sm"
+                                            onclick="toggleSolution('sol1')">Voir Solution</button>
+                                        <div id="sol1" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    for (int i = 1; i <= 10; i++) {
+        printf("%d ", i);
+    }
+    printf("\n");
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 2 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-success text-white">Exercice 2 : Table de multiplication
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Affichez la table de 7 (de 1x7 à 10x7).</p>
+                                        <button class="btn btn-outline-success btn-sm"
+                                            onclick="toggleSolution('sol2')">Voir Solution</button>
+                                        <div id="sol2" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int nombre = 7;
+    for (int i = 1; i <= 10; i++) {
+        printf("%d x %d = %d\n", i, nombre, i * nombre);
+    }
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 3 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-info text-dark">Exercice 3 : Somme des N premiers nombres
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Calculez la somme 1 + 2 + 3 + ... + 100.</p>
+                                        <button class="btn btn-outline-info btn-sm"
+                                            onclick="toggleSolution('sol3')">Voir Solution</button>
+                                        <div id="sol3" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int somme = 0;
+    for (int i = 1; i <= 100; i++) {
+        somme += i;
+    }
+    printf("La somme est : %d\n", somme);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 4 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-warning text-dark">Exercice 4 : Saisie sécurisée</div>
+                                    <div class="card-body">
+                                        <p>Utilisez <code>do...while</code> pour demander un nombre à l'utilisateur tant
+                                            que ce nombre n'est pas compris entre 1 et 10. (Code simulé pour l'exemple).
+                                        </p>
+                                        <button class="btn btn-outline-warning btn-sm"
+                                            onclick="toggleSolution('sol4')">Voir Solution</button>
+                                        <div id="sol4" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int n;
+    do {
+        printf("Entrez un nombre entre 1 et 10 : ");
+        // scanf("%d", &n); // (À décommenter pour tester en vrai)
+        n = 5; // Simulation
+    } while (n < 1 || n > 10);
+    
+    printf("Merci, %d est valide.\n", n);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ex 5 -->
+                            <div class="exercise-card mb-4">
+                                <div class="card h-100 border-danger">
+                                    <div class="card-header bg-danger text-white">Exercice 5 : Factorielle !</div>
+                                    <div class="card-body">
+                                        <p>Calculez la factorielle de 5 (5! = 5*4*3*2*1 = 120).</p>
+                                        <button class="btn btn-outline-danger btn-sm"
+                                            onclick="toggleSolution('sol5')">Voir Solution</button>
+                                        <div id="sol5" class="solution-box">
+                                            <pre><code class="language-c">#include <stdio.h>
+
+int main() {
+    int n = 5;
+    int fact = 1;
+    for (int i = 1; i <= n; i++) {
+        fact *= i;
+    }
+    printf("Factorielle de %d = %d\n", n, fact);
+    return 0;
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+
+                        <div class="text-center my-5">
+                            <a href="ch04-conditions.html" class="btn btn-outline-secondary btn-lg me-2">← Précédent</a>
+                            <a href="ch06-fonctions.html" class="btn btn-success btn-lg">Chapitre Suivant →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function check(btn, isCorrect) {
+            const group = btn.parentElement;
+            Array.from(group.children).forEach(b => {
+                b.classList.remove('btn-success', 'btn-danger');
+                b.classList.add('btn-outline-secondary');
+            });
+            if (isCorrect) {
+                btn.classList.add('btn-success');
+                btn.classList.remove('btn-outline-secondary');
+            } else {
+                btn.classList.add('btn-danger');
+                btn.classList.remove('btn-outline-secondary');
+            }
+        }
+
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

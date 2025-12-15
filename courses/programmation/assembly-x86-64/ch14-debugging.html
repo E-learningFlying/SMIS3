@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chapitre 14 : Debugging avec emu8086">
+    <title>Chapitre 14 : Debugging - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 0.375rem;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .solution-box h4 {
+            color: #0d6efd;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .solution-box pre {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .solution-toggle {
+            transition: all 0.2s ease;
+        }
+
+        .solution-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours Assembleur 8086</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours Assembleur 8086</a></li>
+                                <li class="breadcrumb-item active">Chapitre 14 : Debugging</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 14</span>
+                            <h1 class="mb-3">Techniques de Debugging</h1>
+                            <p class="text-lg text-secondary">
+                                Apprenez à trouver et corriger vos erreurs grâce aux outils puissants d'emu8086 :
+                                exécution pas à pas, inspection mémoire et stack.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 1h</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch13-ports.html" class="chapter-nav-btn">← Précédent : Ports</a>
+                            <a href="ch15-projets.html" class="chapter-nav-btn">Suivant : Projets Finaux →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>Pourquoi le debugging est vital</h2>
+
+                            <p>En assembleur, une seule erreur (ex: mauvaise adresse mémoire) peut faire planter tout le
+                                programme sans message d'erreur clair. Le debugger est votre microscope pour voir ce qui
+                                se passe vraiment.</p>
+
+                            <h2>L'interface Debugger d'emu8086</h2>
+
+                            <p>Lorsque vous cliquez sur <strong>Emulate</strong>, plusieurs fenêtres s'ouvrent :</p>
+
+                            <ol>
+                                <li><strong>Code source</strong> : Votre code avec la ligne jaune (prochaine
+                                    instruction).</li>
+                                <li><strong>Registres</strong> : Valeurs actuelles de AX, BX, etc.</li>
+                                <li><strong>Mémoire</strong> : Contenu brut de la RAM.</li>
+                                <li><strong>Flags</strong> : État des drapeaux (ZF, CF, SF...).</li>
+                                <li><strong>Stack</strong> : Contenu de la pile.</li>
+                                <li><strong>Screen</strong> : La sortie console.</li>
+                            </ol>
+
+                            <h2>Outils Essentiels</h2>
+
+                            <h3>1. Step-by-Step (F8)</h3>
+                            <p>Exécute le programme <strong>une instruction à la fois</strong>. C'est LA méthode pour
+                                comprendre la logique.</p>
+
+                            <h3>2. Step Over (F8 ou F10 selon config)</h3>
+                            <p>Exécute une procédure <code>CALL</code> d'un coup, sans entrer dedans pas à pas.</p>
+
+                            <h3>3. Flags (Drapeaux)</h3>
+                            <p>Vérifiez le bouton <strong>[Flags]</strong>. Si <code>CMP AX, BX</code> ne marche pas
+                                comme prévu, regardez ZF (Zero Flag) et CF (Carry Flag) juste après l'instruction.</p>
+
+                            <h3>4. Fenêtre Vars</h3>
+                            <p>Cliquez sur <strong>[Vars]</strong> pour voir vos variables (<code>tab</code>,
+                                <code>msg</code>) avec leurs valeurs actuelles.</p>
+
+                            <h3>5. Memory View</h3>
+                            <p>Utile pour voir si vous écrivez au bon endroit. Tapez l'adresse (ex:
+                                <code>0700:0100</code>) pour y aller.</p>
+
+                        </section>
+
+                        <aside class="tips alert">
+                            <h3>💡 Astuces de pro</h3>
+                            <ul>
+                                <li>Si votre boucle ne s'arrête pas, vérifiez CX et l'instruction qui le modifie.</li>
+                                <li>Si <code>RET</code> plante, vérifiez si vous avez bien fait autant de
+                                    <code>POP</code> que de <code>PUSH</code> (voir Stack View).</li>
+                                <li>Utilisez des <strong>valeurs sentinelles</strong> (ex: remplir une zone avec
+                                    <code>CC</code> ou <code>FF</code>) pour voir si votre programme écrit trop loin
+                                    (Buffer Overflow).</li>
+                            </ul>
+                        </aside>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch14"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Trouver l'erreur (Boucle infinie)</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Ce code a un bug et boucle à l'infini. Trouvez pourquoi en utilisant F8.</p>
+                                    <pre><code class="language-asm">MOV CX, 5
+boucle:
+    INC AX
+    INC CX    ; <--- Le problème est ici ;-)
+    LOOP boucle
+    RET</code></pre>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch14-ex1')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch14-ex1" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution</h4>
+                                    <p><strong>L'erreur :</strong> L'instruction <code>INC CX</code> incrémente le
+                                        compteur.</p>
+                                    <p><code>LOOP</code> décrémente CX. Donc : 5 -> INC -> 6 -> LOOP -> 5.</p>
+                                    <p>CX reste toujours à 5 ! La boucle est infinie.</p>
+                                    <p><strong>Correction :</strong> Supprimez <code>INC CX</code>.</p>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Observer la Pile</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Exécutez ce code pas à pas et observez la fenêtre <strong>Stack</strong> :</p>
+                                    <pre><code class="language-asm">MOV AX, 1234h
+PUSH AX
+MOV BX, 5678h
+PUSH BX
+POP CX
+POP DX</code></pre>
+                                    <p>Questions :</p>
+                                    <ul>
+                                        <li>Quelle valeur est au sommet après PUSH AX ?</li>
+                                        <li>Quelle valeur a SP ?</li>
+                                        <li>Dans quel ordre sortent les valeurs ?</li>
+                                        <li>Valeur finale de CX et DX ?</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch14-ex2')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch14-ex2" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Analyse Pile</h4>
+                                    <ul>
+                                        <li><strong>Après PUSH AX :</strong> Sommet = 1234h. SP diminue de 2.</li>
+                                        <li><strong>Après PUSH BX :</strong> Sommet = 5678h. SP diminue encore de 2.
+                                        </li>
+                                        <li><strong>POP CX :</strong> Récupère la dernière valeur (LIFO) -> CX = 5678h.
+                                        </li>
+                                        <li><strong>POP DX :</strong> Récupère la valeur précédente -> DX = 1234h.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="exercise hard">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Tracer une procédure</h3>
+                                    <span class="exercise-difficulty">Difficile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Utilisez F8 pour entrer dans le CALL, puis RET pour revenir.</p>
+                                    <pre><code class="language-asm">.CODE
+MAIN PROC
+    MOV AX, 10
+    CALL ma_proc
+    ADD AX, 1
+    HLT
+MAIN ENDP
+
+ma_proc PROC
+    ADD AX, 5
+    RET
+ma_proc ENDP</code></pre>
+                                    <p>Vérifiez que lors du CALL, l'adresse de `ADD AX, 1` (IP) est bien empilée.</p>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch14-ex3')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch14-ex3" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution</h4>
+                                    <p>Pas de code à écrire, mais une expérience à valider :</p>
+                                    <ol>
+                                        <li>Notez l'offset de l'instruction <code>ADD AX, 1</code> (ex: 0005h).</li>
+                                        <li>Faites F8 sur <code>CALL ma_proc</code>.</li>
+                                        <li>Regardez le sommet de la pile (Stack [0000]) -> Vous devriez voir 0005h.
+                                        </li>
+                                        <li>À la fin de <code>RET</code>, IP redevient 0005h.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch13-ports.html" class="chapter-nav-btn">← Précédent : Ports</a>
+                            <a href="ch15-projets.html" class="chapter-nav-btn">Suivant : Projets Finaux →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">✓ Marquer ce chapitre comme
+                                terminé</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nasm.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'assembly-x86-64';
+        const chapterId = 'ch14-debugging';
+
+        const chapters = [
+            { id: "ch01-introduction", title: "Introduction" },
+            { id: "ch02-architecture", title: "Architecture 8086" },
+            { id: "ch03-registres", title: "Registres 16-bit" },
+            { id: "ch04-instructions-base", title: "Instructions de base" },
+            { id: "ch05-adressage", title: "Modes d'adressage" },
+            { id: "ch06-controle", title: "Instructions de contrôle" },
+            { id: "ch07-pile", title: "La pile" },
+            { id: "ch08-procedures", title: "Procédures" },
+            { id: "ch09-chaines", title: "Chaînes" },
+            { id: "ch10-tableaux", title: "Tableaux" },
+            { id: "ch11-interruptions", title: "Interruptions DOS" },
+            { id: "ch12-video", title: "Affichage vidéo" },
+            { id: "ch13-ports", title: "Ports" },
+            { id: "ch14-debugging", title: "Debugging" },
+            { id: "ch15-projets", title: "Projets" }
+        ];
+
+        const quizData = {
+            title: "Quiz - Debugging",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                {
+                    question: "Quelle touche sert à faire du pas-à-pas (Single Step) ?",
+                    type: "single",
+                    options: ["F5", "F8", "F9", "F12"],
+                    correct: 1,
+                    explanation: "F8 est la touche standard dans emu8086 pour Single Step."
+                },
+                {
+                    question: "Quelle fenêtre permet de voir l'état de ZF ou CF ?",
+                    type: "single",
+                    options: ["Vars", "Memory", "Flags", "Stack"],
+                    correct: 2,
+                    explanation: "Le bouton Flags ouvre l'état des drapeaux processeur."
+                },
+                {
+                    question: "Pourquoi est-il utile de regarder la Pile (Stack) ?",
+                    type: "single",
+                    options: [
+                        "Pour voir le code source",
+                        "Pour vérifier les adresses de retour et sauvegardes",
+                        "Pour voir la mémoire vidéo",
+                        "Pour voir les ports"
+                    ],
+                    correct: 1,
+                    explanation: "La pile contient les adresses de retour des CALLs et les valeurs sauvegardées par PUSH."
+                },
+                {
+                    question: "Si mon programme ne s'arrête jamais, à quoi est-ce dû ?",
+                    type: "single",
+                    options: ["Une erreur de syntaxe", "Une boucle infinie", "Un problème vidéo", "Le processeur est trop lent"],
+                    correct: 1,
+                    explanation: "La boucle infinie (ex: JMP vers soi-même ou condition de sortie jamais atteinte) est la cause classique."
+                },
+                {
+                    question: "Que signifie 'Step Over' ?",
+                    type: "single",
+                    options: [
+                        "Sauter une instruction sans l'exécuter",
+                        "Exécuter un CALL en une fois",
+                        "Revenir en arrière",
+                        "Arrêter le programme"
+                    ],
+                    correct: 1,
+                    explanation: "Step Over exécute la fonction appelée comme une seule instruction, sans détailler l'intérieur."
+                },
+                {
+                    question: "Où peut-on voir la valeur d'une variable nommée ?",
+                    type: "single",
+                    options: ["Dans la fenêtre Vars", "Dans le registre AX", "Dans la fenêtre Flags", "Nulle part"],
+                    correct: 0,
+                    explanation: "La fenêtre Vars liste les variables déclarées et leurs valeurs actuelles."
+                },
+                {
+                    question: "Quelle valeur indique une erreur probable type Buffer Overflow ?",
+                    type: "single",
+                    options: ["0000h", "FFFFh", "Données écrasant le code ou d'autres vars", "1234h"],
+                    correct: 2,
+                    explanation: "Si vous écrivez au-delà de la taille prévue d'un tableau, vous écrasez ce qui suit en mémoire."
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+
+            QuizSystem.createQuiz(quizData, 'quiz-ch14');
+
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            const button = event.target;
+            if (solution.style.display === 'none') {
+                solution.style.display = 'block';
+                button.textContent = '🙈 Masquer la solution';
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-primary');
+            } else {
+                solution.style.display = 'none';
+                button.textContent = '👁️ Voir la solution';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline-primary');
+            }
+        }
+    </script>
+</body>
+
+</html>

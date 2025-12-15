@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chapitre 7 : La pile (Stack) en assembleur 8086">
+    <title>Chapitre 7 : La pile - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 0.375rem;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .solution-box h4 {
+            color: #0d6efd;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .solution-box pre {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .solution-toggle {
+            transition: all 0.2s ease;
+        }
+
+        .solution-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours Assembleur 8086</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours Assembleur 8086</a></li>
+                                <li class="breadcrumb-item active">Chapitre 7 : La pile</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 7</span>
+                            <h1 class="mb-3">La pile (Stack)</h1>
+                            <p class="text-lg text-secondary">
+                                Comprenez le concept LIFO, manipulez la pile avec PUSH et POP, et maîtrisez le Stack
+                                Frame.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 1h30</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch06-controle.html" class="chapter-nav-btn">← Précédent : Contrôle</a>
+                            <a href="ch08-procedures.html" class="chapter-nav-btn">Suivant : Procédures →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>Le concept LIFO</h2>
+
+                            <p>
+                                La pile (Stack) est une zone de mémoire spéciale qui fonctionne selon le principe
+                                <strong>LIFO</strong> :
+                                <strong>Last In, First Out</strong> (Dernier entré, Premier sorti).
+                            </p>
+
+                            <div class="alert alert-info">
+                                <h4>📚 Analogie</h4>
+                                <p>Imaginez une pile d'assiettes. Vous posez une assiette sur le dessus (PUSH) et vous
+                                    retirez l'assiette du dessus (POP). Vous ne pouvez pas retirer l'assiette du bas
+                                    sans enlever celles du dessus !</p>
+                            </div>
+
+                            <h2>Les registres de pile</h2>
+
+                            <ul>
+                                <li><strong>SS (Stack Segment)</strong> : Contient l'adresse du segment de pile.</li>
+                                <li><strong>SP (Stack Pointer)</strong> : Pointe sur le <strong>sommet</strong> de la
+                                    pile (dernière valeur empilée).</li>
+                                <li><strong>BP (Base Pointer)</strong> : Utilisé pour accéder aux données dans la pile
+                                    sans modifier SP (utile pour les procédures).</li>
+                            </ul>
+
+                            <p>Dans le 8086, la pile grandit vers les <strong>adresses basses</strong> (vers le bas de
+                                la mémoire). Donc, empiler (PUSH) décrémente SP, et dépiler (POP) incrémente SP.</p>
+
+                            <h2>Instructions PUSH et POP</h2>
+
+                            <h3>PUSH (Empiler)</h3>
+
+                            <p>Place une valeur sur le sommet de la pile.</p>
+
+                            <pre><code class="language-asm">PUSH AX        ; Empile AX
+               ; 1. SP = SP - 2
+               ; 2. [SS:SP] = AX</code></pre>
+
+                            <h3>POP (Dépiler)</h3>
+
+                            <p>Récupère la valeur du sommet de la pile.</p>
+
+                            <pre><code class="language-asm">POP BX         ; Dépile dans BX
+               ; 1. BX = [SS:SP]
+               ; 2. SP = SP + 2</code></pre>
+
+                            <div class="alert alert-warning">
+                                <h4>⚠️ Équilibre de la pile</h4>
+                                <p>Chaque PUSH doit avoir un POP correspondant ! Si vous oubliez de dépiler, SP ne
+                                    reviendra pas à sa position initiale, ce qui peut causer des crashs (surtout avec
+                                    des procédures).</p>
+                            </div>
+
+                            <h3>Sauvegarde et restauration de registres</h3>
+
+                            <p>La pile est souvent utilisée pour sauvegarder des registres temporairement :</p>
+
+                            <pre><code class="language-asm">MOV AX, 1234h
+PUSH AX        ; Sauvegarder AX
+MOV AX, 5678h  ; Modifier AX
+; ... faire quelque chose ...
+POP AX         ; Restaurer AX (AX = 1234h)</code></pre>
+
+                            <div class="alert alert-danger">
+                                <h4>⚠️ Ordre inverse</h4>
+                                <p>On dépile dans l'ordre inverse de l'empilement !</p>
+                                <pre><code class="language-asm">PUSH AX
+PUSH BX
+; ...
+POP BX     ; D'abord BX (dernier entré)
+POP AX     ; Ensuite AX (premier entré)</code></pre>
+                            </div>
+
+                            <h2>Stack Frame (Cadre de pile)</h2>
+
+                            <p>Lors de l'utilisation de procédures (Chapitre 8), on utilise <strong>BP</strong> pour
+                                accéder aux variables locales et aux paramètres passés sur la pile.</p>
+
+                            <pre><code class="language-asm">PUSH BP        ; Sauvegarder l'ancien BP
+MOV BP, SP     ; BP pointe maintenant sur le sommet actuel
+; ...
+; Accès aux paramètres via [BP + offset]
+; ...
+POP BP         ; Restaurer l'ancien BP</code></pre>
+
+                            <h2>Exemples pratiques</h2>
+
+                            <h3>Inverser une séquence avec la pile</h3>
+
+                            <pre><code class="language-asm">MOV AX, 1
+MOV BX, 2
+MOV CX, 3
+
+PUSH AX        ; Pile : 1
+PUSH BX        ; Pile : 2, 1
+PUSH CX        ; Pile : 3, 2, 1
+
+POP AX         ; AX = 3
+POP BX         ; BX = 2
+POP CX         ; CX = 1</code></pre>
+                        </section>
+
+                        <aside class="tips alert">
+                            <h3>💡 Astuces</h3>
+                            <ul>
+                                <li>La pile travaille toujours par mots de 16 bits (on ne PUSH pas AL ou AH seul, mais
+                                    AX).</li>
+                                <li>PUSH reg/mem et POP reg/mem sont possibles.</li>
+                                <li>PUSHF et POPF permettent de sauvegarder/restaurer les drapeaux (Flags).</li>
+                            </ul>
+                        </aside>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch07"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : PUSH et POP de base</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Écrivez un programme qui :</p>
+                                    <ul>
+                                        <li>Met 10 dans AX, 20 dans BX, 30 dans CX, 40 dans DX.</li>
+                                        <li>Empile les 4 registres (PUSH).</li>
+                                        <li>Dépile (POP) dans l'ordre inverse pour les mettre dans SI, DI, BP, SP
+                                            (attention, ne pas écraser SP directement comme ça, disons remettre dans AX,
+                                            BX, CX, DX mais inversés : AX reçoit DX, etc).</li>
+                                        <li>Disons : Dépilez dans AX, BX, CX, DX pour voir l'effet LIFO (AX aura la
+                                            valeur de DX original, etc).</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch07-ex1')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch07-ex1" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Échange via pile</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.CODE
+MAIN PROC
+    MOV AX, 10
+    MOV BX, 20
+    MOV CX, 30
+    MOV DX, 40
+    
+    ; Empilement
+    PUSH AX     ; Pile: 10
+    PUSH BX     ; Pile: 20, 10
+    PUSH CX     ; Pile: 30, 20, 10
+    PUSH DX     ; Pile: 40, 30, 20, 10
+    
+    ; Dépilement (LIFO)
+    POP AX      ; AX = 40 (valeur de DX)
+    POP BX      ; BX = 30 (valeur de CX)
+    POP CX      ; CX = 20 (valeur de BX)
+    POP DX      ; DX = 10 (valeur de AX)
+    
+    ; Vérifiez les valeurs dans le debugger !
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Sauvegarde temporaire</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Vous avez une valeur importante dans AX (ex: 9999h). Vous devez utiliser AX pour
+                                        faire un calcul temporaire (ex: 5 + 5). Écrivez le code pour :</p>
+                                    <ul>
+                                        <li>Sauvegarder AX sur la pile.</li>
+                                        <li>Faire le calcul dans AX.</li>
+                                        <li>Restaurer AX à sa valeur d'origine.</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch07-ex2')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch07-ex2" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Sauvegarde registre</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.CODE
+MAIN PROC
+    MOV AX, 9999h   ; Valeur importante
+    
+    PUSH AX         ; Sauvegarde sur la pile
+    
+    ; Calculs destructifs
+    MOV AX, 5
+    ADD AX, 5       ; AX = 10
+    
+    POP AX          ; Restauration
+    ; AX est revenu à 9999h
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="exercise hard">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Variable locale (Stack Frame manuel)</h3>
+                                    <span class="exercise-difficulty">Difficile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Simulez une variable locale :</p>
+                                    <ul>
+                                        <li>Utilisez BP pour pointer sur le sommet de la pile.</li>
+                                        <li>Réservez de l'espace pour une variable locale en décrémentant SP (SUB SP,
+                                            2).</li>
+                                        <li>Stockez une valeur (ex: 1234h) dans cet espace via [BP-2].</li>
+                                        <li>Nettoyez la pile à la fin.</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch07-ex3')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch07-ex3" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Variable locale</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.CODE
+MAIN PROC
+    PUSH BP         ; Sauvegarder ancien BP
+    MOV BP, SP      ; BP devient le pointeur de base actuel
+    
+    SUB SP, 2       ; Allouer 2 octets pour variable locale
+    
+    MOV WORD PTR [BP-2], 1234h  ; Stocker valeur dans variable locale
+    
+    ; Vérifiez memory à l'adresse SS:BP-2
+    MOV AX, [BP-2]  ; Relire pour tester
+    
+    MOV SP, BP      ; Libérer variable locale (restaurer SP)
+    POP BP          ; Restaurer ancien BP
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+                                    <p><strong>Note :</strong> C'est exactement comme ça que fonctionnent les variables
+                                        locales en C !</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch06-controle.html" class="chapter-nav-btn">← Précédent : Contrôle</a>
+                            <a href="ch08-procedures.html" class="chapter-nav-btn">Suivant : Procédures →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">✓ Marquer ce chapitre comme
+                                terminé</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nasm.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'assembly-x86-64';
+        const chapterId = 'ch07-pile';
+
+        const chapters = [
+            { id: "ch01-introduction", title: "Introduction" },
+            { id: "ch02-architecture", title: "Architecture 8086" },
+            { id: "ch03-registres", title: "Registres 16-bit" },
+            { id: "ch04-instructions-base", title: "Instructions de base" },
+            { id: "ch05-adressage", title: "Modes d'adressage" },
+            { id: "ch06-controle", title: "Instructions de contrôle" },
+            { id: "ch07-pile", title: "La pile" },
+            { id: "ch08-procedures", title: "Procédures" },
+            { id: "ch09-chaines", title: "Chaînes" },
+            { id: "ch10-tableaux", title: "Tableaux" },
+            { id: "ch11-interruptions", title: "Interruptions DOS" },
+            { id: "ch12-video", title: "Affichage vidéo" },
+            { id: "ch13-ports", title: "Ports" },
+            { id: "ch14-debugging", title: "Debugging" },
+            { id: "ch15-projets", title: "Projets" }
+        ];
+
+        const quizData = {
+            title: "Quiz - La pile (Stack)",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                {
+                    question: "Que signifie LIFO ?",
+                    type: "single",
+                    options: [
+                        "Last In First Out",
+                        "Last Integer First Out",
+                        "Long Input Fast Output",
+                        "Left In Front Out"
+                    ],
+                    correct: 0,
+                    explanation: "LIFO (Dernier entré, premier sorti) est le principe de la pile."
+                },
+                {
+                    question: "PUSH AX fait quoi ?",
+                    type: "single",
+                    options: [
+                        "Incrémente SP, stocke AX",
+                        "Décrémente SP de 2, stocke AX à [SP]",
+                        "Stocke AX puis décrémente SP",
+                        "Copie SP dans AX"
+                    ],
+                    correct: 1,
+                    explanation: "La pile grandit vers le bas, donc SP est décrémenté de 2 octets avant de stocker."
+                },
+                {
+                    question: "Dans quel ordre dépile-t-on PUSH A, PUSH B ?",
+                    type: "single",
+                    options: [
+                        "POP A, POP B",
+                        "POP B, POP A",
+                        "N'importe lequel",
+                        "POP A seulement"
+                    ],
+                    correct: 1,
+                    explanation: "C'est LIFO : B est entré en dernier, il sort en premier."
+                },
+                {
+                    question: "SP pointe sur... ?",
+                    type: "single",
+                    options: [
+                        "Le bas de la pile",
+                        "Le sommet de la pile",
+                        "Le segment de pile",
+                        "L'instruction suivante"
+                    ],
+                    correct: 1,
+                    explanation: "SP (Stack Pointer) pointe toujours sur le sommet actuel de la pile (dernière donnée empilée)."
+                },
+                {
+                    question: "BP est utilisé pour... ?",
+                    type: "single",
+                    options: [
+                        "Branch Pointer",
+                        "Base Pointer (Stack Frame)",
+                        "Byte Pointer",
+                        "Back Pointer"
+                    ],
+                    correct: 1,
+                    explanation: "BP sert de base pour accéder aux paramètres et variables dans la pile sans bouger SP."
+                },
+                {
+                    question: "Combien d'octets PUSH AX utilise-t-il ?",
+                    type: "single",
+                    options: ["1", "2", "4", "8"],
+                    correct: 1,
+                    explanation: "AX est un registre 16-bit, donc 2 octets."
+                },
+                {
+                    question: "Quelle paire définit l'adresse exacte du sommet de pile ?",
+                    type: "single",
+                    options: ["CS:IP", "DS:BX", "SS:SP", "ES:DI"],
+                    correct: 2,
+                    explanation: "SS (Stack Segment) et SP (Stack Pointer) définissent l'adresse logique du sommet."
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+
+            QuizSystem.createQuiz(quizData, 'quiz-ch07');
+
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            const button = event.target;
+            if (solution.style.display === 'none') {
+                solution.style.display = 'block';
+                button.textContent = '🙈 Masquer la solution';
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-primary');
+            } else {
+                solution.style.display = 'none';
+                button.textContent = '👁️ Voir la solution';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline-primary');
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chapitre 3 : Les registres 16-bit du 8086">
+    <title>Chapitre 3 : Les registres 16-bit - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours Assembleur 8086</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours Assembleur 8086</a></li>
+                                <li class="breadcrumb-item active">Chapitre 3 : Registres</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 3</span>
+                            <h1 class="mb-3">Les registres 16-bit</h1>
+                            <p class="text-lg text-secondary">
+                                Maîtrisez les registres du 8086 : AX, BX, CX, DX, SI, DI, BP, SP et les registres de
+                                segment.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 2h</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch02-architecture.html" class="chapter-nav-btn">← Précédent : Architecture</a>
+                            <a href="ch04-instructions-base.html" class="chapter-nav-btn">Suivant : Instructions →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>Les 14 registres du 8086</h2>
+
+                            <p>Le 8086 possède <strong>14 registres de 16-bit</strong> répartis en 4 catégories :</p>
+
+                            <ul>
+                                <li><strong>4 registres généraux</strong> : AX, BX, CX, DX</li>
+                                <li><strong>4 registres d'index et pointeurs</strong> : SI, DI, BP, SP</li>
+                                <li><strong>4 registres de segment</strong> : CS, DS, SS, ES</li>
+                                <li><strong>2 registres spéciaux</strong> : IP, FLAGS</li>
+                            </ul>
+
+                            <h2>Registres généraux</h2>
+
+                            <h3>Structure des registres 16-bit</h3>
+
+                            <p>Chaque registre général peut être subdivisé en parties haute (H) et basse (L) de 8-bit :
+                            </p>
+
+                            <pre><code class="language-asm">AX (16-bit)
+├── AH (8-bit haut)  [15-8]
+└── AL (8-bit bas)   [7-0]
+
+Exemple :
+AX = 1234h
+AH = 12h
+AL = 34h</code></pre>
+
+                            <h3>AX - Accumulator (Accumulateur)</h3>
+
+                            <ul>
+                                <li><strong>Usage principal</strong> : Opérations arithmétiques</li>
+                                <li><strong>Multiplication</strong> : Résultat dans AX (ou DX:AX)</li>
+                                <li><strong>Division</strong> : Dividende dans AX, résultat dans AL, reste dans AH</li>
+                                <li><strong>I/O</strong> : Transfert de données</li>
+                            </ul>
+
+                            <pre><code class="language-asm">MOV AX, 100      ; AX = 100
+MOV AH, 5        ; AH = 5, AL inchangé
+MOV AL, 20       ; AL = 20, AH inchangé
+ADD AX, 50       ; AX = AX + 50</code></pre>
+
+                            <h3>BX - Base (Base)</h3>
+
+                            <ul>
+                                <li><strong>Usage</strong> : Adressage mémoire indirect</li>
+                                <li><strong>Pointeur</strong> : Accès aux tableaux</li>
+                            </ul>
+
+                            <pre><code class="language-asm">MOV BX, OFFSET tableau
+MOV AL, [BX]     ; AL = premier élément du tableau</code></pre>
+
+                            <h3>CX - Counter (Compteur)</h3>
+
+                            <ul>
+                                <li><strong>Boucles</strong> : Compteur pour LOOP</li>
+                                <li><strong>Répétitions</strong> : Avec instructions REP</li>
+                                <li><strong>Shifts</strong> : Nombre de décalages</li>
+                            </ul>
+
+                            <pre><code class="language-asm">MOV CX, 10       ; Compteur = 10
+boucle:
+    ; ... code ...
+    LOOP boucle      ; Décrémente CX, saute si CX ≠ 0</code></pre>
+
+                            <h3>DX - Data (Données)</h3>
+
+                            <ul>
+                                <li><strong>I/O ports</strong> : Adresse du port</li>
+                                <li><strong>Multiplication 16-bit</strong> : Partie haute dans DX</li>
+                                <li><strong>Division 32-bit</strong> : Partie haute du dividende</li>
+                            </ul>
+
+                            <pre><code class="language-asm">; Multiplication 16-bit
+MOV AX, 1000
+MOV BX, 500
+MUL BX           ; Résultat dans DX:AX (32-bit)</code></pre>
+
+                            <h2>Registres d'index et pointeurs</h2>
+
+                            <h3>SI - Source Index</h3>
+
+                            <ul>
+                                <li><strong>Opérations sur chaînes</strong> : Pointeur source</li>
+                                <li><strong>Instructions</strong> : MOVSB, LODSB, CMPSB</li>
+                            </ul>
+
+                            <h3>DI - Destination Index</h3>
+
+                            <ul>
+                                <li><strong>Opérations sur chaînes</strong> : Pointeur destination</li>
+                                <li><strong>Instructions</strong> : MOVSB, STOSB, SCASB</li>
+                            </ul>
+
+                            <h3>BP - Base Pointer</h3>
+
+                            <ul>
+                                <li><strong>Stack frame</strong> : Accès paramètres et variables locales</li>
+                                <li><strong>Par défaut</strong> : Utilise le segment SS</li>
+                            </ul>
+
+                            <h3>SP - Stack Pointer</h3>
+
+                            <ul>
+                                <li><strong>Pile</strong> : Pointe toujours sur le sommet</li>
+                                <li><strong>PUSH/POP</strong> : Modifié automatiquement</li>
+                                <li><strong>CALL/RET</strong> : Gère les adresses de retour</li>
+                            </ul>
+
+                            <pre><code class="language-asm">PUSH AX          ; SP = SP - 2, [SP] = AX
+POP BX           ; BX = [SP], SP = SP + 2</code></pre>
+
+                            <h2>Registres de segment</h2>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Registre</th>
+                                        <th>Nom</th>
+                                        <th>Usage</th>
+                                        <th>Paire par défaut</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>CS</strong></td>
+                                        <td>Code Segment</td>
+                                        <td>Adresse du code</td>
+                                        <td>CS:IP</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>DS</strong></td>
+                                        <td>Data Segment</td>
+                                        <td>Adresse des données</td>
+                                        <td>DS:SI, DS:DI, DS:BX</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>SS</strong></td>
+                                        <td>Stack Segment</td>
+                                        <td>Adresse de la pile</td>
+                                        <td>SS:SP, SS:BP</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>ES</strong></td>
+                                        <td>Extra Segment</td>
+                                        <td>Segment supplémentaire</td>
+                                        <td>ES:DI (chaînes)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h2>Registres spéciaux</h2>
+
+                            <h3>IP - Instruction Pointer</h3>
+
+                            <ul>
+                                <li>Pointe vers la prochaine instruction à exécuter</li>
+                                <li>Travaille avec CS : Adresse = CS:IP</li>
+                                <li><strong>Non accessible directement</strong></li>
+                                <li>Modifié par JMP, CALL, RET, INT</li>
+                            </ul>
+
+                            <h3>FLAGS - Registre de drapeaux</h3>
+
+                            <p>16-bit avec 9 flags actifs :</p>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Bit</th>
+                                        <th>Flag</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>0</td>
+                                        <td><strong>CF</strong></td>
+                                        <td>Carry Flag (retenue)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td><strong>PF</strong></td>
+                                        <td>Parity Flag (parité)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td><strong>AF</strong></td>
+                                        <td>Auxiliary Flag (retenue BCD)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td><strong>ZF</strong></td>
+                                        <td>Zero Flag (zéro)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td><strong>SF</strong></td>
+                                        <td>Sign Flag (signe)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td><strong>TF</strong></td>
+                                        <td>Trap Flag (debug)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td><strong>IF</strong></td>
+                                        <td>Interrupt Flag</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td><strong>DF</strong></td>
+                                        <td>Direction Flag</td>
+                                    </tr>
+                                    <tr>
+                                        <td>11</td>
+                                        <td><strong>OF</strong></td>
+                                        <td>Overflow Flag</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h2>Visualisation dans emu8086</h2>
+
+                            <p>Dans emu8086, tous les registres sont affichés en temps réel :</p>
+
+                            <pre><code class="language-asm">; Testez ce code et observez les registres
+MOV AX, 1234h    ; AX = 1234h, AH = 12h, AL = 34h
+MOV BX, AX       ; BX = 1234h
+ADD AX, BX       ; AX = 2468h, CF = 0, ZF = 0
+XOR CX, CX       ; CX = 0, ZF = 1</code></pre>
+
+                            <h2>Exemples pratiques</h2>
+
+                            <h3>Échange de valeurs</h3>
+
+                            <pre><code class="language-asm">; Échanger AX et BX avec registre temporaire
+MOV CX, AX
+MOV AX, BX
+MOV BX, CX
+
+; Échanger sans temporaire (XOR trick)
+XOR AX, BX
+XOR BX, AX
+XOR AX, BX</code></pre>
+
+                            <h3>Mise à zéro rapide</h3>
+
+                            <pre><code class="language-asm">; Méthode 1 (2 bytes)
+MOV AX, 0
+
+; Méthode 2 (1 byte, plus rapide)
+XOR AX, AX       ; Plus efficace !</code></pre>
+                        </section>
+
+                        <aside class="tips alert">
+                            <h3>💡 Astuces</h3>
+                            <ul>
+                                <li>XOR reg, reg est l'idiome standard pour mettre à zéro</li>
+                                <li>Utilisez CX pour les boucles (LOOP le décrémente automatiquement)</li>
+                                <li>BX est idéal pour l'adressage de tableaux</li>
+                                <li>SP ne doit JAMAIS être modifié manuellement sauf bonne raison</li>
+                                <li>Observez toujours les flags dans emu8086</li>
+                            </ul>
+                        </aside>
+
+                        <aside class="common-mistakes alert">
+                            <h3>⚠️ Erreurs fréquentes</h3>
+                            <ul>
+                                <li><strong>Confondre AH et AL</strong> : AH = partie haute, AL = partie basse</li>
+                                <li><strong>Modifier SP sans PUSH/POP</strong> : Risque de crash</li>
+                                <li><strong>Oublier d'initialiser DS</strong> : Accès données incorrect</li>
+                                <li><strong>Ne pas sauvegarder les registres</strong> : Dans les procédures</li>
+                                <li><strong>Ignorer les flags</strong> : Nécessaires pour les sauts conditionnels</li>
+                            </ul>
+                        </aside>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch03"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Manipulation de registres</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Écrivez un programme qui :</p>
+                                    <ul>
+                                        <li>Met AX à 100</li>
+                                        <li>Met BX à 50</li>
+                                        <li>Additionne AX et BX, résultat dans CX</li>
+                                        <li>Affiche le résultat (utilisez INT 21h)</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle" onclick="toggleSolution('sol-ch03-ex1')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch03-ex1" class="solution-box" style="display: none;">
+                                    <h4>Solution - Manipulation registres</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.STACK 100h
+
+.DATA
+    resultat DW ?
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    MOV AX, 100
+    MOV BX, 50
+    
+    MOV CX, AX
+    ADD CX, BX      ; CX = 150
+    
+    MOV resultat, CX
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+<p><strong>Résultat :</strong> CX = 150 (96h en hexadécimal)</p>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Parties haute et basse</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Testez dans emu8086 :</p>
+                                    <ul>
+                                        <li>MOV AX, 1234h</li>
+                                        <li>Observez AH et AL</li>
+                                        <li>MOV AH, 56h puis observez AX</li>
+                                        <li>MOV AL, 78h puis observez AX</li>
+                                        <li>Notez les valeurs</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle" onclick="toggleSolution('sol-ch03-ex2')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch03-ex2" class="solution-box" style="display: none;">
+                                    <h4>Solution - AH et AL</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.CODE
+MAIN PROC
+    MOV AX, 1234h
+    ; AX = 1234h, AH = 12h, AL = 34h
+    
+    MOV AH, 56h
+    ; AX = 5634h, AH = 56h, AL = 34h
+    
+    MOV AL, 78h
+    ; AX = 5678h, AH = 56h, AL = 78h
+    
+    MOV BX, AX    ; BX = 5678h
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+<p><strong>Notes :</strong></p>
+<ul>
+<li>AX = 1234h → AH = 12h, AL = 34h</li>
+<li>Après MOV AH, 56h → AX = 5634h</li>
+<li>Après MOV AL, 78h → AX = 5678h</li>
+</ul>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Observer les flags</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Dans emu8086 :</p>
+                                    <ul>
+                                        <li>MOV AL, 255 puis ADD AL, 1</li>
+                                        <li>Observez CF, ZF dans la fenêtre Flags</li>
+                                        <li>MOV AX, 100 puis SUB AX, 100</li>
+                                        <li>Observez ZF</li>
+                                        <li>Expliquez pourquoi ces flags changent</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle" onclick="toggleSolution('sol-ch03-ex3')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch03-ex3" class="solution-box" style="display: none;">
+                                    <h4>Solution - Observer flags</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.CODE
+MAIN PROC
+    ; Test débordement 8-bit
+    MOV AL, 255
+    ADD AL, 1
+    ; AL = 0, CF = 1, ZF = 1
+    
+    ; Test zéro
+    MOV AX, 100
+    SUB AX, 100
+    ; AX = 0, ZF = 1, CF = 0
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+<p><strong>Explication :</strong></p>
+<ul>
+<li>255 + 1 = 256 → débordement 8-bit → CF = 1, résultat = 0 → ZF = 1</li>
+<li>100 - 100 = 0 → ZF = 1, pas de débordement → CF = 0</li>
+</ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch02-architecture.html" class="chapter-nav-btn">← Précédent : Architecture</a>
+                            <a href="ch04-instructions-base.html" class="chapter-nav-btn">Suivant : Instructions →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">✓ Marquer ce chapitre comme
+                                terminé</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nasm.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'assembly-x86-64';
+        const chapterId = 'ch03-registres';
+
+        const chapters = [
+            { id: "ch01-introduction", title: "Introduction" },
+            { id: "ch02-architecture", title: "Architecture 8086" },
+            { id: "ch03-registres", title: "Registres 16-bit" },
+            { id: "ch04-instructions-base", title: "Instructions de base" },
+            { id: "ch05-adressage", title: "Modes d'adressage" },
+            { id: "ch06-controle", title: "Instructions de contrôle" },
+            { id: "ch07-pile", title: "La pile" },
+            { id: "ch08-procedures", title: "Procédures" },
+            { id: "ch09-chaines", title: "Chaînes" },
+            { id: "ch10-tableaux", title: "Tableaux" },
+            { id: "ch11-interruptions", title: "Interruptions DOS" },
+            { id: "ch12-video", title: "Affichage vidéo" },
+            { id: "ch13-ports", title: "Ports" },
+            { id: "ch14-debugging", title: "Debugging" },
+            { id: "ch15-projets", title: "Projets" }
+        ];
+
+        const quizData = {
+            title: "Quiz - Les registres 16-bit",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                {
+                    question: "Combien de registres généraux possède le 8086 ?",
+                    type: "single",
+                    options: ["2", "4", "8", "16"],
+                    correct: 1,
+                    explanation: "Le 8086 a 4 registres généraux : AX, BX, CX, DX."
+                },
+                {
+                    question: "Comment obtenir la partie haute de AX ?",
+                    type: "single",
+                    options: ["AL", "AH", "AX", "AXH"],
+                    correct: 1,
+                    explanation: "AH (Accumulator High) contient les 8 bits hauts de AX."
+                },
+                {
+                    question: "Quel registre est utilisé comme compteur pour LOOP ?",
+                    type: "single",
+                    options: ["AX", "BX", "CX", "DX"],
+                    correct: 2,
+                    explanation: "CX (Counter) est automatiquement décrémenté par l'instruction LOOP."
+                },
+                {
+                    question: "Quel registre pointe sur le sommet de la pile ?",
+                    type: "single",
+                    options: ["BP", "SP", "SI", "DI"],
+                    correct: 1,
+                    explanation: "SP (Stack Pointer) pointe toujours sur le sommet de la pile."
+                },
+                {
+                    question: "Quel segment contient les données du programme ?",
+                    type: "single",
+                    options: ["CS", "DS", "SS", "ES"],
+                    correct: 1,
+                    explanation: "DS (Data Segment) pointe vers le segment contenant les données."
+                },
+                {
+                    question: "Que fait XOR AX, AX ?",
+                    type: "single",
+                    options: [
+                        "Double AX",
+                        "Met AX à zéro",
+                        "Inverse les bits de AX",
+                        "Erreur"
+                    ],
+                    correct: 1,
+                    explanation: "XOR d'un registre avec lui-même donne toujours 0. C'est l'idioleidioleidioleidioleidioleidioleidioleidioleidioleidiole standard pour mettre à zéro."
+                },
+                {
+                    question: "Quel flag indique qu'un résultat est zéro ?",
+                    type: "single",
+                    options: ["CF", "ZF", "SF", "OF"],
+                    correct: 1,
+                    explanation: "ZF (Zero Flag) est mis à 1 si le résultat est zéro."
+                },
+                {
+                    question: "Peut-on accéder directement au registre IP ?",
+                    type: "single",
+                    options: [
+                        "Oui, avec MOV",
+                        "Non, seulement via JMP/CALL/RET",
+                        "Oui, avec ADD",
+                        "Oui, mais dangereux"
+                    ],
+                    correct: 1,
+                    explanation: "IP ne peut pas être modifié directement. Utilisez JMP, CALL, RET pour changer le flux."
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+
+            QuizSystem.createQuiz(quizData, 'quiz-ch03');
+
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+    </script>
+
+    <script>
+        // Solution toggle function
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            const button = event.target;
+            
+            if (solution.style.display === 'none') {
+                solution.style.display = 'block';
+                button.textContent = '🙈 Masquer la solution';
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-primary');
+            } else {
+                solution.style.display = 'none';
+                button.textContent = '👁️ Voir la solution';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline-primary');
+            }
+        }
+    </script>
+    
+    <style>
+        .solution-box {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 0.375rem;
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        .solution-box h4 {
+            color: #0d6efd;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .solution-box pre {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .solution-toggle {
+            transition: all 0.2s ease;
+        }
+        
+        .solution-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+</body>
+
+</html>

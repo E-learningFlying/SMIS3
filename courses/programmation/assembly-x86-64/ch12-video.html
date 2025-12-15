@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chapitre 12 : Affichage vidéo et couleurs en assembleur 8086">
+    <title>Chapitre 12 : Affichage Vidéo - Learn2succeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/components.css">
+    <link rel="stylesheet" href="../../../css/courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        .solution-box {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            border-radius: 0.375rem;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .solution-box h4 {
+            color: #0d6efd;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .solution-box pre {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .solution-toggle {
+            transition: all 0.2s ease;
+        }
+
+        .solution-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="../../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            <nav class="main-nav">
+                <a href="../../../index.html">Accueil</a>
+                <a href="../../../dashboard.html">Mon tableau de bord</a>
+                <a href="../../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-3 d-none d-lg-block" style="padding: var(--spacing-md);">
+                    <div class="course-sidebar">
+                        <h3>Cours Assembleur 8086</h3>
+                        <ul class="chapter-list" id="chapter-list"></ul>
+                    </div>
+                </aside>
+
+                <article class="col-lg-9">
+                    <div class="container-reading section-sm">
+                        <nav aria-label="Fil d'Ariane">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">Cours Assembleur 8086</a></li>
+                                <li class="breadcrumb-item active">Chapitre 12 : Affichage Vidéo</li>
+                            </ol>
+                        </nav>
+
+                        <header class="mb-5">
+                            <span class="badge badge-primary mb-2">Chapitre 12</span>
+                            <h1 class="mb-3">Affichage vidéo et modes graphiques</h1>
+                            <p class="text-lg text-secondary">
+                                Contrôlez l'écran directement via le BIOS (INT 10h) : positionnez le curseur, changez
+                                les couleurs et dessinez des formes simples.
+                            </p>
+                            <p class="text-sm text-muted">⏱️ Durée estimée : 1h30</p>
+                        </header>
+
+                        <nav class="chapter-nav">
+                            <a href="ch11-interruptions.html" class="chapter-nav-btn">← Précédent : Interruptions</a>
+                            <a href="ch13-ports.html" class="chapter-nav-btn">Suivant : Ports E/S →</a>
+                        </nav>
+
+                        <section class="chapter-content">
+                            <h2>INT 10h : Services Vidéo BIOS</h2>
+
+                            <p>Tandis que INT 21h (DOS) manipule le texte comme un flux, <strong>INT 10h (BIOS)</strong>
+                                contrôle l'écran physique (mode, curseur, pixels).</p>
+
+                            <h3>1. Changer le mode vidéo (AH = 00h)</h3>
+
+                            <pre><code class="language-asm">MOV AH, 00h
+MOV AL, 03h    ; Mode texte 80x25 couleur (standard)
+INT 10h        ; Efface aussi l'écran !</code></pre>
+
+                            <h3>2. Positionner le curseur (AH = 02h)</h3>
+
+                            <p>Permet d'écrire n'importe où sur l'écran.</p>
+
+                            <pre><code class="language-asm">MOV AH, 02h
+MOV BH, 0      ; Numéro de page (généralement 0)
+MOV DH, 10     ; Ligne (0-24)
+MOV DL, 30     ; Colonne (0-79)
+INT 10h</code></pre>
+
+                            <h3>3. Écrire caractère et attribut (AH = 09h)</h3>
+
+                            <p>Affiche un caractère avec une couleur spécifique.</p>
+
+                            <pre><code class="language-asm">MOV AH, 09h
+MOV AL, '♥'    ; Code ASCII (03h pour cœur)
+MOV BH, 0      ; Page
+MOV BL, 0Ch    ; Couleur (ex: Rouge clair sur fond noir)
+MOV CX, 5      ; Répétitions
+INT 10h</code></pre>
+
+                            <h3>4. Teletype Output (AH = 0Eh)</h3>
+
+                            <p>Comme INT 21h/02h, mais via le BIOS (plus lent, mais gère les couleurs pré-définies).</p>
+
+                            <pre><code class="language-asm">MOV AH, 0Eh
+MOV AL, 'A'
+INT 10h</code></pre>
+
+                            <h2>Table des couleurs (Attributs)</h2>
+
+                            <p>L'octet d'attribut (BL) est composé de : <strong>Fond (4 bits) + Texte (4 bits)</strong>.
+                            </p>
+
+                            <table class="table table-bordered table-sm text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Hex</th>
+                                        <th>Couleur</th>
+                                        <th>Hex</th>
+                                        <th>Couleur</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>0</td>
+                                        <td style="background:black; color:white">Noir</td>
+                                        <td>8</td>
+                                        <td style="background:gray; color:white">Gris</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td style="background:blue; color:white">Bleu</td>
+                                        <td>9</td>
+                                        <td style="background:lightblue">Bleu clair</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td style="background:green; color:white">Vert</td>
+                                        <td>A</td>
+                                        <td style="background:lightgreen">Vert clair</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td style="background:cyan">Cyan</td>
+                                        <td>B</td>
+                                        <td style="background:lightcyan">Cyan clair</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td style="background:red; color:white">Rouge</td>
+                                        <td>C</td>
+                                        <td style="background:#ff4444">Rouge clair</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td style="background:magenta">Magenta</td>
+                                        <td>D</td>
+                                        <td style="background:#ff44ff">Magenta clair</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td style="background:brown; color:white">Marron</td>
+                                        <td>E</td>
+                                        <td style="background:yellow">Jaune</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td style="background:lightgray">Gris clair</td>
+                                        <td>F</td>
+                                        <td style="background:white">Blanc</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <p>Exemple : Rouge sur fond Bleu = <code>14h</code> (Bleu=1, Rouge=4).</p>
+
+                        </section>
+
+                        <aside class="tips alert">
+                            <h3>💡 Astuces</h3>
+                            <ul>
+                                <li>INT 10h modifie souvent AX et parfois d'autres registres selon le BIOS.</li>
+                                <li>Pour effacer l'écran, remettez simplement le mode vidéo (MOV AH, 0 / INT 10h).</li>
+                                <li>En mode texte, l'écran est une grille de 80 colonnes × 25 lignes.</li>
+                            </ul>
+                        </aside>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Quiz de révision</h2>
+                            <div id="quiz-ch12"></div>
+                        </section>
+
+                        <section class="my-5">
+                            <h2 class="mb-4">Exercices pratiques</h2>
+
+                            <div class="exercise easy">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 1 : Texte coloré centré</h3>
+                                    <span class="exercise-difficulty">Facile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Écrivez code qui :</p>
+                                    <ul>
+                                        <li>Positionne le curseur au centre (Ligne 12, Col 40).</li>
+                                        <li>Affiche la lettre 'X' en jaune sur fond bleu (Attribut 1Eh).</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch12-ex1')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch12-ex1" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Caractère centré et coloré</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.CODE
+MAIN PROC
+    ; 1. Positionner curseur
+    MOV AH, 02h
+    MOV BH, 0       ; Page 0
+    MOV DH, 12      ; Ligne 12
+    MOV DL, 40      ; Colonne 40
+    INT 10h
+    
+    ; 2. Afficher caractère coloré
+    MOV AH, 09h
+    MOV AL, 'X'
+    MOV BH, 0
+    MOV BL, 1Eh     ; 1 (Bleu) E (Jaune) -> 1Eh
+    MOV CX, 1       ; 1 fois
+    INT 10h
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="exercise medium">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 2 : Remplir l'écran (Drapeau)</h3>
+                                    <span class="exercise-difficulty">Moyen</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Créez un "drapeau" tricolore :</p>
+                                    <ul>
+                                        <li>Remplissez les lignes 0-8 en bleu.</li>
+                                        <li>Remplissez les lignes 9-16 en blanc.</li>
+                                        <li>Remplissez les lignes 17-24 en rouge.</li>
+                                        <li>Utilisez une boucle pour parcourir les lignes et afficher des espaces ' '
+                                            avec la couleur de fond souhaitée.</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch12-ex2')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch12-ex2" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Drapeau tricolore</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.CODE
+MAIN PROC
+    MOV AX, 03h     ; Mode texte 80x25
+    INT 10h
+    
+    ; Bleu (Lignes 0-8)
+    MOV CX, 9       ; 9 lignes
+    MOV DH, 0       ; Ligne départ
+    MOV BL, 10h     ; Fond bleu (1), texte noir (0)
+    CALL remplir_zone
+
+    ; Blanc (Lignes 9-16)
+    MOV CX, 8       
+    MOV DH, 9       
+    MOV BL, 70h     ; Fond gris clair/blanc (7)
+    CALL remplir_zone
+    
+    ; Rouge (Lignes 17-24)
+    MOV CX, 8       
+    MOV DH, 17       
+    MOV BL, 40h     ; Fond rouge (4)
+    CALL remplir_zone
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+
+remplir_zone PROC
+    ; Entrée: CX = nbr lignes, DH = ligne départ, BL = attribut
+boucle_lignes:
+    PUSH CX         ; Sauve compteur lignes
+    
+    ; Positionner début ligne
+    MOV AH, 02h
+    MOV BH, 0
+    MOV DL, 0
+    INT 10h
+    
+    ; Écrire 80 espaces
+    MOV AH, 09h
+    MOV AL, ' '
+    MOV CX, 80
+    INT 10h
+    
+    INC DH          ; Ligne suivante
+    POP CX          ; Restaure compteur
+    LOOP boucle_lignes
+    RET
+remplir_zone ENDP
+
+END MAIN</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="exercise hard">
+                                <div class="exercise-header">
+                                    <h3 class="exercise-title">Exercice 3 : Animation simple</h3>
+                                    <span class="exercise-difficulty">Difficile</span>
+                                </div>
+                                <div class="exercise-description">
+                                    <p>Faites bouger un 'O' de gauche à droite sur la ligne 10 :</p>
+                                    <ul>
+                                        <li>Effacez la position précédente (écrivez ' ').</li>
+                                        <li>Avancez la colonne.</li>
+                                        <li>Affichez 'O'.</li>
+                                        <li>Attendez un peu (boucle vide CX=FFFFh répétée quelques fois).</li>
+                                        <li>Répétez jusqu'au bord de l'écran.</li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary mt-3 solution-toggle"
+                                    onclick="toggleSolution('sol-ch12-ex3')">
+                                    👁️ Voir la solution
+                                </button>
+                                <div id="sol-ch12-ex3" class="solution-box" style="display: none;">
+                                    <h4>✅ Solution - Animation</h4>
+                                    <pre><code class="language-asm">.MODEL SMALL
+.CODE
+MAIN PROC
+    MOV AX, 03h
+    INT 10h         ; Clear screen
+    
+    MOV CX, 79      ; 79 colonnes
+    MOV DL, 0       ; Colonne départ
+    
+anim:
+    PUSH CX         ; Sauve compteur
+    
+    ; 1. Effacer (optionnel si fond uni, mais propre)
+    ; (Ici on efface juste en avançant)
+    
+    ; 2. Positionner
+    MOV AH, 02h
+    MOV BH, 0
+    MOV DH, 10      ; Ligne 10
+    INT 10h         ; DL est déjà bon
+    
+    ; 3. Afficher 'O'
+    MOV AH, 0Eh
+    MOV AL, 'O'
+    INT 10h
+    
+    ; 4. Délai
+    MOV CX, 0FFFFh
+delai:
+    NOP
+    LOOP delai
+    
+    ; 5. Effacer l'ancien (Return simple = Backspace visuel + Space?)
+    ; Plus simple : réécrire Espace à la position courante DL
+    MOV AH, 02h     ; Repositionner (car 0Eh avance le curseur)
+    INT 10h
+    
+    MOV AH, 0Ah     ; Write char sans avancer curseur
+    MOV AL, ' '
+    MOV CX, 1
+    INT 10h
+    
+    INC DL          ; Colonne suivante
+    POP CX          ; Restaure compteur boucle principale
+    LOOP anim
+    
+    MOV AH, 4Ch
+    INT 21h
+MAIN ENDP
+END MAIN</code></pre>
+                                    <p>Note : Dans emu8086, la vitesse dépend de l'émulation. Vous devrez peut-être
+                                        ajuster la boucle de délai.</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <nav class="chapter-nav">
+                            <a href="ch11-interruptions.html" class="chapter-nav-btn">← Précédent : Interruptions</a>
+                            <a href="ch13-ports.html" class="chapter-nav-btn">Suivant : Ports E/S →</a>
+                        </nav>
+
+                        <div class="text-center my-5">
+                            <button id="mark-complete-btn" class="btn btn-success btn-lg">✓ Marquer ce chapitre comme
+                                terminé</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nasm.min.js"></script>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/progress-tracker.js"></script>
+    <script src="../../../js/quiz.js"></script>
+
+    <script>
+        const courseId = 'assembly-x86-64';
+        const chapterId = 'ch12-video';
+
+        const chapters = [
+            { id: "ch01-introduction", title: "Introduction" },
+            { id: "ch02-architecture", title: "Architecture 8086" },
+            { id: "ch03-registres", title: "Registres 16-bit" },
+            { id: "ch04-instructions-base", title: "Instructions de base" },
+            { id: "ch05-adressage", title: "Modes d'adressage" },
+            { id: "ch06-controle", title: "Instructions de contrôle" },
+            { id: "ch07-pile", title: "La pile" },
+            { id: "ch08-procedures", title: "Procédures" },
+            { id: "ch09-chaines", title: "Chaînes" },
+            { id: "ch10-tableaux", title: "Tableaux" },
+            { id: "ch11-interruptions", title: "Interruptions DOS" },
+            { id: "ch12-video", title: "Affichage vidéo" },
+            { id: "ch13-ports", title: "Ports" },
+            { id: "ch14-debugging", title: "Debugging" },
+            { id: "ch15-projets", title: "Projets" }
+        ];
+
+        const quizData = {
+            title: "Quiz - Affichage Vidéo",
+            course_id: courseId,
+            chapter_id: chapterId,
+            questions: [
+                {
+                    question: "Quelle interruption gère la vidéo BIOS ?",
+                    type: "single",
+                    options: ["INT 21h", "INT 10h", "INT 16h", "INT 33h"],
+                    correct: 1,
+                    explanation: "INT 10h est l'interruption standard pour les services vidéo du BIOS."
+                },
+                {
+                    question: "Quelle fonction permet de positionner le curseur ?",
+                    type: "single",
+                    options: ["AH=01h", "AH=02h", "AH=06h", "AH=09h"],
+                    correct: 1,
+                    explanation: "mov AH, 02h positionne le curseur à la ligne DH et colonne DL."
+                },
+                {
+                    question: "Quel mode vidéo est le standard texte 80x25 ?",
+                    type: "single",
+                    options: ["03h", "13h", "12h", "00h"],
+                    correct: 0,
+                    explanation: "Mode 03h est le mode texte couleur standard."
+                },
+                {
+                    question: "Dans INT 10h/09h, quel registre contient l'attribut (couleur) ?",
+                    type: "single",
+                    options: ["AL", "BL", "CL", "DL"],
+                    correct: 1,
+                    explanation: "BL contient l'octet d'attribut (Fond + Texte)."
+                },
+                {
+                    question: "Quelle couleur représente l'attribut 0Ch ?",
+                    type: "single",
+                    options: ["Rouge sur noir", "Vert sur rouge", "Rouge clair sur noir", "Bleu sur vert"],
+                    correct: 2,
+                    explanation: "0 = Fond Noir, C = Texte Rouge clair (Light Red)."
+                },
+                {
+                    question: "Combien de lignes a l'écran standard ?",
+                    type: "single",
+                    options: ["20", "24", "25", "30"],
+                    correct: 2,
+                    explanation: "L'écran standard a 25 lignes (0 à 24)."
+                },
+                {
+                    question: "Comment effacer l'écran rapidement ?",
+                    type: "single",
+                    options: [
+                        "Écrire des espaces partout",
+                        "Réinitialiser le mode vidéo",
+                        "Éteindre l'écran",
+                        "On ne peut pas"
+                    ],
+                    correct: 1,
+                    explanation: "Appeler INT 10h AH=00h efface automatiquement la mémoire vidéo."
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ProgressTracker.markChapterViewed(courseId, chapterId);
+
+            const chapterList = document.getElementById('chapter-list');
+            chapters.forEach(chapter => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                const link = document.createElement('a');
+                link.href = `${chapter.id}.html`;
+                link.className = 'chapter-link';
+                if (chapter.id === chapterId) link.classList.add('active');
+                else if (ProgressTracker.isChapterCompleted(courseId, chapter.id)) link.classList.add('completed');
+                link.textContent = chapter.title;
+                li.appendChild(link);
+                chapterList.appendChild(li);
+            });
+
+            QuizSystem.createQuiz(quizData, 'quiz-ch12');
+
+            const markCompleteBtn = document.getElementById('mark-complete-btn');
+            if (ProgressTracker.isChapterCompleted(courseId, chapterId)) {
+                markCompleteBtn.textContent = '✓ Chapitre terminé';
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.classList.remove('btn-success');
+                markCompleteBtn.classList.add('btn-outline');
+            }
+
+            markCompleteBtn.addEventListener('click', () => {
+                ProgressTracker.markChapterComplete(courseId, chapterId);
+                alert('Félicitations ! 🎉');
+                location.reload();
+            });
+        });
+
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            const button = event.target;
+            if (solution.style.display === 'none') {
+                solution.style.display = 'block';
+                button.textContent = '🙈 Masquer la solution';
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-primary');
+            } else {
+                solution.style.display = 'none';
+                button.textContent = '👁️ Voir la solution';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline-primary');
+            }
+        }
+    </script>
+</body>
+
+</html>

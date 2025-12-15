@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Examens finaux du cours Assembleur 8086">
+    <title>Examens - Cours Assembleur 8086</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/courses.css">
+    <style>
+        .exam-card {
+            transition: all 0.3s ease;
+            border: 1px solid #dee2e6;
+            height: 100%;
+        }
+
+        .exam-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: #0d6efd;
+        }
+
+        .exam-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #0d6efd;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../../index.html" class="site-logo"><span>📚</span><span>Learn2succeed</span></a>
+            <nav class="main-nav">
+                <a href="../../index.html">Accueil</a>
+                <a href="../../dashboard.html">Tableau de bord</a>
+                <a href="../../search.html">Rechercher</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../index.html">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="index.html">Cours Assembleur 8086</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Examens</li>
+            </ol>
+        </nav>
+
+        <div class="text-center mb-5">
+            <span class="badge bg-primary mb-2">Certification</span>
+            <h1 class="display-4 fw-bold">Examens Finaux</h1>
+            <p class="lead text-secondary">Validez vos compétences en assembleur 8086 à travers trois épreuves.</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Examen 1 -->
+            <div class="col-md-4">
+                <div class="card exam-card text-center p-4">
+                    <div class="card-body">
+                        <div class="exam-icon">📝</div>
+                        <h3 class="card-title h4">Examen 1 : Théorie</h3>
+                        <p class="card-text text-muted mb-4">Un QCM complet de 50 questions couvrant l'ensemble du
+                            cours, de l'architecture aux interruptions.</p>
+                        <ul class="list-unstyled text-start mb-4 bg-light p-3 rounded">
+                            <li>⏱️ <strong>Durée :</strong> 45 min</li>
+                            <li>❓ <strong>Questions :</strong> 50</li>
+                            <li>🏆 <strong>Réussite :</strong> 70%</li>
+                        </ul>
+                        <a href="examen1.html" class="btn btn-primary w-100">Commencer l'examen</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Examen 2 -->
+            <div class="col-md-4">
+                <div class="card exam-card text-center p-4">
+                    <div class="card-body">
+                        <div class="exam-icon">💻</div>
+                        <h3 class="card-title h4">Examen 2 : Pratique</h3>
+                        <p class="card-text text-muted mb-4">Cinq exercices de code à résoudre. Testez votre capacité à
+                            écrire des programmes fonctionnels.</p>
+                        <ul class="list-unstyled text-start mb-4 bg-light p-3 rounded">
+                            <li>⏱️ <strong>Durée :</strong> 2h</li>
+                            <li>🔧 <strong>Exercices :</strong> 5</li>
+                            <li>🏆 <strong>Réussite :</strong> Auto-évaluation</li>
+                        </ul>
+                        <a href="examen2.html" class="btn btn-primary w-100">Voir les exercices</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Examen 3 -->
+            <div class="col-md-4">
+                <div class="card exam-card text-center p-4">
+                    <div class="card-body">
+                        <div class="exam-icon">🚀</div>
+                        <h3 class="card-title h4">Examen 3 : Projet</h3>
+                        <p class="card-text text-muted mb-4">Le défi ultime. Réalisez un projet complet (Jeu, Utilitaire
+                            ou Calculatrice scientifique).</p>
+                        <ul class="list-unstyled text-start mb-4 bg-light p-3 rounded">
+                            <li>⏱️ <strong>Durée :</strong> Variable</li>
+                            <li>📂 <strong>Type :</strong> Projet libre</li>
+                            <li>🏆 <strong>Réussite :</strong> Fonctionnel</li>
+                        </ul>
+                        <a href="examen3.html" class="btn btn-primary w-100">Découvrir le projet</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5 text-center">
+            <a href="index.html" class="btn btn-outline-secondary">← Retour au sommaire du cours</a>
+        </div>
+    </main>
+
+    <footer class="site-footer mt-5">
+        <div class="container">
+            <p>&copy; 2024 Learn2succeed. Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
